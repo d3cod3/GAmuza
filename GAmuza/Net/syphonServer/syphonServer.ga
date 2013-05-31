@@ -1,0 +1,35 @@
+
+/* 
+   
+ GAmuza 0.4.3 examples 
+ ---------------------
+ Streaming/syphonServer.ga
+ 
+ This example shows how to create a Syphon video streaming server.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+cam = of.texture()
+stream = ofx.syphonServer()
+
+function setup()
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    cam:clear()
+    
+    stream:setName("webcam")
+end
+
+function update()
+    cam = ga.cameraTexture(0)
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    of.setColor(255)
+    cam:draw(0,0)
+    
+    stream:publishTexture(cam)
+end

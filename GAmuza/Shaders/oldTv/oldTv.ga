@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Shaders/oldTV.ga
+ 
+ Shaders examples from ofx.fx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows the oldTv effect.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+oldTv = ofx.oldTv()
+cam = of.texture()
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+	oldTv:allocate(OUTPUT_W,OUTPUT_H)
+end
+
+function update()
+	cam = ga.cameraTexture(0)
+	oldTv:setRows(ga.mouseX()/OUTPUT_W)
+	oldTv:setBrightness(1.0)
+end
+
+function draw()
+	ga.background(0.0,1.0)
+    
+	oldTv:beginFx()
+		of.setColor(255)
+		cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+	oldTv:endFx(true)
+
+	of.enableAlphaBlending()
+	oldTv:draw(0,0)
+	of.disableAlphaBlending()
+end

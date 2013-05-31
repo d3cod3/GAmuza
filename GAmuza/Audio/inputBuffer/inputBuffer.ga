@@ -1,0 +1,59 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Audio/inputBuffer.ga
+ 
+ This example show simple use of audio input GAmuza module, capturing from
+ code the buffer data from one audio input channel; we take a look here to
+ the memarray system integrated in GAmuza scripting. Be sure to have the
+ AUDIO MODULE ACTIVATED in order to work with this code.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+channel = 0
+inputBuffer = memarray('float', BUFFER_SIZE)
+stretch = OUTPUT_W/(BUFFER_SIZE-1)
+zeroOffset = OUTPUT_H/2
+
+
+function setup()
+	// init the buffer
+    for i = 0, BUFFER_SIZE - 1 do
+		inputBuffer[i] = 0.0 
+	end
+end
+
+function update()
+	for i = 0, BUFFER_SIZE - 1 do
+		inputBuffer[i] = gaGetInputBuffer(channel,i) 
+	end
+end
+
+function draw()
+	gaBackground(0.0,0.1)
+	
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, BUFFER_SIZE - 1 do
+		ofVertex(i* stretch, hardClip(inputBuffer[i]) * zeroOffset)
+	end
+	ofEndShape(false)
+	
+end
+
+// CUSTOM FUNCTIONS
+// --------------------------------------
+function hardClip(x)
+	local x1 = math.abs(x+1.0)
+	local x2 = math.abs(x-1.0)
+	
+	return 0.5*(x1-x2)
+end
+

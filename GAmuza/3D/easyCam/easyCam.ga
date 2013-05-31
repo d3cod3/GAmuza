@@ -1,0 +1,55 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/easyCam.ga
+ 
+ This example show how create a camera from of.easyCam class and
+ use it in a 3D environment, wrapping the OF class ofEasyCam.
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/3d/easyCamExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+cam = ofEasyCam()
+
+function setup()
+	cam:setDistance(100)
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+
+	cam:beginCamera(ofGetCurrentViewport())
+
+	ofRotateX(ofRadToDeg(0.5))
+	ofRotateY(ofRadToDeg(-0.5))
+
+	ofSetColor(39,239,178)
+	ofFill()
+	ofBox(30)
+	ofNoFill()
+	ofSetColor(0) 
+	ofBox(30)
+
+	ofPushMatrix()
+	ofTranslate(0,0,20)
+		ofSetColor(235,235,245)
+		ofFill()
+		ofBox(5)
+		ofNoFill()
+		ofSetColor(0)
+		ofBox(5)
+	ofPopMatrix()
+
+	cam:endCamera()
+	
+	ofSetColor(255)
+	ofDrawBitmapString("Use mouse drag to rotate",20,200)
+ 
+end

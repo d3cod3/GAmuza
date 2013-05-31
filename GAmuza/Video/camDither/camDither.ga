@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Video/camDither.ga
+ 
+ This shows how to filter the camera image with ofx.dither() class.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dither = ofx.dither()
+_type = 1
+cam = of.texture()
+pixels = of.pixels()
+imageIn = of.image()
+imageOut = of.image()
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    	imageIn:allocate(CAPTURE_W,CAPTURE_H,OF_IMAGE_GRAYSCALE)
+    	imageOut:allocate(CAPTURE_W,CAPTURE_H,OF_IMAGE_GRAYSCALE)    
+end
+
+function update()
+	// get the cam texture
+    	cam = ga.cameraTexture(0)
+    	// get the cam pixels
+    	cam:readToPixels(pixels)
+    	imageIn:setFromPixels(pixels)
+    	
+    	applyDither()
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+
+    	of.setColor(255)    
+    	imageOut:draw(0,0,OUTPUT_W,OUTPUT_H)
+end
+
+function keyReleased()
+	if ga.key() == string.byte('0') then
+		_type = 0
+	elseif ga.key() == string.byte('1') then
+		_type = 1
+	elseif ga.key() == string.byte('2') then
+		_type = 2
+	end
+end
+
+/////////////////////////////////////////
+// Custom functions
+
+// the ofx.dither class has three different alghorithms you can use
+function applyDither()
+	if _type == 0 then
+        dither:ordered(imageIn,imageOut)
+    elseif _type == 1 then
+        dither:floyd_steinberg(imageIn,imageOut)
+    elseif _type == 2 then
+        dither:atkinson(imageIn,imageOut)
+    end
+end

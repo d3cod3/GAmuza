@@ -1,0 +1,75 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ ReasMcWilliamsLUST_FORM+CODE/TranscodedLandscape.ga
+ 
+ Transform: Transcoded Landscape 
+ from Form+Code in Design, Art, and Architecture 
+ by Casey Reas, Chandler McWilliams, and LUST
+ Princeton Architectural Press, 2010
+ 
+ http://formandcode.com
+ 
+ This code was written in GAmuza 0.4.1+
+ Get GAmuza at http://www.gamuza.cc
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+img = of.image()
+tex = of.texture()
+c = of.color()
+pixels = of.pixels()
+theta = 0
+
+function setup()
+    img:loadImage(ga.importFile("nasa-iceberg.jpg"))
+    pixels:allocate(img:getWidth(),img:getHeight(),3)
+    tex:allocate(img:getWidth(),img:getHeight(),GL_RGB)
+    
+    tex = img:getTextureReference()
+    tex:readToPixels(pixels)
+end
+
+function update()
+    theta = theta + 0.005
+end
+
+function draw()
+    ga.background(0.0,0.3)
+    
+
+    of.pushMatrix()
+        of.translate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+        of.scale(9.0,9.0,1.0)
+        of.rotateY(theta)
+        
+        ww = img:getWidth()
+        hh = img:getHeight()
+        
+        glBegin(GL_LINES)
+        for i=0, hh do
+            for j=0, ww do
+                c = pixels:getColor(j,i)
+                of.setColor(245,151,176,c:getBrightness()) 
+            
+                x1 = j - ww/2
+                y1 = i - hh/2
+                z1 = -c:getBrightness()/2
+                x2 = j - ww/2
+                y2 = i - hh/2
+                z2 = -c:getBrightness()/2 - 7
+
+                glVertex3d(x1,y1,z1)
+                glVertex3d(x2,y2,z2)
+                
+            end
+        end
+        glEnd()
+
+    of.popMatrix()
+
+end

@@ -1,0 +1,112 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ FilesIO/pdfRender.ga
+ 
+ This example show how to render output graphic directly to a .pdf file.
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/graphics/pdfExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = of.trueTypeFont()
+frames = {}
+image = of.image()
+boxTrail = {}
+
+oneShot = false
+pdfRendering = false
+_angle = 0
+exportFolder = ga.importFile("export/")
+
+function setup()
+	font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),24,true,false,true)
+end
+
+function update()
+	image:setFromPixels(ga.cameraPixelsRef(0))
+	_angle = _angle + 1    
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    	
+    	if oneShot then
+    		of.beginSaveScreenAsPDF(string.format("%s_screenshot-%s.pdf", exportFolder,of.getTimestampString()),true,false,of.getCurrentViewport())
+    	end
+    	
+    	of.setColor(255)
+    	of.rect(0,0,OUTPUT_W,OUTPUT_H)
+    	
+    	of.setColor(54)
+    	of.drawBitmapString("PDF RENDER EXAMPLE", 32, 32)
+    	if pdfRendering then
+    		of.drawBitmapString("press 'r' to stop pdf multipage rendering", 32, 92)
+    	else
+    		of.drawBitmapString("press r to start pdf multipage rendering\npress s to save a single screenshot as pdf to disk", 32, 92)
+    	end
+    	
+    	of.fill()
+    	of.setColor(54)
+    	of.drawBitmapString("TTF Font embedded into pdf as vector shapes", 32, 460)
+    	
+    	if oneShot or pdfRendering then
+    		of.setColor(54)
+    		font:drawStringAsShapes("Elapsed Ms: ",32,500)
+    		of.setColor(245,58,135)
+    		font:drawStringAsShapes(tostring(of.getElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
+    	else
+    		of.setColor(54)
+    		font:drawString("Elapsed Ms: ",32,500)
+    		of.setColor(245,58,135)
+    		font:drawString(tostring(of.getElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
+    	end
+    	
+    	of.setColor(54)
+	of.drawBitmapString("Images can also be embedded into pdf", OUTPUT_W-340, 280)
+    	of.setColor(255)
+    	image:draw(OUTPUT_W-340,20)
+    	
+    	// lets draw a box
+    	of.setColor(245,58,135)
+    	boxBounds = of.rectangle(32, 500, OUTPUT_W-32, 250)
+    	noiseX = of.noise(of.getElapsedTimef()/600,200)
+    	noiseY = of.noise(of.getElapsedTimef()/800,-900)
+    	
+    	of.fill()
+    	
+    	of.pushMatrix()
+    		xx = of.map(noiseX, 0, 1, boxBounds.x, boxBounds.x + boxBounds.width, true)
+    		yy = of.map(noiseY, 0, 1, boxBounds.y, boxBounds.y + boxBounds.height, true)
+    		
+    		of.translate(xx,yy,0)
+    		of.rotate(_angle)
+    		of.rect(0,0,30,30)
+    	of.popMatrix()
+    	
+    	if oneShot then
+    		of.endSaveScreenAsPDF()
+    		oneShot = false
+    	end
+end
+
+function keyReleased()
+	if ga.key() == string.byte('r') then
+		pdfRendering = not pdfRendering
+		if pdfRendering then
+			of.beginSaveScreenAsPDF(string.format("%s_recording-%s.pdf", exportFolder,of.getTimestampString()),true,false,of.getCurrentViewport())
+		else
+			of.endSaveScreenAsPDF()
+		end
+	end
+	
+	if not pdfRendering and ga.key() == string.byte('s') then
+		oneShot = true
+	end
+end
+

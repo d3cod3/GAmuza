@@ -1,0 +1,122 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/cameraRibbon.ga
+ 
+ This example generates ribbons along the mouse trail that
+ descend in space.
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/3d/cameraRibbonExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+points = {}
+actualPoint = 0
+maxPoints = 1000
+center = ofVec3f()
+camera = ofCamera()
+useCamera = false
+
+function setup()
+	for i=0, maxPoints do
+		points[i] = ofVec3f()
+	end
+end
+
+function update()
+	if useCamera == false and actualPoint > 0 then
+		sum = ofVec3f()
+		for i=0, actualPoint-1 do
+			points[i].z = points[i].z - 4
+			sum = sum + points[i]
+		end
+		center = sum / actualPoint;
+	end
+end
+
+function draw()
+	gaBackground(1.0,1.0)
+
+	if useCamera then
+		camera:beginCamera(ofGetCurrentViewport())
+	end
+	
+	ofSetColor(0)
+	ofNoFill()
+	mesh = ofMesh()
+	mesh:setMode(OF_PRIMITIVE_TRIANGLE_STRIP)
+	ofBeginShape()
+	if actualPoint > 1 then
+		for i=1, actualPoint-1 do
+			// find this point and the next point
+			thisPoint = ofVec3f(points[i-1].x,points[i-1].y,points[i-1].z)
+			nextPoint = ofVec3f(points[i].x,points[i].y,points[i].z)
+			// get the direction from one to the next. 
+			// the ribbon should fan out from this direction
+			direction = ofVec3f()
+			direction = nextPoint - thisPoint
+			// get the distance from one point to the next
+			_distance = direction:length()
+			// get the normalized direction. normalized vectors always have a length of one
+			unitDirection = ofVec3f()
+			unitDirection = direction:normalized()
+			// find both directions to the left
+			toTheLeft = ofVec3f()
+			vv = ofVec3f(0,0,1)
+			toTheLeft = unitDirection:rotate(-90, vv)
+			// use the map function to determine the distance.
+			// the longer the distance, the narrower the line. 
+			// this makes it look a bit like brush strokes
+			thickness = ofMap(_distance, 0, 120, 40, 2, true)
+			// calculate the points to the left
+			// by extending the current point in the direction of left by the length
+			leftPoint = ofVec3f()
+			leftPoint = thisPoint+toTheLeft*thickness
+			// add this point to the triangle strip
+			mesh:addVertex(leftPoint);
+		end
+	end
+
+	mesh:draw()
+	
+	if useCamera then
+		camera:endCamera()
+	end
+	
+end
+
+function keyReleased()
+	useCamera = not useCamera
+end
+
+function mouseMoved()
+	if useCamera and actualPoint > 0 then
+		rotateAmount = ofMap(gaMouseX(),0,OUTPUT_W,0,360,true)
+		furthestPoint = ofVec3f(points[0].x,points[0].y,points[0].z)
+		dirToFurthest = ofVec3f()
+		dirToFurthest = furthestPoint - center
+		dirToFurthestRotated = ofVec3f()
+		p = ofVec3f(0,1,0)
+		dirToFurthestRotated = dirToFurthest:rotate(rotateAmount,p)
+		camera:setPosition(center + dirToFurthestRotated)
+		camera:lookAt(center,p)
+	else
+		points[actualPoint]:set(gaMouseX(),gaMouseY(),0)
+		if actualPoint < maxPoints then
+			actualPoint = actualPoint + 1
+		else
+			for i=0, actualPoint-1 do
+				points[i].z = 0
+			end
+			mesh:clearVertices()
+			actualPoint = 0
+		end
+	end
+	
+	gaLog(tostring(gaMouseX()))
+end

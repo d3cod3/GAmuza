@@ -1,0 +1,63 @@
+
+/////////////////////////////////////
+// particle Class
+
+class 'Particle'
+
+function Particle:__init(Dx,Dy,r)
+    self.Dx = Dx
+    self.Dy = Dy
+    self.r = r
+    self.ox = OUTPUT_W/2
+    self.oy = OUTPUT_H/2
+    self.x = math.ceil(self.ox-self.Dx)
+    self.y = math.ceil(self.oy-self.Dy)
+    self.xx = 0
+    self.yy = 0
+    self.vx = 2*math.cos(self.r)
+    self.vy = 2*math.sin(self.r)
+    self.age = ofRandom(0,200)
+
+    if blackout then
+        c:set(0,0,0,24)
+    else
+        c:set(255,255,255,24)
+    end
+end
+
+function Particle:update()
+    self.xx = self.x
+    self.yy = self.y
+
+    self.x = self.x + self.vx
+    self.y = self.y + self.vy
+    
+    self.vx = self.vx + (ofRandomf()/2)
+    self.vy = self.vy + (ofRandomf()/2)    
+
+    // grow old
+    self.age = self.age + 1
+    if self.age > 200 then
+        local t = ofRandom(TWO_PI)
+        self.x = 3*math.sin(t)
+        self.y = 3*math.cos(t)
+        self.xx = 0
+        self.yy = 0
+        self.vx = 0
+        self.vy = 0
+        self.age = 0
+        if blackout then
+            c:set(0,0,0,24)
+        else
+            c:set(255,255,255,24)
+        end
+    end
+end
+
+function Particle:draw()
+    ofNoFill()
+    ofSetColor(c)
+    ofLine(self.ox+self.xx,self.oy+self.yy,self.ox+self.x,self.oy+self.y)
+    ofLine(self.ox-self.xx,self.oy+self.yy,self.ox-self.x,self.oy+self.y)
+end
+/////////////////////////////////////

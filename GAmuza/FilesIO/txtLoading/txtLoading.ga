@@ -1,0 +1,48 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ FilesIO/txtLoading.ga
+ 
+ This example show how to load and visualize data from a text file.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = of.trueTypeFont()
+textFile = of.file()
+buffer = of.buffer()
+text = {}
+numeros = {}
+_line = 0
+
+function setup()
+    	font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),16,true,true)
+    	textFile:open(ga.importFile("numeros.txt"))
+    	buffer = textFile:readToBuffer()
+
+    	// capture data from file, line by line
+    	while not buffer:isLastLine() do
+        	text[_line] = buffer:getNextLine()
+        	numeros[_line] = of.toInt(text[_line])
+        	_line = _line + 1
+    	end
+end
+
+function update()
+    
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+
+	// visualize data (in some way)
+    	for i=0,_line-1 do
+    		of.setColor(35,136,209)
+    		font:drawString(text[i],20+(OUTPUT_W/_line)*i,OUTPUT_H-numeros[i]-10)
+    		of.setColor(35,209,176)
+        	of.rect(6+(OUTPUT_W/_line)*i,OUTPUT_H-numeros[i],(OUTPUT_W/_line), OUTPUT_H)
+    	end
+end

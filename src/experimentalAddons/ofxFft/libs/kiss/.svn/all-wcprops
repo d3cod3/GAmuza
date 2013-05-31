@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/43/trunk/openframeworks/addons/ofxFft/libs/kiss
+END
+_kiss_fft_guts.h
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/43/trunk/openframeworks/addons/ofxFft/libs/kiss/_kiss_fft_guts.h
+END
+kiss_fftr.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/43/trunk/openframeworks/addons/ofxFft/libs/kiss/kiss_fftr.h
+END
+kiss_fft.c
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/43/trunk/openframeworks/addons/ofxFft/libs/kiss/kiss_fft.c
+END
+kiss_fftr.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/43/trunk/openframeworks/addons/ofxFft/libs/kiss/kiss_fftr.c
+END
+kiss_fft.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/53/trunk/openframeworks/addons/ofxFft/libs/kiss/kiss_fft.h
+END

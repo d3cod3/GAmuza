@@ -1,0 +1,142 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/soundPlayerFFT.ga
+ 
+ This example show how perform an FFT analysis over an audiofile
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/sound/soundPlayerFFTExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+beat = of.soundPlayer()
+ow = of.soundPlayer()
+dog = of.soundPlayer()
+rooster = of.soundPlayer()
+
+fftSmoothed = memarray('float',BUFFER_SIZE)
+px = 300
+py = 300
+vx = 0
+vy = 0
+
+nBandsToGet = 32
+prevx = 0.0
+prevy = 0.0
+
+dragged = false
+
+val = memarray('float',nBandsToGet)
+
+function setup()
+    	beat:loadSound(ga.importFile("jdee_beat.mp3"),true)
+    	ow:loadSound(ga.importFile("ow.mp3"),true)
+    	dog:loadSound(ga.importFile("dog.mp3"),true)
+	rooster:loadSound(ga.importFile("rooster.mp3"),true)
+
+	for i=0, BUFFER_SIZE-1 do
+		fftSmoothed[i] = 0
+	end
+
+	of.setCircleResolution(50)
+end
+
+function update()
+
+    	of.soundUpdate()
+    	-- movement
+    	px = px + vx
+    	py = py + vy
+
+    	-- horizontal collision checking
+    	if px < 0 then
+        	px = 0
+        	vx = vx * -1
+        	dog:play()
+    	elseif px > OUTPUT_W then
+        	px = OUTPUT_W
+        	vx = vx * -1
+        	ow:play()
+    	end
+
+    	-- vertictal collision checking
+    	if py < 0 then
+        	py = 0
+        	vy = vy * -1
+        	rooster:play()
+    	elseif py > OUTPUT_H then
+        	py = OUTPUT_H
+        	vy = vy * -1
+        	beat:play()
+    	end
+
+    	-- slow down velocity
+    	vx = vx * 0.996
+    	vy = vy * 0.996
+
+    	-- control volume with velocity
+	vel = math.sqrt(vx*vx + vy*vy)
+    	ow:setVolume(math.min(vel/5.0,1))
+    	beat:setVolume(math.min(vel/5.0,1))
+    	dog:setVolume(math.min(vel/5.0,1))
+    	rooster:setVolume(math.min(vel/5.0,1))
+    
+	for i=0,nBandsToGet-1 do
+		val[i] = ga.getSoundSpectrum(i,nBandsToGet)
+		
+		if fftSmoothed[i] < val[i] then
+			fftSmoothed[i] = val[i]
+		end
+		
+		fftSmoothed[i] = fftSmoothed[i]*0.96
+	end
+    
+    	if dragged then
+		vx = vx + (ga.mouseX()-prevx)/20.0
+    		vy = vy + (ga.mouseY()-prevy)/20.0
+		prevx = ga.mouseX()
+    		prevy = ga.mouseY()
+	end
+end
+
+function draw()
+	ga.background(0.0,1.0)
+	
+	of.enableAlphaBlending()
+		of.setColor(255,30)
+		of.noFill()
+		ww = OUTPUT_W/nBandsToGet
+		for i=0,nBandsToGet-1 do
+			of.rect(i*ww,OUTPUT_H-100,ww,-(fftSmoothed[i] * 200))
+		end
+		of.fill()
+		of.setColor(255,20)
+		of.circle(px,py,50)
+	of.disableAlphaBlending()
+	
+	of.setColor(255)
+	of.circle(px,py,8)
+	
+	if dragged then
+		of.setColor(255,23,143)
+		of.drawBitmapString("Target LOCKED",200,200)
+	else
+		of.setColor(32,143,203)
+		of.drawBitmapString("Target UNLOCKED",200,200)
+	end
+	
+end
+
+function mouseReleased()
+	dragged = not dragged
+end
+
+function mousePressed()
+	prevx = ga.mouseX()
+	prevy = ga.mouseY()
+end

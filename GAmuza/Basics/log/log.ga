@@ -1,0 +1,49 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/log.ga
+ 
+ This example shows how to send logs to the GAmuza console.
+ In order to see the printing logs in real time you have to focus
+ on ScriptEditor window, if GAmuza window (or other) is focused
+ there will be no logs printing.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+number = 0
+sendVar = false
+gate = true
+
+function setup()
+	ofSetCircleResolution(6)
+end
+
+function update()
+    	number = ofRandomuf()
+    	if math.ceil(ofGetElapsedTimef())%3 == 0 and gate then
+    		gate = false
+    		sendVar = true
+    		gaLog(string.format("Number: %f",number))
+	else
+		sendVar = false
+		gate = true
+	end
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	ofSetColor(255)
+	if sendVar then
+		ofCircle(OUTPUT_W/2,OUTPUT_H/2,OUTPUT_H/2*number)
+	end
+	text = string.format("Elapsed Frames: %i",gaGetFrameNum())
+	ofDrawBitmapString(text,20,200)
+	text = string.format("Elapsed Time: %.3f",ofGetElapsedTimef())
+	ofDrawBitmapString(text,20,240)
+    
+end

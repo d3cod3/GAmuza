@@ -1,0 +1,62 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_noiseWalk.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://www.shiffman.net/teaching/nature/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+walkers = {}
+noiseTimeX = {}
+noiseTimeY = {}
+stepX = {}
+stepY = {}
+
+numW = 300
+
+function setup()
+    	for i=0,numW-1 do
+        	walkers[i] = {}
+        	walkers[i].x = OUTPUT_W/2
+        	walkers[i].y = OUTPUT_H/2
+        	noiseTimeX[i] = of.random(0,10000)
+        	noiseTimeY[i] = of.random(7000,14000)
+        	stepX[i] = of.random(0.001,0.003)
+        	stepY[i] = of.random(0.001,0.003)
+    	end
+end
+
+function update()
+    	for i=0,numW-1 do
+        	mapX = of.map(of.noise(noiseTimeX[i]),0.15,0.85,0,OUTPUT_W,true)
+        	mapY = of.map(of.noise(noiseTimeY[i]),0.15,0.85,0,OUTPUT_H,true)
+        
+        	walkers[i].x = mapX
+        	walkers[i].y = mapY
+
+        	noiseTimeX[i] = noiseTimeX[i] + stepX[i]
+        	noiseTimeY[i] = noiseTimeY[i] + stepY[i]
+    	end
+end
+
+function draw()
+    	ga.background(0.0,0.01)
+
+    	of.noFill()
+    	for i=0,numW-1 do
+        	if math.fmod(i,7) == 0 then
+            	of.setColor(255)
+        	else
+            	of.setColor(0)
+        	end
+        	of.rect(walkers[i].x,walkers[i].y,1,1)
+    	end
+end

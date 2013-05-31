@@ -1,0 +1,50 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Artists/binaryRing.ga
+ 
+ This example is from Binary Ring piece by Jared Tarbel, 2004.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+c = ofColor()
+blackout = false
+kaons = {}
+numKaons = 1000
+
+function setup()
+    for i=0,numKaons-1 do
+        local emitx = math.ceil(3*math.sin(TWO_PI*i/numKaons)+OUTPUT_W/2)
+        local emity = math.ceil(3*math.cos(TWO_PI*i/numKaons)+OUTPUT_H/2)
+        local r = PI*i/numKaons
+        kaons[i] = Particle(emitx,emity,r)
+    end    
+end
+
+function update()
+    for i=0,numKaons-1 do
+        kaons[i]:update()
+    end
+    
+    local r = ofRandomuf()
+    if r > 0.9991 then
+        blackout = not blackout
+    end
+
+end
+
+function draw()
+    gaBackground(0.0,0.001)
+
+    for i=0,numKaons-1 do
+        kaons[i]:draw()
+    end
+end
+
+function mouseReleased()
+    blackout = not blackout
+end

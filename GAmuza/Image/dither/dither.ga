@@ -1,0 +1,62 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Image/dither.ga
+ 
+ The basic use of ofx.dither() class; apply copy-machine style effect to
+ image objects.
+ 
+ Original addon from julapy <https://github.com/julapy/ofxDither>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dither = ofx.dither()
+imageIn = of.image()
+imageOut = of.image()
+tipo = 1
+
+function setup()
+    imageIn:loadImage(ga.importFile("laura.jpg"))
+    applyDither()
+end
+
+function update()
+
+end
+
+function draw()
+    ga.background(0.0,1.0)
+
+    of.setColor(255)    
+    imageIn:draw(0,(OUTPUT_H-imageIn:getHeight())/2)
+    imageOut:draw(imageIn:getWidth(),(OUTPUT_H-imageIn:getHeight())/2)
+end
+
+function keyReleased()
+	if ga.key() == string.byte('0') then
+		tipo = 0
+	elseif ga.key() == string.byte('1') then
+		tipo = 1
+	elseif ga.key() == string.byte('2') then
+		tipo = 2
+	end
+	applyDither()
+end
+
+/////////////////////////////////////////
+// Custom functions
+
+// the ofx.dither class has three different alghorithms you can use
+function applyDither()
+	if tipo == 0 then
+        dither:ordered(imageIn,imageOut)
+    elseif tipo == 1 then
+        dither:floyd_steinberg(imageIn,imageOut)
+    elseif tipo == 2 then
+        dither:atkinson(imageIn,imageOut)
+    end
+end

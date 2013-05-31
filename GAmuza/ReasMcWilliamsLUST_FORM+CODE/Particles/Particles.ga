@@ -1,0 +1,117 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ ReasMcWilliamsLUST_FORM+CODE/Particles.ga
+ 
+ Simulate: Particles 
+ from Form+Code in Design, Art, and Architecture 
+ by Casey Reas, Chandler McWilliams, and LUST
+ Princeton Architectural Press, 2010
+ 
+ http://formandcode.com
+ 
+ This code was written in GAmuza 0.4.1+
+ Get GAmuza at http://www.gamuza.cc
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+/////////////////////////////////////////////
+// Particle class
+// Based on Particle class from: http://www.shiffman.net/teaching/nature/particles/
+
+class 'Particle'
+
+function Particle:__init(l)
+	self.birth = of.getElapsedTimeMillis()
+	self.lifecycle = of.random(10,500)
+	self.counter = 0
+	self.randmin = -HALF_PI
+	self.randmax = 0
+	
+	self.r = of.random(0,TWO_PI)
+	self.acc = of.vec2f(math.cos(self.r)/250,math.sin(self.r)/250)
+	
+	self.q = of.randomuf()
+	self.r = of.random(self.randmin,self.randmax)
+	self.vel = of.vec2f(math.cos(self.r)*self.q,math.sin(self.r)*self.q)
+	self.loc = of.vec2f(l.x,l.y)
+	self.hist = {}
+	for i=0, self.lifecycle do
+		self.hist[i] = of.vec2f(0,0)
+	end
+end
+
+function Particle:updateParticle()
+	self.vel = self.vel + self.acc
+	self.loc = self.loc + self.vel
+	if (of.getElapsedTimeMillis()-self.birth) % 100 == 0 and self.counter < self.lifecycle then
+		self.hist[self.counter] = self.loc
+		self.counter = self.counter + 1
+	end
+end
+
+function Particle:drawParticle()
+	of.enableAlphaBlending()
+	of.setColor(245,151,176,135)
+	drawArrowHead(self.vel,self.loc,16);
+	// draw history path
+	of.noFill()
+	of.setColor(245,151,176,55)
+	of.beginShape()
+	for i=0,self.counter-1 do
+		of.vertex(self.hist[i].x,self.hist[i].y)
+	end
+	if self.counter > 0 then
+		of.vertex(self.loc.x,self.loc.y)
+	end
+	of.endShape(false)
+	of.disableAlphaBlending()
+end
+
+function drawArrowHead(_v,_loc,_scale)
+	of.pushMatrix()
+	_len = _v:length()*_scale
+	arrowSize = of.map(_len,0,10,0,1,false)*6
+	of.translate(_loc.x,_loc.y,0)
+	of.rotateZ(of.radToDeg(math.atan2(_v.y,_v.x)))
+	of.fill()
+	of.line(0,0,_len-arrowSize,0)
+	of.beginShape()
+	of.vertex(_len,0)
+	of.vertex(_len-arrowSize, arrowSize/2);
+	of.vertex(_len-arrowSize,-arrowSize/2);
+	of.endShape(true)
+	of.popMatrix()
+end
+/////////////////////////////////////////////
+
+particles = {}
+numParticles = 500
+saving = false
+vec = of.vec2f(100,OUTPUT_H-100)
+
+function setup()
+	of.enableSmoothing()
+    
+	for i=0, numParticles-1 do
+		particles[i] = Particle(vec)
+	end
+end
+
+function update()
+	for i=0, numParticles-1 do
+		particles[i]:updateParticle()
+	end
+end
+
+function draw()
+	ga.background(0.0,0.4)
+	
+	for i=0, numParticles-1 do
+		particles[i]:drawParticle()
+	end
+end

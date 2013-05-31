@@ -1,0 +1,52 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ SensorKinect/blobs.ga
+ 
+ This example show how to extract blobs data from contour finder algorithm, 
+ from GAmuza sensor Kinect panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+runningBlobs = 0
+cam = of.texture()
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+	cam = ga.oniTexture()
+	runningBlobs = ga.oniBlobs()
+end
+
+function draw()
+	ga.background(0.0,0.8)
+	
+	// draw the live image from device
+	of.setColor(255)
+    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    
+	// draw blobs
+	of.setLineWidth(3)
+	of.noFill()
+	of.setColor(31,210,165)
+		
+	of.pushMatrix()
+	of.scale(OUTPUT_W,OUTPUT_H,1.0)
+    
+	for j=0, runningBlobs-1 do
+		x = ga.oniBlobX(j)
+		y = ga.oniBlobY(j)
+		w = ga.oniBlobW(j)
+		h = ga.oniBlobH(j)
+		of.rect(x,y,w,h)
+	end
+
+	of.popMatrix()
+
+end

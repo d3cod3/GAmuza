@@ -1,0 +1,29 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/keyboardSynth.ga
+ 
+ This example transform your keyboard into a random synth (really basic).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+    ga.wave(GA_TRI,120)    
+end
+
+function update()
+    
+end
+
+function draw()
+    ga.background(0.0,1.0)
+end
+
+function keyReleased()
+    ga.waveFrequency(0,(ga.key()/3)*ga.nToF(RE_0))
+    ga.waveVolume(0,of.randomuf()/4)
+end

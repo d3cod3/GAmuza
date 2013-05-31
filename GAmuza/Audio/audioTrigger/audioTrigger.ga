@@ -1,0 +1,52 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/audioTrigger.ga
+ 
+ This example show how transform the audio microphone input volume into
+ a trigger for playing a video file.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+vol = 0.0
+video = ofVideoPlayer()
+posY = 0
+scaleH = 0
+ 
+function setup()
+	video:loadMovie("videos/video.mov")
+    
+	// adjust position and dimensions to draw the video in fullscreen
+	scaleH = (OUTPUT_W/video:getWidth())*video:getHeight()
+	posY = OUTPUT_H/2 - scaleH/2
+end
+ 
+function update()
+	vol = gaGetVolume(0)
+ 
+	if video:isPlaying() then
+		video:update()
+	end
+ 
+	if vol > 0.5 and not video:isPlaying() then
+		video:play()
+	end
+
+	if video:getPosition() > 0.999 and video:isPlaying() then  
+		video:stop()
+	end
+end
+ 
+function draw()
+    gaBackground(0.0,1.0)
+ 
+	// draw the video
+	ofSetColor(255)
+	if video:isPlaying() then
+		video:draw(0,posY,OUTPUT_W,scaleH)
+	end
+end

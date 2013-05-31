@@ -1,0 +1,47 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Audio/audioInput.ga
+ 
+ This example show simple use of audio input GAmuza module, capturing from
+ code the volume, pitch and FFT bins data from one audio input channel;
+ be sure to have the AUDIO MODULE ACTIVATED in order to work with this
+ code.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+inputVol = 0.0
+inputPitch = 0.0
+
+
+function setup()
+    ofSetCircleResolution(50)
+end
+
+function update()
+    inputVol = gaGetVolume(0)  // get volume from channel 0
+    inputPitch = gaGetPitch(0) // get pitch from channel 0
+end
+
+function draw()
+    
+	gaBackground(1.0,0.03)
+
+	ofEnableAlphaBlending()
+	ofSetColor(255 - (2550*inputPitch),0,0,230)
+	ofFill()
+	ofCircle(OUTPUT_W/2 + (inputPitch*1000),OUTPUT_H/2,inputVol*2000)
+	ofDisableAlphaBlending()
+
+	ofSetColor(0)
+	ofNoFill()
+
+	// draw fft bins
+	for i=0,FFT_BANDS do
+		ofRect(i*(OUTPUT_W/FFT_BANDS),OUTPUT_H,OUTPUT_W/FFT_BANDS,-OUTPUT_H*gaGetBin(0,i))
+	end
+end

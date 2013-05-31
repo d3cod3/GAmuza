@@ -1,0 +1,95 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ Time/timeSemaphore.ga
+ 
+ This example show the use of a simple semaphore over time,
+ controlling the trigger of a specific event.
+ More info about semaphores:
+ 
+ <http://en.wikipedia.org/wiki/Semaphore_(programming)>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+// TIME VARIABLES
+GAmuzaTime 	= 0
+myTime  		= 0
+wait 		= 5000 // 5 seconds
+
+lastReset 	= of.getElapsedTimeMillis()
+
+// SEMAPHORE VARIABLES
+semaphore = true
+
+// INPUT (Microphone volume)
+volume = 0
+
+// ----------------------------------------
+function setup()
+	// set a better circles resolution from default
+	of.setCircleResolution(50)
+end
+
+// ----------------------------------------
+function update()
+	// get the volume from audio input channel 0
+	volume = ga.getVolume(0)
+	
+	// get the time elapsed from the opening of GAmuza
+	GAmuzaTime = of.getElapsedTimeMillis()
+	
+	// create a parallel timeline starting from the last interaction moment
+	// when microphone detect a higher volume we record that moment in time
+	// and reset the parallel timeline
+	myTime = GAmuzaTime - lastReset
+	
+	// trigger the interaction event from the microphone input volume
+	// and control it with a semaphore
+	if volume > 0.4 and semaphore == true then
+		// parallel timeline reset
+		lastReset = GAmuzaTime
+		semaphore = false
+	end
+	
+	// when we reset the parallel timeline
+	// we have to wait to restore the interaction system
+	// the wait time is in wait variable
+	if GAmuzaTime-lastReset > wait then
+		semaphore = true
+	end
+	
+	
+end
+
+// ----------------------------------------
+function draw()
+	// draw the background
+	ga.background(0.0,1.0)
+	
+	// draw the semaphore
+	if semaphore then
+		of.setColor(0,255,0) // green
+		of.drawBitmapString("TALK LOUD TO INTERACT", OUTPUT_W/2 - 86, OUTPUT_H/2 - 120)
+	else
+		of.setColor(255,0,0) // red
+		// visualize the countdown time (waiting time)
+		countdown = wait-(GAmuzaTime-lastReset)
+		of.drawBitmapString(string.format("WAIT %i ms", countdown), OUTPUT_W/2 - 46, OUTPUT_H/2 - 120)
+	end
+	of.circle(OUTPUT_W/2,OUTPUT_H/2,100)
+	
+	// draw Data
+	of.setColor(40)
+	of.rect(20,20,230,120)
+	of.setColor(255)
+	of.drawBitmapString(string.format("GAmuza Time: %s ms",GAmuzaTime),30,50)
+	of.drawBitmapString(string.format("Last Reset at: %s ms", lastReset),30,80)
+	of.drawBitmapString(string.format("My Time: %s ms", myTime),30,110)
+end
+
+

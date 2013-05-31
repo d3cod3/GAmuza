@@ -1,0 +1,58 @@
+
+/*
+
+TRIANGLE_STRIP Mode by Ira Greenberg. 
+
+Generate a closed ring using the vertex() function and glBegin(GL_TRIANGLE_STRIP) mode.
+The outerRad and innerRad variables control ring's radius respectively.
+
+*/
+
+x = 0
+y = 0
+outerRad = 0
+innerRad = 0
+
+function setup()
+  x = OUTPUT_W/2;
+  y = OUTPUT_H/2;
+  outerRad = math.min(OUTPUT_W, OUTPUT_H) * 0.4;
+  innerRad = outerRad * 0.6;
+end
+
+function draw()
+  ga.background(0.85,1.0);
+  
+  pts = math.ceil(of.map(ga.mouseX(), 0, OUTPUT_W, 6, 60,true));
+  rot = 180.0/pts;
+  _angle = 0;
+  
+  of.setColor(255)
+  glBegin(GL_TRIANGLE_STRIP)
+  for i=0, pts do
+    px = x + math.cos(of.degToRad(_angle)) * outerRad
+    py = y + math.sin(of.degToRad(_angle)) * outerRad
+    _angle = _angle + rot
+    glVertex3d(px, py, 0)
+    px = x + math.cos(of.degToRad(_angle)) * innerRad
+    py = y + math.sin(of.degToRad(_angle)) * innerRad
+    glVertex3d(px, py, 0)
+    _angle = _angle + rot
+  end
+  glEnd()
+  
+  of.setColor(0)
+  glBegin(GL_LINE_LOOP)
+  for i=0, pts do
+    px = x + math.cos(of.degToRad(_angle)) * outerRad
+    py = y + math.sin(of.degToRad(_angle)) * outerRad
+    _angle = _angle + rot
+    glVertex3d(px, py, 0)
+    px = x + math.cos(of.degToRad(_angle)) * innerRad
+    py = y + math.sin(of.degToRad(_angle)) * innerRad
+    glVertex3d(px, py, 0)
+    _angle = _angle + rot
+  end
+  glEnd()
+  
+end

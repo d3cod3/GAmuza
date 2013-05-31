@@ -1,0 +1,45 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Protocols/oscReceiving.ga
+ 
+ This example show how to receive OSC message from outside GAmuza.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+faderValue = ""
+faderLabel = "/fader"
+toggleValue = ""
+toggleLabel = "/toggle"
+
+function setup()
+	// init OSC receiving labels
+    	ga.getOSCMessage(faderLabel)
+    	ga.getOSCMessage(toggleLabel)
+end
+
+function update()
+	// capture OSC values
+    	faderValue = ga.getOSCValue(faderLabel)
+    	toggleValue = ga.getOSCValue(toggleLabel)
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    of.setColor(34,217,179)
+    of.drawBitmapString(string.format("Receiving OSC data at Port: %s",OSC_RECEIVING_PORT),20,200)
+    of.drawBitmapString(string.format("Message labeled \"%s\" value: %s", faderLabel, faderValue),20,260)
+
+    if toggleValue == "0" then
+        of.setColor(255)
+    else
+        of.setColor(34,217,179)
+    end
+    
+    of.circle(OUTPUT_W/2,OUTPUT_H/2,of.toFloat(faderValue)*400)
+end

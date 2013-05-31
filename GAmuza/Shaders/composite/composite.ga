@@ -1,0 +1,69 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Shaders/composite.ga
+ 
+ Shaders examples from ofx.fx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows how to composite from different effects.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+oldTv = ofx.oldTv()
+blur = ofx.blur()
+maskFx = ofx.mask()
+mask = of.image()
+cam = of.texture()
+
+function setup()
+    mask:loadImage("images/mask.png")
+    mask:resize(OUTPUT_W,OUTPUT_H)
+    maskFx:allocate(OUTPUT_W,OUTPUT_H)
+    blur:allocate(OUTPUT_W,OUTPUT_H)
+    blur:setPasses(10)
+    oldTv:allocate(OUTPUT_W,OUTPUT_H)
+    oldTv:setRows(0.01)
+    oldTv:setBrightness(1.0)
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+    cam = ga.cameraTexture(0)
+    blur:setRadius(ga.mouseX()/100)
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    
+    	// draw the camera inside blur fx
+    	blur:beginFx()
+    		of.setColor(255)
+    		cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    	blur:endFx(false)
+    
+    // create a mask
+    	maskFx:beginMask()
+    		of.setColor(255*ga.mouseY()/OUTPUT_H)
+    		mask:draw(0,0)
+    	maskFx:endMask()
+    
+    	// draw the camera with the mask
+    	maskFx:beginFx()
+    		cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    	maskFx:endFx(false)
+
+	// draw the masked camera on top of the blurred camera
+	// all inside the oldTV effect
+    	oldTv:beginFx()
+    		blur:draw(0,0)
+    		maskFx:draw(0,0)    
+    	oldTv:endFx(false)
+    	
+    	// finally draw the oldTV container
+    	oldTv:draw(0,0)
+    
+end

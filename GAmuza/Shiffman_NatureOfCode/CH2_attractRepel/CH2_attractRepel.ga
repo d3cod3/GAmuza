@@ -1,0 +1,59 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_attractRepel.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://www.shiffman.net/teaching/nature/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dofile(ga.importFile("classes/Mover.ga"))
+dofile(ga.importFile("classes/Attractor.ga"))
+
+
+g = 1
+NUM_MOVERS = 20
+movers = {}
+a = Attractor()
+
+function setup()
+	of.setCircleResolution(50)
+	for i=0,NUM_MOVERS-1 do
+		movers[i] = Mover(of.random(4,12),of.random(OUTPUT_W),of.random(OUTPUT_H))
+    	end
+end
+
+function update()
+    	for i=0,NUM_MOVERS-1 do
+		for j=0,NUM_MOVERS-1 do
+			if i != j then
+				force = of.vec2f()
+				force = movers[j]:repel(movers[i])
+				movers[i]:applyForce(force)
+			end
+		end
+
+		attraction = of.vec2f()
+		attraction = a:attract(movers[i])
+		movers[i]:applyForce(attraction)
+		movers[i]:update()
+		movers[i]:checkEdges()
+	end
+end
+
+function draw()
+	ga.background(1.0,0.1)
+
+	a:display()
+
+	for i=0,NUM_MOVERS-1 do
+		movers[i]:display()
+	end
+end

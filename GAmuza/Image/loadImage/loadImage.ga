@@ -1,0 +1,31 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Image/loadImage.ga
+ 
+ This show how to load image files from disk.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+img = of.image()
+
+function setup()
+    img:loadImage(ga.importFile("highlands.jpg"))
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    // center & scale to fit OUTPUT
+    w = OUTPUT_W
+    h = (w/img:getWidth())*img:getHeight()
+    posX = 0
+    posY = (OUTPUT_H-h)/2
+    // draw the image
+    of.setColor(255)
+    img:draw(posX,posY,w,h)
+end

@@ -1,0 +1,50 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Math/gaussianRandom.ga
+ 
+ This example shows how to generate gaussian random numbers using the ofx.gaussian
+ class, plus a little cartesian representation.
+ 
+ Original addon from andyr0id <https://github.com/andyr0id/ofxGaussian>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gRandom = 0
+
+function setup()
+    
+end
+
+function update()
+    	gRandom = ofx.gaussian() // generating range [-1.0 to 1.0]
+end
+
+function draw()
+    	ga.background(0.0,0.005)
+	
+	// cartesian xy axes
+    	of.setColor(70)
+    	of.line(0,OUTPUT_H/2,OUTPUT_W,OUTPUT_H/2)
+    	of.line(OUTPUT_W/2,0,OUTPUT_W/2,OUTPUT_H)
+    	of.setColor(215,235,34)
+    	of.drawBitmapString("0",OUTPUT_W/2 + 4,OUTPUT_H/2 + 14)
+    	of.drawBitmapString("X",OUTPUT_W - 20,OUTPUT_H/2 + 14)
+    	of.drawBitmapString("-X",20,OUTPUT_H/2 + 14)
+    	of.drawBitmapString("Y",OUTPUT_W/2 - 14,OUTPUT_H-18)
+    	of.drawBitmapString("-Y",OUTPUT_W/2 - 20,18)
+
+	// gaussian distribution over a log base 10 curve
+    	of.setColor(255)
+    	of.pushMatrix()
+    	of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
+    		x = OUTPUT_W/2 * gRandom
+    		y = math.log10(gRandom)*OUTPUT_H/4
+    		of.circle(x,y,2)
+    	of.popMatrix()
+    	
+end

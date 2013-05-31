@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Font/unicode.ga
+ 
+ This is a basic example use of the ofx.trueTypeFontUC() class, used to load .ttf 
+ or .otf fonts form the disk and using it to draw UNICODE text content,
+ with all accents and special characters.
+ 
+ Original addon from hironishihara <https://github.com/hironishihara/ofxTrueTypeFontUC>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = ofxTrueTypeFontUC()
+text = "Zénon, Cruel Zénon! Zénon de'Elée!"
+author = "Paul Valèry"
+
+function setup()
+    // font name, size, anti-aliased, full character set
+    font:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),18, true, false)
+end
+
+function update()
+
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    ofPushMatrix()
+    ofTranslate(160,OUTPUT_H/2,0)
+    ofSetColor(255)
+    font:drawString(text, 0, 0)
+    ofSetColor(35,125,0)
+    font:drawString(author, 286, 50)
+    ofPopMatrix()
+end

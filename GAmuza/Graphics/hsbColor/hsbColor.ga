@@ -1,0 +1,51 @@
+
+/*
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/hsbColor.ga
+ 
+ This example shows how to manage of.color() class objects and color
+ in HSB range.
+
+ created by mj
+
+*/
+ 
+radio = 100
+radioInc = 40
+lineWidth = 10
+
+c = of.color()
+
+function setup()
+	of.enableSmoothing()
+end
+
+function update()
+    
+end
+
+function draw()
+	ga.background(0.0,1.0)
+    
+	of.noFill()
+	of.setLineWidth(lineWidth)   
+	j = 0
+	lados = 3
+	for i=0, 6 do
+		of.setCircleResolution(lados)
+    		c:setHsb((j/8)*255,255,255)
+    		of.setColor(c.r,c.g,c.b)
+      	of.circle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc))
+      	j = j+1
+      	c:setHsb((j/8)*255,255,255)
+    		of.setColor(c.r,c.g,c.b)
+    		of.circle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc) + lineWidth)         
+	    lados = lados + 1
+	end
+end
+
+function mouseReleased()
+	ga.saveFrame(ga.importFile("test.png"))
+end

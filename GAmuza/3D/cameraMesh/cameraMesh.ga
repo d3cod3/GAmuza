@@ -1,0 +1,106 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/cameramesh.ga
+ 
+ This example shows building a mesh, texturing it with a webcam, and
+ extruding the vertices based on the pixel brightness.
+ Moving the mouse also rotates the mesh to see it at different angles.
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/3d/meshFromCamera/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+wireframe = false
+camera = ofCamera()
+pixels = ofPixels()
+cam = ofTexture()
+mesh = ofVboMesh()
+rotateAmountY = 0
+extrusionAmount = 300.0
+pixelateFactor = 3
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+	//add one vertex to the mesh for each pixel
+	for x=0,CAPTURE_W-1, pixelateFactor do
+		for y=0,CAPTURE_H-1, pixelateFactor do
+			c = ofFloatColor(0,0,0,0)
+			p = ofVec3f(x,y,0)
+			mesh:addVertex(p)
+			mesh:addColor(c)
+		end
+	end
+	
+	for x=0,CAPTURE_W-2 do
+		for y=0,CAPTURE_H-2 do
+			mesh:addIndex(x+y*CAPTURE_W)		// 0
+			mesh:addIndex((x+1)+y*CAPTURE_W)		// 1
+			mesh:addIndex(x+(y+1)*CAPTURE_W)		// 10
+			
+			mesh:addIndex((x+1)+y*CAPTURE_W)		// 1
+			mesh:addIndex((x+1)+(y+1)*CAPTURE_W)	// 11
+			mesh:addIndex(x+(y+1)*CAPTURE_W)		// 10
+		end
+	end
+end
+
+function update()
+    	// get the cam texture
+    	cam = gaCameraTexture(0)
+    	// get the cam pixels
+    	cam:readToPixels(pixels)
+	
+	cc = 0
+	for x=0,CAPTURE_W-1, pixelateFactor do
+		for y=0,CAPTURE_H-1, pixelateFactor do
+			
+			col = pixels:getColor(x,y)
+			sampleColor = ofFloatColor(col.r/255,col.g/255,col.b/255,1.0)
+			tmpVec = ofVec3f()
+			tmpVec = mesh:getVertex(cc)
+			tmpVec.z = sampleColor:getBrightness() * extrusionAmount
+			mesh:setVertex(cc,tmpVec)
+			mesh:setColor(cc,sampleColor)
+			cc = cc + 1
+		end
+	end
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+    
+	camera:beginCamera(ofGetCurrentViewport())
+		if wireframe then
+    			mesh:drawWireframe()
+    		else
+    			mesh:drawFaces()
+    		end
+	camera:endCamera()
+	
+end
+
+function keyReleased()
+	wireframe = not wireframe
+end
+
+function mouseMoved()
+	// let's move the camera when you move the mouse
+	camDirection = ofVec3f(0,0,1)
+	rotateVecY = ofVec3f(1,0,0)
+	pCam = ofVec3f(0,1,0)
+	rotateAmountY = ofMap(gaMouseY(), 0, OUTPUT_H, 0, 360,true)
+	center = ofVec3f(CAPTURE_W/2,CAPTURE_H/2,255/2)
+	camDirectionRotatedY = ofVec3f()
+	camDirectionRotatedY = camDirection:rotate(rotateAmountY,rotateVecY)
+	camPosition = ofVec3f()
+	camPosition = center + camDirectionRotatedY * extrusionAmount
+	
+	camera:setPosition(camPosition)
+	camera:lookAt(center,pCam)
+end

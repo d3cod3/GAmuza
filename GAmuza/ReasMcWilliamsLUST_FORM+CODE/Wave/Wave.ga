@@ -1,0 +1,62 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ ReasMcWilliamsLUST_FORM+CODE/Wave.ga
+ 
+ Parameterize: Wave 
+ from Form+Code in Design, Art, and Architecture 
+ by Casey Reas, Chandler McWilliams, and LUST
+ Princeton Architectural Press, 2010
+ 
+ http://formandcode.com
+ 
+ This code was written in GAmuza 0.4.1+
+ Get GAmuza at http://www.gamuza.cc
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+brickW = 40
+brickH = 15
+cols = 20
+rows = 24
+cOffset = 60
+rOffset = 30
+phaseInc = 0.15
+r = 0.0
+
+function setup()
+    r = of.random(-math.pi/4, math.pi/4)
+end
+
+function update()
+    
+end
+
+function draw()
+    ga.background(0.0,0.05)
+    of.noFill()
+    of.setColor(245,151,176)
+    of.translate(30,30,0)
+    for i=0, cols do
+        of.pushMatrix()
+        of.translate(i*cOffset,0,0)
+        
+        dir = 1
+        for j=0, rows do
+            of.pushMatrix()
+            of.translate(0,rOffset*j,0)
+            of.rotateZ(of.radToDeg(r))
+            of.rect(-brickW/2,-brickH/2,brickW,brickH)
+            of.popMatrix()
+            r = r + ((dir+0.0001)*phaseInc)
+            if r >= HALF_PI/2.0 or r <= -(HALF_PI/2.0) then
+                dir = dir * -1
+            end
+        end
+        of.popMatrix()
+    end
+end

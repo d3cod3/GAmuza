@@ -1,0 +1,37 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ GUI/simpleGui.ga
+ 
+ A simple example about the internal live coding GUI.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+	gaGuiAddPage("PAGE TEST",gaImportFile("simpleGui.xml"))
+	gaGuiAddSliderFloat("float slider",0.0,10.0,0.0)
+	gaGuiAddSliderInt("int slider",0,10)
+	
+end
+
+function update()
+	
+end
+
+function draw()
+	gaBackground(0.5,0.5,0.0,1.0)
+	
+	ofSetColor(255,10)
+	gaGuiDraw()
+	
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		gaGuiToggle()
+	end
+end

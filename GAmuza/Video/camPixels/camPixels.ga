@@ -1,0 +1,50 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Video/camPixels.ga
+ 
+ This shows how to access the pixels from live image from webcam (any),
+ and a simple manipulation of them.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+cam = of.texture()
+pixels = of.pixels()
+pixelateFactor = 8 // must be integer and MIN 1, MAX CAPTURE_W
+
+function setup()
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+	// get the cam texture
+    	cam = ga.cameraTexture(0)
+    	// get the cam pixels
+    	cam:readToPixels(pixels)
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    
+    	// draw pixelate image from pixels
+    	of.pushMatrix()
+    	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
+    	for i=0,CAPTURE_W-1,pixelateFactor do
+    		for j=0, CAPTURE_H-1,pixelateFactor do
+    			c = of.color()
+    			c = pixels:getColor(i,j)
+    			of.setColor(c.r,c.g,c.b)
+    			of.ellipse(i,j,pixelateFactor,pixelateFactor)
+    		end
+    	end
+    	of.popMatrix()
+    	
+    	// draw the camera texture as a reference
+    	of.setColor(255)
+    	cam:draw(0,0)
+    	
+end

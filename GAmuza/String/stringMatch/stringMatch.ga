@@ -1,0 +1,44 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ String/stringMatch.ga
+ 
+ One of a series of example about string manipulation and analysis.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+notas = {"DO","RE","MI","FA","SOL","LA","SI"}
+
+frase = "mensaje test FA MI FA FA MI RE SOL DO"
+
+function setup()
+    
+end
+
+function update()
+    
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    
+    	of.setColor(255)
+    
+    	c = 0
+    	for t in string.gmatch(frase, "%a+") do
+    		for i=0, table.getn(notas)-1 do
+    			if tostring(t) == notas[i] then
+    				of.drawBitmapString(tostring(t),200,100 + 20*c)
+    				c = c + 1
+    				i = table.getn(notas)-1
+    			end
+    		end
+    	end
+    
+end
+
+

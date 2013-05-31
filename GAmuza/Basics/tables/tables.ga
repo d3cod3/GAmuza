@@ -1,0 +1,43 @@
+
+/*
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/tables.ga
+ 
+ This example shows how to create and use a table.
+
+ created by n3m3da & mj
+
+*/
+
+myTable = {}
+numObjects = 200   	
+
+function setup()
+	ofSetCircleResolution(60)
+	
+	for i = 0, numObjects do
+		myTable[i] = {}
+     	myTable[i].x = ofRandomuf()*OUTPUT_W
+     	myTable[i].y = ofRandomuf()*OUTPUT_H 
+		myTable[i].diam = ofRandom(0,OUTPUT_W/2) 
+		myTable[i].a = ofRandom(5,120)
+	end
+end
+
+function update()
+
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	ofEnableAlphaBlending()
+	ofNoFill()
+	for i = 0, numObjects do
+		ofSetColor(255,0,0,myTable[i].a)
+		ofCircle(myTable[i].x, myTable[i].y, myTable[i].diam)
+	end
+	ofDisableAlphaBlending()
+end

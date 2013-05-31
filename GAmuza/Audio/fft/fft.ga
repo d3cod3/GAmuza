@@ -1,0 +1,47 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/fft.ga
+ 
+ This example show you how to capture the raw FFT data, divided into
+ BUFFER_SIZE bins; be sure to have the AUDIO MODULE ACTIVATED in order
+ to work with this code.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+rotationX = 0.0
+rotationY = 0.0
+thetaX = 0.0
+thetaY = 0.0
+
+function setup()
+    
+end
+
+function update()
+	thetaX = gaGetFFT(0,20)*10
+	thetaY = gaGetFFT(0,200)*10
+
+    rotationX += thetaX
+    rotationY += thetaY
+end
+
+function draw()
+    gaBackground(0.0,0.01)
+    
+    ofPushMatrix()
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+    ofRotateX(rotationX)
+    ofRotateY(rotationY)
+    ofSetColor(255,40)
+    ofNoFill()
+    for i=0,BUFFER_SIZE-1 do
+        ofBox(gaGetFFT(0,i)*200)
+    end
+    ofPopMatrix()
+    
+end

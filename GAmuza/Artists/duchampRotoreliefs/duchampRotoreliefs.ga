@@ -1,0 +1,55 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Artists/duchampRotoreliefs.ga
+ 
+ This example is from one of the rotating disk of Marcel Duchamp, 1925.
+ 
+ created by n3m3da && mj
+ 
+*/
+
+radio = 15
+spiralFactor = 15
+numCircles = 23
+radioMax = (radio*(numCircles+1)) + (spiralFactor+1)
+inc = 15
+counter = 0
+
+function setup()
+    ofEnableSmoothing()
+    ofSetCircleResolution(80)
+    
+end
+
+function update()
+	
+end
+
+function draw()  
+    	gaBackground(0.0, 1.0)
+    	ofSetColor(255)
+    	ofNoFill() 
+    	ofSetLineWidth(3) 
+	ofCircle(OUTPUT_W/2,OUTPUT_H/2, radioMax) -- circulo soporte 
+    	radio = 15
+  
+    	ofPushMatrix()
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H/2, 0.0)
+    	ofRotateZ(counter)
+    	
+      
+     for i = 0, numCircles do
+     	angulo = i*TWO_PI/((numCircles/2) +1)
+        	x = (math.cos(angulo) * spiralFactor)
+		y = (math.sin(angulo) * spiralFactor)
+			ofCircle(x, y, radio)
+			radio = radio + spiralFactor
+	end
+	
+	ofPopMatrix()
+	counter = counter + 1
+	
+end

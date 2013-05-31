@@ -1,0 +1,55 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/fakeSignal.ga
+ 
+ This example simulates an audio signal using input audio analysis
+ data from Audio Input GAmuza module.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+freq = 0.0
+noiseTime = {}
+step = {}
+mapNoise = {}
+
+function setup()
+	for i=0,OUTPUT_W do
+		noiseTime[i] = ofRandom(0,10000)
+		step[i] = ofRandom(0.001,0.003)
+		mapNoise[i] = 0
+	end
+end
+
+function update()
+	for i=0,OUTPUT_W do
+		mapNoise[i] = ofMap(ofNoise(noiseTime[i]),0.15,0.85,0.0,1.0,true)
+		noiseTime[i] = noiseTime[i] + step[i]
+	end
+end
+
+function draw()
+    gaBackground(0.0,0.01)
+     
+    ofPushMatrix()
+    	ofTranslate(0, OUTPUT_H/2, 0)
+    	ofNoFill()
+
+    	ofBeginShape()
+    	freq = gaGetPitch(0)*20000
+    	phase = 0
+    	ofSetColor(29 - freq/30,179 - freq/30,211 - freq/30,freq/30)
+    	for i=0,OUTPUT_W do
+    		amplitude = gaGetVolume(0) * 5000 * mapNoise[i]
+        	y = amplitude * math.sin(ofDegToRad(phase))
+        	ofVertex(i, y)
+        	phase = phase + freq
+    	end
+    	ofEndShape(false)
+
+    ofPopMatrix()
+end

@@ -1,0 +1,38 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/simpleSpiral.ga
+ 
+ Simple spiral drawing
+ 
+ created by mj
+ 
+*/
+
+radio = 30
+angulo = 0.0
+
+function setup()
+    of.enableSmoothing()
+end
+
+function update()
+
+end
+
+function draw()
+	ga.background(0.0, 1.0)
+	
+	of.setColor(255)
+	radio = 30
+	for grado = 0, 360*4, 10 do
+		angulo = math.rad(grado) 
+		x = OUTPUT_W/2 + (math.cos(angulo) * radio)
+		y = OUTPUT_H/2 + (math.sin(angulo) * radio)
+                 
+		of.circle(x, y, 4)
+		radio = radio + 2
+	end
+end 

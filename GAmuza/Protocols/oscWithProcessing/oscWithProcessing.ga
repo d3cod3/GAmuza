@@ -1,0 +1,58 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples
+ ---------------------
+ Protocols/oscWithProcessing.ga
+ 
+ This example show how to build a duplex osc communication
+ between GAmuza and Processing (using the oscP5 library).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// sending labels
+sendingAlpha = "/alpha"
+sendingDiameter = "/diameter"
+
+// receiving labels
+receivingMouseX = "/mouseX"
+receivingMouseY = "/mouseY"
+
+// receiving variables
+processingMouseX = ""
+processingMouseY = ""
+
+function setup()
+	// init OSC sending labels  
+	gaSetOSCMessage(sendingAlpha,OSC_FLOAT)
+    	gaSetOSCMessage(sendingDiameter,OSC_FLOAT)
+    	
+    	// init OSC receiving labels
+    	gaGetOSCMessage(receivingMouseX)
+    	gaGetOSCMessage(receivingMouseY)
+end
+
+function update()
+
+    	// receive OSC messages and store it in a variable
+    	processingMouseX = gaGetOSCValue(receivingMouseX)
+    	processingMouseY = gaGetOSCValue(receivingMouseY)
+    	
+    	// send OSC messages
+    	gaSetOSCValue(sendingAlpha,tostring(ofRandom(ofToFloat(processingMouseX))))
+    	gaSetOSCValue(sendingDiameter,tostring(ofRandom(ofToFloat(processingMouseY))))
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	ofSetColor(34,217,179)
+    	text = string.format("Sending OSC data to IP: %s at port: %s",gaSendingOscTo(),OSC_SENDING_PORT)
+    	ofDrawBitmapString(text,20,200)
+    	
+    	text = string.format("Receiving mouse position from Processing: %s : %s at Port: %s", ofToFloat(processingMouseX), ofToFloat(processingMouseY), OSC_RECEIVING_PORT)
+    	ofDrawBitmapString(text,20,240)
+    
+end

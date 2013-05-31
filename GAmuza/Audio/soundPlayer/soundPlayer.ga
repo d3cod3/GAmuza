@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/soundPlayer.ga
+ 
+ This example show how load audiofiles from disk with of.soundPlayer()
+ class
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/sound/soundPlayerExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mySound = of.soundPlayer()
+pos = 0.0
+widthStep = OUTPUT_W/3
+
+function setup()
+	// load here your sound file
+    	mySound:loadSound(ga.importFile("hypno00.wav"),true)
+    	mySound:setVolume(1.0)
+    	mySound:setLoop(true)
+    	mySound:play()
+end
+
+function update()
+    	pos = mySound:getPosition()
+    	mySound:setPan(-1 + ga.mouseX()/OUTPUT_W*2)
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+	
+	// draw text
+    	of.setColor(32,221,178)
+    	text = "Drag over Y in this area to change pitch"
+    	of.drawBitmapString(text, widthStep + 10, 30)
+    	// draw data
+    	text = string.format("Position: %f",mySound:getPosition()) // % position
+    	of.drawBitmapString(text,widthStep + 10,OUTPUT_H-100)
+    	text = string.format("Speed: %f",mySound:getSpeed()) // 1.0 normal
+    	of.drawBitmapString(text,widthStep + 10,OUTPUT_H-80)
+    	text = string.format("Pan: %f",mySound:getPan()) // -1(Left) to 1(Right)
+    	of.drawBitmapString(text,widthStep + 10,OUTPUT_H-60)
+    	
+    	// draw the ticker
+    	of.setLineWidth(3)
+    	of.line(pos*OUTPUT_W,0,pos*OUTPUT_W,OUTPUT_H)
+    	
+    	// draw the drag area
+    	of.enableAlphaBlending()
+	of.setColor(255,20)
+	of.fill()
+	of.rect(widthStep,0, widthStep,OUTPUT_H)
+	of.disableAlphaBlending()
+end
+
+function mouseDragged()
+    	if ga.mouseX() >= widthStep and ga.mouseX() < widthStep*2 then
+        	mySound:setSpeed(0.5 + (OUTPUT_H-ga.mouseY()) / OUTPUT_H)
+    	end
+end

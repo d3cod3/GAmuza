@@ -1,0 +1,56 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/polygons.ga 
+ 
+ Concentric colored polygons
+ 
+ created by mj
+ 
+*/ 
+
+function setup()
+	ofEnableSmoothing()
+end
+
+function update()
+    
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    ofNoFill()
+    ofSetLineWidth(10)
+    
+    ofSetColor(255,0,0)
+    ofSetCircleResolution(3)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 100)
+
+    ofSetColor(255,255,0)
+    ofSetCircleResolution(4)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 140)
+	ofSetColor(85,255,0)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 150)
+ 
+    ofSetCircleResolution(5)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 180)
+    ofSetColor(0,255,255)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 190)
+    
+    ofSetCircleResolution(6)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 220)
+    ofSetColor(0,170,255)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 230)
+   
+    ofSetCircleResolution(7)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 260)
+    ofSetColor(0,85,255)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 270)
+ 
+    ofSetCircleResolution(8)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 300)
+    ofSetColor(170,0,255)
+    ofCircle (OUTPUT_W/2, OUTPUT_H/2, 310)
+end

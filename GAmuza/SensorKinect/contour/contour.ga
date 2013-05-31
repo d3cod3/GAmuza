@@ -1,0 +1,70 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ SensorKinect/contour.ga
+ 
+ This example show how to extract contour data from contour finder
+ algorithm + contour geometry, from GAmuza sensor Kinect panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+runningBlobs = 0
+cam = of.texture()
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+	cam = ga.oniTexture()
+	runningBlobs = ga.oniBlobs()
+end
+
+function draw()
+    
+	ga.background(0.0,1.0)
+    
+	// draw the live image from device
+	of.setColor(255)
+    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    
+	of.pushMatrix()
+	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1.0)
+    
+	for j=0, runningBlobs-1 do
+	
+		// draw contours for each blob detected
+		of.setLineWidth(1)
+		of.setColor(255)
+		of.fill()
+		
+		of.beginShape()
+		for i=0, ga.oniBlobContourSize(j)-1 do
+			x = ga.oniBlobCPointX(j,i)
+			y = ga.oniBlobCPointY(j,i)
+			of.vertex(x,y)
+		end
+		of.endShape(false)
+    		
+    		// draw geometry for each blob detected
+		of.setLineWidth(3)
+		of.setColor(9,245,160)
+		of.noFill()
+		for z=0, ga.oniBlobGeometrySize(j)-1 do
+			x1 = ga.oniBlobGLineX1(j,z)
+			y1 = ga.oniBlobGLineY1(j,z)
+			x2 = ga.oniBlobGLineX2(j,z)
+			y2 = ga.oniBlobGLineY2(j,z)
+			of.line(x1,y1,x2,y2)
+			of.circle(x1,y1,3)
+			of.circle(x2,y2,3)
+		end
+	end
+
+	of.popMatrix()
+
+end

@@ -1,0 +1,38 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Font/textParagraph.ga
+ 
+ Draw text inside paragraphs using the ofx.textBlock() class.
+ 
+ Original addon from lukemalcolm <https://github.com/lukemalcolm/ofxTextSuite>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+textBlock = ofx.textBlock()
+
+text = "Nor is my invisibility exactly a matter of a bio-chemical accident to my epidermis. That invisibility to which I refer occurs because of a peculiar disposition of the eyes of those with whom I come in contact. A matter of the construction of their inner eyes, those eyes with which they look through their physical eyes upon reality. I am not complaining, nor am I protesting either. It is sometimes advantageous to be unseen, although it is most often rather wearing on the nerves. Then too, you're constantly being bumped against by those of poor vision. Or again, you often doubt if you really exist. You wonder whether you aren't simply a phantom in other people's minds. Say, a figure in a nightmare which the sleeper tries with all his strength to destroy. It's when you feel like this that, out of resentment, you begin to bump people back. And, let me confess, you feel that way most of the time. You ache with the need to convince yourself that you do exist in the real world, that you're a part of all the sound and anguish, and you strike out with your fists, you curse and you swear to make them recognize you. And, alas, it's seldom successful."
+
+author = "Ralph Ellison"
+
+function setup()
+    textBlock:init(ga.importFile("Anonymous_Pro_B.ttf"),80)
+    textBlock:setText(text)
+    textBlock:wrapTextArea(OUTPUT_W/2,OUTPUT_H)
+end
+
+function update()
+    
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    of.setColor(255)
+    textBlock:drawJustified(0,0,textBlock:getWidth())
+    
+end

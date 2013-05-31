@@ -1,0 +1,72 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/pushPop.ga
+ 
+ Understanding of.pushMatrix() and of.popMatrix().
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ambient = of.floatColor(1.0,1.0,1.0,1.0)
+light = of.light()
+ 
+pos = {}
+numTriangles = 60
+ 
+function setup()
+	of.setCircleResolution(3)
+	for i=0, numTriangles do
+		pos[i] = {}
+		pos[i].x = of.random(0,OUTPUT_W)    
+		pos[i].y = of.random(0,OUTPUT_H)
+		pos[i].z = of.random(-200,200)
+		pos[i].rotX = of.random(0,360)
+		pos[i].velX = of.randomuf()
+		pos[i].t = of.random(20,120)
+	end
+end
+ 
+function update()
+	for i=0, numTriangles do
+		pos[i].rotX = pos[i].rotX + pos[i].velX
+	end
+end
+ 
+function draw()
+	ga.background(0.0,0.1)
+ 
+ 	light:enable()
+	light:setSpotlight(of.map(ga.mouseX(),0,OUTPUT_H,0,of.radToDeg(HALF_PI),true),0.1)
+	light:setAmbientColor(ambient)
+	
+	for i=0, numTriangles do
+		tri(pos[i].x,pos[i].y,pos[i].z,pos[i].rotX,pos[i].t)
+	end
+	
+	light:disable()
+ 
+end
+
+///////////////////////////////////////////////
+// Custom function 
+function tri(x,y,z,r,t)
+    of.pushMatrix()
+ 
+    of.translate(x,y,z)
+    of.rotateX(r)
+    of.rotateY(ga.mouseX()/OUTPUT_W * 360)
+    of.rotateZ(of.getElapsedTimef())
+ 
+    of.setColor(255)
+    of.noFill()
+    of.setLineWidth(3)
+    of.circle(0,0,t)
+ 
+    of.drawAxis(60)
+ 
+    of.popMatrix()
+end

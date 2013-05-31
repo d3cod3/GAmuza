@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Font/curveText.ga
+ 
+ This example show how to draw a text over a curve, using the ofx.arcText()
+ class.
+ 
+ Original addon from companje <https://github.com/companje/ofxArcText>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = ofx.arcText()
+text = "GAmuza - Hybrid Live Coding"
+
+function setup()
+    of.setCircleResolution(50)
+    font:loadFont(ga.importFile("D3Litebitmapism.ttf"),58)
+    font:setLetterSpacing(1.3)
+end
+
+function update()
+    
+end
+
+function draw()
+    ga.background(0.9,1.0)
+
+    of.setColor(0)
+    of.pushMatrix()
+    of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
+    of.rotateZ(of.getElapsedTimef())
+    font:drawString(text,0,0,OUTPUT_H/2)
+    of.popMatrix()
+    
+    of.drawBitmapString(string.format("%f",of.getElapsedTimef()),500,200)
+end

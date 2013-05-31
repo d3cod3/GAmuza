@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/delaunay.ga
+ 
+ This example shows how to generate delaunay structures using the
+ ofx.delaunay() class.
+ 
+ Original addon from obviousjim <https://github.com/obviousjim/ofxDelaunay>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+r = {}
+numTri = 20
+delaunay = ofx.delaunay()
+
+function setup()
+	reset()
+end
+
+function update()
+    delaunay:triangulate()
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    of.setLineWidth(3)
+    of.pushMatrix()
+    of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
+    of.rotateX(ga.mouseY())
+    of.rotateY(ga.mouseX())
+    of.enableAlphaBlending()
+    of.setColor(255,40)
+    for i=0,numTri do
+        if r[i] < 0.7 then
+            of.fill()
+        else
+            of.noFill()
+        end
+        delaunay:drawTriangle(i)
+    end
+    of.disableAlphaBlending()
+    of.noFill()
+    of.setColor(255)
+    delaunay:draw()
+    of.popMatrix()
+end
+
+function mouseReleased()
+	reset()
+end
+
+function reset()
+	delaunay:reset()
+	for i=0,numTri do
+		x = of.random(-OUTPUT_W+200,OUTPUT_W+200)
+		y = of.random(-OUTPUT_H+100,OUTPUT_H+100)
+        	delaunay:addPoint(x,y,0)
+        	r[i] = of.randomuf()
+    	end
+end

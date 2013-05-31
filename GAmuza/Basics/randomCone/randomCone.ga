@@ -1,0 +1,30 @@
+
+/*
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/randomCone.ga
+ 
+ Another example with random points drawing.
+
+ created by mj
+
+*/
+
+pasos = 800
+range = 0
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	ofSetColor(255)
+    range = 0
+    for i=1, pasos do
+		for j = 1, pasos do
+			if i == j then
+				ofCircle(i + ofRandom(-range, range), j+ofRandom(-range, range), 1) 
+				range = range + ofRandom(-1,1.5)
+			end	
+		end  
+	end
+end

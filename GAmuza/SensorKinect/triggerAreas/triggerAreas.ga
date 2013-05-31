@@ -1,0 +1,35 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ SensorKinect/triggerAreas.ga
+ 
+ This example show how to use the trigger area utility from GAmuza
+ sensor Kinect panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+function setup()
+    // generate a brown noise
+    ga.wave(GA_BROWN,10.0)
+end
+
+function update()
+
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    // mute and unmute the brown noise with the trigger area 0 of sensor kinect
+    // ga.oniTrigger(area)
+    if ga.oniTrigger(0) then
+        ga.waveVolume(0,0.8)
+    else
+        ga.waveVolume(0,0.0)
+    end
+end

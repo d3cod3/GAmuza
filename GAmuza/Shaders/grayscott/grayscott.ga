@@ -1,0 +1,43 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Shaders/grayscott.ga
+ 
+ Shaders examples from ofx.fx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows the grayscott algorithm effect.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grayscott = ofx.grayScott()
+cam = of.texture()
+
+function setup()
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    grayscott:allocate(CAPTURE_W,CAPTURE_H)
+    grayscott:setIterations(5)
+    grayscott:setDiffV(0.01)
+end
+
+function update()
+    cam = ga.cameraTexture(0)
+end
+
+function draw()
+    ga.background(0.0,1.0)
+
+	grayscott:beginFx()
+		of.setColor(10)
+		cam:draw(0,0)
+	grayscott:endFx(false)
+	
+	of.pushMatrix()
+	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
+		grayscott:draw(0,0)
+	of.popMatrix()
+	
+end

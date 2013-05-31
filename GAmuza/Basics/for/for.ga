@@ -1,0 +1,31 @@
+
+/*
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/for.ga
+ 
+ For loop structure example.
+
+ created by mj
+
+*/
+
+function setup()
+    
+end
+
+function update()
+    
+end
+
+function draw()
+	gaBackground(0.0, 1.0)
+	
+     ofSetColor(255)
+     ofSetLineWidth(3)
+    
+	for i = 0, OUTPUT_W, 50 do
+		ofLine(i, 0, OUTPUT_W-i, OUTPUT_W-i)
+	end
+end 

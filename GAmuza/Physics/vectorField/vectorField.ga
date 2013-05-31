@@ -1,0 +1,95 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Physics/vectorField.ga
+ 
+ This example show how to simply create a vector field from the ofx.vectorField() class.
+ 
+ Original addon from mantissa <https://github.com/mantissa/ofxVectorField>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dofile(ga.importFile("simpleParticle.ga"))
+
+
+img = of.image()
+field = ofx.vectorField()
+particles = {}
+numParticles = 300
+pressed = false
+
+function setup()
+	of.setCircleResolution(50)
+	img:loadImage(ga.importFile("noisemap.jpg"))
+	img:resize(OUTPUT_W,OUTPUT_H)
+
+	field:setup(OUTPUT_W,OUTPUT_H,20)
+	field:setFromImage(img)
+    
+	field:normalize(true)
+	field:scale(4)
+	field:bias(0,0.5)
+	field:blur()
+	
+	resetParticles()
+end
+
+function update()
+	for i=0,numParticles do
+		particles[i]:move(field:getVectorInterpolated(particles[i]:getX(),particles[i]:getY(),OUTPUT_W,OUTPUT_H))
+		particles[i]:stayOnscreen()
+	end
+end
+
+function draw()
+	ga.background(0.0,0.1)
+	
+	// if mouse pressed draw the image that generates the vector field
+	of.setColor(255)
+	if pressed then
+		img:draw(0,0)
+	end
+
+	// draw the vector field
+	of.enableAlphaBlending()
+	of.setColor(255,10)
+	field:draw()
+	of.disableAlphaBlending()
+
+	// draw the particles
+	of.setColor(14,205,150)
+	for i=0,numParticles do
+		particles[i]:draw()
+	end
+	
+	// draw text info
+	of.setColor(255,191,81)
+	of.drawBitmapString(" Left click to see the image that generates the vector filed\n Press spacebar to reset particles",20,100)
+end
+
+function resetParticles()
+	for i=0,numParticles do
+		particles[i] = simpleParticle()
+		pos = of.vec2f()
+		pos:set(OUTPUT_W/2 + of.random(-400,400), OUTPUT_H/2 + of.random(-200,200))
+		particles[i]:setup(pos)
+    end
+end
+
+function keyReleased()
+	if ga.key() == string.byte(' ') then
+		resetParticles()
+	end
+end
+
+function mousePressed()
+    pressed = true
+end
+
+function mouseReleased()
+    pressed = false
+end

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+workingdir=`dirname ${BASH_SOURCE[0]}`
+header="$workingdir/../../libs/openFrameworks/app/ofAppRunner.h"
+cpp="$workingdir/../../libs/openFrameworks/app/ofAppRunner.cpp"
+
+if [ `grep -c ofSetAppWindow $header` == 0 ]
+then
+    echo "" >>$header
+    echo "void ofSetAppWindow(ofPtr<ofAppBaseWindow> windowPtr);" >>$header
+    echo "patched header"
+fi
+
+if [ `grep -c ofSetAppWindow $cpp` == 0 ]
+then
+    echo "" >>$cpp
+    echo "void ofSetAppWindow(ofPtr<ofAppBaseWindow> windowPtr) { window = windowPtr; }" >>$cpp
+    echo "patched cpp"
+fi

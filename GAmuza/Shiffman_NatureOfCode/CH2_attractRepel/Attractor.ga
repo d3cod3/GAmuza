@@ -1,0 +1,66 @@
+-------------------------------------
+-- Attractor Class
+
+class 'Attractor'
+
+function Attractor:__init()
+    self.mass = 60
+    self.loc = of.vec2f(OUTPUT_W/2,OUTPUT_H/2)
+    self.dragging = false
+    self.rollover = false
+    self.drag = of.vec2f(0,0)
+end
+
+function Attractor:attract(mover)
+    force = of.vec2f()
+    force = self.loc - mover.loc
+    d = force:length()
+    d = of.clamp(d,5.0,25.0)
+    force:normalize()
+    strength = (g*self.mass*mover.mass) / math.pow(d,2)
+    force = force * strength
+    return force
+end
+
+function Attractor:display()
+    of.setColor(0)
+    of.noFill()
+    of.circle(self.loc.x,self.loc.y,self.mass)
+    of.fill()
+    if self.dragging then
+        of.setColor(50)
+    elseif self.rollover then
+        of.setColor(100)
+    else
+        of.setColor(0)
+    end
+    of.circle(self.loc.x,self.loc.y,self.mass)
+end
+
+function Attractor:isClicked(mx,my)
+    d = of.dist(mx,my,self.loc.x,self.loc.y)
+    if d < self.mass then
+        self.dragging = true
+        self.drag:set(self.loc.x - mx,self.loc.y - my)
+    end
+end
+
+function Attractor:isRollover(mx,my)
+    d = of.dist(mx,my,self.loc.x,self.loc.y)
+    if d < self.mass then
+        self.rollover = true
+    else
+        self.rollover = false
+    end
+end
+
+function Attractor:stopDragging()
+    self.dragging = false
+end
+
+function Attractor:drag()
+    if self.dragging then
+        self.loc:set(ga.mouseX() + self.drag.x,ga.mouseY() + self.drag.y)
+    end
+end
+-------------------------------------

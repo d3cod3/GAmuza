@@ -1,0 +1,49 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ SensorKinect/opticalFlow.ga
+ 
+ This example show how to use the data from optical flow algorithm from 
+ GAmuza sensor Kinect panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+cam = of.texture()
+
+function setup()
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+	cam = ga.oniTexture()
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    
+	// draw the live image from device
+	of.setColor(255)
+    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+	
+	// draw an optical flow representation
+	of.setColor(31,165,210)
+	of.setLineWidth(3)
+	
+	of.pushMatrix()
+	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
+	
+	for i=0, OPTICAL_FLOW_GRID_X*OPTICAL_FLOW_GRID_Y do
+		x = ga.oniOpticalFlowX(i)
+		y = ga.oniOpticalFlowY(i)
+		vX = ga.oniOpticalFlowVX(i)
+		vY = ga.oniOpticalFlowVY(i)
+		of.line(x,y,x + vX,y + vY)
+	end
+	
+	of.popMatrix()
+
+end

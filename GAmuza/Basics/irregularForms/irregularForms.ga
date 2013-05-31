@@ -1,0 +1,52 @@
+
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/irregularForms.ga
+ 
+ Basic use of shapes with vertexes.
+ 
+ Reference: "estructuras B2" 1976, by Elena Asins.
+ 
+ created by mj 
+ 
+*/
+
+function setup()
+    
+end
+
+function update()
+    
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+    	
+    ofNoFill()
+    ofSetLineWidth(3)
+    ofSetColor(255)
+    ofBeginShape()
+		ofVertex(146, 75)
+		ofVertex(210, 117)
+		ofVertex(210, 589)
+		ofVertex(226, 589)
+		ofVertex(190, 217)
+		ofVertex(254, 132)	
+		ofVertex(310, 117)	
+	ofEndShape(false)
+    	
+	ofBeginShape()
+		ofCurveVertex(446, 75)
+		ofCurveVertex(446, 75)
+		ofCurveVertex(510, 117)
+		ofCurveVertex(510, 589)
+		ofCurveVertex(526, 589)
+		ofCurveVertex(490, 217)
+		ofCurveVertex(554, 132)	
+		ofCurveVertex(610, 117)
+		ofCurveVertex(610, 117)	
+	ofEndShape(false)
+end

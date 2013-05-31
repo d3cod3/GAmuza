@@ -1,0 +1,61 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Shaders/FBOWithShader.ga
+ 
+ Simple example for loading a shader inside an FBO texture.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+fboTex = of.fbo()
+shader = of.shader()
+start = true
+
+function setup()
+    of.setCircleResolution(6)
+    // allocate(width,height,color range,samples)
+    fboTex:allocate(OUTPUT_W,OUTPUT_H,GL_RGB,0)  
+    shader:load(ga.importFile("noise"))
+end
+
+function update()
+    
+end
+
+function draw()
+	ga.background(0.0,1.0)
+    
+	// draw inside de FBO texture
+	fboTex:beginFbo() // start FBO
+	shader:beginShader() // start shader
+	
+		// clean the FBO just once at beginning
+		if start then
+			start = false
+			of.clear(0,0,0,255)
+		end
+		
+		// simulate trails effect
+		of.enableAlphaBlending()
+		of.fill()
+		of.setColor(0,0,0,7)
+		of.rect(0,0,fboTex:getWidth(),fboTex:getHeight())
+		of.disableAlphaBlending()
+		
+		// draw a red circle
+		of.setColor(19,170,211)
+		of.circle(of.randomuf()*fboTex:getWidth(), of.randomuf()*fboTex:getHeight(), 200)
+		
+	shader:endShader() // close shader
+	fboTex:endFbo() // close FBO
+
+	// draw the FBO with shader
+	of.setColor(255)
+	fboTex:draw(0,0,OUTPUT_W,OUTPUT_H)
+    
+end
+

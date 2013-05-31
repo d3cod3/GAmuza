@@ -1,0 +1,38 @@
+<positions>
+    <element name="Colors">
+        <x>0</x>
+        <y>510</y>
+        <width>1366</width>
+        <height>200</height>
+    </element>
+    <element name="Rotate X">
+        <x>0</x>
+        <y>50</y>
+        <width>1362</width>
+        <height>200</height>
+    </element>
+    <element name="Rotate Y">
+        <x>0</x>
+        <y>280</y>
+        <width>1362</width>
+        <height>200</height>
+    </element>
+    <element name="posX">
+        <x>0</x>
+        <y>80</y>
+        <width>1280</width>
+        <height>233</height>
+    </element>
+    <element name="posY">
+        <x>0</x>
+        <y>343</y>
+        <width>1280</width>
+        <height>170</height>
+    </element>
+    <element name="triggers">
+        <x>0</x>
+        <y>80</y>
+        <width>1280</width>
+        <height>185</height>
+    </element>
+</positions>

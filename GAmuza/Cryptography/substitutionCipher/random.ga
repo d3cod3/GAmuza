@@ -1,0 +1,60 @@
+
+uniqueRand = {}
+
+function bubbleSort(inputArray, start, rest)
+   	for i=rest-1, start, -1 do
+   		local temp = i
+      	for j = start, temp do
+         		if inputArray[j+1] < inputArray[j] then
+            		local tempValue = inputArray[j]
+            		inputArray[j] = inputArray[j+1]
+            		inputArray[j+1] = tempValue
+			end
+		end
+	end
+end
+
+function gaUniqueRandom(dim)
+	local keys = {}
+	local world = {}
+	local magnitude = math.ceil(dim-1)
+	local rr = -1
+	while rr > magnitude or rr < 0 do
+		rr = math.ceil(math.abs(ofx.gaussian())*magnitude)
+	end
+	
+	for i=0, dim-1 do
+		world[i] = i
+		keys[i] = 0
+	end
+	
+	for i=0, dim-1 do
+		local pos = math.ceil(of.random(0,magnitude))
+		keys[i] = world[pos]
+		world[pos] = world[magnitude]
+		magnitude = magnitude - 1
+	end
+	
+	local buffer = keys[0]
+	keys[0] = keys[rr]
+	keys[rr] = buffer
+
+	local lastPos = math.ceil(of.random(1,dim-1))
+	local buffer2 = keys[lastPos]
+	keys[lastPos] = keys[dim-1]
+	keys[dim-1] = buffer2
+
+	return keys
+	
+end
+
+function generateKey(s)
+	of.seedRandom(s)
+	uniqueRand = gaUniqueRandom(numLetters)
+
+	for i=0, numLetters-1 do
+		key[i] = letters[uniqueRand[i]+1]
+	end
+
+end
+

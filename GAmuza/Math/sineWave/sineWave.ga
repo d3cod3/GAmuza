@@ -1,0 +1,10 @@
+/*
+ GAmuza 0.4.1 examples  --------------------- Math/sineWave.ga 
+
+ Sinusoidal wave drawing
+ 
+ created by mj  */
+_angle = 0.0pos = OUTPUT_H/2	// posicion Yamplitud = 40.0	// altura de la ondainc = PI/30.0    	// incremento del ‡ngulofunction draw()	ga.background(0.0,1.0)
+	
+	of.setColor(255)	for x = 0, OUTPUT_W, 5 do		y = pos + (math.sin(_angle) *amplitud)
+				of.rect(x, y, 2, 4)		_angle = _angle + inc	end	_angle = 0.0end

@@ -1,0 +1,24 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/emptyExample.ga
+ 
+ The empty GAmuza script (you can start from here).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+
+end
+
+function update()
+    
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+end

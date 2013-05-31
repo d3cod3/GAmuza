@@ -1,0 +1,45 @@
+
+/*
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/doubleFor.ga
+ 
+ Double for loop structure example.
+
+ created by mj
+
+*/
+
+inc = 20
+
+function setup()
+    ofSetCircleResolution(25)
+end
+
+function update()
+    
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	ofSetColor(255,255,255)
+	
+	for i=0, OUTPUT_W, inc do
+		for j=0 , OUTPUT_H, inc do
+		
+			if i % j == 0 or j % i == 0 then
+				ofSetColor(0)
+			else
+				ofSetColor(255)
+			end
+			
+			ofCircle(i, j, inc/2-1)
+			
+		end
+	end 
+end  
+
+
+

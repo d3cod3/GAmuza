@@ -1,0 +1,53 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ ComputerVision/blobs.ga
+ 
+ This example show how to extract blobs data from contour finder algorithm, 
+ from GAmuza videotracking panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+camID = 0
+runningBlobs = 0
+cam = of.texture()
+
+function setup()
+	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+end
+
+function update()
+	cam = ga.cameraTexture(0)
+	runningBlobs = ga.camBlobs(0)
+end
+
+function draw()
+	ga.background(0.0,0.8)
+	
+	// draw the live image from device
+	of.setColor(255)
+    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    
+	// draw blobs
+	of.setLineWidth(3)
+	of.noFill()
+	of.setColor(31,165,210)
+		
+	of.pushMatrix()
+	of.scale(OUTPUT_W,OUTPUT_H,1.0)
+    
+	for j=0, runningBlobs-1 do
+		x = ga.camBlobX(camID,j)
+		y = ga.camBlobY(camID,j)
+		w = ga.camBlobW(camID,j)
+		h = ga.camBlobH(camID,j)
+		of.rect(x,y,w,h)
+	end
+
+	of.popMatrix()
+
+end

@@ -1,0 +1,52 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/box.ga
+ 
+ This example show how to draw the box primitives and a basic use of
+ lights in a 3D environment.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ambient = ofFloatColor(1.0,1.0,1.0,1.0)
+diffuse = ofFloatColor(0.8,0.6,0.0,1.0)
+light = ofLight()
+
+function setup()
+    
+end
+
+function update()
+    
+end
+
+function draw()
+    gaBackground(0.0,0.05)
+
+    ofPushMatrix()
+
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+    ofRotateX(gaMouseY()/OUTPUT_H * 360 + ofxGaussian()/3)
+    ofRotateY(gaMouseX()/OUTPUT_W * 360 + ofxGaussian()/3)
+    ofRotateZ(ofGetElapsedTimef())
+
+    light:enable()
+    light:setAmbientColor(ambient)
+    light:setDiffuseColor(diffuse)
+    
+    ofSetColor(255)
+    ofNoFill()
+    ofSetLineWidth(3)
+    ofBox(300)
+    
+    light:disable()
+
+    ofDrawAxis(300)
+
+    ofPopMatrix()
+    
+end

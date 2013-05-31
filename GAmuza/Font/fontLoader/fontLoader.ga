@@ -1,0 +1,38 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Font/fontLoader.ga
+ 
+ This is a basic example use of the of.trueTypeFont class, used to load .ttf 
+ or .otf fonts form the disk and using it to draw text.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = of.trueTypeFont()
+text = "If the television screen is going to watch you, rewire it."
+author = "Philip K. Dick"
+
+function setup()
+    // font name, size, anti-aliased, full character set
+    font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),18, true, false)
+end
+
+function update()
+
+end
+
+function draw()
+    ga.background(0.0,0.3)
+    
+    of.pushMatrix()
+    of.translate(160,OUTPUT_H/2,0)
+    of.setColor(255)
+    font:drawString(text, 0, 0)
+    of.setColor(35,125,0)
+    font:drawString(author, 540, 50)
+    of.popMatrix()
+end

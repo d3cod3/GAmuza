@@ -1,0 +1,44 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Arduino/ledONOFF.ga
+ 
+ This example show how to change an arduino digital PIN state from GAmuza;
+ in this case we are using the standard PIN 13, where arduino boards have
+ a LED connected by default.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ledPin = 13
+pinON = false
+
+function setup()
+    ofSetCircleResolution(50)
+end
+
+function update()
+    
+    if pinON then
+        gaDigitalWrite(ledPin,1)
+    else
+        gaDigitalWrite(ledPin,0)
+    end
+    
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+
+    ofSetColor(175,155,0)
+    if pinON then
+        ofCircle(OUTPUT_W/2,OUTPUT_H/2,200)
+    end
+end
+
+function mouseReleased()
+    pinON = not pinON
+end

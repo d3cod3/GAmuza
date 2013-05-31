@@ -1,0 +1,38 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/rectangle.ga
+ 
+ This example show how to use the of.rectangle() class.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+rect1 = of.rectangle()
+rect2 = of.rectangle()
+
+function setup()
+	rect1:set(400,400,200,200)
+	rect2:setFromCenter(400,400,200,200)
+end
+
+function update()
+	
+end
+
+function draw()
+	ga.background(0.0,1.0)
+
+	// draw rect1
+	of.setColor(255,255,0)
+    	of.fill()
+    	of.rect(rect1.x,rect1.y,rect1.width,rect1.height)
+	// draw rect2
+    	of.setColor(255,0,0)
+    	of.noFill()
+    	of.setLineWidth(3)
+    	of.rect(rect2.x,rect2.y,rect2.width,rect2.height)
+end

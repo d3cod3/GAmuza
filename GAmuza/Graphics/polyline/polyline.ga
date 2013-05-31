@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Graphics/polyline.ga
+ 
+ Basic use of of.polyline class.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+lazo = of.polyline()
+smoothed = of.polyline()
+
+box = of.rectangle()
+
+function setup()
+	for i=0,10 do
+		lazo:addVertex(math.sin(of.degToRad(i))*OUTPUT_W*6,math.cos(i)*OUTPUT_H/4,0)
+	end
+
+	smoothed = lazo:getSmoothed(3,0.8)
+	box = lazo:getBoundingBox()
+end
+
+function update()
+    
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    of.pushMatrix()
+    of.translate(0,OUTPUT_H/2,0)
+    
+    // polyline
+    of.setColor(255)
+    of.setLineWidth(1)
+    lazo:draw()
+    
+    // smoothed polyline
+    of.setColor(18,159,211)
+    of.setLineWidth(2)
+    smoothed:draw()
+
+	// bounding box
+	of.setColor(255)
+	of.noFill()
+	of.rect(box.x,box.y,box.width,box.height)
+
+    of.popMatrix()
+end

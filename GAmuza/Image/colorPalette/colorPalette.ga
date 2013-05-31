@@ -1,0 +1,69 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Image/colorPalette.ga
+ 
+ This example shows how to generate a color palette from an image file.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+paleta = of.image()
+pixels = of.pixels()
+colores = {}
+counter = 0
+
+function setup()
+	of.setCircleResolution(50)
+
+    paleta:loadImage(ga.importFile("duchamp.gif"))
+    pixels = paleta:getPixelsRef()
+
+    creaPaleta()
+end
+
+function draw()
+    	ga.background(0.0,0.03)
+
+    	of.setColor(255,255,255)
+    	of.noFill()
+    	paleta:draw(0,0)
+    	
+    	of.drawBitmapString(string.format("Colors extracted: %i",counter),200,200)
+
+    	for p=0,counter-1 do
+        	of.setColor(colores[p].r,colores[p].g,colores[p].b)
+        	radio = OUTPUT_W/counter/2
+        	x = radio + (OUTPUT_W/counter)*p
+        	y = OUTPUT_H/2
+        	of.circle(x,y,radio)
+    	end
+end
+
+function creaPaleta()
+	for x=0,paleta:getWidth()-1 do
+		for y=0,paleta:getHeight()-1 do
+			color = of.color()
+            	color = pixels:getColor(x,y)
+            	existe = false
+
+            	if counter > 0 then
+                	for i=0,counter-1 do
+                    	if colores[i].r == color.r and  colores[i].g == color.g and colores[i].b == color.b then
+                        	existe = true
+                        	break
+                    	end
+                	end
+            	end
+            
+            	if existe == false then
+                	colores[counter] = of.color()
+                	colores[counter] = color
+                	counter = counter + 1
+            	end 
+        	end
+    	end
+end

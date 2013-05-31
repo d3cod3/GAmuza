@@ -1,0 +1,68 @@
+
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ Arduino/infraredSensor.ga
+ 
+ This example shows how to connect the
+ Sharp Distance Sensor 2Y0A02 with arduino and
+ using it inside GAmuza.
+ 
+ Sensor Features:
+  - measure distances from 20cm to 150cm
+  - Infrared Proximity Sensor
+  - Analog output inversely proportional to distance
+  - Formula: Distance (cm) = 9462/(SensorValue - 16.92)
+    (only valid for SensorValue between 80 to 490)
+    
+ Pins order: looking at the sensor with pins on the bottom
+ 		    Left: 	signal
+ 		    Center: 	ground (-)
+ 		    Right: 	voltage (+)
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// reading sensor value at pin analog 0
+sensorPin = 0
+// store the raw sensor value
+sensorValue = 0
+// store the voltage value
+voltageValue = 0
+// store the real distance (approximated)
+distanceCm = 0
+
+// we are working with 5 volts, options are 3 or 5 volts
+refVoltage = 5
+avg = 100
+
+function setup()
+    	
+end
+
+function update()
+    	sensorValue = gaAnalogRead(sensorPin)*254
+    
+    	voltageValue = getDistanceVolts(sensorValue)
+    
+    	distanceCm = getDistanceCentimeter(sensorValue)
+end
+
+function draw()
+    	gaBackground(0.0,0.3)
+    	
+    	ofSetCircleResolution(50)
+    	ofSetLineWidth(3)
+    	
+    	ofSetColor(255)
+    	text = string.format("Distance (approx.): %scm", distanceCm)
+    	ofDrawBitmapString(text,OUTPUT_W - 260,sensorValue/254*OUTPUT_H - 20)
+    	
+    	ofSetColor(sensorValue, 220, sensorValue)
+    	if isCloser(50) then
+    		ofLine(0,sensorValue/254*OUTPUT_H,OUTPUT_W, sensorValue/254*OUTPUT_H)
+    	end
+end

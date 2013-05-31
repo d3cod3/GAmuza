@@ -1,0 +1,10 @@
+
+/////////////////////////////////////
+// Attractor Class
+
+class 'Attractor'
+
+function Attractor:__init()
+    self.x = ofRandom(OUTPUT_W)
+    self.y = ofRandom(OUTPUT_H)
+end

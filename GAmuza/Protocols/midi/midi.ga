@@ -1,0 +1,48 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Protocols/midi.ga
+ 
+ Basic use of midi functions. Make sure to have a midi device connected
+ and selected from GAmuza Setting Manager.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = ofTrueTypeFont()
+midiIndex = 11
+midiValue = 0
+
+function setup()
+    font:loadFont("fonts/Anonymous_Pro_B.ttf",64, true, false)
+end
+
+function update()
+	if gaGetMidiByteOne() == midiIndex then
+		midiValue = gaGetMidiByteTwo()
+	end
+end
+
+function draw()
+	gaBackground(0.0,0.8)
+    
+	ofSetColor(255)
+	ofDrawBitmapString(string.format("Testing MIDI Index %i: ", midiIndex),20,OUTPUT_H/2 - 80)
+	ofRect(20,OUTPUT_H/2 - 40,midiValue,20)
+    
+	ofPushMatrix()
+	ofTranslate(20,OUTPUT_H/2 + 80,0)
+
+	ofSetColor(23,169,210)
+	// midi channel (midi device/program)
+	font:drawString(string.format("Device: %i",gaGetMidiChannel()),0,0)
+	// midi byte one (midi index, a knob, or trigger, or pad, etc..)
+	font:drawString(string.format("Index: %i",gaGetMidiByteOne()),0,100)
+	// midi byte two (midi value, 0-127)
+	font:drawString(string.format("Value: %i",gaGetMidiByteTwo()),0,200)
+
+	ofPopMatrix()
+end

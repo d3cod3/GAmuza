@@ -1,0 +1,39 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Video/videoPlayer.ga
+ 
+ This example shows how to load video files from disk.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+myVideo = of.videoPlayer()
+
+function setup()
+    myVideo:loadMovie(ga.importFile("video.mov"))
+    myVideo:play()
+    myVideo:setLoopState(OF_LOOP_PALINDROME)
+end
+
+function update()
+    myVideo:update()
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    of.setColor(255)
+    scaleH = (OUTPUT_W/myVideo:getWidth())*myVideo:getHeight()
+    myVideo:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
+end
+
+function mousePressed()
+    myVideo:setPaused(true)
+end
+
+function mouseReleased()
+    myVideo:setPaused(false)
+end

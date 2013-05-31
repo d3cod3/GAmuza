@@ -1,0 +1,61 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Artists/metropopDenim.ga
+ 
+ This example is from Metropop Denim piece by Clayton Cubitt & Tom Carden.
+ http://processing.org/exhibition/works/metropop/
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+NUM_PARTICLES = 2000
+NUM_ATTRACTORS = 9
+
+particles = {}
+attractors = {}
+scat = true
+
+function setup()
+    reset()
+end
+
+function update()
+    
+end
+
+function draw()
+    if scat then
+        scat = false
+        gaBackground(1.0,1.0)
+    end
+
+    ofSetColor(0,0,0,30)
+    ofNoFill()
+    
+    glBegin(GL_POINTS)
+    for i=0,NUM_PARTICLES-1 do
+        particles[i]:step()
+        glVertex2d(particles[i].x,particles[i].y)
+        
+    end
+    glEnd()
+end
+
+function reset()
+    scat = true
+    for j=0,NUM_ATTRACTORS-1 do
+        attractors[j] = Attractor()
+    end
+
+    for i=0,NUM_PARTICLES-1 do
+        particles[i] = Particle()
+    end
+end
+
+function mousePressed()
+    reset()
+end

@@ -1,0 +1,1 @@
+/*   GAmuza 0.4.1 examples  --------------------- Basics/if.ga  A conditional structure example.  created by mj */y = 0inc = 20function setup()  endfunction update()	if y <= OUTPUT_H then 		y = y + inc 	else		y = 0	end  end function draw()	gaBackground(0.0,0.1)  		ofSetColor(255)	ofSetLineWidth(4)   	ofLine(0, y, OUTPUT_W, y)end

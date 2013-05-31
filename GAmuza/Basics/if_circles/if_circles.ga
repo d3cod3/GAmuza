@@ -1,0 +1,47 @@
+
+/*  
+
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/if_circles.ga
+ 
+ A conditional structure example.
+ 
+ created by mj
+ 
+*/
+
+radio = 300
+x1 = OUTPUT_W/2 
+x2 = OUTPUT_W/2
+y = OUTPUT_H/2
+inc = 30
+radioDec = 50
+
+
+function setup()
+     ofSetCircleResolution(50)
+end
+
+
+function update()
+	if radio >= 50 and radio <= 300 then
+		x1 += inc
+		x2 -= inc
+		y  += inc
+		radio -= radioDec 
+	else
+		x1 -= inc
+		x2 += inc
+		y -= inc
+		radio += radioDec
+	
+	end 
+end
+
+function draw()
+	gaBackground(0.0, 0.001)	
+	ofSetColor(255, 50) 	
+	ofCircle(x1, y, radio) 
+	ofCircle(x2, y, radio)
+end          

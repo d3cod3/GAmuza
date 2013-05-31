@@ -1,0 +1,45 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Audio/oscillator.ga
+ 
+ A simple synth oscillartor with GAmuza; you can choose from different
+ waves: GA_SINE, GA_COSINE, GA_SAW, GA_TRI, GA_RECT, GA_NOISE, GA_PINK
+ GA_BROWN, GA_PHASOR, GA_PULSE.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+freq = 0.0
+
+function setup()
+	of.setCircleResolution(50)
+	ga.wave(GA_RECT,220)    
+end
+
+function update()
+	freq = (ga.mouseX()/OUTPUT_W)*ga.nToF(SI_4)
+	ga.waveFrequency(0,freq)
+	ga.waveVolume(0,(ga.mouseY()/OUTPUT_H)/4)
+end
+
+function draw()
+	ga.background(0.0,1.0)
+
+	of.enableAlphaBlending()
+	of.fill()
+	of.setColor(255,0,123,255*(ga.mouseY()/OUTPUT_H))
+	of.circle(ga.mouseX(),ga.mouseY(),80)
+    
+	of.noFill()
+	for i=0, math.ceil(freq) do
+		of.setColor(255,70)
+		of.rect(i*(OUTPUT_W/freq),0,(OUTPUT_W/freq),OUTPUT_H)
+	end
+    
+	of.disableAlphaBlending()
+    
+end

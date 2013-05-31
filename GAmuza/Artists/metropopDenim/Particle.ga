@@ -1,0 +1,32 @@
+
+/////////////////////////////////////
+// Particle Class
+
+class 'Particle'
+
+function Particle:__init()
+    self.a = 6000
+    self.d = 0.00002
+    self.x = ofRandom(OUTPUT_W)
+    self.y = ofRandom(OUTPUT_H)
+    self.vx = ofRandom(-self.a/2,self.a/2)
+    self.vy = ofRandom(-self.a/2,self.a/2)
+end
+
+function Particle:step()
+    for i=0,NUM_ATTRACTORS-1 do
+        d2 = math.pow(attractors[i].x-self.x,2) + math.pow(attractors[i].y-self.y,2)
+
+        if d2 > 0.1 then
+            self.vx = self.vx + (self.a*(attractors[i].x-self.x) / d2)
+            self.vy = self.vy + (self.a*(attractors[i].y-self.y) / d2)
+        end
+    end
+
+    self.x = self.x + self.vx
+    self.y = self.y + self.vy
+
+    self.vx = self.vx*self.d
+    self.vy = self.vy*self.d
+end
+/////////////////////////////////////

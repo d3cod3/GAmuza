@@ -1,0 +1,48 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Shaders/blur.ga
+ 
+ Shaders examples from ofx.fx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows the blur effect.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+_blur = ofx.blur()
+cam = of.texture()
+
+function setup()
+    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    _blur:allocate(CAPTURE_W,CAPTURE_H)
+    _blur:setPasses(6)
+end
+
+function update()
+	cam = ga.cameraTexture(0)
+	_blur:setRadius(ga.mouseX()/OUTPUT_W*10)
+end
+
+function draw()
+	ga.background(0.0,1.0)
+    
+	_blur:beginFx()
+		of.setColor(255)
+		cam:draw(0,0)
+		of.circle(ga.mouseX(),ga.mouseY(),5)
+	_blur:endFx(true)
+
+	of.pushMatrix()
+	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
+		of.setColor(255)
+		_blur:draw(0,0)
+	of.popMatrix()
+	
+	of.setColor(255)
+	cam:draw(0,0)
+    
+end

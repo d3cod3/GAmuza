@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Protocols/dmx.ga
+ 
+ This example show how to communicate with a DMX device, using the
+ ofx.dmx() class; in GAmuza you can use only the Enttec DMX USB Pro,
+ take a look here: <http://www.enttec.com/>
+ the range of available channels is a minimum of 24 and a maximum of 512.
+ 
+ Original addon from kylemcdonald <https://github.com/kylemcdonald/ofxDmx>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dmx = ofx.dmx()
+channels = 32
+level = 255 // range of dmx signal 0 - 255
+
+function setup()
+	dmx:connect(ga.serialDevice(), channels)
+	dmx:clear()
+	dmx:update(true)
+end
+
+function update()
+    
+	dmx:clear()
+    
+	level = math.floor(ga.mouseX()/OUTPUT_W * 255)
+	for i=0, channels-1 do
+		dmx:setLevel(i,level)
+	end
+    
+	if dmx:isConnected() then
+		dmx:update(true)
+	end
+end
+
+function draw()
+	ga.background(0.0,1.0)
+	
+	if dmx:isConnected() then
+		of.setColor(100,78,228)
+		of.drawBitmapString(string.format("DMX device %s CONNECTED",ga.serialDevice()),200,200)
+	else
+		of.setColor(234,18,28)
+		of.drawBitmapString("There is no DMX device connected or recognized",200,200)
+	end
+	
+end

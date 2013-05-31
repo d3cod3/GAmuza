@@ -1,0 +1,61 @@
+-------------------------------------
+-- simpleParticle Class
+
+class 'simpleParticle'
+
+function simpleParticle:__init()
+    self.duration = 0
+    self.loc = of.vec2f(0,0)
+end
+
+function simpleParticle:setup(p)
+    self.loc.x = p.x
+    self.loc.y = p.y
+end
+
+function simpleParticle:move(dir)
+    self.loc.x = self.loc.x + dir.x
+    self.loc.y = self.loc.y + dir.y
+end
+
+function simpleParticle:draw()
+    of.circle(self.loc.x,self.loc.y,5)
+end
+
+function simpleParticle:stayOnscreen()
+    if self.loc.x >= OUTPUT_W then
+        self.loc.x = self.loc.x - OUTPUT_W
+    elseif self.loc.x < 0 then
+        self.loc.x = self.loc.x + OUTPUT_W
+    end
+
+    if self.loc.y >= OUTPUT_H then
+        self.loc.y = self.loc.y - OUTPUT_H
+    elseif self.loc.y < 0 then
+        self.loc.y = self.loc.y + OUTPUT_H
+    end
+end
+
+function simpleParticle:isOffscreen()
+    if self.loc.x < 0 or self.loc.x >= OUTPUT_W or self.loc.y < 0 or self.loc.y >= OUTPUT_H then
+	return true
+    end
+
+    return false
+end
+
+function simpleParticle:isDead()
+    if self.duration >= 10000 then
+	return true
+    else
+	return false
+    end
+end
+
+function simpleParticle:getX()
+    return self.loc.x
+end
+
+function simpleParticle:getY()
+    return self.loc.y
+end

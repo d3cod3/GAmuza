@@ -1,0 +1,39 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Protocols/oscSending.ga
+ 
+ This example show how to send OSC message outside GAmuza.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+intLabel = "/testINT"
+floatLabel = "/testFLOAT"
+stringLabel = "/testSTRING"
+
+function setup()
+	// init OSC sending labels
+    	ga.setOSCMessage(intLabel,OSC_INT)    
+    	ga.setOSCMessage(floatLabel,OSC_FLOAT)
+    	ga.setOSCMessage(stringLabel,OSC_STRING)
+end
+
+function update()
+	// send OSC messages
+    	ga.setOSCValue(intLabel,tostring(ga.mouseX()))
+    	ga.setOSCValue(floatLabel,tostring(of.randomuf()))
+    	ga.setOSCValue(stringLabel,"any string")    
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    
+    	of.setColor(34,217,179)
+    	text = string.format("Sending OSC data to IP: %s at port: %s",ga.sendingOscTo(),OSC_SENDING_PORT)
+    	of.drawBitmapString(text,20,200)
+    
+end

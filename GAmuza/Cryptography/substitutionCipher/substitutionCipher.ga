@@ -1,0 +1,94 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ Cryptography/substitutionCipher.ga
+ 
+ The basic substitution cipher algorithm applied on an english text.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dofile(ga.importFile("include/random.ga"))
+
+textBlock = ofx.textBlock()
+textFile = of.file()
+buffer = of.buffer()
+chiperBuffer = of.buffer()
+text = ""
+textCipher = ""
+numLetters = 27
+letters = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," "}
+key = {}
+
+function setup()
+
+	generateKey(of.getElapsedTimeMillis())
+
+	textBlock:init(ga.importFile("Anonymous_Pro_B.ttf"),60)
+    	textFile:open(ga.importFile("plaintext.txt"))
+    	buffer = textFile:readToBuffer()
+    	text = buffer:getText()
+    	
+    	textBlock:setText(text)
+    	textBlock:wrapTextArea(OUTPUT_W/2 - 40,OUTPUT_H)
+    	
+    	// Encrypt text file
+    	Encrypt(key,buffer)
+    	of.bufferToFile(ga.importFile("ciphertext.txt"), chiperBuffer,true)
+    	
+end
+
+function update()
+    
+end
+
+function draw()
+    	ga.background(0.0,1.0)
+    	
+    	of.setColor(200)
+    	of.line(OUTPUT_W/2 + 4,0,OUTPUT_W/2 + 4,OUTPUT_H)
+    
+    	of.setColor(255)
+    	textBlock:drawJustified(10,0,textBlock:getWidth())
+    	
+    	for i=0, numLetters-1 do
+    		of.setColor(255)
+    		of.drawBitmapString(tostring(letters[i+1]),OUTPUT_W/2 - 10,20 + (i*14))
+    		of.setColor(255,0,0)
+    		of.drawBitmapString(tostring(key[i]),OUTPUT_W/2 + 10,20 + (i*14))
+    	end
+    
+end
+
+function Encrypt(k,b)
+	local ciph = {}
+	local tempPos = 0
+	local l = 0
+	while not b:isLastLine() do
+        	ciph[l] = tostring(b:getNextLine())
+        	for c in ciph[l]:gmatch"." do
+        		// find letter position
+        		for j=0,numLetters-1 do
+        			if letters[j+1] == c then
+        				tempPos = j
+        				break
+        			end
+        		end
+        		// substitute
+        		textCipher = textCipher .. tostring(k[tempPos])
+        	end
+        	textCipher = textCipher .. "\n"
+        	l = l + 1
+    	end
+    	
+    	chiperBuffer:set(tostring(textCipher),string.len(textCipher))
+	
+end
+
+function Decrypt(b)
+
+end
+

@@ -1,0 +1,53 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/sphere.ga
+ 
+ This example show how to draw the sphere primitives and a basic use of
+ lights in a 3D environment.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ambient = ofFloatColor(1.0,1.0,1.0,1.0)
+light = ofLight()
+res = 10
+
+function setup()
+        
+end
+
+function update()
+    ofSetSphereResolution(res)
+
+    res = gaMouseX()/OUTPUT_W * 100
+end
+
+function draw()
+    gaBackground(0.0,0.1)
+
+    ofPushMatrix()
+
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+    ofRotateX(gaMouseY()/OUTPUT_H * 360)
+    ofRotateY(gaMouseX()/OUTPUT_W * 360)
+    ofRotateZ(ofGetElapsedTimef())
+
+    light:enable()
+    light:setSpotlight(80.0,1.8)
+    light:setAmbientColor(ambient)
+    
+    ofSetColor(255)
+    ofFill()
+    ofSphere(90)
+    ofNoFill()
+    ofSphere(300)
+    
+    light:disable()
+
+    ofPopMatrix()
+    
+end

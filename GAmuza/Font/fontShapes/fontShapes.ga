@@ -1,0 +1,54 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Font/fontShapes.ga
+ 
+ This example shows how to use of the of.trueTypeFont class to draw text
+ from .ttf or .otf like vector shapes.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font1 = of.trueTypeFont()
+font2 = of.trueTypeFont()
+character = of.path()
+letter = string.byte('&')
+
+function setup()
+    font1:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),160,true,true,true)
+    font2:loadFont(ga.importFile("D3Litebitmapism.ttf"),52,true,true,true)
+    character = font1:getCharacterAsPoints(letter)
+end
+
+function update()
+
+end
+
+function draw()
+    ga.background(0.0,1.0)
+    
+    // draw text as bitmap
+    of.setColor(0,90,60)
+    font2:drawString("hello - I am a bitmap",50,400)
+    
+    // draw character as bitmap
+    font1:drawString("&", 50, 250)
+    
+    // draw the character as shapes
+    character:setFilled(true)
+    character:draw(200,250)
+    character:setFilled(false)
+    character:draw(350,250)
+    character:clear()
+
+	// draw text as shapes
+	of.fill()
+	font2:drawStringAsShapes("Hello - I am a vector",50,480)
+	of.noFill()
+	font2:drawStringAsShapes("Hello - I am a vector",50,550)
+    
+end
+

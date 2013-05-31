@@ -1,0 +1,68 @@
+
+/*
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ 3D/modelLoader.ga
+ 
+ This example show how to load a .3ds model and draw it, using the
+ ofx.ModelLoader3D class, wrapping the OF addon ofx3DModelLoader.
+ 
+ Original example from openFrameworks:
+ <of_folder/examples/addons/3DModelLoaderExample/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+model = ofxModelLoader3D()
+
+function setup()
+
+	//load the model
+    	model:loadModel(gaImportFile("Squirrel.3ds"),20)
+	
+	//you can create as many rotations as you want
+    //choose which axis you want it to effect
+    //you can update these rotations later on
+     model:setRotation(0,90,1,0,0)
+    	model:setScale(0.9,0.9,0.9)
+    	model:setPosition(OUTPUT_W/2,OUTPUT_H/2,0)
+
+end
+
+function update()
+    model:setRotation(1,270+ofGetElapsedTimef() * 10,0,0,1)
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+
+	// fake back wall
+    	ofSetColor(20)
+    	glBegin(GL_QUADS)
+    	glVertex3d(0,OUTPUT_H,-600)
+    	glVertex3d(OUTPUT_W,OUTPUT_H,-600)
+    	glVertex3d(OUTPUT_W,0,-600)
+    	glVertex3d(0,0,-600)
+    	glEnd()
+
+	// fake wall
+    	ofSetColor(50)
+    	glBegin(GL_QUADS)
+    	glVertex3d(0,OUTPUT_H,0)
+    	glVertex3d(OUTPUT_W,OUTPUT_H,0)
+    	glVertex3d(OUTPUT_W,OUTPUT_H,-600)
+    	glVertex3d(0,OUTPUT_H,-600)
+    	glEnd()
+
+	// lets tumble the world with the mouse
+    	ofPushMatrix()
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    	ofRotateX(-ga.mouseX()/OUTPUT_W * 360)
+    	ofRotateY(ga.mouseX()/OUTPUT_W * 360)
+    	ofTranslate(-OUTPUT_W/2,-OUTPUT_H/2,0)
+    		model:draw()
+    	ofPopMatrix()
+    
+end

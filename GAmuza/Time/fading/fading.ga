@@ -1,0 +1,67 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Time/fading.ga
+ 
+ This example show how to create time based transitions using system time.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+startTimeIn = 0.0
+startTimeOut = 0.0
+myTimeIn = 0.0
+myTimeOut = 0.0
+fadeTimeIn = 4.0
+fadeTimeOut = 9.0
+alphaIn = 0.0
+alphaOut = 0.0
+
+startFadeIn = false
+startFadeOut = false
+
+function setup()
+    
+end
+
+function update()
+    myTimeIn = of.getElapsedTimef() - startTimeIn
+    myTimeOut = of.getElapsedTimef() - startTimeOut
+    
+    if startFadeIn then
+        if alphaIn < 1.0 then
+            alphaIn = myTimeIn/fadeTimeIn
+        else
+            alphaIn = 1.0
+        end
+    end
+    
+    if startFadeOut then
+        if alphaOut < 1.0 then
+            alphaOut = myTimeOut/fadeTimeOut
+        else
+            alphaOut = 1.0
+        end
+    end
+end
+
+function draw()
+    ga.background(1.0,1.0)
+    
+    of.setColor(255*alphaIn - 255*alphaOut)
+    of.rect(0,0,OUTPUT_W,OUTPUT_H)
+end
+
+function keyReleased()
+	if ga.key() == string.byte('i') then
+		startTimeIn = of.getElapsedTimef()
+		startFadeIn = true
+	elseif ga.key() == string.byte('o') then
+		startTimeOut = of.getElapsedTimef()
+    		startFadeOut = true
+	end
+    
+end

@@ -1,0 +1,119 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Image/imageCompression.ga
+ 
+ This example shows how to manipulate images at binary level.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+img = of.image()
+compFile = ga.importFile("compressed.jpg")
+_size = 0
+maxSize = 2048
+quality = OF_IMAGE_QUALITY_WORST
+generation = 0
+addX = 0
+addY = 0
+subX = 0
+subY = 0
+glitchStart = 0.6
+glitching = false
+
+function reset()
+    	img:loadImage(ga.importFile("cooper.jpg"))
+    	generation = 0
+    	addX = of.random(0,16)
+    	addY = of.random(0,16)
+    	subX = of.random(0,addX)
+    	subY = of.random(0,addY)
+end
+
+function setup()
+    reset()
+end
+
+function update()
+	_size = img:getWidth()
+	// keeps the image from getting too big
+	if _size < maxSize then
+        	img:saveImage(compFile,quality)
+        	
+ 		if glitching then
+ 			// this portion glitches the jpeg file
+			// first loading the file (as binary)
+			file = of.buffer()
+			file = of.bufferFromFile(compFile,true)
+			fileSize = file:size()
+			buffer = memarray('char', fileSize)
+			for i=0, fileSize-1 do
+				buffer[i] = file:getBinaryBuffer(i)
+			end
+			// pick a byte offset that is somewhere near the end of the file
+			whichByte = math.ceil(of.random(fileSize*glitchStart,fileSize))
+			// and pick a bit in that byte to turn on
+			whichBit = of.random(8)
+			bitMask = bit.lshift(whichBit,1)
+			// using the OR operator bit.bor(), if the bit isn't already on this will turn it on
+			tempBuf = buffer[whichByte]
+			buffer[whichByte] = bit.bor(tempBuf,bitMask)
+			// write the file out like nothing happened
+			file:setBinaryBuffer(whichByte, buffer[whichByte])
+			of.bufferToFile(compFile,file,true)
+			img:loadImage(compFile)
+		else
+			img:loadImage(compFile)
+			// this if switches every other frame
+			// resizing up and down breaks the 8x8 JPEG blocks
+			if of.getElapsedTimeMillis()%20 == 0 then
+				// resize a little bigger
+				img:resize(_size+addX,_size+addY)
+			elseif of.getElapsedTimeMillis()%25 == 0 then
+				// then resize a little smaller
+				img:resize(_size-subX,_size-subY)
+			end
+		end
+        	generation = generation + 1
+    	end
+end
+
+function draw()
+    ga.background(0.0,1.0)
+
+    of.setColor(255)
+    img:draw(0,0,OUTPUT_W,OUTPUT_H)
+
+    of.setColor(0)
+    of.rect(5,5,290,45)
+    of.setColor(255)
+    text = string.format("Currently on generation %i",generation)
+    of.drawBitmapString(text,10,20)
+    if glitching then
+    		of.setColor(234,180,32)
+    else
+    		of.setColor(255)
+    end
+    text = string.format("Click to reset, hold 'g' to glitch.")
+    of.drawBitmapString(text,10,40)
+
+end
+
+function mouseReleased()
+    reset()
+end
+
+function keyPressed()
+	if ga.key() == string.byte('g') then
+		glitching = true
+	end
+end
+
+function keyReleased()
+	if ga.key() == string.byte('g') then
+		glitching = false
+	end
+end

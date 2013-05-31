@@ -1,0 +1,63 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ Net/twitterConnect.ga
+ 
+ This example shows how to simply connect and realize a search
+ over twitter social network, using the ofx.twitter addon, a modified
+ version of the original addon ofxTwitter:
+ <https://github.com/drewvergara/ofxTwitter>
+ from Andrew Vergara <http://www.drewvergara.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font = of.trueTypeFont()
+twitter = ofx.twitter()
+tweets = {}
+
+
+function setup()
+        font:loadFont(ga.importFile("verdana.ttf"),10,true,false)
+    
+        twitter:clear()
+        twitter:setup()
+        twitter:startTwitterQuery("wikileaks",10,1)
+    
+        for i=0,100 do
+            tweets[i] = {}
+            tweets[i].t = ofx.tweet()
+        end
+end
+
+function update()
+    for i=0, twitter:getTotalResponse()-1 do
+        tweets[i].t = twitter:getResponse(i)
+        tweets[i].id = tweets[i].t:getID()
+        tweets[i].link = tweets[i].t:getLink()
+        tweets[i].title = tweets[i].t:getTitle()
+        tweets[i].author = tweets[i].t:getAuthorName()
+        tweets[i].authorUri = tweets[i].t:getAuthorUrl()
+        tweets[i].avatar = tweets[i].t:getAvatar()
+        tweets[i].date = tweets[i].t:getDate()
+        tweets[i].updated = tweets[i].t:getUpdated()
+    end
+end
+
+function draw()
+        ga.background(0.0,1.0)
+
+        of.setColor(255)
+    
+        if twitter:getTotalResponse() > 0 then
+            for i=0, twitter:getTotalResponse()-1 do
+                font:drawString(tostring(tweets[i].title),20,50 + 50*i)
+            end
+        end
+        
+end
+
+

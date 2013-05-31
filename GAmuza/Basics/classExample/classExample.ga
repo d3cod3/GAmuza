@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples 
+ ---------------------
+ Basics/classExample.ga
+ 
+ This example shows the basic code to build a class.
+ 
+ created by mj
+ 
+*/
+
+// ---------------------------------------------------
+// ------- class foco
+
+class 'foco'
+
+// constructor
+function foco:__init(x, d, s, g) 
+	self.posX = x		// posici—n X
+	self.diam = d		// diametro
+	self.speed = s	// velocidad
+	self.grav = g		// gravedad
+
+end
+
+function foco:update()
+	self.posX = self.posX + self.speed
+	self.speed = self.speed + (self.grav*self.diam)
+
+	if self.posX > OUTPUT_W - self.diam/2  then
+		self.speed = self.speed * -0.999722
+	end
+	if self.posX < 0 + self.diam/2 then
+		self.speed = self.speed * -0.999722
+	end
+end
+
+function foco:draw()
+    of.circle(self.posX,OUTPUT_H/2, self.diam)
+end
+
+foco1 = foco(25, 50, 3.5, 0.00184562)
+foco2 = foco(125, 30, 1.5, 0.00184562)
+
+// ---------------------------------------------------
+
+function setup()	
+    ofEnableSmoothing()
+    ofSetCircleResolution(50)
+end
+
+function update()
+    foco1:update()
+    foco2:update()
+
+end
+
+function draw()
+    gaBackground(0.0,0.1)
+    
+    ofSetColor(255)
+    foco1:draw()
+    foco2:draw()
+end

@@ -1,0 +1,53 @@
+
+/*
+ 
+ Simple audio file FFT analysis.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+nBandsToGet = 128
+audio = ofSoundPlayer()
+val = memarray('float',nBandsToGet)
+fftSmoothed = memarray('float', nBandsToGet)
+
+function setup()
+	audio:loadSound(gaImportFile("0406_01_RS_!.mp3"),true)
+	audio:setVolume(1.0)
+	audio:setLoop(true)
+	audio:play()
+	
+	// init the memarrays
+	for i=0,nBandsToGet-1 do
+		val[i] = 0
+		fftSmoothed[i] = 0
+	end
+	
+end
+
+function update()
+	for i=0,nBandsToGet-1 do
+		val[i] = gaGetSoundSpectrum(i,nBandsToGet)
+		
+		if fftSmoothed[i] < val[i] then
+			fftSmoothed[i] = val[i]
+		end
+		
+		fftSmoothed[i] = fftSmoothed[i]*0.96
+	end
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    	
+    ofEnableAlphaBlending()
+		ofSetColor(255,130)
+		ofNoFill()
+		w = OUTPUT_W/nBandsToGet
+		for i=0,nBandsToGet-1 do
+			of.rect(i*w,OUTPUT_H-100,w,-(fftSmoothed[i] * 400))
+		end
+	ofDisableAlphaBlending()
+    	
+end

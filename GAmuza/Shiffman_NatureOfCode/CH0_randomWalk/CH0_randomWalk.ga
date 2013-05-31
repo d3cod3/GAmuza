@@ -1,0 +1,57 @@
+
+/* 
+   
+ GAmuza 0.4.1 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_randomWalk.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://www.shiffman.net/teaching/nature/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+walkers = {}
+gWalkers = {}
+numW = 300
+
+function setup()
+	for i=0,numW-1 do
+        	walkers[i] = {}
+        	walkers[i].x = OUTPUT_W/2
+        	walkers[i].y = OUTPUT_H/2
+        	gWalkers[i] = {}
+        	gWalkers[i].x = OUTPUT_W/5
+        	gWalkers[i].y = OUTPUT_H/5
+    end
+end
+
+function update()
+	for i=0,numW-1 do
+        	local rX = of.randomf()
+        	local rY = of.randomf()
+        	local grX = ofx.gaussian()
+        	local grY = ofx.gaussian()
+
+		walkers[i].x = walkers[i].x + rX
+        	walkers[i].y = walkers[i].y + rY
+
+        	gWalkers[i].x = gWalkers[i].x + grX
+        	gWalkers[i].y = gWalkers[i].y + grY
+    	end
+end
+
+function draw()
+    	ga.background(0.0,0.01)
+
+    	of.noFill()
+    	for i=0,numW-1 do
+        	of.setColor(255)
+        	of.rect(walkers[i].x,walkers[i].y,1,1)
+        	of.setColor(255,0,0)
+        	of.rect(gWalkers[i].x,gWalkers[i].y,1,1)
+    	end
+end
