@@ -31,8 +31,8 @@
 // COCOA
 #include "ofxNSWindowApp.h"
 
-// live coding scripting language
-#include "ofxLua.h"					// Lua embedded scripting interpreter
+// LIVE CODING
+#include "ofxLua.h"
 
 // GUI
 #include "ofxUI.h"
@@ -52,7 +52,7 @@
 #include "ofxThermitrack.h"
 #include "ofxThermitrackImage.h"
 
-// Sensor KINECT
+// KINECT
 #include "ofxKinect.h"
 
 // AUDIO
@@ -80,42 +80,44 @@
 // Pixels manipulators
 #include "ofxChromaKey.h"
 #include "ofxDither.h"
-#include "ofxCLD.h"                 // b&w comic style (coherent line drawing) <http://www.cs.umsl.edu/~kang/Papers/kang_npar07.html>
+#include "ofxCLD.h"                 // Coherent Line Drawing <http://www.cs.umsl.edu/~kang/Papers/kang_npar07.html>
 
-// SHADERS FX
+// SHADERS
 #include "ofxFX.h"
 
-// Text Font addons
+// TEXT
 #include "ofxArcText.h"
 #include "ofxTrueTypeFontUC.h"
 #include "ofxTextSuite.h"
 
-// Graphics
+// GRAPHICS
 #include "ofxDelaunay.h"
 #include "ofxSlitScan.h"            // simple utility for creating slit scan effects and video time delays
 
 // NET
 #include "ofxTwitter.h"
 
-// Video STREAMING
+// VIDEO STREAMING
 #include "ofxSyphon.h"
+
 
 //////////////////////////////////////
 // CUSTOM CODE
 
-// webcam input classes
+// Webcam Input
 #include "sourceTracking.h"
-#include "openniTracking.h"
 #include "matrixAreas.h"		
 
-// audio input [microphones, instruments, etc. routed via soundcard] class
+// Audio Input
 #include "audioInputChannel.h"
 
-// audio Synthesis
+// Audio Synthesis
 #include "gaDsp.h"
 #include "gaAmplifier.h"
 #include "gaOscillator.h"
 #include "audioSample.h"
 #include "audioModule.h"
 
+// Random Utils
+#include "randomUtils.h"
 

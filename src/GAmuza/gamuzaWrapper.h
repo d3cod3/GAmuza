@@ -4255,7 +4255,11 @@ class ofGamuzaWrapper{
          def("gaDrawZAxis", (void(*)(float,ofColor,bool)) &gaDrawZAxis),
          
          ///////////////////////////////
-		 // timeline section
+         // MATH section
+         def("gaGaussianFn", (float(*)(float,float,float,float)) &gaGaussianFn),
+         
+         /////////////////////////////// (TIMELINE Module)
+		 // timeline section 
          /*def("playTimeline", (void(*)(void)) &gaPlayTimeline),
          def("stopTimeline", (void(*)(void)) &gaStopTimeline),
          def("setTimelineFrames", (void(*)(int)) &gaSetTimelineDurationInFrames),
@@ -4264,7 +4268,7 @@ class ofGamuzaWrapper{
          def("getTimelineValue", (float(*)(string)) &gaGetTimelineKeyframeValue),
          def("getTimelineTrigger", (string(*)(void)) &gaGetTimelineTrigger),*/
          
-         ///////////////////////////////
+         /////////////////////////////// (AUDIO Module)
 		 // audio input
 		 def("gaGetVolume", (float(*)(int)) &gaGetVolume),
 		 def("gaGetPitch", (float(*)(int)) &gaGetPitch),
@@ -4343,7 +4347,7 @@ class ofGamuzaWrapper{
          def("oniAccelerometerZ", (float(*)(void)) &gaONIAccelerometerZ),
 		 def("oniTilt", (float(*)(void)) &gaONITilt),
 		 
-		 ///////////////////////////////
+		 /////////////////////////////// (COMPUTER VISION Module)
 		 // webcam tracking
          def("captureBackground", (void(*)(int)) &gaCaptureBackground),
 		 def("camMotionQ", (float(*)(int)) &gaCamMotionQ),
@@ -4374,7 +4378,7 @@ class ofGamuzaWrapper{
          def("camHaarH", (float(*)(int,int)) &gaCamHaarH),
 		 def("camTrigger", (bool(*)(int,int)) &gaCamTrigger),*/
 		 
-		 ///////////////////////////////
+		 /////////////////////////////// (ARDUINO Module)
 		 // arduino
          def("gaSerialDevice", (string(*)(void)) &gaGetSerialDevName),
 		 def("gaAnalogRead", (float(*)(int)) &gaGetAArduinoPin),

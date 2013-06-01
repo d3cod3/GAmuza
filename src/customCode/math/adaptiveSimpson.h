@@ -11,7 +11,7 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
 //
 // Adaptive Simpson's Rule
 //
-double adaptiveSimpsons(double (*f)(double),   // ptr to function
+double gaAdaptiveSimpsons(double (*f)(double),   // ptr to function
                            double a, double b,  // interval [a,b]
                            double epsilon,  // error tolerance
                            int maxRecursionDepth);                                                                                                  
@@ -20,7 +20,7 @@ double adaptiveSimpsons(double (*f)(double),   // ptr to function
 
 /* USAGE EXAMPLE
 
- double I = adaptiveSimpsons(sin, 0, 1, 0.000000001, 10); // compute integral of sin(x)
+ double I = gaAdaptiveSimpsons(sin, 0, 1, 0.000000001, 10); // compute integral of sin(x)
                                                           // from 0 to 1 and store it in 
                                                           // the new variable I
 */

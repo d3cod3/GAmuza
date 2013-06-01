@@ -20,7 +20,7 @@ double adaptiveSimpsonsAux(double (*f)(double), double a, double b, double epsil
 //--------------------------------------------------
 // Adaptive Simpson's Rule
 //
-double adaptiveSimpsons(double (*f)(double),double a, double b,double epsilon,int maxRecursionDepth) {     
+double gaAdaptiveSimpsons(double (*f)(double),double a, double b,double epsilon,int maxRecursionDepth) {
   double c = (a + b)/2, h = b - a;                                                                  
   double fa = f(a), fb = f(b), fc = f(c);                                                           
   double S = (h/6)*(fa + 4*fc + fb);                                                                

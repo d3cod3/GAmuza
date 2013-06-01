@@ -148,7 +148,6 @@
 		2078495A1732D6030098ABF0 /* adaptiveSimpson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849431732D6030098ABF0 /* adaptiveSimpson.cpp */; };
 		2078495B1732D6030098ABF0 /* gaussian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849451732D6030098ABF0 /* gaussian.cpp */; };
 		2078495C1732D6030098ABF0 /* randomUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849481732D6030098ABF0 /* randomUtils.cpp */; };
-		2078495D1732D6030098ABF0 /* openniTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2078494B1732D6030098ABF0 /* openniTracking.cpp */; };
 		2078495E1732D6030098ABF0 /* sourceTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2078494D1732D6030098ABF0 /* sourceTracking.cpp */; };
 		20784B261732D6370098ABF0 /* ofxArcText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849611732D6370098ABF0 /* ofxArcText.cpp */; };
 		20784B271732D6370098ABF0 /* ofxAudioSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849651732D6370098ABF0 /* ofxAudioSample.cpp */; };
@@ -747,8 +746,6 @@
 		207849461732D6030098ABF0 /* gaussian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaussian.h; sourceTree = "<group>"; };
 		207849481732D6030098ABF0 /* randomUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = randomUtils.cpp; sourceTree = "<group>"; };
 		207849491732D6030098ABF0 /* randomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomUtils.h; sourceTree = "<group>"; };
-		2078494B1732D6030098ABF0 /* openniTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = openniTracking.cpp; sourceTree = "<group>"; };
-		2078494C1732D6030098ABF0 /* openniTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openniTracking.h; sourceTree = "<group>"; };
 		2078494D1732D6030098ABF0 /* sourceTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sourceTracking.cpp; sourceTree = "<group>"; };
 		2078494E1732D6030098ABF0 /* sourceTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourceTracking.h; sourceTree = "<group>"; };
 		207849611732D6370098ABF0 /* ofxArcText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxArcText.cpp; sourceTree = "<group>"; };
@@ -2364,8 +2361,6 @@
 		2078494A1732D6030098ABF0 /* sourceTracking */ = {
 			isa = PBXGroup;
 			children = (
-				2078494B1732D6030098ABF0 /* openniTracking.cpp */,
-				2078494C1732D6030098ABF0 /* openniTracking.h */,
 				2078494D1732D6030098ABF0 /* sourceTracking.cpp */,
 				2078494E1732D6030098ABF0 /* sourceTracking.h */,
 			);
@@ -4027,7 +4022,6 @@
 				2078495A1732D6030098ABF0 /* adaptiveSimpson.cpp in Sources */,
 				2078495B1732D6030098ABF0 /* gaussian.cpp in Sources */,
 				2078495C1732D6030098ABF0 /* randomUtils.cpp in Sources */,
-				2078495D1732D6030098ABF0 /* openniTracking.cpp in Sources */,
 				2078495E1732D6030098ABF0 /* sourceTracking.cpp in Sources */,
 				20784B261732D6370098ABF0 /* ofxArcText.cpp in Sources */,
 				20784B271732D6370098ABF0 /* ofxAudioSample.cpp in Sources */,

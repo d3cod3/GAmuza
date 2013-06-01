@@ -2,7 +2,7 @@
 #include "randomUtils.h"
 
 //--------------------------------------------------
-int * ofUniqueRandom(int dim) {
+int * gaUniqueRandom(int dim) {
     int * keys = new int[dim];
     int * world = new int[dim];
     int magnitude = dim-1;

@@ -4,7 +4,7 @@
 #include "ofMain.h"
 
 //--------------------------------------------------
-	int * ofUniqueRandom(int dim);
+	int*    gaUniqueRandom(int dim);
 
 #endif
 

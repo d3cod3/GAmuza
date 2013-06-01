@@ -435,9 +435,9 @@ void audioInputChannel::detectPitch(){
 void audioInputChannel::updateFilter(){
 	
 	for(unsigned int i = 0; i < fft->getBinSize(); i++){
-		eqGaussianLOW[i]	= gaussianFn(i, eqLOWAmplitude, eqLOWCenter, eqLOWWidth);
-		eqGaussianMID[i]	= gaussianFn(i, eqMIDAmplitude, eqMIDCenter, eqMIDWidth);
-		eqGaussianHI[i]		= gaussianFn(i, eqHIAmplitude, eqHICenter, eqHIWidth);
+		eqGaussianLOW[i]	= gaGaussianFn(i, eqLOWAmplitude, eqLOWCenter, eqLOWWidth);
+		eqGaussianMID[i]	= gaGaussianFn(i, eqMIDAmplitude, eqMIDCenter, eqMIDWidth);
+		eqGaussianHI[i]		= gaGaussianFn(i, eqHIAmplitude, eqHICenter, eqHIWidth);
 		
 		gaussianFilter[i]	= (eqGaussianLOW[i]+eqGaussianMID[i]+eqGaussianHI[i])/3.0f;
 	}
@@ -486,7 +486,9 @@ void audioInputChannel::updateBarkScale(int i){
 	}
 	
 }
-//
+
+
+///////////////////////////////////////////////////////////////////////////
 // <http://en.wikipedia.org/wiki/Bark_scale>
 ///////////////////////////////////////////////////////////////////////////
 
