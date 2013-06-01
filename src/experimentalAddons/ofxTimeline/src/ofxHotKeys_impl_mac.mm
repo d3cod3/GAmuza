@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,12 +28,46 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
-#include "ofxTLEvents.h"
+#include "ofxHotKeys.h"
 
-ofxTLCoreEvents ofxTLEvents;
+#ifdef TARGET_OSX
+
+#include <Cocoa/Cocoa.h>
+
+bool ofGetModifierSelection(){
+	return ofGetModifierShiftPressed() || ofGetModifierSpecialPressed();
+}
+
+bool ofGetModifierShortcutKeyPressed(){
+#ifdef MAC_USE_CONTROL
+//		cout << "using command" << endl;
+	return ofGetModifierControlPressed();
+#else
+//		cout << "using control" << endl;
+	return ofGetModifierSpecialPressed();
+#endif
+}
+
+bool ofGetModifierPressed(ofxModifierKey mod) {
+	unsigned int t = 0;
+
+	if ((OF_MODIFIER_KEY_CTRL & mod) == OF_MODIFIER_KEY_CTRL)
+		t += NSControlKeyMask;
+	
+	if ((OF_MODIFIER_KEY_ALT & mod) == OF_MODIFIER_KEY_ALT)
+		t += NSAlternateKeyMask;
+	
+	if ((OF_MODIFIER_KEY_SHIFT & mod) == OF_MODIFIER_KEY_SHIFT)
+		t += NSShiftKeyMask;
+
+	if ((OF_MODIFIER_KEY_SPECIAL & mod) == OF_MODIFIER_KEY_SPECIAL)
+		t += NSCommandKeyMask;
+
+	return [[NSApp currentEvent] modifierFlags] & t;
+}
+
+
+
+#endif

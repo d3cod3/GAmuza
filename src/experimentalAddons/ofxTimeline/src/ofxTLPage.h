@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,72 +28,145 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTLElement.h"
-#include "ofxTLElementHeader.h"
+#include "ofxTLTrack.h"
+#include "ofxTLTrackHeader.h"
 #include "ofxTLEvents.h"
 
+//typedef struct {
+//	long millis;
+//    float screenX;
+//} ofxTLSnapPoint;
+
+class ofxTimeline;
+class ofxTLTicker;
 class ofxTLPage {
   public:
 	
 	ofxTLPage();
-	~ofxTLPage();
+	virtual ~ofxTLPage();
 	
 	virtual void setup();
-	virtual void draw(ofVec2f offset);
+	virtual void update();
+	virtual void draw();
 
 	virtual void setName(string name);
 	virtual string getName();
-	virtual void setAutosave(bool doAutosave);
+	
 	
 	virtual void setContainer(ofVec2f offset, float width);
 	virtual void setHeaderHeight(float newHeaderHeight);
-	virtual void setDefaultElementHeight(float newDefaultElementHeight);
-
-	virtual float getComputedHeight();	
+	virtual void setDefaultTrackHeight(float newDefaultTrackHeight);
 	
-	virtual void addElement(string name, ofxTLElement* element);
-	virtual ofxTLElement* getElement(string name);
-	virtual void removeElement(string name);
-	
-	virtual void mousePressed(ofMouseEventArgs& args);
-	virtual void mouseMoved(ofMouseEventArgs& args);
-	virtual void mouseDragged(ofMouseEventArgs& args);
-	virtual void mouseReleased(ofMouseEventArgs& args);
+	void setMinimalHeaders(bool minimal);
+	void hideFooters(bool hide);
+	//collapses all track heights to 0;
+	void collapseAllTracks(bool excludeFocusTrack = false);
+	//evenly distributes all tracks, restoring the height if it was just collapsed
+	void evenlyDistributeTrackHeights();
+	void expandFocusedTrack();
+	void setExpandToHeight(float height);
 		
+	virtual void setZoomBounds(ofRange zoomBounds);
+	
+	virtual void unselectAll();
+    virtual void clear();
+    virtual void save();
+
+    virtual ofxTLTrack* getFocusedTrack();
+	
+	virtual float getComputedHeight();	
+	virtual float getBottomEdge();
+    virtual ofRectangle getDrawRect();
+    
+	virtual void addTrack(string name, ofxTLTrack* track);
+	virtual ofxTLTrack* getTrack(string name);
+    virtual ofxTLTrackHeader* getTrackHeader(ofxTLTrack* track);
+    
+	virtual void removeTrack(ofxTLTrack* track);
+
+    
+    //computed on the fly so please use sparingly if you have to call it a lot
+    vector<ofxTLTrack*>& getTracks();
+
+    //given a folder the page will look for xml files to load within that
+	virtual void loadTracksFromFolder(string folderPath);
+    
+	virtual void mousePressed(ofMouseEventArgs& args, long millis);
+	virtual void mouseMoved(ofMouseEventArgs& args, long millis);
+	virtual void mouseDragged(ofMouseEventArgs& args, long millis);
+	virtual void mouseReleased(ofMouseEventArgs& args, long millis);
+		
+	virtual void nudgeBy(ofVec2f nudgePercent);
+	
 	virtual void keyPressed(ofKeyEventArgs& args);
 	
-	virtual void saveElementPositions();
-	virtual void loadElementPositions();
+	virtual void saveTrackPositions();
+	virtual void loadTrackPositions();
 	
 	virtual void recalculateHeight();
 	
+	virtual void setTicker(ofxTLTicker* ticker);
+	
+    virtual void timelineGainedFocus();
+    virtual void timelineLostFocus();
+    
+    void bringTrackToTop(ofxTLTrack* track);
+    void bringTrackToBottom(ofxTLTrack* track);
+
+	//copy paste
+	virtual void copyRequest(vector<string>& bufs);
+	virtual void cutRequest(vector<string>& bufs);
+	virtual void pasteSent(const vector<string>& pasteboard);
+	virtual void selectAll();
+	
+	virtual void setDragOffsetTime(long offsetMillis);
+    virtual void setSnappingEnabled(bool enabled);
+    
+    ofxTimeline* timeline;
+    
   protected:
+
+	//used for getting BPM snaps
+	vector<ofxTLTrackHeader*> headers;
+	map<string, ofxTLTrack*> tracks;
+	vector<ofxTLTrack*> trackList;
 	
-	vector<ofxTLElementHeader*> headers;
-	map<string, ofxTLElement*> elements;
+    ofxTLTicker* ticker;
+    ofxTLTrack* focusedTrack;
+
+	string name;
+
+    bool isSetup;
+    bool draggingInside;
+	bool headerHasFocus;
+	bool footerIsDragging;
+	bool snappingEnabled;
 	
+	set<unsigned long long> snapPoints; //in millis
+	float snappingTolerance; //in pixels
 	virtual void zoomEnded(ofxTLZoomEventArgs& args);
 	
-	bool isSetup;
-	bool autosave;
-	string name;
+	void refreshSnapPoints();
 	
-	ofVec2f containerOffset;
-	float containerWidth;
-	float computedHeight;
+	long millisecondDragOffset;
+	
+	bool headersAreMinimal;
+	bool footersAreHidden;
+    bool draggingSelectionRectangle;
+    ofVec2f selectionRectangleAnchor;
+    ofRectangle selectionRectangle;
+    
+	float heightBeforeCollapse;
+	ofRectangle trackContainerRect;
 	float headerHeight;
-	float defaultElementHeight;
+	float defaultTrackHeight;
 	ofRange currentZoomBounds;
 
-	map<string, ofRectangle> savedElementPositions;	
+	map<string, ofRectangle> savedTrackPositions;	
 	
 };

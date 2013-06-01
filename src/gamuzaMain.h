@@ -338,7 +338,7 @@ public:
      //////////////////////////////////////////////
      
      //////////////////////////////////////////////
-     // SCRIPTING --> gamuzScripting.h
+     // SCRIPTING --> gamuzaScripting.h
      ofxLua                      lua;
      vector<ofTrueTypeFont>      liveCodingFont;
      vector<float>               guiVectorFloat;
@@ -352,7 +352,6 @@ public:
      bool                        printError;
      int                         gaFrameCounter;
      //////////////////////////////////////////////
-     
      
      //////////////////////////////////////////////
      // SETTINGS vars for gamuzaSettings.xml

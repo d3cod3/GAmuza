@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,25 +28,26 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTLElement.h"
+#include "ofxTLTrack.h"
 
-class ofxTLTicker : public ofxTLElement
+typedef struct{
+	float screenX;
+    unsigned long long millis;
+	int weight;
+} ofxTLBPMPoint;
+
+class ofxTLTicker : public ofxTLTrack
 {
   public:
 	ofxTLTicker();
 	~ofxTLTicker();
 	
-	virtual void setup();
-	virtual void draw(ofVec2f offset);
+	virtual void draw();
 	
 	//set the draw rect for the whole keyframer interface
 	virtual void setTotalDrawRect(ofRectangle drawRect);
@@ -53,12 +56,28 @@ class ofxTLTicker : public ofxTLElement
 	virtual void mouseMoved(ofMouseEventArgs& args);
 	virtual void mouseDragged(ofMouseEventArgs& args);
 	virtual void mouseReleased(ofMouseEventArgs& args);
-    
-    ofTrueTypeFont  font;
 
+	virtual float getBPM();
+	virtual void setBPM(float bpm);
+    
+	virtual void getSnappingPoints(set<unsigned long long>& points);
+	virtual bool getDrawBPMGrid();
+	virtual void setDrawBPMGrid(bool drawGrid);
+	virtual void setHoverTime(unsigned long long millis);
+	
   protected:
 	void updateTimelinePosition();
+	void updateBPMPoints();
+
 	ofRectangle totalDrawRect;
-		
+	vector<ofxTLBPMPoint> bpmScreenPoints;
+    unsigned long long hoverTime;
+	bool hasBPM;
+	float bpm;
+	bool drawBPMGrid;
 	bool dragging;
+	bool playOnMouseReleased;
+    
+	ofPath tickerMarks;
+	void refreshTickMarks();
 };

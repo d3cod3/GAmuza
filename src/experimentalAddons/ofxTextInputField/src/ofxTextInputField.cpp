@@ -1,127 +1,162 @@
 //
-//  ofxTextInputField.cpp
-//  ofxTextInputField
+//  textInput.cpp
 //
-//  Created by Elliot Woods on 12/09/2011.
+//  Created by Elliot Woods on 09/12/2011.
 //  Copyright 2011 Kimchi and Chips.
 //
-//  modified by James George 2/12/2011
-
+//  modified by James George 12/2/2011
+//  modified by Momo the Monster 7/10/2012
+//  swappable fonts added by James George 9/11/2012
+//
 //	MIT license
 //	http://www.opensource.org/licenses/mit-license.php
-//
 //
 
 #include "ofxTextInputField.h"
 
 
 ofxTextInputField::ofxTextInputField() {
-	text="";
-    _name = "";
-	cursorPosition=0;
-	cursorx=0;
-	cursory=0;
-    
-    bounds.set(0,0,130,16);
-    
-    font.loadFont("fonts/D3Litebitmapism.ttf", 8);
-    selected = false;
-    isOver = false;
+	text = "";
+	cursorPosition = 0;
+	cursorx = 0;
+	cursory = 0;
+	fontRef = NULL;
+    isEnabled = false;
+	isEditing = false;
+    bounds = ofRectangle(0,0,100,18);
+    drawCursor = false;
+	autoClear = false;
+	mouseDownInRect = false;
+    //isSetup = false;
 }
 
-void ofxTextInputField::setup(string name){
-    _name = name;
+ofxTextInputField::~ofxTextInputField(){
+	if(isEnabled){
+        disable();
+    }
+
 }
 
-void ofxTextInputField::enable() {
-	ofAddListener(ofEvents().keyPressed, this, &ofxTextInputField::keyPressed);
+void ofxTextInputField::setup(){
+	enable();
 }
 
-void ofxTextInputField::disable() {
-	ofRemoveListener(ofEvents().keyPressed, this, &ofxTextInputField::keyPressed);
+
+void ofxTextInputField::enable(){
+	if(!isEnabled){
+		ofAddListener(ofEvents().mousePressed, this, &ofxTextInputField::mousePressed);
+		ofAddListener(ofEvents().mouseReleased, this, &ofxTextInputField::mouseReleased);
+		isEnabled = true;
+	}
 }
 
-void ofxTextInputField::draw(int x, int y) {
-    
-    ofEnableAlphaBlending();
-    
-    // draw bounding box
-    ofNoFill();
-    
-    bounds.set(x,y,130,16);
-    
-    ofSetColor(240,240,240,30);
-    ofRect(bounds.x,bounds.y,bounds.width,bounds.height);
-    
-    ofFill();
+void ofxTextInputField::disable(){
+	if(isEditing){
+		endEditing();
+	}
+	if(isEnabled){
+        ofRemoveListener(ofEvents().mousePressed, this, &ofxTextInputField::mousePressed);
+		ofRemoveListener(ofEvents().mouseReleased, this, &ofxTextInputField::mouseReleased);
+		isEnabled = false;
+    }
 	
-    ofPushMatrix();
-    ofTranslate(x, y);
+}
+void ofxTextInputField::beginEditing() {
+    if(!isEditing){
+        ofAddListener(ofEvents().keyPressed, this, &ofxTextInputField::keyPressed);
+        ofSendMessage(TEXTFIELD_IS_ACTIVE);
+        isEditing = true;
+        drawCursor = true;
+		if(autoClear){
+			clear();
+		}
+		else{
+			cursory = 0;
+			cursorPosition = cursorx = text.size();
+		}
+    }
+}
+
+void ofxTextInputField::endEditing() {
+    if(isEditing){
+        ofRemoveListener(ofEvents().keyPressed, this, &ofxTextInputField::keyPressed);
+        ofSendMessage(TEXTFIELD_IS_INACTIVE);
+        ofNotifyEvent(textChanged, text, this);
+        isEditing = false;
+        drawCursor = false;
+    }
+}
+
+void ofxTextInputField::setFont(OFX_TEXTFIELD_FONT_RENDERER& font){
+	fontRef = &font;
+}
+
+bool ofxTextInputField::getIsEditing(){
+    return isEditing;
+}
+
+bool ofxTextInputField::getIsEnabled(){
+	return isEnabled;
+}
+
+void ofxTextInputField::draw() {
     
-    // Draw name
-    ofSetColor(240,240,240,255);
-    font.drawString(_name,0,-1);
-    
-    //draw text
-    ofSetColor(255);
-    //ofDrawBitmapString(text, 10,10);
-    font.drawString(text,10,10);
-    
+	ofPushMatrix();
+	ofTranslate(bounds.x, bounds.y);
 	
-    if(selected){
-        //draw cursor line
+	//draw text
+	if(fontRef == NULL){
+		//boo don't use this
+		ofDrawBitmapString(text, 5, 12);
+	}
+	else{
+		fontRef->drawString(text, 5, fontRef->getLineHeight());
+	}
+
+	//draw cursor line
+    if(drawCursor) {
         ofPushStyle();
-        float timeFrac = 0.5 * sin(9.0f * ofGetElapsedTimef()) + 0.5;
+        float timeFrac = 0.5 * sin(3.0f * ofGetElapsedTimef()) + 0.5;
         
         ofColor col = ofGetStyle().color;
         
-        ofSetColor(col.r, col.g, col.b, col.a * timeFrac);
-        ofSetLineWidth(2.0f);
-        ofLine(cursorx*4.3 + 10, 13.7*cursory, cursorx*4.3 + 10, 10+13.7*cursory);
+		int cursorPos = fontRef == NULL ? 8*cursorx + 10: fontRef->stringWidth(text.substr(0,cursorx))+13;
+        ofSetColor(col.r * timeFrac, col.g * timeFrac, col.b * timeFrac);
+        ofSetLineWidth(3.0f);
+		int lineBottom = fontRef == NULL ? 13.7*cursory+12 : 13.7*cursory+fontRef->getLineHeight()+3;
+		//TODO: multiline with fontRef
+        ofLine(cursorPos, 13.7*cursory+2,
+			   cursorPos, lineBottom);
         ofPopStyle();
     }
 	
 	ofPopMatrix();
-    
-    ofDisableAlphaBlending();
 }
 
-void ofxTextInputField::mouseMoved(int x, int y ){
-    if(bounds.inside(x,y)){
-        isOver = true;
-    }else{
-        isOver = false;
-    }
+void ofxTextInputField::mousePressed(ofMouseEventArgs& args){
+	mouseDownInRect = bounds.inside(args.x, args.y);
 }
 
-void ofxTextInputField::mouseReleased(int x, int y ){
-    if(isOver){
-        if(selected){
-            selected = false;
-            disable();
-        }else{
-            selected = true;
-            enable();
-        }
-    }else{
-        if(selected){
-            selected = false;
-            disable();
+void ofxTextInputField::mouseReleased(ofMouseEventArgs& args){
+
+    if(bounds.inside(args.x, args.y)) {
+        if(!isEditing && mouseDownInRect){
+	        beginEditing();
         }
     }
+    else if(isEditing){
+		endEditing();
+	}
 }
 
 void ofxTextInputField::keyPressed(ofKeyEventArgs& args) {	
-	//add charachter (non unicode sorry!)
-    
+	//ew: add charachter (non unicode sorry!)
+	//jg: made a step closer to this with swappable renderers and ofxFTGL -- but need unicode text input...
+	
 	int key = args.key;
 	if (key == OF_KEY_RETURN) {
-		return;
-        //		ofNotifyEvent(evtEnter, text, this);
-        //		if (evtEnter.empty()) {
-        //			text.insert(text.begin()+cursorPosition, '\n');
-        //			cursorPosition++;
-        //		}
+        endEditing();
+        return;
 	}
 	
 	if (key >=32 && key <=126) {
@@ -157,17 +192,20 @@ void ofxTextInputField::keyPressed(ofKeyEventArgs& args) {
 	
 	//for multiline:
 	cursorx = cursory = 0;
-	for (int i=0; i<cursorPosition; ++i) {
-		if (*(text.begin()+i) == '\n') {
-			++cursory;
-			cursorx = 0;
-		} else {
-			cursorx++;
+	if(text.size() > 0){
+		for (int i=0; i<cursorPosition; ++i) {
+			if (*(text.begin()+i) == '\n') {
+				++cursory;
+				cursorx = 0;
+			} else {
+				cursorx++;
+			}
 		}
 	}
 }
 
 void ofxTextInputField::clear() {
 	text.clear();
-	cursorPosition=0;
+	cursorx = cursory = 0;
+	cursorPosition = 0;
 }

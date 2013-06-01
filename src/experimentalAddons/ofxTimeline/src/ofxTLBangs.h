@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,48 +28,36 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
+
 
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTLElement.h"
+#include "ofxTLKeyframes.h"
 
-#define FOOTER_HEIGHT 10
+class ofxTLBangs : public ofxTLKeyframes {
+  public:
+    ofxTLBangs();
+	virtual ~ofxTLBangs();
+	
+    virtual void draw();
 
-class ofxTLElementHeader : public ofxTLElement
-{
-  public:	
-	ofxTLElementHeader();
-	~ofxTLElementHeader();
-	
-	string name;	
-	
-	virtual void setup();
-	virtual void draw(ofVec2f offset);
-	
-	virtual void mousePressed(ofMouseEventArgs& args);
-	virtual void mouseMoved(ofMouseEventArgs& args);
-	virtual void mouseDragged(ofMouseEventArgs& args);
-	virtual void mouseReleased(ofMouseEventArgs& args);
-	
-	virtual void setElement(ofxTLElement* element);
+    virtual void regionSelected(ofLongRange timeRange, ofRange valueRange);
+	virtual void playbackStarted(ofxTLPlaybackEventArgs& args);
+	virtual void playbackEnded(ofxTLPlaybackEventArgs& args);
+	virtual void playbackLooped(ofxTLPlaybackEventArgs& args);
     
-    ofTrueTypeFont  font;
-	
-  protected:
-	ofxTLElement* element;
-	
-	ofRectangle footerRect;
-	
-	bool hoveringFooter;
-	bool draggingSize;
-	float dragOffset;
-	float dragAnchor;
-	bool collapsed;
-};
+    virtual string getTrackType();
+    
+ protected:
 
+    virtual ofxTLKeyframe* keyframeAtScreenpoint(ofVec2f p);
+//    bool isPlayingBack;
+	virtual void update();
+	
+    long lastTimelinePoint;
+	float lastBangTime; //just for display
+	
+    virtual void bangFired(ofxTLKeyframe* key);
+};

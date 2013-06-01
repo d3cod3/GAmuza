@@ -1,13 +1,12 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
- * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * openFrameworks graphical timeline addon
  *
- * implementaiton by James George (@obviousjim) and Tim Gfrerer (@tgfrerer) for the 
- * Voyagers gallery National Maritime Museum 
- * 
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
+ * http://jamesgeorge.org + http://flightphase.com
+ * http://github.com/obviousjim + http://github.com/flightphase
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -29,11 +28,34 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
-#include "ofxTLSwitcher.h"
+#pragma once
+#include "ofMain.h"
+#include "ofxTLTrack.h"
 
+class ofxTLInOut : public ofxTLTrack {
+  public:
+    ofxTLInOut();
+    
+    virtual void draw();
+	virtual void mousePressed(ofMouseEventArgs& args);
+	virtual void mouseMoved(ofMouseEventArgs& args);
+	virtual void mouseDragged(ofMouseEventArgs& args);
+	virtual void mouseReleased(ofMouseEventArgs& args);
+    
+    virtual void load();
+	virtual void save();
+    
+    void setPageRectangle(ofRectangle pageRectangle);
+    
+  protected:
+    float dragOffset;
+    //if both are set then it's a selection range
+    bool draggingIn;
+    bool draggingOut;
+    bool hoveringIn;
+    bool hoveringOut;
+	    
+    ofRectangle pageRect;
+};

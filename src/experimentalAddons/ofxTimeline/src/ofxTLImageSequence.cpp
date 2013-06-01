@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,10 +28,6 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #include "ofxTLImageSequence.h"
@@ -53,7 +51,7 @@ void ofxTLImageSequence::setup(){
 }
 
 
-void ofxTLImageSequence::draw(ofVec2f offset) {
+void ofxTLImageSequence::draw() {
 	if(!loaded){
 		return;
 	}
@@ -63,8 +61,7 @@ void ofxTLImageSequence::draw(ofVec2f offset) {
 	for(int i = 0; i < previewTextures.size(); i++){
 		ofRectangle b = previewTextures[i].bounds;
 		previewTextures[i].texture->draw(bounds.x + b.x, bounds.y + b.y, b.width, b.height);
-	}
-	
+	}	
 }
 
 
@@ -147,7 +144,7 @@ float ofxTLImageSequence::getThumbHeight(){
 }
 
 ofImage* ofxTLImageSequence::getImageAtTime(float time){
-	return getImageAtTime(time*frames.size()-1);
+	return getImageAtFrame(time*frames.size()-1);
 }
 
 ofImage* ofxTLImageSequence::getImageAtFrame(int frame){
@@ -167,7 +164,7 @@ void ofxTLImageSequence::drawRectChanged(){
 }
 
 void ofxTLImageSequence::setZoomBounds(ofRange zoomBoundsPercent){
-	ofxTLElement::setZoomBounds(zoomBoundsPercent);
+	ofxTLTrack::setZoomBounds(zoomBoundsPercent);
 	recomputePreview();
 }
 
@@ -178,7 +175,7 @@ void ofxTLImageSequence::mousePressed(ofMouseEventArgs& args){
 void ofxTLImageSequence::mouseMoved(ofMouseEventArgs& args){
 }
 
-void ofxTLImageSequence::mouseDragged(ofMouseEventArgs& args){
+void ofxTLImageSequence::mouseDragged(ofMouseEventArgs& args, bool snapped){
 }
 
 void ofxTLImageSequence::mouseReleased(ofMouseEventArgs& args){
@@ -282,28 +279,31 @@ void ofxTLImageSequence::purgeFrames()
     }
 }
 
-void ofxTLImageSequence::purgeThumbs()
-{
-	vector<ofxTLImageSequenceFrame*> sortableFrames;
-	for(int i = 0; i < frames.size(); i++){
-        if(frames[i]->isThumbLoaded()){
-			sortableFrames.push_back( frames[i] );
-		}
-	}
-	
-    if(sortableFrames.size() > maxThumbsLoaded){
-		
-		//cout << "total loaded " << totalLoaded << " use count is " << maxUseCount << " total this frame " << usedThisFrame << " " << thisframefilename <<  endl;
-		
-		sort(sortableFrames.begin(), sortableFrames.end(), framesort);
-		
-        int numToClear = sortableFrames.size() - maxThumbsLoaded;
-		cout << "purging " << numToClear << " thumbs.  Oldest: " << sortableFrames[0]->lastUsedTime << endl;
-		for(int i = 0; i < numToClear; i++){
-			sortableFrames[i]->clear();
-		}
-    }
+string ofxTLImageSequence::getTrackType(){
+    return "ImageSequence";
 }
+//void ofxTLImageSequence::purgeThumbs()
+//{
+//	vector<ofxTLImageSequenceFrame*> sortableFrames;
+//	for(int i = 0; i < frames.size(); i++){
+//        if(frames[i]->isThumbLoaded()){
+//			sortableFrames.push_back( frames[i] );
+//		}
+//	}
+//	
+//    if(sortableFrames.size() > maxThumbsLoaded){
+//		
+//		//cout << "total loaded " << totalLoaded << " use count is " << maxUseCount << " total this frame " << usedThisFrame << " " << thisframefilename <<  endl;
+//		
+//		sort(sortableFrames.begin(), sortableFrames.end(), framesort);
+//		
+//        int numToClear = sortableFrames.size() - maxThumbsLoaded;
+//		cout << "purging " << numToClear << " thumbs.  Oldest: " << sortableFrames[0]->lastUsedTime << endl;
+//		for(int i = 0; i < numToClear; i++){
+//			sortableFrames[i]->clear();
+//		}
+//    }
+//}
 
 void ofxTLImageSequence::clearPreviewTextures()
 {

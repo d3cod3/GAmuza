@@ -1,13 +1,12 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
- * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * openFrameworks graphical timeline addon
  *
- * implementaiton by James George (@obviousjim) and Tim Gfrerer (@tgfrerer) for the 
- * Voyagers gallery National Maritime Museum 
- * 
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
+ * http://jamesgeorge.org + http://flightphase.com
+ * http://github.com/obviousjim + http://github.com/flightphase
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -29,17 +28,39 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
-#pragma once 
-#include "ofxTLElement.h"
+#pragma once
 
-class ofxTLSwitcher : public ofxTLElement
-{
+#include "ofMain.h"
+
+#include "ofxTLTrack.h"
+#include "ofxTLVideoThumb.h"
+
+class ofxTLImageTrack : public ofxTLTrack {
   public:
+	ofxTLImageTrack();
+    
+    virtual bool isLoaded() = 0;
+    
+    virtual void zoomStarted(ofxTLZoomEventArgs& args);
+    virtual void zoomDragged(ofxTLZoomEventArgs& args);
+    virtual void zoomEnded(ofxTLZoomEventArgs& args);
+
+    virtual void drawRectChanged();
+    
+    virtual string getTrackType();
+    
+  protected:
+    
+    bool currentlyZooming;
+	bool thumbsEnabled;
 	
+    vector<ofxTLVideoThumb> videoThumbs;
+	virtual void calculateFramePositions();
+    
+    //width and height of image elements
+    virtual float getContentWidth() = 0;
+    virtual float getContentHeight() = 0;
+	virtual void framePositionsUpdated(vector<ofxTLVideoThumb>& newThumbs) = 0;
 };

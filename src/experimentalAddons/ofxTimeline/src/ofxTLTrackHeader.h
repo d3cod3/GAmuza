@@ -1,13 +1,12 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
  * http://github.com/obviousjim + http://github.com/flightphase 
  *
- * implementaiton by James George (@obviousjim) and Tim Gfrerer (@tgfrerer) for the 
- * Voyagers gallery National Maritime Museum 
- * 
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -29,61 +28,61 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #pragma once
+
 #include "ofMain.h"
-#include "ofxTLElement.h"
-#include "ofxTextInputField.h"
+#include "ofxTLTrack.h"
 
-typedef struct {
-	float pt;
-	string name;
-} Trigger;
+#define FOOTER_HEIGHT 6
 
-class ofxTLTrigger : public ofxTLElement
+class ofxTLTrackHeader : public ofxTLTrack
 {
-  public:
-	ofxTLTrigger();
-	~ofxTLTrigger();
+  public:	
+	ofxTLTrackHeader();
+	virtual ~ofxTLTrackHeader();
 	
-	virtual void setup();
-	virtual void draw(ofVec2f offset);
-	
+    string name;
+    
+    virtual void enable();
+    virtual void disable();
+    
+	virtual void draw();
 	virtual void mousePressed(ofMouseEventArgs& args);
 	virtual void mouseMoved(ofMouseEventArgs& args);
 	virtual void mouseDragged(ofMouseEventArgs& args);
 	virtual void mouseReleased(ofMouseEventArgs& args);
 	
-	virtual void keyPressed(ofKeyEventArgs& args);
-	
-	virtual void save();
-	virtual void load();
-	
-	virtual void clear();
-
-	void playbackStarted(ofxTLPlaybackEventArgs& args);
-	void playbackLooped(ofxTLPlaybackEventArgs& args);
-	void playbackEnded(ofxTLPlaybackEventArgs& args);
+	virtual void setTrack(ofxTLTrack* track);
+	virtual ofxTLTrack* getTrack();
     
-    ofTrueTypeFont  font;
+	virtual void setFooterHeight(float height);
+	virtual void collapseTrack();
+    
+	virtual ofRectangle getFooterRect();
+	virtual void textFieldEnter(string& newText);
+	
+	//for the header, this returns the track's display name
+    virtual string getDisplayName();
 	
   protected:
-	ofxTextInputField textfield;
+	ofxTLTrack* track;
+	ofxTextInputField nameField;
 	
-	void update(ofEventArgs& args);
-	void sortTriggers();
-						   
-	int dragOffset;
-	Trigger* getTriggerForScreenPosition(float screenx, int& offset);
-	Trigger* selectedTrigger;
-	Trigger* hoverTrigger;
-	vector<Trigger> triggers;
-	bool enterText;
+	float footerHeight;
+	void recalculateFooter();
 	
-	float lastTimelinePoint;
+	ofRectangle footerRect;
+	
+	bool hoveringFooter;
+	bool draggingSize;
+	float dragOffset;
+	float dragAnchor;
+	
+	void recalculateFooterStripes();
+	float footerStripeWidth;
+	ofPath footerStripes;
+	
 };
+

@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,31 +28,26 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #pragma once
 
 #include "ofMain.h"
 #include "ofRange.h"
-#include "ofxTLElement.h"
+#include "ofxTLTrack.h"
 
-class ofxTLZoomer : public ofxTLElement
+class ofxTLZoomer : public ofxTLTrack
 {
   public:
 	ofxTLZoomer();
-	~ofxTLZoomer();
+	virtual ~ofxTLZoomer();
 	
-	void setup();
-	void draw(ofVec2f offset);
+	virtual void draw();
 		
-	void mousePressed(ofMouseEventArgs& args);
-	void mouseMoved(ofMouseEventArgs& args);
-	void mouseDragged(ofMouseEventArgs& args);
-	void mouseReleased(ofMouseEventArgs& args);
+	virtual void mousePressed(ofMouseEventArgs& args);
+	virtual void mouseMoved(ofMouseEventArgs& args);
+	virtual void mouseDragged(ofMouseEventArgs& args);
+	virtual void mouseReleased(ofMouseEventArgs& args);
 	
 	void keyPressed(ofKeyEventArgs& args);
 	
@@ -59,19 +56,27 @@ class ofxTLZoomer : public ofxTLElement
 
 	bool isActive();
 	
-	ofRange getViewRange();
+	//allows for exponential zooming in. Default is 2, no effect is 1
+	//not allowed to be less than one
+	void setViewExponent(float exponent);
+	ofRange getViewRange(); //exponential viewport
+	virtual void lostFocus();
+	
+	//this set is NON exponential, but normalized 0-1
+	void setViewRange(ofRange newRange);
+    ofRange getSelectedRange(); //non exponential
 	
   private:
-
 	void notifyZoomStarted();
 	void notifyZoomDragged(ofRange oldZoom);
 	void notifyZoomEnded();
 
 	ofRange currentViewRange;
-	
+
 	float minGrabOffset;
 	float maxGrabOffset;
-	
+
+	float zoomExponent;
 	bool mouseIsDown;
 	bool minSelected;
 	bool maxSelected;

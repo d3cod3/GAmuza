@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,16 +28,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #pragma once
 
 #include "ofMain.h"
-#include "ofxTLElement.h"
+#include "ofxTLTrack.h"
 #include "ofxTLEvents.h"
 
 typedef struct{
@@ -43,28 +41,28 @@ typedef struct{
 	ofRectangle bounds;
 } Tab;
 
-class ofxTLPageTabs : public ofxTLElement {
+class ofxTLPageTabs : public ofxTLTrack {
 
   public:
 	
 	virtual void setup();
-	virtual void draw(ofVec2f offset);
+	virtual void draw();
 
 	virtual void addPage(string name);
 	virtual void selectPage(string name);
 	virtual void selectPage(int index);
 	virtual void changeName(string oldName, string newName);
 	
+	virtual void clear();
+	
+	virtual void mousePressed(ofMouseEventArgs& args);
 	virtual void mouseReleased(ofMouseEventArgs& args);
 	
 	virtual void keyPressed(ofKeyEventArgs& args);
-    
-    ofTrueTypeFont  font;
 	
   protected:
 	virtual void drawRectChanged();
 	int selectedPageIndex;
 	vector<Tab> pages;
-
-	
+	int pressedPageIndex;
 };

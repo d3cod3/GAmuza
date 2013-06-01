@@ -1,9 +1,11 @@
 /**
  * ofxTimeline
- *	
- * Copyright (c) 2011 James George
+ * openFrameworks graphical timeline addon
+ *
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
  * http://jamesgeorge.org + http://flightphase.com
- * http://github.com/obviousjim + http://github.com/flightphase 
+ * http://github.com/obviousjim + http://github.com/flightphase
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -26,21 +28,19 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  *
- * ----------------------
- *
- * ofxTimeline 
- * Lightweight SDK for creating graphic timeline tools in openFrameworks
  */
 
 #include "ofxTLZoomer.h"
 #include "ofxXmlSettings.h"
 #include "ofRange.h"
+#include "ofxTimeline.h"
 
 ofxTLZoomer::ofxTLZoomer()
 :	minSelected(false),
 	maxSelected(false),
 	midSelected(false),
-	currentViewRange(ofRange(0.0, 1.0))
+	currentViewRange(ofRange(0.0, 1.0)),
+	zoomExponent(2.0)
 {
 	//default constructor
 }
@@ -49,62 +49,67 @@ ofxTLZoomer::~ofxTLZoomer(){
 	
 }
 
-void ofxTLZoomer::setup(){
-	enable();
-	load();
-}
-
-void ofxTLZoomer::draw(ofVec2f offset){
-	ofPushStyle();
-	ofEnableSmoothing();
-
-	ofNoFill();
-	if(focused){
-		ofSetColor(9,147,211); //focused outline color
-	}
-	else{
-		ofSetColor(150, 150, 150); //unfocused outline color
-	}
+void ofxTLZoomer::draw(){
 	
-	ofRect(bounds.x, bounds.y, bounds.width, bounds.height);
-
+	ofPushStyle();
+	ofSetColor(timeline->getColors().textColor);
 	//draw min
 	float screenY = bounds.y + bounds.height/2.0;
-	float minScreenX = normalizedXtoScreenX(currentViewRange.min);
-	float maxScreenX = normalizedXtoScreenX(currentViewRange.max);
+	float minScreenX = normalizedXtoScreenX(currentViewRange.min, ofRange(0,1.0));
+	float maxScreenX = normalizedXtoScreenX(currentViewRange.max, ofRange(0,1.0));
 
-	ofSetLineWidth(2);
-	ofLine(minScreenX+6, screenY, maxScreenX-6, screenY);
-	
-    ofFill();
-	if(minSelected){
-        ofSetLineWidth(2);
+	if(midSelected){
+		ofSetLineWidth(2);
 	}
 	else{
-        ofSetLineWidth(1);
+		ofSetLineWidth(1);
 	}
-	ofCircle(minScreenX+6, screenY, 5);
+
+	ofLine(minScreenX, screenY, maxScreenX, screenY);
+	ofSetLineWidth(1);
+
+	if(minSelected){
+		ofFill();
+	}
+	else{
+		ofNoFill();
+	}
+	ofCircle(minScreenX, screenY, 5);
 
 	if(maxSelected){
-        ofSetLineWidth(2);
+		ofFill();
 	}
 	else{
-        ofSetLineWidth(1);
+		ofNoFill();
 	}
-	ofCircle(maxScreenX-6, screenY, 5);
+	ofCircle(maxScreenX, screenY, 5);
 
+//	cout << "zoomer bounds width " << bounds.width << endl;
+	//draw playhead reference
+	ofLine(bounds.x+bounds.width*timeline->getPercentComplete(), bounds.y,
+		   bounds.x+bounds.width*timeline->getPercentComplete(), bounds.y+bounds.height);
+	//draw zoom region reference
+	ofSetColor(timeline->getColors().backgroundColor);
+	ofRange actualZoom = getViewRange();
+	ofRectangle zoomRegion = ofRectangle(bounds.x + bounds.width*actualZoom.min, bounds.y,
+										 bounds.width*actualZoom.span(),bounds.height);
+	ofFill();
+	ofSetColor(timeline->getColors().keyColor, 50);
+	ofRect(zoomRegion);
 	ofPopStyle();
 }
 
 void ofxTLZoomer::load() {
+
 	notifyZoomStarted();
 	
 	ofxXmlSettings settings;
 	if(!settings.loadFile(xmlFileName)){
-		ofLog(OF_LOG_ERROR, "ofxTLZoomer -- couldn't load zoom settings file");
+		ofLog(OF_LOG_NOTICE, "ofxTLZoomer -- couldn't load zoom settings file " + xmlFileName);
+        currentViewRange = ofRange(0., 1.0);
 		return;
 	}
-
+    
 	settings.pushTag("zoom");
 	currentViewRange = ofRange(settings.getValue("min", 0.0),
 							   settings.getValue("max", 1.0));
@@ -131,14 +136,13 @@ void ofxTLZoomer::mouseMoved(ofMouseEventArgs& args) {
 void ofxTLZoomer::mousePressed(ofMouseEventArgs& args) {
 
 	if(!enabled) return;
-
-	minSelected = maxSelected = midSelected = focused  = false;
+	
+	minSelected = maxSelected = midSelected = false;
 	if (pointInScreenBounds(ofVec2f(args.x, args.y))) {
 		mouseIsDown = true;
-		focused = true;
 		
 		//did we click on the min-left handle?
-		float minScreenX = normalizedXtoScreenX(currentViewRange.min);
+		float minScreenX = normalizedXtoScreenX(currentViewRange.min, ofRange(0,1.0));
 		minGrabOffset = args.x - minScreenX;
 		if(fabs(minScreenX - args.x) < 5){
 			minSelected = true;
@@ -147,7 +151,7 @@ void ofxTLZoomer::mousePressed(ofMouseEventArgs& args) {
 		}
 		
 		//did we click on the max-right handle?
-		float maxScreenX = normalizedXtoScreenX(currentViewRange.max);
+		float maxScreenX = normalizedXtoScreenX(currentViewRange.max, ofRange(0,1.0));
 		maxGrabOffset = args.x - maxScreenX;
 		if(fabs(maxScreenX - args.x) < 5){
 			maxSelected = true;
@@ -166,7 +170,7 @@ void ofxTLZoomer::mousePressed(ofMouseEventArgs& args) {
 		if(args.x > maxScreenX){
 			maxSelected = true;
 			maxGrabOffset = 0;
-			currentViewRange.max = screenXtoNormalizedX(args.x);
+			currentViewRange.max = screenXtoNormalizedX(args.x, ofRange(0,1.0));
 			notifyZoomStarted();
 			return;
 		}
@@ -175,27 +179,40 @@ void ofxTLZoomer::mousePressed(ofMouseEventArgs& args) {
 		if(args.x < minScreenX){
 			minSelected = true;
 			minGrabOffset = 0;
-			currentViewRange.min = screenXtoNormalizedX(args.x);
+			currentViewRange.min = screenXtoNormalizedX(args.x, ofRange(0,1.0));
 			notifyZoomStarted();
 			return;
 		}
-		
 	}
 }
 
 void ofxTLZoomer::mouseDragged(ofMouseEventArgs& args) {
+    
 	if(!enabled) return;
-
-	ofRange oldRange = currentViewRange;
+	
+    bool notify = false;
+	ofRange oldRange = getViewRange();
 	if(minSelected || midSelected){
-		currentViewRange.min = ofClamp( screenXtoNormalizedX(args.x-minGrabOffset), 0, currentViewRange.max);
-		notifyZoomDragged(oldRange);
+		float originalMin = currentViewRange.min;
+		currentViewRange.min = ofClamp( screenXtoNormalizedX(args.x-minGrabOffset, ofRange(0, 1.0)), 0, currentViewRange.max-.01);
+		if(minSelected){
+			currentViewRange.max = ofClamp( currentViewRange.max + (originalMin-currentViewRange.min), currentViewRange.min+.01, 1.0);
+		}
+		notify = true;
 	}
 
 	if(maxSelected || midSelected){
-		currentViewRange.max = ofClamp( screenXtoNormalizedX(args.x-maxGrabOffset), currentViewRange.min, 1.0);
-		notifyZoomDragged(oldRange);
-	}	
+		float originalMax = currentViewRange.max;
+		currentViewRange.max = ofClamp( screenXtoNormalizedX(args.x-maxGrabOffset, ofRange(0, 1.0)), currentViewRange.min+.01, 1.0);
+		if(maxSelected){
+			currentViewRange.min = ofClamp( currentViewRange.min + (originalMax-currentViewRange.max), 0, currentViewRange.max-.01);
+		}
+        notify = true;
+    }
+	
+    if(notify){
+        notifyZoomDragged(oldRange);
+    }
 }
 
 bool ofxTLZoomer::isActive(){
@@ -208,35 +225,73 @@ void ofxTLZoomer::mouseReleased(ofMouseEventArgs& args){
 	if(mouseIsDown){
 		mouseIsDown = false;
 		notifyZoomEnded();
-		if(autosave){
-			save();
-		}		
+//		timeline->flagTrackModified(this);
+		save(); //intentionally ignores auto save since this is just a view parameter
 	}
+}
+
+void ofxTLZoomer::lostFocus(){
+	ofxTLTrack::lostFocus();
+	minSelected = false;
+	maxSelected = false;
+	midSelected = false;
 }
 
 void ofxTLZoomer::notifyZoomStarted(){
 	ofxTLZoomEventArgs zoomEvent;
-	zoomEvent.currentZoom = zoomEvent.oldZoom = currentViewRange;
-	ofNotifyEvent(ofxTLEvents.zoomStarted, zoomEvent);		
+    zoomEvent.sender = timeline;
+	zoomEvent.currentZoom = zoomEvent.oldZoom = getViewRange();
+	ofNotifyEvent(events().zoomStarted, zoomEvent);		
 }
 
 void ofxTLZoomer::notifyZoomDragged(ofRange oldRange){
 	ofxTLZoomEventArgs zoomEvent;
+    zoomEvent.sender = timeline;
 	zoomEvent.oldZoom = oldRange;
-	zoomEvent.currentZoom = currentViewRange;
-	ofNotifyEvent(ofxTLEvents.zoomDragged, zoomEvent);
+	//zoomEvent.currentZoom = currentViewRange;
+	zoomEvent.currentZoom = getViewRange();
+	ofNotifyEvent(events().zoomDragged, zoomEvent);
 }
 
 void ofxTLZoomer::notifyZoomEnded(){
 	ofxTLZoomEventArgs zoomEvent;
-	zoomEvent.currentZoom = zoomEvent.oldZoom = currentViewRange;
-	ofNotifyEvent(ofxTLEvents.zoomEnded, zoomEvent);	
+    zoomEvent.sender = timeline;    
+	//zoomEvent.currentZoom = currentViewRange;
+	zoomEvent.currentZoom = getViewRange();
+	ofNotifyEvent(events().zoomEnded, zoomEvent);
 }
 
 void ofxTLZoomer::keyPressed(ofKeyEventArgs& args){
-	//TODO: nudge
+	//TODO: Nudging?
 }
 
 ofRange ofxTLZoomer::getViewRange() {
+	float logSpan = powf(currentViewRange.span(),zoomExponent);
+	float centerPosition = currentViewRange.center();
+	//recompute view range
+	if(centerPosition != .5){
+		centerPosition = ofMap(centerPosition, currentViewRange.span()/2, 1.0 - currentViewRange.span()/2, logSpan/2, 1.0-logSpan/2);
+	}
+	return ofRange(centerPosition - logSpan/2, centerPosition + logSpan/2);
+}
+
+void ofxTLZoomer::setViewExponent(float exponent){
+	zoomExponent = 1.0;
+	setViewRange(currentViewRange);
+}
+
+void ofxTLZoomer::setViewRange(ofRange newRange){
+
+	ofxTLZoomEventArgs zoomEvent;
+    zoomEvent.oldZoom = getViewRange();
+    zoomEvent.sender = timeline;
+
+	currentViewRange = newRange;
+	zoomEvent.currentZoom = getViewRange();
+	ofNotifyEvent(events().zoomEnded, zoomEvent); 
+}
+
+ofRange ofxTLZoomer::getSelectedRange(){
 	return currentViewRange;
 }
+

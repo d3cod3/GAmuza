@@ -1,9 +1,32 @@
-/*
- *  ofxTLVideoThumb.cpp
- *  timelineExampleVideoPlayer
+/**
+ * ofxTimeline
+ * openFrameworks graphical timeline addon
  *
- *  Created by James George on 11/12/11.
- *  Copyright 2011 __MyCompanyName__. All rights reserved.
+ * Copyright (c) 2011-2012 James George
+ * Development Supported by YCAM InterLab http://interlab.ycam.jp/en/
+ * http://jamesgeorge.org + http://flightphase.com
+ * http://github.com/obviousjim + http://github.com/flightphase
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
  *
  */
 
@@ -12,57 +35,29 @@
 ofxTLVideoThumb::ofxTLVideoThumb(){
 	framenum= -1;
 	loaded = false;
-	exists = false;
-	targetWidth = 360;	
+    useTexture = true;
+    timestamp = 0;
 }
 
 ofxTLVideoThumb::~ofxTLVideoThumb(){
-
+	unload();
 }
 
-void ofxTLVideoThumb::setup(int frame, string thumbpath){
-	framenum = frame;
-	char fp[1024];
-	sprintf(fp, "%s/thumb_%05d.png", thumbpath.c_str(), framenum);
-	filepath = string(fp);
-	exists = ofFile(filepath).exists();
-	loaded = false;
-}
+void ofxTLVideoThumb::create(ofPixels& thumbPixels){
 
-void ofxTLVideoThumb::create(ofImage& videoFrame){
-
-	if(exists){
-		//let's not create something that already exists
-		return;
-	}
-	
-	thumb.clone(videoFrame);
-	targetHeight = float(videoFrame.getHeight()) / videoFrame.getWidth() * targetWidth;
-	thumb.resize(int(targetWidth), int(targetHeight));
-	thumb.saveImage(filepath);
-	
-	exists = true;
-	loaded = true;
-}
-
-void ofxTLVideoThumb::load(){
-	timeloaded = ofGetElapsedTimef();
-	if(!exists){
-		ofLogError("ofxTLVideoThumb -- Trying to load " + filepath + " but hasn't been created first");
-		return;
-	}
-	
-	if(!thumb.loadImage(filepath)){
-		ofLogError("ofxTLVideoThumb -- Trying to load " + filepath + " but hasn't been created first");
-		return;
-	}
-	
-	targetWidth = thumb.getWidth();
-	targetHeight = thumb.getHeight(); 
+	if(thumb == NULL){
+        thumb = ofPtr<ofImage>(new ofImage());
+    }
+    
+    thumb->setUseTexture(useTexture);
+	thumb->setFromPixels(thumbPixels);
+    
+	if(int(displayRect.height) != int(thumbPixels.getHeight()) ){
+		thumb->resize(int(displayRect.width), int(displayRect.height));
+    }
 	loaded = true;
 }
 
 void ofxTLVideoThumb::unload(){
-	thumb.clear();
 	loaded = false;
 }
