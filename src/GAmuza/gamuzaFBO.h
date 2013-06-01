@@ -22,6 +22,17 @@ void gamuzaMain::setupFBO(){
     
     ///////////////////////////
 	// SHADER setup
+    // check graphic card shader support
+    char _m[256];
+	sprintf(_m,"OpenGL version: %s", glGetString (GL_VERSION));
+    sendGALog(_m);
+	if(GL_ARB_shader_objects){
+		sprintf(_m," - GL_ARB_shader SUPPORTED by your Graphic Card: %s\n\n", glGetString (GL_RENDERER));
+	}else{
+		sprintf(_m," - GL_ARB_shader NOT SUPPORTED by your Graphic Card: %s\n\n", glGetString (GL_RENDERER));
+	}
+    sendGALog(_m);
+    
     shaderColorCorrection.load(GAMUZA_SHADER);
     
     shaderColorCorrection.begin();

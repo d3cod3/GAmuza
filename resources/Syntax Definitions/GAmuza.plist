@@ -1575,6 +1575,7 @@
 			<key>Keywords</key>
 			<array>
 				<string>function</string>
+				<string>class</string>
 				<string>and</string>
 				<string>break</string>
 				<string>do</string>

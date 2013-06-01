@@ -53,7 +53,6 @@
 		2053CE2717390092002624E5 /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2053CE0C1738FCA3002624E5 /* Syphon.framework */; };
 		207847881732C98B0098ABF0 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 207847851732C98B0098ABF0 /* AppDelegate.mm */; };
 		2078478D1732C9960098ABF0 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2078478A1732C9960098ABF0 /* main.mm */; };
-		207847921732CA5E0098ABF0 /* gamuza003.icns in Resources */ = {isa = PBXBuildFile; fileRef = 207847911732CA5E0098ABF0 /* gamuza003.icns */; };
 		207847A71732CACA0098ABF0 /* calibrator in Resources */ = {isa = PBXBuildFile; fileRef = 207847951732CAAE0098ABF0 /* calibrator */; };
 		207847A81732CACA0098ABF0 /* export in Resources */ = {isa = PBXBuildFile; fileRef = 207847961732CAAE0098ABF0 /* export */; };
 		207847A91732CACA0098ABF0 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 207847971732CAAE0098ABF0 /* fonts */; };
@@ -236,6 +235,7 @@
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20DA4ED51744F9EE00B507F6 /* GASketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DA4ED31744F9EE00B507F6 /* GASketchFile.m */; };
+		20E227EE1759401C0033D376 /* Gamuza.icns in Resources */ = {isa = PBXBuildFile; fileRef = 20E227ED1759401C0033D376 /* Gamuza.icns */; };
 		20EE1E3C1740F3CC0067DC29 /* GATextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */; };
 		20EE1E411740F5460067DC29 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E401740F5460067DC29 /* CoreData.framework */; };
 		20EE1E431740F5500067DC29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E421740F5500067DC29 /* Foundation.framework */; };
@@ -388,7 +388,6 @@
 		207847841732C98B0098ABF0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		207847851732C98B0098ABF0 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		2078478A1732C9960098ABF0 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
-		207847911732CA5E0098ABF0 /* gamuza003.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = gamuza003.icns; sourceTree = "<group>"; };
 		207847951732CAAE0098ABF0 /* calibrator */ = {isa = PBXFileReference; lastKnownFileType = folder; name = calibrator; path = bundle/calibrator; sourceTree = "<group>"; };
 		207847961732CAAE0098ABF0 /* export */ = {isa = PBXFileReference; lastKnownFileType = folder; name = export; path = bundle/export; sourceTree = "<group>"; };
 		207847971732CAAE0098ABF0 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = fonts; path = bundle/fonts; sourceTree = "<group>"; };
@@ -954,6 +953,8 @@
 		20DA4ECE1744EB6500B507F6 /* GAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAConstants.h; path = ScriptEditor/GAConstants.h; sourceTree = "<group>"; };
 		20DA4ED21744F9EE00B507F6 /* GASketchFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GASketchFile.h; path = ScriptEditor/GASketchFile.h; sourceTree = "<group>"; };
 		20DA4ED31744F9EE00B507F6 /* GASketchFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GASketchFile.m; path = ScriptEditor/GASketchFile.m; sourceTree = "<group>"; };
+		20E227ED1759401C0033D376 /* Gamuza.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Gamuza.icns; sourceTree = "<group>"; };
+		20E91816175924CD007E1EE8 /* gamuzaConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamuzaConsole.h; sourceTree = "<group>"; };
 		20EE1E391740F3CC0067DC29 /* GATextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GATextDocument.h; path = ScriptEditor/GATextDocument.h; sourceTree = "<group>"; };
 		20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GATextDocument.m; path = ScriptEditor/GATextDocument.m; sourceTree = "<group>"; };
 		20EE1E401740F5460067DC29 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = ../../../../../../../../System/Library/Frameworks/CoreData.framework; sourceTree = "<group>"; };
@@ -1228,7 +1229,7 @@
 				20027F4917345EBD00ED0C52 /* Syntax Definitions */,
 				204CC5291752825600C2CCF5 /* gaAutocompletion.txt */,
 				20027F2117345BB700ED0C52 /* ga_file_extension.icns */,
-				207847911732CA5E0098ABF0 /* gamuza003.icns */,
+				20E227ED1759401C0033D376 /* Gamuza.icns */,
 				EE672EA11541E67F00229B52 /* MainMenu.xib */,
 				20F54CA71746CE570029D637 /* GATextDocument.xib */,
 				2099AA631742B86200973FA1 /* GAMultiTextDocument.xib */,
@@ -1259,6 +1260,7 @@
 				207847B11732CB3B0098ABF0 /* gamuzaApp.h */,
 				20F9E114175538C4009278C3 /* gamuzaArduino.h */,
 				207847B21732CB3B0098ABF0 /* gamuzaAudio.h */,
+				20E91816175924CD007E1EE8 /* gamuzaConsole.h */,
 				207847B31732CB3B0098ABF0 /* gamuzaConstants.h */,
 				207847B41732CB3B0098ABF0 /* gamuzaFBO.h */,
 				207847B51732CB3B0098ABF0 /* gamuzaGetters.h */,
@@ -3381,7 +3383,7 @@
 				EE672EE31541E8D200229B52 /* MainMenu.xib in Resources */,
 				204CC52A1752825600C2CCF5 /* gaAutocompletion.txt in Resources */,
 				20027F2217345BB700ED0C52 /* ga_file_extension.icns in Resources */,
-				207847921732CA5E0098ABF0 /* gamuza003.icns in Resources */,
+				20E227EE1759401C0033D376 /* Gamuza.icns in Resources */,
 				207847A71732CACA0098ABF0 /* calibrator in Resources */,
 				207847A81732CACA0098ABF0 /* export in Resources */,
 				207847A91732CACA0098ABF0 /* fonts in Resources */,

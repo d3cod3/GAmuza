@@ -40,6 +40,7 @@
     }
     
     // Register notification for console logs & errors
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForGALog:) name:@"GAConsoleLog" object:NULL ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForLogMessages:) name:@"GALogMessageEvent" object:NULL ];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForLogErrors:) name:@"GALogErrorEvent" object:NULL ];
     
@@ -63,7 +64,7 @@
     
     // Splash window
     [_splash makeKeyAndOrderFront:_splash];
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.0
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.6
                                     target:self
                                     selector:@selector(terminateSplashWindow:)
                                     userInfo:NULL
@@ -71,8 +72,19 @@
     
     applicationHasStarted = YES;
     
+    NSString *tempRelease = [NSString stringWithFormat:@" GAmuza %@ | Hybrid Live OF Sketching IDE",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
+    [self sendGALog:tempRelease];
+    [self sendGALog:@"----------------------------------------------------------"];
+    [self sendGALog:@" "];
+    [self sendGALog:@"   Powered  by OF           <http://www.openframeworks.cc>"];
+    [self sendGALog:@"   Inspired by Processing   <http://www.processing.org>"];
+    [self sendGALog:@" "];
+    [self sendGALog:@"   Created  by Emanuele Mazza aka n3m3da"];
+    [self sendGALog:@"----------------------------------------------------------"];
+    [self sendGALog:@" "];
     
     [self sendGALog:@"GAmuza Started"];
+    [self sendGALog:@" "];
     
 
 }
@@ -264,6 +276,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
 	ofxNSWindower::destroy();
+}
+
+//------------------------------------------------------------------------------
+- (void) checkForGALog: (NSNotification *) notification{
+    NSString *gaString = [NSString stringWithUTF8String:gapp->currentGlobalLog.c_str()];
+    [self sendGALog:gaString];
 }
 
 //------------------------------------------------------------------------------

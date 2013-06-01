@@ -14,12 +14,12 @@ void gamuzaMain::checkNetConnection(){
     connectionTest.Close();
     
     if(connectionUP){
-        sprintf(temp_message," Net Connection UP & RUNNING");
-        sendPrivateMessage(GAMUZA_CONSOLE_LOG, temp_message);
+        sprintf(temp_message,"OSC Connection UP & RUNNING");
     }else{
-        sprintf(temp_message," Net Connection DOWN");
-        sendPrivateMessage(GAMUZA_CONSOLE_LOG, temp_message);
+        sprintf(temp_message,"OSC Connection DOWN");
+        
     }
+    sendGALog(temp_message);
     
 }
 
@@ -35,13 +35,10 @@ void gamuzaMain::setupOSC(){
 	sender.setup(host_number.c_str(),atoi(host_port.c_str()));
     receiver.setup(atoi(server_port.c_str()));
     
-    sprintf(temp_message," OSC engine:");
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, temp_message);
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, " ");
-    sprintf(temp_message,"    receiving at port %s",server_port.c_str());
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, temp_message);
-    sprintf(temp_message,"    sending at host:port %s:%s",host_number.c_str(),host_port.c_str());
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, temp_message);
+    sprintf(temp_message,"  - receiving at port %s",server_port.c_str());
+    sendGALog(temp_message);
+    sprintf(temp_message,"  - sending at host:port %s:%s\n",host_number.c_str(),host_port.c_str());
+    sendGALog(temp_message);
 	
 }
 
@@ -160,17 +157,6 @@ void gamuzaMain::cleanBuffer(){
 	osc_message.clear();
 	////////////////////////////////////////////
 	
-}
-
-//--------------------------------------------------------------
-void gamuzaMain::sendPrivateMessage(int _type, string _message){
-    if(_type == GAMUZA_CONSOLE_LOG){
-        currentLog      = _message;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GALogMessageEvent" object:NULL ];
-    }else if(_type == GAMUZA_CONSOLE_ERROR){
-        currentErrorLog = _message;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GALogErrorEvent" object:NULL ];
-    }
 }
 
 #endif

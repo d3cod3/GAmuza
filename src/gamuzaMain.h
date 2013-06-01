@@ -80,6 +80,10 @@ public:
     void addInputRecording();
     void resetAudioOutput();
     
+    // CONSOLE /////////////////////////// --> gamuzaConsole.h
+    void sendGALog(string _message);
+    void sendPrivateMessage(int _type, string _message);
+    
     // FBO ///////////////////////////// --> gamuzaFBO.h
     void setupFBO();
     void updateFBO();
@@ -121,7 +125,6 @@ public:
     void resetOutgoingOSC();
     void sendBuffer();
     void cleanBuffer();
-    void sendPrivateMessage(int _type, string _message);
     
     // SCRIPTING /////////////////////// --> gamuzaScripting.h
     void    setupScripting();
@@ -233,6 +236,13 @@ public:
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
+    // CONSOLE --> gamuzaConsole.h
+    string                      currentLog;
+    string                      currentErrorLog;
+    string                      currentGlobalLog;
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
     // FBO --> gamuzaFBO.h
      ofFbo					drawingFbo;
      ofFbo                  gamuzaFbo;
@@ -336,8 +346,6 @@ public:
      vector<bool>                guiVectorBool;
      int                         liveKey;
      string                      GAscriptFileName;
-     string                      currentLog;
-     string                      currentErrorLog;
     
      char                        temp_error[512];
      vector<string>              errorVector;

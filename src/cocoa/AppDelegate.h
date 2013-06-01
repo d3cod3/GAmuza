@@ -40,6 +40,8 @@
 
 - (void)getSketchbookFolderContents:(NSString*)path;
 
+- (void)checkForGALog: (NSNotification *) notification;
+
 - (void)checkForLogMessages: (NSNotification *) notification;
 
 - (void)checkForLogErrors: (NSNotification *) notification;

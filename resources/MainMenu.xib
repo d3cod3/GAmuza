@@ -890,14 +890,14 @@
 			<object class="NSWindowTemplate" id="717770335">
 				<int key="NSWindowStyleMask">8211</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{163, 200}, {480, 264}}</string>
-				<int key="NSWTFlags">1954022400</int>
+				<string key="NSWindowRect">{{642, 764}, {480, 264}}</string>
+				<int key="NSWTFlags">1951400960</int>
 				<string key="NSWindowTitle">Color Selector</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="491504328">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSColorWell" id="699760157">
@@ -1419,6 +1419,7 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 264}</string>
+					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="699760157"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -1429,8 +1430,8 @@
 			<object class="NSWindowTemplate" id="901466928">
 				<int key="NSWindowStyleMask">8219</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{163, 200}, {640, 222}}</string>
-				<int key="NSWTFlags">1954022400</int>
+				<string key="NSWindowRect">{{0, 0}, {640, 220}}</string>
+				<int key="NSWTFlags">1950876672</int>
 				<string key="NSWindowTitle">GA Logger</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
@@ -1450,10 +1451,10 @@
 										<object class="NSTextView" id="414576806">
 											<reference key="NSNextResponder" ref="231395925"/>
 											<int key="NSvFlags">2322</int>
-											<string key="NSFrameSize">{642, 14}</string>
+											<string key="NSFrameSize">{642, 12}</string>
 											<reference key="NSSuperview" ref="231395925"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="466155704"/>
+											<reference key="NSNextKeyView" ref="643453294"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<object class="NSTextContainer" key="NSTextContainer" id="290521554">
 												<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1510,11 +1511,11 @@
 											</object>
 											<int key="NSTVFlags">6</int>
 											<string key="NSMaxSize">{645, 10000000}</string>
-											<string key="NSMinize">{223, 14}</string>
+											<string key="NSMinize">{223, 12}</string>
 											<nil key="NSDelegate"/>
 										</object>
 									</array>
-									<string key="NSFrameSize">{642, 224}</string>
+									<string key="NSFrameSize">{642, 222}</string>
 									<reference key="NSSuperview" ref="139853588"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="414576806"/>
@@ -1705,10 +1706,10 @@ wGw</bytes>
 									<int key="NSKnobStyle">1</int>
 								</object>
 							</array>
-							<string key="NSFrame">{{-1, -1}, {642, 224}}</string>
+							<string key="NSFrame">{{-1, -1}, {642, 222}}</string>
 							<reference key="NSSuperview" ref="890217461"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="231395925"/>
+							<reference key="NSNextKeyView" ref="466155704"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSsFlags">133680</int>
 							<reference key="NSVScroller" ref="643453294"/>
@@ -1717,9 +1718,10 @@ wGw</bytes>
 							<int key="NSScrollerKnobStyle">1</int>
 						</object>
 					</array>
-					<string key="NSFrameSize">{640, 222}</string>
+					<string key="NSFrameSize">{640, 220}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
+					<reference key="NSNextKeyView" ref="139853588"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -3440,8 +3442,10 @@ wGw</bytes>
 				<string key="1053.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1054.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="1060.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="NO" key="1060.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="1060.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="NO" key="1060.NSWindowTemplate.visibleAtLaunch"/>
+				<boolean value="YES" key="1060.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="1061.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1062.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1063.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3505,6 +3509,8 @@ wGw</bytes>
 				<string key="851.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="852.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="853.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<boolean value="NO" key="854.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="NO" key="854.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="854.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="NO" key="854.NSWindowTemplate.visibleAtLaunch"/>
 				<string key="855.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>

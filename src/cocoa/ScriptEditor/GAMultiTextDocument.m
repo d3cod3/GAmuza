@@ -112,11 +112,6 @@
     [self addLogMsg:@" "];
     NSString *tempRelease = [NSString stringWithFormat:@" GAmuza %@ | Hybrid Live OF Sketching IDE",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
     [self addLogMsg:tempRelease];
-    [self addLogMsg:@" "];
-    [self addLogMsg:@"   Powered  by OF           <http://www.openframeworks.cc>"];
-    [self addLogMsg:@"   Inspired by Processing   <http://www.processing.org>"];
-    [self addLogMsg:@" "];
-    [self addLogMsg:@"   Created  by Emanuele Mazza aka n3m3da"];
     
     ////////////////////////////////////////////////
     // custom buttons

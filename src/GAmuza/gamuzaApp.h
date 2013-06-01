@@ -222,6 +222,8 @@ void gamuzaMain::listAudioDevices(){
     audioTemp = ofPtr<RtAudio>(new RtAudio());
  	int devices = audioTemp->getDeviceCount();
     
+    char _m[256];
+    
 	RtAudio::DeviceInfo info;
     
 	for (int i=devices-1; i>= 0; i--) {
@@ -232,10 +234,15 @@ void gamuzaMain::listAudioDevices(){
             srate << info.sampleRates[j] << ",";
         }
         string _sr = srate.str();
-        //logger.log(99, " sample rates: %s", ofToString(_sr).c_str());
-		//logger.log(99, " input channels: %s", ofToString(info.inputChannels).c_str());
-		//logger.log(99, " output channels: %s", ofToString(info.outputChannels).c_str());
-		//logger.log(99, " device: %i (%s)\n", i,ofToString(info.name).c_str());
+        
+        sprintf(_m," device: %i (%s)\n", i,ofToString(info.name).c_str());
+        sendGALog(_m);
+        sprintf(_m," output channels: %s", ofToString(info.outputChannels).c_str());
+        sendGALog(_m);
+        sprintf(_m," input channels: %s", ofToString(info.inputChannels).c_str());
+        sendGALog(_m);
+        sprintf(_m," sample rates: %s", ofToString(_sr).c_str());
+        sendGALog(_m);
         
 	}
     
@@ -257,9 +264,12 @@ void gamuzaMain::listAudioDevices(){
 //--------------------------------------------------------------
 void gamuzaMain::listMidiDevices(){
     
+    char _m[256];
+    
 	for(int i=midiIn.getPortList().size()-1;i>=0;i--){
-        //logger.log(99, " -----------------------");
-        //logger.log(99, " device: %i (%s)", i,ofToString(midiIn.portNames[i]).c_str());
+        sprintf(_m," MIDI device: %i (%s)", i,ofToString(midiIn.getPortName(i)).c_str());
+        sendGALog(_m);
+        sendGALog(" -----------------------");
     }
     
     _midiDev.clear();
@@ -278,13 +288,15 @@ void gamuzaMain::listMidiDevices(){
 //--------------------------------------------------------------
 void gamuzaMain::listSerialDevices(){
     char temp[128];
+    char _m[256];
     
     _serial.listDevices();
     _deviceList.clear();
 	_deviceList = _serial.getDeviceList();
     
     for(int k = 0; k < (int)_deviceList.size(); k++){
-		//logger.log(99, " /dev/%s", _deviceList[k].getDeviceName().c_str());
+        sprintf(_m," /dev/%s", _deviceList[k].getDeviceName().c_str());
+        sendGALog(_m);
 	}
     
     _serialDev.clear();

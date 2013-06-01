@@ -142,9 +142,7 @@ void gamuzaMain::saveArduinoSetting(){
 	
 	pinsSettings.saveFile(GAMUZA_ARDUINO_PINS);
 	
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, " ");
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, "ARDUINO Pins Mode SAVED");
-    sendPrivateMessage(GAMUZA_CONSOLE_LOG, " ");
+    sendGALog("ARDUINO Pins Mode SAVED");
 	
 }
 

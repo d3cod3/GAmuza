@@ -18,7 +18,6 @@ void gamuzaMain::setupAudio(){
     recChannel              = 0;
     recordingInput          = false;
 	
-	printf("\n");
 	soundStream.setDeviceID(audioDevID);
 	soundStream.setup(audioOutputChannels,audioInputChannels,audioSamplingRate,audioBufferSize, audioNumBuffers);
 	

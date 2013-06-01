@@ -8,6 +8,7 @@
 #include "gamuzaApp.h"
 #include "gamuzaArduino.h"
 #include "gamuzaAudio.h"
+#include "gamuzaConsole.h"
 #include "gamuzaFBO.h"
 #include "gamuzaGui.h"
 #include "gamuzaMapping.h"
