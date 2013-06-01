@@ -35,6 +35,7 @@
 #include "ofxLua.h"					// Lua embedded scripting interpreter
 
 // GUI
+#include "ofxUI.h"
 #include "ofxSimpleGuiToo.h"        // secondary gui library used here for live coding
 
 // GPU
@@ -70,6 +71,7 @@
 #include "ofxSubtitles.h"           // load/save .srt subtitles files
 
 // PHYSICS
+#include "ofxBox2d.h"
 #include "ofxVectorField.h"
 
 // MATH

@@ -2015,26 +2015,32 @@ class ofGamuzaWrapper{
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofSoundStream
          
-         // LIMITED, ofSoundStream NOT AVAILABLE IN GAMUZA 0.3 IN THE LIVE CODING SYSTEM
-         // &
-         // MANAGED FROM GUI (audio module) & FROM gamuza LIVE CODING FUNCTIONS (ga. module)
-         
-         
-         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		 /// \section application [ofAppBaseWindow, ofDragInfo, ofAppRunner, ofBaseApp]
-         
-         // NOT AVAILABLE IN GAMUZA 0.3 IN THE LIVE CODING SYSTEM, DUE TO THE HYBRID LIVE-CODING NATURE OF GAMUZA
+         // MANAGED FROM GUI (audio module) & FROM gamuza LIVE CODING FUNCTIONS
         
          
-         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section serial
          
-         // NOT AVAILABLE IN GAMUZA 0.3 IN THE LIVE CODING SYSTEM, MANAGED FROM GUI (arduino module)
+         class_<ofSerial>("ofSerial")
+		 .def(constructor<>())
+		 .def("listDevices", (void(ofSerial::*)(void)) &ofSerial::listDevices)
+         .def("close", (void(ofSerial::*)(void)) &ofSerial::close)
+         .def("setup", (bool(ofSerial::*)(void)) &ofSerial::setup)
+         .def("setup", (bool(ofSerial::*)(string,int)) &ofSerial::setup)
+         .def("setup", (bool(ofSerial::*)(int,int)) &ofSerial::setup)
+         .def("readBytes", (void(ofSerial::*)(unsigned char*,int)) &ofSerial::readBytes)
+         .def("writeBytes", (void(ofSerial::*)(unsigned char*,int)) &ofSerial::writeBytes)
+         .def("writeByte", (void(ofSerial::*)(unsigned char)) &ofSerial::writeByte)
+         
+         .def("readByte", (int(ofSerial::*)(void)) &ofSerial::readByte)
+         .def("flush", (void(ofSerial::*)(bool,bool)) &ofSerial::flush)
+         .def("available", (int(ofSerial::*)(void)) &ofSerial::available)
+         .def("drain", (void(ofSerial::*)(void)) &ofSerial::drain),
          
          
-         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+         ///////////////////////////////////////////////////////////////////////////////////
+         ///////////////////////////////////////////////////////////////////////////////////
+         ///////////////////////////////////////////////////////////////////////////////////
 		 
         
         //////////////////////////////////////////////////////////////
@@ -2634,6 +2640,225 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXBOX2D
+         class_<b2World>("b2World")
+         .def(constructor<const b2Vec2&,bool>()),
+         
+         ///////////////////////////////
+         // ofxBox2d
+         class_<ofxBox2d>("ofxBox2d")
+         .def(constructor<>())
+         .def("init", (void(ofxBox2d::*)(void)) &ofxBox2d::init)
+         .def("setFPS", (void(ofxBox2d::*)(float)) &ofxBox2d::setFPS)
+         .def("registerGrabbing", (void(ofxBox2d::*)(void)) &ofxBox2d::registerGrabbing)
+         .def("grabShapeDown", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeDown)
+         .def("grabShapeUp", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeUp)
+         .def("grabShapeDragged", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeDragged)
+         .def("getWorld", (b2World*(ofxBox2d::*)(void)) &ofxBox2d::getWorld)
+         .def("getBodyCount", (int(ofxBox2d::*)(void)) &ofxBox2d::getBodyCount)
+         .def("getJointCount", (int(ofxBox2d::*)(void)) &ofxBox2d::getJointCount)
+         .def("enableGrabbing", (void(ofxBox2d::*)(void)) &ofxBox2d::enableGrabbing)
+         .def("disableGrabbing", (void(ofxBox2d::*)(void)) &ofxBox2d::disableGrabbing)
+         .def("setContactListener", (void(ofxBox2d::*)(ofxBox2dContactListener*)) &ofxBox2d::setContactListener)
+         .def("setIterations", (void(ofxBox2d::*)(int,int)) &ofxBox2d::setIterations)
+         .def("setGravity", (void(ofxBox2d::*)(float,float)) &ofxBox2d::setGravity)
+         .def("setGravity", (void(ofxBox2d::*)(ofPoint)) &ofxBox2d::setGravity)
+         .def("setBounds", (void(ofxBox2d::*)(ofPoint,ofPoint)) &ofxBox2d::setBounds)
+         .def("createBounds", (void(ofxBox2d::*)(float,float,float,float)) &ofxBox2d::createBounds)
+         .def("createBounds", (void(ofxBox2d::*)(ofRectangle&)) &ofxBox2d::createBounds)
+         .def("createGround", (void(ofxBox2d::*)(const ofPoint&,const ofPoint&)) &ofxBox2d::createGround)
+         .def("createGround", (void(ofxBox2d::*)(float,float,float,float)) &ofxBox2d::createGround)
+         .def("checkBounds", (void(ofxBox2d::*)(bool)) &ofxBox2d::checkBounds)
+         .def("update", (void(ofxBox2d::*)(void)) &ofxBox2d::update)
+         .def("draw", (void(ofxBox2d::*)(void)) &ofxBox2d::draw)
+         .def("drawGround", (void(ofxBox2d::*)(void)) &ofxBox2d::drawGround),
+         
+         ///////////////////////////////
+         // ofxBox2dCircle
+         class_<ofxBox2dCircle>("ofxBox2dCircle")
+         .def(constructor<>())
+         // from ofxBox2dBaseShape
+         .def("isBody", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isBody)
+         .def("isFixed", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isFixed)
+         .def("getWorld", (b2World*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getWorld)
+         .def("create", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::create)
+         .def("setBounce", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setBounce)
+         .def("setDensity", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setDensity)
+         .def("setFriction", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setFriction)
+         .def("setPhysics", (void(ofxBox2dCircle::*)(float,float,float)) &ofxBox2dCircle::setPhysics)
+         .def("setData", (void*(ofxBox2dCircle::*)(void*)) &ofxBox2dCircle::setData)
+         .def("getData", (void*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getData)
+         .def("setFilterData", (void(ofxBox2dCircle::*)(b2Filter)) &ofxBox2dCircle::setFilterData)
+         .def("enableGravity", (void(ofxBox2dCircle::*)(bool)) &ofxBox2dCircle::enableGravity)
+         .def("setFixedRotation", (void(ofxBox2dCircle::*)(bool)) &ofxBox2dCircle::setFixedRotation)
+         .def("setRotationFriction", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setRotationFriction)
+         .def("getRotation", (float(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getRotation)
+         .def("getPosition", (ofVec2f(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getPosition)
+         .def("getB2DPosition", (ofVec2f(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getB2DPosition)
+         .def("setVelocity", (void(ofxBox2dCircle::*)(float,float)) &ofxBox2dCircle::setVelocity)
+         .def("setVelocity", (void(ofxBox2dCircle::*)(ofVec2f)) &ofxBox2dCircle::setVelocity)
+         .def("getVelocity", (ofVec2f(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getVelocity)
+         .def("setDamping", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setDamping)
+         .def("setDamping", (void(ofxBox2dCircle::*)(float,float)) &ofxBox2dCircle::setDamping)
+         .def("addForce", (void(ofxBox2dCircle::*)(ofVec2f,float)) &ofxBox2dCircle::addForce)
+         .def("addImpulseForce", (void(ofxBox2dCircle::*)(ofVec2f,ofVec2f)) &ofxBox2dCircle::addImpulseForce)
+         .def("destroy", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::destroy)
+         .def("update", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::update)
+         
+         .def("setup", (void(ofxBox2dCircle::*)(b2World*,float,float,float)) &ofxBox2dCircle::setup)
+         .def("getRadius", (float(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getRadius)
+         .def("setRadius", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setRadius)
+         .def("draw", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::draw)
+         .def("addAttractionPoint", (void(ofxBox2dCircle::*)(float,float,float)) &ofxBox2dCircle::addAttractionPoint)
+         .def("addAttractionPoint", (void(ofxBox2dCircle::*)(ofVec2f,float)) &ofxBox2dCircle::addAttractionPoint)
+         .def("addRepulsionForce", (void(ofxBox2dCircle::*)(float,float,float)) &ofxBox2dCircle::addRepulsionForce)
+         .def("addRepulsionForce", (void(ofxBox2dCircle::*)(ofVec2f,float)) &ofxBox2dCircle::addRepulsionForce),
+         
+         ///////////////////////////////
+         // ofxBox2dJoint
+         class_<ofxBox2dJoint>("ofxBox2dJoint")
+         .def(constructor<>())
+         .def(constructor<b2World*,b2Body*,b2Body*,float,float,bool>())
+         .def(constructor<b2World*,b2Body*,b2Body*,b2Vec2,b2Vec2,float,float,bool>())
+         .def("setWorld", (void(ofxBox2dJoint::*)(b2World*)) &ofxBox2dJoint::setWorld)
+         .def("setup", (void(ofxBox2dJoint::*)(b2World*,b2Body*,b2Body*,float,float,bool)) &ofxBox2dJoint::setup)
+         .def("setup", (void(ofxBox2dJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,b2Vec2,float,float,bool)) &ofxBox2dJoint::setup)
+         .def("isSetup", (bool(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::isSetup)
+         .def("draw", (void(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::draw)
+         .def("destroy", (void(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::destroy)
+         .def("setLength", (void(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::setLength)
+         .def("getLength", (float(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::getLength)
+         .def("setFrequency", (void(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::setFrequency)
+         .def("getFrequency", (float(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::getFrequency)
+         .def("setDamping", (void(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::setDamping)
+         .def("getDamping", (float(ofxBox2dJoint::*)(void)) &ofxBox2dJoint::getDamping)
+         .def("getReactionForce", (ofVec2f(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dPolygon
+         class_<ofxBox2dPolygon>("ofxBox2dPolygon")
+         .def(constructor<>())
+         // from ofPolyline
+         .def("clear", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::clear)
+         .def("addVertex", (void(ofxBox2dPolygon::*)(float,float,float)) &ofxBox2dPolygon::addVertex)
+         .def("lineTo", (void(ofxBox2dPolygon::*)(const ofPoint&)) &ofxBox2dPolygon::lineTo)
+         .def("lineTo", (void(ofxBox2dPolygon::*)(float,float,float)) &ofxBox2dPolygon::lineTo)
+         .def("arc", (void(ofxBox2dPolygon::*)(const ofPoint&,float,float,float,float,int)) &ofxBox2dPolygon::arc)
+         .def("arc", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,int)) &ofxBox2dPolygon::arc)
+         .def("arc", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,float,int)) &ofxBox2dPolygon::arc)
+         .def("curveTo", (void(ofxBox2dPolygon::*)(const ofPoint&,int)) &ofxBox2dPolygon::curveTo)
+         .def("curveTo", (void(ofxBox2dPolygon::*)(float,float,float,int)) &ofxBox2dPolygon::curveTo)
+         .def("bezierTo", (void(ofxBox2dPolygon::*)(const ofPoint&,const ofPoint&,const ofPoint&,int)) &ofxBox2dPolygon::bezierTo)
+         .def("bezierTo", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,int)) &ofxBox2dPolygon::bezierTo)
+         .def("bezierTo", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,float,float,float,int)) &ofxBox2dPolygon::bezierTo)
+         .def("quadBezierTo", (void(ofxBox2dPolygon::*)(const ofPoint&,const ofPoint&,const ofPoint&,int)) &ofxBox2dPolygon::quadBezierTo)
+         .def("quadBezierTo", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,int)) &ofxBox2dPolygon::quadBezierTo)
+         .def("quadBezierTo", (void(ofxBox2dPolygon::*)(float,float,float,float,float,float,float,float,float,int)) &ofxBox2dPolygon::quadBezierTo)
+         .def("getSmoothed", (ofxBox2dPolygon(ofxBox2dPolygon::*)(int,float)) &ofxBox2dPolygon::getSmoothed)
+         .def("getResampledBySpacing", (ofxBox2dPolygon(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::getResampledBySpacing)
+         .def("getResampledByCount", (ofxBox2dPolygon(ofxBox2dPolygon::*)(int)) &ofxBox2dPolygon::getResampledByCount)
+         .def("getBoundingBox", (ofRectangle(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getBoundingBox)
+         .def("getClosestPoint", (ofPoint(ofxBox2dPolygon::*)(const ofPoint&,unsigned int*)) &ofxBox2dPolygon::getClosestPoint)
+         .def("simplify", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::simplify)
+         .def("size", (size_t(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::size)
+         .def("resize", (void(ofxBox2dPolygon::*)(size_t)) &ofxBox2dPolygon::resize)
+         .def("setClosed", (void(ofxBox2dPolygon::*)(bool)) &ofxBox2dPolygon::setClosed)
+         .def("isClosed", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isClosed)
+         .def("close", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::close)
+         .def("hasChanged", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::hasChanged)
+         .def("getVertices", (ofPoint(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getVertices)
+         .def("getPerimeter", (float(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getPerimeter)
+         // from ofxBox2dBaseShape
+         .def("isBody", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isBody)
+         .def("isFixed", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isFixed)
+         .def("getWorld", (b2World*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getWorld)
+         .def("create", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::create)
+         .def("setBounce", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setBounce)
+         .def("setDensity", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setDensity)
+         .def("setFriction", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setFriction)
+         .def("setPhysics", (void(ofxBox2dPolygon::*)(float,float,float)) &ofxBox2dPolygon::setPhysics)
+         .def("setData", (void*(ofxBox2dPolygon::*)(void*)) &ofxBox2dPolygon::setData)
+         .def("getData", (void*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getData)
+         .def("setFilterData", (void(ofxBox2dPolygon::*)(b2Filter)) &ofxBox2dPolygon::setFilterData)
+         .def("enableGravity", (void(ofxBox2dPolygon::*)(bool)) &ofxBox2dPolygon::enableGravity)
+         .def("setFixedRotation", (void(ofxBox2dPolygon::*)(bool)) &ofxBox2dPolygon::setFixedRotation)
+         .def("setRotationFriction", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setRotationFriction)
+         .def("getRotation", (float(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getRotation)
+         .def("getPosition", (ofVec2f(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getPosition)
+         .def("getB2DPosition", (ofVec2f(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getB2DPosition)
+         .def("setVelocity", (void(ofxBox2dPolygon::*)(float,float)) &ofxBox2dPolygon::setVelocity)
+         .def("setVelocity", (void(ofxBox2dPolygon::*)(ofVec2f)) &ofxBox2dPolygon::setVelocity)
+         .def("getVelocity", (ofVec2f(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getVelocity)
+         .def("setDamping", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setDamping)
+         .def("setDamping", (void(ofxBox2dPolygon::*)(float,float)) &ofxBox2dPolygon::setDamping)
+         .def("addForce", (void(ofxBox2dPolygon::*)(ofVec2f,float)) &ofxBox2dPolygon::addForce)
+         .def("addImpulseForce", (void(ofxBox2dPolygon::*)(ofVec2f,ofVec2f)) &ofxBox2dPolygon::addImpulseForce)
+         .def("destroy", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::destroy)
+         .def("update", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::update)
+         
+         .def("setup", (void(ofxBox2dPolygon::*)(b2World*)) &ofxBox2dPolygon::setup)
+         .def("addTriangle", (void(ofxBox2dPolygon::*)(const ofVec2f&,const ofVec2f&,const ofVec2f&)) &ofxBox2dPolygon::addTriangle)
+         .def("addVertexes", (void(ofxBox2dPolygon::*)(ofPolyline&)) &ofxBox2dPolygon::addVertexes)
+         .def("simplify", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::simplify)
+         .def("triangulate", (void(ofxBox2dPolygon::*)(float,int)) &ofxBox2dPolygon::triangulate)
+         .def("getCenter", (ofVec2f(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getCenter)
+         .def("getArea", (float(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getArea)
+         .def("isGoodShape", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isGoodShape)
+         .def("setAsEdge", (void(ofxBox2dPolygon::*)(bool)) &ofxBox2dPolygon::setAsEdge)
+         .def("addAttractionPoint", (void(ofxBox2dPolygon::*)(ofVec2f,float)) &ofxBox2dPolygon::addAttractionPoint)
+         .def("addAttractionPoint", (void(ofxBox2dPolygon::*)(float,float,float)) &ofxBox2dPolygon::addAttractionPoint)
+         .def("addRepulsionForce", (void(ofxBox2dPolygon::*)(ofVec2f,float)) &ofxBox2dPolygon::addRepulsionForce)
+         .def("addRepulsionForce", (void(ofxBox2dPolygon::*)(float,float,float)) &ofxBox2dPolygon::addRepulsionForce)
+         .def("updateShape", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::updateShape)
+         .def("create", (void(ofxBox2dPolygon::*)(b2World*)) &ofxBox2dPolygon::create)
+         .def("draw", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::draw),
+         
+         ///////////////////////////////
+         // ofxBox2dRect
+         class_<ofxBox2dRect>("ofxBox2dRect")
+         .def(constructor<>())
+         // from ofxBox2dBaseShape
+         .def("isBody", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isBody)
+         .def("isFixed", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isFixed)
+         .def("getWorld", (b2World*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getWorld)
+         .def("create", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::create)
+         .def("setBounce", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setBounce)
+         .def("setDensity", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setDensity)
+         .def("setFriction", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setFriction)
+         .def("setPhysics", (void(ofxBox2dRect::*)(float,float,float)) &ofxBox2dRect::setPhysics)
+         .def("setData", (void*(ofxBox2dRect::*)(void*)) &ofxBox2dRect::setData)
+         .def("getData", (void*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getData)
+         .def("setFilterData", (void(ofxBox2dRect::*)(b2Filter)) &ofxBox2dRect::setFilterData)
+         .def("enableGravity", (void(ofxBox2dRect::*)(bool)) &ofxBox2dRect::enableGravity)
+         .def("setFixedRotation", (void(ofxBox2dRect::*)(bool)) &ofxBox2dRect::setFixedRotation)
+         .def("setRotationFriction", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setRotationFriction)
+         .def("getRotation", (float(ofxBox2dRect::*)(void)) &ofxBox2dRect::getRotation)
+         .def("getPosition", (ofVec2f(ofxBox2dRect::*)(void)) &ofxBox2dRect::getPosition)
+         .def("getB2DPosition", (ofVec2f(ofxBox2dRect::*)(void)) &ofxBox2dRect::getB2DPosition)
+         .def("setVelocity", (void(ofxBox2dRect::*)(float,float)) &ofxBox2dRect::setVelocity)
+         .def("setVelocity", (void(ofxBox2dRect::*)(ofVec2f)) &ofxBox2dRect::setVelocity)
+         .def("getVelocity", (ofVec2f(ofxBox2dRect::*)(void)) &ofxBox2dRect::getVelocity)
+         .def("setDamping", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setDamping)
+         .def("setDamping", (void(ofxBox2dRect::*)(float,float)) &ofxBox2dRect::setDamping)
+         .def("addForce", (void(ofxBox2dRect::*)(ofVec2f,float)) &ofxBox2dRect::addForce)
+         .def("addImpulseForce", (void(ofxBox2dRect::*)(ofVec2f,ofVec2f)) &ofxBox2dRect::addImpulseForce)
+         .def("destroy", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::destroy)
+         .def("update", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::update)
+         
+         .def("setup", (void(ofxBox2dRect::*)(b2World*,ofRectangle)) &ofxBox2dRect::setup)
+         .def("setup", (void(ofxBox2dRect::*)(b2World*,float,float,float,float)) &ofxBox2dRect::setup)
+         .def("draw", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::draw)
+         .def("getWidth", (float(ofxBox2dRect::*)(void)) &ofxBox2dRect::getWidth)
+         .def("getHeight", (float(ofxBox2dRect::*)(void)) &ofxBox2dRect::getHeight)
+         .def("addAttractionPoint", (void(ofxBox2dRect::*)(float,float,float)) &ofxBox2dRect::addAttractionPoint)
+         .def("addAttractionPoint", (void(ofxBox2dRect::*)(ofVec2f,float)) &ofxBox2dRect::addAttractionPoint)
+         .def("addRepulsionForce", (void(ofxBox2dRect::*)(float,float,float)) &ofxBox2dRect::addRepulsionForce)
+         .def("addRepulsionForce", (void(ofxBox2dRect::*)(ofVec2f,float)) &ofxBox2dRect::addRepulsionForce),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXCHROMAKEY --> extending ofImage
          class_<ofxChromaKey>("ofxChromaKey")
          .def(constructor<>())
@@ -2709,7 +2934,6 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXFX
-         
          class_<ofxAbsDiff>("ofxAbsDiff")
          .def(constructor<>())
          .def("allocate", (void(ofxAbsDiff::*)(int,int,int)) &ofxAbsDiff::allocate)
