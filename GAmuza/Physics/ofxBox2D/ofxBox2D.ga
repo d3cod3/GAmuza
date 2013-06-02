@@ -13,14 +13,11 @@
 
 box2d = ofxBox2d()
 circles = {}
-boxes = {}
-numBoxes = 0
 numCircles = 0
 
 function setup()
     box2d:init()
     box2d:setGravity(0,10)
-    box2d:createBounds(ofGetCurrentViewport())
     box2d:createBounds(0,0,OUTPUT_W,OUTPUT_H)
     box2d:setFPS(30)
     box2d:registerGrabbing()    
@@ -39,31 +36,17 @@ function draw()
         for c=0,numCircles-1 do
             circles[c]:draw()
         end
-    end
-
-    if numBoxes > 0 then
-        ofFill()
-        ofSetHexColor(0xBF2545)
-        for b=0,numBoxes-1 do
-            boxes[b]:draw()
-        end
-    end
+    end 
 
     box2d:drawGround()
 end
 
 function keyReleased()
-    if gaKey() == string.byte('c') then
-        _circle = ofxBox2dCircle()
-        _circle:setPhysics(3.0,0.53,0.1)
-        _circle:setup(box2d:getWorld(),gaMouseX(),gaMouseY(),ofRandom(4,20))
-        circles[numCircles] = _circle
-        numCircles = numCircles + 1
-    elseif gaKey() == string.byte('b') then
-        _rect = ofxBox2dRect()
-        _rect:setPhysics(3.0,0.53,0.1)
-        _rect:setup(box2d:getWorld(),gaMouseX(),gaMouseY(),ofRandom(4,20),ofRandom(4,20))
-        boxes[numBoxes] = _rect
-        numBoxes = numBoxes + 1
+    	if gaKey() == string.byte('c') then
+    		_c = ofxBox2dCircle()
+		_c:setPhysics(3.0,0.53,0.1)
+		_c:setup(box2d:getWorld(),gaMouseX(),gaMouseY(),ofRandom(4,20))
+        	circles[numCircles] = _c
+        	numCircles += 1
     end
 end

@@ -1,0 +1,13 @@
+/////////////////////////////////////
+// Particle Class
+
+class 'Particle' 
+
+function Particle:__init()
+	local _c = ofxBox2dCircle()
+	_c:setPhysics(3.0,0.53,0.1)
+	_c:setup(box2d:getWorld(),gaMouseX(),gaMouseY(),ofRandom(4,20))
+	self = Utils.ShallowCopy(_c, self)
+	return self
+end
+/////////////////////////////////////
