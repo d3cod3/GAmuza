@@ -7,7 +7,7 @@
 
 The original idea was to making creative coding easier; then, usually jumping from [Processing](http://www.processing.org) to [OF](http://www.openframeworks.cc), always trying new libraries/addons, the desire was, having OF with a Processing like IDE, + a bunch of GUI modules to avoid (if you prefer), the technical programming stuff like Computer Vision, Audio Analysis, Arduino communication, etc..
 
-So, this is it, this is GAmuza, made with OF, son of Processing, binding the (almost) entire OF language v.0.7.4, plus OpenGL 1.1 (just for simple opengl drawing stuff), plus som custom functions from GAmuza to making creative coding even easier than OF (is it's possible).
+So, this is it, this is GAmuza, made with OF, son of Processing, binding the (almost) entire OF language v.0.7.4, plus OpenGL 1.1 (just for simple opengl drawing stuff), plus some custom functions from GAmuza to making creative coding even easier than OF (is it's possible).
 
 # Licence
 
@@ -40,7 +40,7 @@ Just drag to Application folder.
 openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/gaPatch.patch) and all the official addons.
 
 
-### OFXADDONS
+## OFXADDONS
 
 A list [here](https://github.com/d3cod3/GAmuza/blob/master/gaAddonsList) of all the addons needed.
 Due to a lot of modification applied to most of them, are all included in this repo in src/experimentalAddons/
@@ -48,27 +48,27 @@ Due to a lot of modification applied to most of them, are all included in this r
 ## Frameworks
 
 [BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)  
-[Sparkle.framework](http://sparkle.andymatuschak.org/)** and the [github repo](https://github.com/andymatuschak/Sparkle/wiki)
+Sparkle.framework: [project webpage](http://sparkle.andymatuschak.org/) and [github repo](https://github.com/andymatuschak/Sparkle/wiki)
 
- 	* **Accelerate.frameworks**
- 	* **AGL.frameworks**
- 	* **AppKit.frameworks**
- 	* **ApplicationServices.frameworks**
- 	* **AudioToolbox.frameworks**
- 	* **Carbon.frameworks**
- 	* **Cocoa.frameworks**
- 	* **CoreAudio.frameworks**
- 	* **CoreData.frameworks**
- 	* **CoreFoundation.frameworks**
- 	* **CoreMIDI.frameworks**
- 	* **CoreServices.frameworks**
- 	* **CoreVideo.frameworks**
- 	* **Foundation.frameworks**
- 	* **IOKit.frameworks**
- 	* **OpenAL.frameworks**
- 	* **OpenGL.frameworks**
- 	* **QTKit.frameworks**
- 	* **QuickTime.frameworks**
+* **Accelerate.frameworks**
+* **AGL.frameworks**
+* **AppKit.frameworks**
+* **ApplicationServices.frameworks**
+* **AudioToolbox.frameworks**
+* **Carbon.frameworks**
+* **Cocoa.frameworks**
+* **CoreAudio.frameworks**
+* **CoreData.frameworks**
+* **CoreFoundation.frameworks**
+* **CoreMIDI.frameworks**
+* **CoreServices.frameworks**
+* **CoreVideo.frameworks**
+* **Foundation.frameworks**
+* **IOKit.frameworks**
+* **OpenAL.frameworks**
+* **OpenGL.frameworks**
+* **QTKit.frameworks**
+* **QuickTime.frameworks**
 
 
 # Compatibilities
@@ -83,13 +83,13 @@ Compile with LLVM GCC 4.2 (NOT Apple LLVM Compiler 4.1), for 32-bit architecture
 
 ### These are some of the GAmuza IDE futures:
 
- * **Line Numbering**
- * **Syntax Coloring**
- * **Code Completion**
- * **Multi Tab sketch editor (Processing like)**
- * **Live Coding**
- * **Various GUI Modules (Audio Analysis, Computer Vision, Arduino, Timeline)**
- * **Various tools (RGB/HSV Color selector, Custom Console)**
+* **Line Numbering**
+* **Syntax Coloring**
+* **Code Completion**
+* **Multi Tab sketch editor (Processing like)**
+* **Live Coding**
+* **Various GUI Modules (Audio Analysis, Computer Vision, Arduino, Timeline)**
+* **Various tools (RGB/HSV Color selector, Custom Console)**
 
 ## Language
 ```c++
@@ -138,13 +138,13 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # Working on:
 
- * The TIMELINE GUI Module, making ofxNSWindower fully compatible with OF Events and the last version of [ofxTimeline](https://github.com/YCAMInterlab/ofxTimeline)
+* The TIMELINE GUI Module, making ofxNSWindower fully compatible with OF Events and the last version of [ofxTimeline](https://github.com/YCAMInterlab/ofxTimeline)
 
 # Version history
 
 ## v1.1
- * 
+* 
 
 ## v1.0
  
- * initial version
+* initial version
