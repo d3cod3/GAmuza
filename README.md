@@ -35,20 +35,20 @@ Just drag to Application folder.
 
 # Dependencies
 
- ## OF
+## OF
 
- openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/gaPatch.patch) and all the official addons.
+openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/gaPatch.patch) and all the official addons.
 
 
- ### OFXADDONS
+### OFXADDONS
 
- A list [here](https://github.com/d3cod3/GAmuza/blob/master/gaAddonsList) of all the addons needed.
- Due to a lot of modification applied to most of them, are all included in this repo in src/experimentalAddons/
+A list [here](https://github.com/d3cod3/GAmuza/blob/master/gaAddonsList) of all the addons needed.
+Due to a lot of modification applied to most of them, are all included in this repo in src/experimentalAddons/
 
- ## Frameworks
+## Frameworks
 
- 	- [BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)  
- 	- [Sparkle.framework](http://sparkle.andymatuschak.org/)** and the [github repo](https://github.com/andymatuschak/Sparkle/wiki)
+[BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)  
+[Sparkle.framework](http://sparkle.andymatuschak.org/)** and the [github repo](https://github.com/andymatuschak/Sparkle/wiki)
 
  	* **Accelerate.frameworks**
  	* **AGL.frameworks**
