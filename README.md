@@ -48,7 +48,7 @@ Just drag to Application folder.
  ## Frameworks
 
  	* **[BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)** 
- 	* **[Sparkle.framework](http://sparkle.andymatuschak.org/)** and the [github repo](https://github.com/andymatuschak/Sparkle/wiki)
+ 	* **[Sparkle.framework](http://sparkle.andymatuschak.org/)** and the [github repo](https://github.com/andymatuschak/Sparkle/wiki)**
 
  	* **Accelerate.frameworks**
  	* **AGL.frameworks**
@@ -125,6 +125,8 @@ end
 ## Bindings
 
 
+## Modules
+
 
 # Known issues
 
@@ -137,7 +139,7 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # Working on:
 
- * The TIMELINE GUI Module, making ofxNSWindower fully compatible with OF Events and the last version of ofxTimeline
+ * The TIMELINE GUI Module, making ofxNSWindower fully compatible with OF Events and the last version of [ofxTimeline](https://github.com/YCAMInterlab/ofxTimeline)
 
 # Version history
 
