@@ -187,8 +187,8 @@ void ofxTLCurves::selectedKeySecondaryClick(ofMouseEventArgs& args){
     
 	//keep on screen at all costs.
 
-	easingWindowPosition.x = ofClamp(easingWindowPosition.x, timeline->getDrawRect().x, ofGetWidth()-easingBoxWidth*2);
-	easingWindowPosition.y = ofClamp(easingWindowPosition.y, timeline->getDrawRect().y, ofGetHeight()-easingBoxHeight);
+	easingWindowPosition.x = ofClamp(easingWindowPosition.x, timeline->getDrawRect().x, timeline->_windowW-easingBoxWidth*2);
+	easingWindowPosition.y = ofClamp(easingWindowPosition.y, timeline->getDrawRect().y, timeline->_windowH-easingBoxHeight);
 
     drawingEasingWindow = true;
     timeline->presentedModalContent(this);

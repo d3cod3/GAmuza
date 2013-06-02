@@ -61,7 +61,7 @@ void gaVideoPreview::setPreviewDim(int w, int h){
 
 //--------------------------------------------------------------
 void gaVideoPreview::setup(){
-    ofSetWindowShape(previewW,previewH);
+    //ofSetWindowShape(previewW,previewH);
     
     resetPreview();
 }

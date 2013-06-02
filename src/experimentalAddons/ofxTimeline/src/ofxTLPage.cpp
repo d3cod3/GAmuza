@@ -724,7 +724,8 @@ void ofxTLPage::loadTrackPositions(){
 	ofxXmlSettings trackPositions;
 	string xmlPageName = name;
 	ofStringReplace(xmlPageName," ", "_");
-	string positionFileName = ofToDataPath(timeline->getWorkingFolder() + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml");
+	string positionFileName = "settings/timeline/" + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml";
+    
 	if(trackPositions.loadFile(positionFileName)){
 		
 		//cout << "loading element position " << name << "_trackPositions.xml" << endl;

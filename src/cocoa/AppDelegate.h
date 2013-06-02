@@ -1,6 +1,10 @@
 
 #include "gamuzaMain.h"
+
 #include "gaVideoPreview.h"
+#include "gaTimeline.h"
+
+
 #include "ofxNSWindower.h"
 
 #import <Cocoa/Cocoa.h>
@@ -26,6 +30,7 @@
     float                       screenX, screenY;
     
     bool                        isPreviewON;
+    bool                        isTimelineON;
     
 }
 
@@ -60,6 +65,8 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) toggleTimelinePanel:(id)sender;
+
 - (IBAction) togglePreviewWindow:(id)sender;
 
 - (IBAction) setPreviewDimensions:(id)sender;
@@ -101,5 +108,9 @@ ofPtr<ofxNSWindow> gappWindow;
 // GAmuza video preview
 gaVideoPreview  *gaVP;
 ofPtr<ofxNSWindow> gaVPWindow;
+
+//////////////////////////////// GAmuza GUI PANELS
+gaTimeline      *gaTL;
+ofPtr<ofxNSWindow> gaTLWindow;
 
 @end

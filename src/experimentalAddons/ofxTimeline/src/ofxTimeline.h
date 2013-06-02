@@ -87,7 +87,7 @@ class ofxTimeline : ofThread {
 	ofxTimeline();
 	virtual ~ofxTimeline();
 
-	virtual void setup();
+	virtual void setup(int _w, int _h);
 	
 	//Optionally run ofxTimeline on the background thread
 	//this isn't necessary most of the time but
@@ -453,6 +453,10 @@ class ofxTimeline : ofThread {
     
     virtual ofxTLEvents& events();
     
+    void timelineResizeWithWindow(int _w,int _h);
+    
+    int _windowW,_windowH;
+    
 	//binary test hack
 	bool curvesUseBinary;
 	
@@ -534,7 +538,8 @@ class ofxTimeline : ofThread {
 	virtual void pageChanged(ofxTLPageEventArgs& args);
 
 	virtual void updatePagePositions();
-	virtual void recalculateBoundingRects();
+    
+    virtual void recalculateBoundingRects();
     
 	
 	string defaultPalettePath;

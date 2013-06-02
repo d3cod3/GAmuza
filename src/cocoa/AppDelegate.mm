@@ -49,8 +49,18 @@
     ofxNSWindower::instance()->addWindow(gaVP,"Preview", NSBorderlessWindowMask, 0);
     gaVPWindow = ofxNSWindower::instance()->getWindowPtr("Preview");
     gaVPWindow->setWindowTitle("Preview");
+    gaVPWindow->setWindowShape(320,240);
     gaVPWindow->setWindowPosition(screenX-330,screenY-30);
     [gaVPWindow->getWindow() orderOut:self];
+    
+    // START GAmuza TIMELINE Panel
+    gaTL = new gaTimeline(screenX,screenY);
+    ofxNSWindower::instance()->addWindow(gaTL,"Timeline", NSTitledWindowMask|NSResizableWindowMask, 0);
+    gaTLWindow = ofxNSWindower::instance()->getWindowPtr("Timeline");
+    gaTLWindow->setWindowTitle("Timeline");
+    gaTLWindow->setWindowShape(screenX,screenY-30);
+    gaTLWindow->setWindowPosition(0,0);
+    [gaTLWindow->getWindow() orderOut:self];
     
     // START GAmuza render window
     gapp = new gamuzaMain();
@@ -63,7 +73,7 @@
     
     
     // Splash window
-    [_splash makeKeyAndOrderFront:_splash];
+    [_splash makeKeyAndOrderFront:self];
     NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.6
                                     target:self
                                     selector:@selector(terminateSplashWindow:)
@@ -393,6 +403,18 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+-(IBAction) toggleTimelinePanel:(id)sender{
+    if(isTimelineON){
+        isTimelineON = false;
+        [gaTLWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isTimelineON = true;
+        [gaTLWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
 -(IBAction) togglePreviewWindow:(id)sender{
     if(isPreviewON){
         isPreviewON = false;

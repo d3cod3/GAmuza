@@ -10,7 +10,14 @@
 // External windows
 #include "gaVideoPreview.h"
 
-extern gaVideoPreview  *gaVP;
+// GUI PANELS
+#include "gaTimeline.h"
+
+/////////////////////////////////
+extern gaVideoPreview   *gaVP; // OUTPUT TEXTURE PREVIEW
+
+extern gaTimeline       *gaTL; // TIMELINE PANEL WINDOW external reference
+/////////////////////////////////
 
 class gamuzaMain : public ofxNSWindowApp, public ofxMidiListener{
 

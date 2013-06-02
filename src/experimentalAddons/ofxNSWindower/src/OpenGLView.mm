@@ -122,6 +122,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 
 - (void) setup {
 	windowApp->setup();
+    ofNotifySetup();
 }
 
 - (void) setApp: (ofxNSWindowApp*) app {
@@ -213,8 +214,10 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	
 	
 	windowApp->update();
+    ofNotifyUpdate();
 	
 	windowApp->draw();
+    ofNotifyDraw();
 
 	[[self openGLContext] flushBuffer];	
 
@@ -287,6 +290,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mousePressed(p.x, self.frame.size.height - p.y, 0);
+    ofNotifyMousePressed(p.x, self.frame.size.height - p.y, 0);
     
 }
 
@@ -294,6 +298,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mouseDragged(p.x, self.frame.size.height - p.y, 0);
+    ofNotifyMouseDragged(p.x, self.frame.size.height - p.y, 0);
 
 }
 
@@ -302,6 +307,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mouseReleased(p.x, self.frame.size.height - p.y, 0);
 	windowApp->mouseReleased();
+    ofNotifyMouseReleased(p.x, self.frame.size.height - p.y, 0);
 }
 
 // - - - - RIGHT MOUSE BUTTON - - - - 
@@ -310,12 +316,14 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mousePressed(p.x, self.frame.size.height - p.y, 1);
+    ofNotifyMousePressed(p.x, self.frame.size.height - p.y, 1);
 }
 
 - (void) rightMouseDragged: (NSEvent*) event {
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mouseDragged(p.x, self.frame.size.height - p.y, 1);
+    ofNotifyMouseDragged(p.x, self.frame.size.height - p.y, 1);
 }
 
 - (void) rightMouseUp: (NSEvent*) event {
@@ -323,6 +331,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
 	windowApp->mouseReleased(p.x, self.frame.size.height - p.y, 1);
 	windowApp->mouseReleased();
+    ofNotifyMouseReleased(p.x, self.frame.size.height - p.y, 1);
 }
 
 - (void) mouseMoved: (NSEvent*) event {
@@ -331,6 +340,7 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	windowApp->mouseX = p.x;
 	windowApp->mouseY = self.frame.size.height - p.y;
 	windowApp->mouseMoved(p.x, self.frame.size.height - p.y);
+    ofNotifyMouseMoved(p.x, self.frame.size.height - p.y);
 }
 
 // - - - - KEYS - - - - 
@@ -339,12 +349,14 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	
 	unichar c = [[event characters] characterAtIndex:0];
 	windowApp->keyPressed(c);
+    ofNotifyKeyPressed(c);
 }
 
 - (void) keyUp: (NSEvent*) event {
 	
 	unichar c = [[event characters] characterAtIndex:0];
 	windowApp->keyReleased(c);
+    ofNotifyKeyReleased(c);
 }
 
 // - - - - SCROLLWHEEL - - - -
@@ -387,13 +399,26 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 	}
 	
 	windowApp->dragEvent(dragInfo);
-	
+    ofNotifyDragEvent(dragInfo);
 	
 	return YES;
 }
 
+- (void)viewDidMoveToWindow{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowResized:) name:NSWindowDidResizeNotification
+                                               object:[self window]];
+}
+
+
+- (void)windowResized:(NSNotification *)notification;{
+    NSSize size = [[self window] frame].size;
+    windowApp->windowResized(size.width,size.height);
+}
+
 
 - (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 	[timer invalidate];
 	
 	[super dealloc];

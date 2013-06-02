@@ -85,9 +85,9 @@ ofxTimeline::ofxTimeline()
 	headersAreEditable(false),
 	minimalHeaders(false),
 	//copy from ofxTimeline/assets into bin/data/
-	defaultPalettePath("GUI/defaultColorPalette.png"),
+	defaultPalettePath("settings/timeline/defaultColorPalette.png"),
 	//TODO: should be able to use bitmap font if need be
-	fontPath("GUI/NewMedia Fett.ttf"),
+	fontPath("fonts/NewMediaFett.ttf"),
 	fontSize(9),
 	footersHidden(false)
 {
@@ -109,11 +109,13 @@ ofxTimeline::~ofxTimeline(){
 	}
 }
 
-void ofxTimeline::setup(){
+void ofxTimeline::setup(int _w, int _h){
 
 	isSetup = true;
 	
-	width = ofGetWidth();
+	width = _w;
+    _windowW = _w;
+    _windowH = _h;
 
 	tabs = new ofxTLPageTabs();
 	tabs->setTimeline(this);
@@ -152,6 +154,8 @@ void ofxTimeline::setup(){
 	else{
 		setupStandardElements();
 	}
+    
+     timelineResizeWithWindow(_windowW,_windowH);
 
 }
 
@@ -187,10 +191,10 @@ void ofxTimeline::setName(string newName){
 
 void ofxTimeline::setupStandardElements(){
 	
-	inoutTrack->setXMLFileName( ofToDataPath(workingFolder + name + "_inout.xml") );
+	inoutTrack->setXMLFileName("settings/timeline/" + name + "_inout.xml");
 	inoutTrack->setup();
 	
-	zoomer->setXMLFileName( ofToDataPath(workingFolder + name + "_zoomer.xml") );
+	zoomer->setXMLFileName("settings/timeline/" + name + "_zoomer.xml");
 	zoomer->setup();
 	
 	currentPage->loadTrackPositions();	
@@ -202,9 +206,9 @@ string ofxTimeline::getName(){
 
 void ofxTimeline::setWorkingFolder(string folderPath){
 	workingFolder = folderPath = ofFilePath::addTrailingSlash(folderPath);
-    inoutTrack->setXMLFileName( ofToDataPath(workingFolder + name + "_inout.xml") );
+    inoutTrack->setXMLFileName("settings/timeline/" + name + "_inout.xml");
 	inoutTrack->load();
-    zoomer->setXMLFileName( ofToDataPath(workingFolder + name + "_zoomer.xml") );
+    zoomer->setXMLFileName("settings/timeline/" + name + "_zoomer.xml");
 	zoomer->load();
 	
 	currentPage->loadTrackPositions();
@@ -838,7 +842,7 @@ void ofxTimeline::setOffset(ofVec2f newOffset){
 
 void ofxTimeline::setLockWidthToWindow(bool lockWidth){
     lockWidthToWindow = lockWidth;
-    if(width != ofGetWidth()){
+    if(width != _windowW){
         recalculateBoundingRects();
     }
 }
@@ -888,10 +892,11 @@ bool ofxTimeline::getLockWidthToWindow(){
 
 void ofxTimeline::setWidth(float newWidth){
     if(width != newWidth){
-		if(newWidth != ofGetWidth()){
+		if(newWidth != _windowW){
 			lockWidthToWindow = false;
 		}
         width = newWidth;
+        _windowW = newWidth;
         updatePagePositions();
         ofEventArgs args;
         ofNotifyEvent(events().viewWasResized, args);
@@ -1081,6 +1086,8 @@ void ofxTimeline::mousePressed(ofMouseEventArgs& args){
 	
     //collect state buffers after items are selected and focus is set
     collectStateBuffers();
+    
+    timelineResizeWithWindow(_windowW,_windowH);
 
 }
 
@@ -1118,6 +1125,8 @@ void ofxTimeline::mouseDragged(ofMouseEventArgs& args){
 	ticker->mouseDragged(args);
 	currentPage->mouseDragged(args, millis);
 	zoomer->mouseDragged(args);
+    
+    timelineResizeWithWindow(_windowW,_windowH);
 }
 
 void ofxTimeline::mouseReleased(ofMouseEventArgs& args){
@@ -1141,6 +1150,8 @@ void ofxTimeline::mouseReleased(ofMouseEventArgs& args){
 	}
     
 	pushUndoStack();
+    
+    timelineResizeWithWindow(_windowW,_windowH);
 }
 
 void ofxTimeline::keyPressed(ofKeyEventArgs& args){
@@ -1303,6 +1314,31 @@ void ofxTimeline::viewWasResized(ofEventArgs& args){
 	recalculateBoundingRects();
 }
 
+void ofxTimeline::timelineResizeWithWindow(int _w,int _h){
+    if(lockWidthToWindow){
+        width = _w;
+        _windowW = _w;
+        _windowH = _h;
+    }
+    
+	if(pages.size() > 1){
+		tabs->setDrawRect(ofRectangle(offset.x, offset.y, width, TAB_HEIGHT));
+	}
+	else{
+		tabs->setDrawRect(ofRectangle(offset.x, offset.y, width, 0));
+	}
+    
+    ticker->setDrawRect( ofRectangle(offset.x, tabs->getBottomEdge(), width, showTicker ? TICKER_HEIGHT : 0) );
+    inoutTrack->setDrawRect( ofRectangle(offset.x, ticker->getBottomEdge(), width, showInoutControl ? INOUT_HEIGHT : 0) );
+    updatePagePositions();
+	zoomer->setDrawRect(ofRectangle(offset.x, currentPage->getBottomEdge(), width, showZoomer ? ZOOMER_HEIGHT : 0));
+    inoutTrack->setPageRectangle(currentPage->getDrawRect());
+	ofRectangle tickerRect = ofRectangle(offset.x, ticker->getDrawRect().y,
+                                         width, currentPage->getBottomEdge()-ticker->getDrawRect().y);
+	ticker->setTotalDrawRect(tickerRect);
+	totalDrawRect = ofRectangle(offset.x, offset.y, width, zoomer->getDrawRect().y+zoomer->getDrawRect().height - offset.y);
+}
+
 void ofxTimeline::recalculateBoundingRects(){
     if(lockWidthToWindow){
         width = ofGetWidth();
@@ -1336,6 +1372,7 @@ void ofxTimeline::pageChanged(ofxTLPageEventArgs& args){
 			currentPage = pages[i];
 			ofEventArgs args;
 			ofNotifyEvent(events().viewWasResized, args);
+            timelineResizeWithWindow(_windowW,_windowH);
 			return;
 		}
 	}
@@ -1421,8 +1458,8 @@ void ofxTimeline::draw(){
 
 		glPushAttrib(GL_ENABLE_BIT);
 		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(totalDrawRect.x, 0, totalDrawRect.width, ofGetHeight());
+		//glEnable(GL_SCISSOR_TEST);
+		//glScissor(totalDrawRect.x, 0, totalDrawRect.width, _windowH);
 		
         ofDisableLighting();
 		ofEnableAlphaBlending();

@@ -75,6 +75,9 @@
 		202E6111175A504000C53CFC /* ofxTLZoomer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202E60F1175A504000C53CFC /* ofxTLZoomer.cpp */; };
 		202E611B175A56CB00C53CFC /* ofxTimecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202E6119175A56CB00C53CFC /* ofxTimecode.cpp */; };
 		202E6121175A588600C53CFC /* ofxMSATimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202E6120175A588600C53CFC /* ofxMSATimer.cpp */; };
+		202E6124175A93A200C53CFC /* gaTimeline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 202E6123175A93A100C53CFC /* gaTimeline.mm */; };
+		202E6209175AC84B00C53CFC /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 202E6208175AC84B00C53CFC /* Accelerate.framework */; };
+		202E620B175AC86100C53CFC /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 202E620A175AC86100C53CFC /* OpenAL.framework */; };
 		2031C9B81747EE4800057AFF /* GASketchFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2031C9B61747EE4800057AFF /* GASketchFileViewController.m */; };
 		204296E5174E8D9100957DFF /* overflowImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 204296E3174E8D9100957DFF /* overflowImage.tiff */; };
 		204296E6174E8D9100957DFF /* overflowImagePressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 204296E4174E8D9100957DFF /* overflowImagePressed.tif */; };
@@ -502,6 +505,10 @@
 		202E611A175A56CB00C53CFC /* ofxTimecode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTimecode.h; sourceTree = "<group>"; };
 		202E611F175A578C00C53CFC /* ofxMSATimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMSATimer.h; sourceTree = "<group>"; };
 		202E6120175A588600C53CFC /* ofxMSATimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMSATimer.cpp; sourceTree = "<group>"; };
+		202E6122175A93A100C53CFC /* gaTimeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaTimeline.h; sourceTree = "<group>"; };
+		202E6123175A93A100C53CFC /* gaTimeline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaTimeline.mm; sourceTree = "<group>"; };
+		202E6208175AC84B00C53CFC /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = ../../../../../../../../System/Library/Frameworks/Accelerate.framework; sourceTree = "<group>"; };
+		202E620A175AC86100C53CFC /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = ../../../../../../../../System/Library/Frameworks/OpenAL.framework; sourceTree = "<group>"; };
 		2031C9B51747EE4800057AFF /* GASketchFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GASketchFileViewController.h; path = ScriptEditor/GASketchFileViewController.h; sourceTree = "<group>"; };
 		2031C9B61747EE4800057AFF /* GASketchFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GASketchFileViewController.m; path = ScriptEditor/GASketchFileViewController.m; sourceTree = "<group>"; };
 		204296E3174E8D9100957DFF /* overflowImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = overflowImage.tiff; sourceTree = "<group>"; };
@@ -1246,6 +1253,8 @@
 				20EE1E431740F5500067DC29 /* Foundation.framework in Frameworks */,
 				20B0CA43174386EB00D51E76 /* BWToolkitFramework.framework in Frameworks */,
 				202E60F4175A504000C53CFC /* libsndfile.a in Frameworks */,
+				202E6209175AC84B00C53CFC /* Accelerate.framework in Frameworks */,
+				202E620B175AC86100C53CFC /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3728,20 +3737,22 @@
 		BBAB23C913894ECA00AA2426 /* system frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EEDA88C8156E68A3003280BD /* CoreVideo.framework */,
-				E4C2424410CC5A17004149E2 /* AppKit.framework */,
-				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
-				20EE1E401740F5460067DC29 /* CoreData.framework */,
-				20EE1E421740F5500067DC29 /* Foundation.framework */,
-				E4C2424610CC5A17004149E2 /* IOKit.framework */,
+				202E6208175AC84B00C53CFC /* Accelerate.framework */,
 				E45BE9710E8CC7DD009D7055 /* AGL.framework */,
+				E4C2424410CC5A17004149E2 /* AppKit.framework */,
 				E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */,
 				E45BE9730E8CC7DD009D7055 /* AudioToolbox.framework */,
 				E45BE9740E8CC7DD009D7055 /* Carbon.framework */,
+				E4C2424510CC5A17004149E2 /* Cocoa.framework */,
 				E45BE9750E8CC7DD009D7055 /* CoreAudio.framework */,
-				20784BC71732D6E70098ABF0 /* CoreMIDI.framework */,
+				20EE1E401740F5460067DC29 /* CoreData.framework */,
 				E45BE9760E8CC7DD009D7055 /* CoreFoundation.framework */,
+				20784BC71732D6E70098ABF0 /* CoreMIDI.framework */,
 				E45BE9770E8CC7DD009D7055 /* CoreServices.framework */,
+				EEDA88C8156E68A3003280BD /* CoreVideo.framework */,
+				20EE1E421740F5500067DC29 /* Foundation.framework */,
+				E4C2424610CC5A17004149E2 /* IOKit.framework */,
+				202E620A175AC86100C53CFC /* OpenAL.framework */,
 				E45BE9790E8CC7DD009D7055 /* OpenGL.framework */,
 				20027F1F17345AE300ED0C52 /* QTKit.framework */,
 				E45BE97A0E8CC7DD009D7055 /* QuickTime.framework */,
@@ -3800,6 +3811,8 @@
 				207847B01732CB3B0098ABF0 /* GAmuza */,
 				207847BF1732CDEE0098ABF0 /* gamuzaMain.h */,
 				207847C01732CDEE0098ABF0 /* gamuzaMain.mm */,
+				202E6122175A93A100C53CFC /* gaTimeline.h */,
+				202E6123175A93A100C53CFC /* gaTimeline.mm */,
 				20A43FAD1756678F003EBF02 /* gaVideoPreview.h */,
 				20A43FAE1756678F003EBF02 /* gaVideoPreview.mm */,
 				2078478A1732C9960098ABF0 /* main.mm */,
@@ -4216,6 +4229,7 @@
 				202E6111175A504000C53CFC /* ofxTLZoomer.cpp in Sources */,
 				202E611B175A56CB00C53CFC /* ofxTimecode.cpp in Sources */,
 				202E6121175A588600C53CFC /* ofxMSATimer.cpp in Sources */,
+				202E6124175A93A200C53CFC /* gaTimeline.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
