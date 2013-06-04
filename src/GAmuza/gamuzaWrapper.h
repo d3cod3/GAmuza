@@ -1217,6 +1217,10 @@ class ofGamuzaWrapper{
          .def_readonly("saveTo", &ofHttpRequest::saveTo),
          
          ///////////////////////////////////////////////////////////////////////////////////
+		 /// \section ofPtr
+         //class_<ofPtr>("ofPtr"),
+         
+         ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofUtils
          
          def("ofGetElapsedTimeMillis", (int(*)(void)) &ofGetElapsedTimeMillis),
@@ -4259,14 +4263,48 @@ class ofGamuzaWrapper{
          def("gaGaussianFn", (float(*)(float,float,float,float)) &gaGaussianFn),
          
          /////////////////////////////// (TIMELINE Module)
-		 // timeline section 
-         /*def("playTimeline", (void(*)(void)) &gaPlayTimeline),
-         def("stopTimeline", (void(*)(void)) &gaStopTimeline),
-         def("setTimelineFrames", (void(*)(int)) &gaSetTimelineDurationInFrames),
-         def("setTimelineLoop", (void(*)(int)) &gaSetTimelineLoopType),
-         def("addTimelineKeyframes", (void(*)(string,string,float,float)) &gaAddTimelineKeyframes),
-         def("getTimelineValue", (float(*)(string)) &gaGetTimelineKeyframeValue),
-         def("getTimelineTrigger", (string(*)(void)) &gaGetTimelineTrigger),*/
+		 // timeline section
+         def("gaTimelineSetup", (void(*)(string,string)) &gaSetupTimeline),
+         def("gaTimelinePlay", (void(*)(void)) &gaPlayTimeline),
+         def("gaTimelineStop", (void(*)(void)) &gaStopTimeline),
+         def("gaTimelineDurationInFrames", (void(*)(int)) &gaSetTimelineDurationInFrames),
+         def("gaTimelineDurationInSeconds", (void(*)(int)) &gaSetTimelineDurationInSeconds),
+         def("gaTimelineEnableKeySnap", (void(*)(bool)) &gaSetTimelineEnableSnap),
+         def("gaTimelineSetLoopType", (void(*)(int)) &gaSetTimelineLoopType),
+         def("gaTimelineSetFrameRate", (void(*)(int)) &gaTimelineSetFrameRate),
+         def("gaTimelineSetBPM", (void(*)(int)) &gaTimelineSetBPM),
+         def("gaTimelineEnableBPMSnap", (void(*)(bool)) &gaTimelineEnableSnapToBPM),
+         def("gaTimelineShowBPMGrid", (void(*)(bool)) &gaTimelineSetShowBPMGrid),
+         def("gaTimelineSetTimecontrolTrack", (void(*)(string)) &gaTimelineSetTimecontrolTrack),
+         def("gaTimelineBringTrackToTop", (void(*)(string)) &gaTimelineBringTrackToTop),
+         def("gaTimelineBringVideoTrackToTop", (void(*)(string)) &gaTimelineBringVideoTrackToTop),
+         def("gaTimelineBringAudioTrackToTop", (void(*)(string)) &gaTimelineBringAudioTrackToTop),
+         def("gaTimelineAddCurves", (void(*)(string,int,int)) &gaTimelineAddCurves),
+         def("gaTimelineAddBangs", (void(*)(string)) &gaTimelineAddBangs),
+         def("gaTimelineAddFlags", (void(*)(string)) &gaTimelineAddFlags),
+         def("gaTimelineAddColors", (void(*)(string)) &gaTimelineAddColors),
+         def("gaTimelineAddLFO", (void(*)(string)) &gaTimelineAddLFO),
+         def("gaTimelineAddSwitches", (void(*)(string)) &gaTimelineAddSwitches),
+         def("gaTimelineAddAudioTrack", (void(*)(string,string)) &gaTimelineAddAudioTrack),
+         def("gaTimelineAddVideoTrack", (void(*)(string,string)) &gaTimelineAddVideoTrack),
+         def("gaTimelineGetValue", (float(*)(string)) &gaTimelineGetValue),
+         def("gaTimelineGetSwitch", (bool(*)(string)) &gaTimelineGetSwitch),
+         def("gaTimelineGetColor", (ofColor(*)(string)) &gaTimelineGetColor),
+         def("gaTimelineGetBang", (string(*)(void)) &gaTimelineGetBang),
+         def("gaTimelineGetINFrame", (int(*)(void)) &gaTimelineGetINFrame),
+         def("gaTimelineGetOUTFrame", (int(*)(void)) &gaTimelineGetOUTFrame),
+         def("gaTimelineGetVideoTrack", (ofxTLVideoTrack*(*)(string)) &gaTimelineGetVideoTrack),
+         def("gaTimelineGetAudioTrack", (ofxTLAudioTrack*(*)(string)) &gaTimelineGetAudioTrack),
+         def("gaTimelineGetAudioTrackDuration", (int(*)(string)) &gaTimelineGetAudioTrackDuration),
+         def("gaTimelineGetAudioTrackFFTSize", (int(*)(string)) &gaTimelineGetAudioTrackFFTSize),
+         def("gaTimelineGetAudioTrackFFTBin", (float(*)(string,int)) &gaTimelineGetAudioTrackFFTBin),
+         def("gaTimelineGetVideoTrackPosition", (int(*)(string)) &gaTimelineGetVideoTrackPosition),
+         def("gaTimelineGetVideoTrackDuration", (int(*)(string)) &gaTimelineGetVideoTrackDuration),
+         def("gaTimelineGetVideoTrackNumFrames", (int(*)(string)) &gaTimelineGetVideoTrackNumFrames),
+         def("gaTimelineGetVideoTrackCurrentFrame", (int(*)(string)) &gaTimelineGetVideoTrackCurrentFrame),
+         def("gaTimelineVideoPlayerNextFrame", (void(*)(string)) &gaTimelineVideoPlayerNextFrame),
+         def("gaTimelineVideoPlayerUpdate", (void(*)(string)) &gaTimelineVideoPlayerUpdate),
+         def("gaTimelineVideoPlayerDraw", (void(*)(string)) &gaTimelineVideoPlayerDraw),
          
          /////////////////////////////// (AUDIO Module)
 		 // audio input

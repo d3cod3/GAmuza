@@ -182,7 +182,7 @@ void ofxMSAInteractiveObject::_mouseMoved(ofMouseEventArgs &e) {
 	int x = (int)externMouseX;
 	int y = (int)externMouseY;
 	int button = e.button;
-	printf("ofxMSAInteractiveObject::_mouseMoved(x: %i, y: %i)\n", x, y);
+	//printf("ofxMSAInteractiveObject::_mouseMoved(x: %i, y: %i)\n", x, y);
 	if(!enabled) return;
 	
 	_mouseX = x;
@@ -206,7 +206,7 @@ void ofxMSAInteractiveObject::_mousePressed(ofMouseEventArgs &e) {
 	int y = (int)externMouseY;
 	int button = e.button;
 	
-	if(verbose) printf("ofxMSAInteractiveObject::_mousePressed(x: %i, y: %i, button: %i)\n", x, y, button);
+	//if(verbose) printf("ofxMSAInteractiveObject::_mousePressed(x: %i, y: %i, button: %i)\n", x, y, button);
 	if(!enabled) return;
 
 	_mouseX = x;
@@ -228,7 +228,7 @@ void ofxMSAInteractiveObject::_mouseDragged(ofMouseEventArgs &e) {
 	int y = (int)externMouseY;
 	int button = e.button;
 	
-	if(verbose) printf("ofxMSAInteractiveObject::_mouseDragged(x: %i, y: %i, button: %i)\n", x, y, button);
+	//if(verbose) printf("ofxMSAInteractiveObject::_mouseDragged(x: %i, y: %i, button: %i)\n", x, y, button);
 	if(!enabled) return;
 
 	_mouseX = x;
@@ -257,7 +257,7 @@ void ofxMSAInteractiveObject::_mouseReleased(ofMouseEventArgs &e) {
 	int y = (int)externMouseY;
 	int button = e.button;
 	
-	if(verbose) printf("ofxMSAInteractiveObject::_mouseReleased(x: %i, y: %i, button: %i)\n", x, y, button);
+	//if(verbose) printf("ofxMSAInteractiveObject::_mouseReleased(x: %i, y: %i, button: %i)\n", x, y, button);
 	if(!enabled) return;
 
 	_mouseX = x;
@@ -275,7 +275,7 @@ void ofxMSAInteractiveObject::_mouseReleased(ofMouseEventArgs &e) {
 
 void ofxMSAInteractiveObject::_keyPressed(ofKeyEventArgs &e) {
 	int key = e.key;
-	if(verbose) printf("ofxMSAInteractiveObject::_keyPressed(key: %i)\n", key);
+	//if(verbose) printf("ofxMSAInteractiveObject::_keyPressed(key: %i)\n", key);
 	if(!enabled) return;
 	keyPressed(key);
 }
@@ -283,7 +283,7 @@ void ofxMSAInteractiveObject::_keyPressed(ofKeyEventArgs &e) {
 
 void ofxMSAInteractiveObject::_keyReleased(ofKeyEventArgs &e) {
 	int key = e.key;	
-	if(verbose) printf("ofxMSAInteractiveObject::_keyReleased(key: %i)\n", key);
+	//if(verbose) printf("ofxMSAInteractiveObject::_keyReleased(key: %i)\n", key);
 	if(!enabled) return;
 	keyReleased(key);
 }

@@ -20,15 +20,22 @@ void gamuzaMain::mouseMoved(int x, int y){
     }
     scaledMouseX = ceil(scaledMouseX);
     scaledMouseY = ceil(scaledMouseY);
-    externMouseX = scaledMouseX;
-    externMouseY = scaledMouseY;
+    
+    // External mouse
+    if(!isFullscreen){
+        externMouseX = scaledMouseX;
+        externMouseY = scaledMouseY;
+    }else{
+        externMouseX = scaledMouseX-fboDrawingPosX;
+        externMouseY = scaledMouseY-fboDrawingPosY;
+    }
     
     // MAPPING
 	if(drawGrid){
         if(!isFullscreen){
             finalTextureMapping.mouseMoved(scaledMouseX, scaledMouseY);
         }else{
-            finalTextureMapping.mouseMoved(scaledMouseX-fboDrawingPosX-6, scaledMouseY-fboDrawingPosY-6);
+            finalTextureMapping.mouseMoved(externMouseX, externMouseY);
         }
 	}
     
@@ -53,15 +60,22 @@ void gamuzaMain::mouseDragged(int x, int y, int button){
     }
     scaledMouseX = ceil(scaledMouseX);
     scaledMouseY = ceil(scaledMouseY);
-    externMouseX = scaledMouseX;
-    externMouseY = scaledMouseY;
+    
+    // External mouse
+    if(!isFullscreen){
+        externMouseX = scaledMouseX;
+        externMouseY = scaledMouseY;
+    }else{
+        externMouseX = scaledMouseX-fboDrawingPosX;
+        externMouseY = scaledMouseY-fboDrawingPosY;
+    }
     
     // MAPPING
 	if(drawGrid){
         if(!isFullscreen){
             finalTextureMapping.mouseDragged(scaledMouseX, scaledMouseY);
         }else{
-            finalTextureMapping.mouseDragged(scaledMouseX-fboDrawingPosX-6, scaledMouseY-fboDrawingPosY-6);
+            finalTextureMapping.mouseDragged(externMouseX, externMouseY);
         }
 	}
     
@@ -86,15 +100,22 @@ void gamuzaMain::mousePressed(int x, int y, int button){
     }
     scaledMouseX = ceil(scaledMouseX);
     scaledMouseY = ceil(scaledMouseY);
-    externMouseX = scaledMouseX;
-    externMouseY = scaledMouseY;
+    
+    // External mouse
+    if(!isFullscreen){
+        externMouseX = scaledMouseX;
+        externMouseY = scaledMouseY;
+    }else{
+        externMouseX = scaledMouseX-fboDrawingPosX;
+        externMouseY = scaledMouseY-fboDrawingPosY;
+    }
     
 	// MAPPING
     if(drawGrid){
         if(!isFullscreen){
             finalTextureMapping.mousePressed(scaledMouseX, scaledMouseY);
         }else{
-            finalTextureMapping.mousePressed(scaledMouseX-fboDrawingPosX-6, scaledMouseY-fboDrawingPosY-6);
+            finalTextureMapping.mousePressed(externMouseX, externMouseY);
         }
 	}
     
@@ -125,15 +146,22 @@ void gamuzaMain::mouseReleased(int x, int y, int button){
     }
     scaledMouseX = ceil(scaledMouseX);
     scaledMouseY = ceil(scaledMouseY);
-    externMouseX = scaledMouseX;
-    externMouseY = scaledMouseY;
+    
+    // External mouse
+    if(!isFullscreen){
+        externMouseX = scaledMouseX;
+        externMouseY = scaledMouseY;
+    }else{
+        externMouseX = scaledMouseX-fboDrawingPosX;
+        externMouseY = scaledMouseY-fboDrawingPosY;
+    }
     
     // MAPPING
 	if(drawGrid){
         if(!isFullscreen){
             finalTextureMapping.mouseReleased(scaledMouseX, scaledMouseY);
         }else{
-            finalTextureMapping.mouseReleased(scaledMouseX-fboDrawingPosX-6, scaledMouseY-fboDrawingPosY-6);
+            finalTextureMapping.mouseReleased(externMouseX, externMouseY);
         }
 	}
     

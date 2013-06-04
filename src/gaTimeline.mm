@@ -37,21 +37,6 @@ gaTimeline::~gaTimeline(){
 void gaTimeline::setup(){
     
     timeline.setup(scrW,scrH);
-    timeline.setDurationInSeconds(10);
-    
-    timeline.addCurves("curves", ofRange(0, 255));
-	timeline.addBangs("bangs");
-	timeline.addFlags("flags");
-    timeline.addColors("colors");
-	timeline.addLFO("lfo");
-	timeline.addSwitches("switches");
-    
-    timeline.setPageName("Page 1");
-    timeline.addPage("Page 2");
-	timeline.setCurrentPage(0);
-    
-	timeline.enableSnapToOtherKeyframes(false);
-	timeline.setLoopType(OF_LOOP_NORMAL);
 	
 	ofAddListener(timeline.events().bangFired, this, &gaTimeline::bangFired);
 }
@@ -64,20 +49,15 @@ void gaTimeline::update() {
 
 //--------------------------------------------------------------
 void gaTimeline::draw() {
-	if(timeline.isSwitchOn("switches")){
-		ofBackground(timeline.getColor("colors"));
-	}
-	else{
-		ofBackground(255*.15);
-	}
+    ofBackground(255*.15);
 	timeline.draw();
-    
-    
 }
 
 //--------------------------------------------------------------
 void gaTimeline::bangFired(ofxTLBangEventArgs& args){
-	//cout << "bang fired!" << args.flag << endl;
+    actualBang = args.flag;
+     
+    // timeline.getVideoPlayer("Video")->getPlayer()->setFrame(currentRenderFrame);
 }
 
 //--------------------------------------------------------------

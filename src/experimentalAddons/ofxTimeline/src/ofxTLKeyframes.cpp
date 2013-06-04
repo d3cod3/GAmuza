@@ -250,7 +250,7 @@ void ofxTLKeyframes::load(){
 	}
 	else{
 		ofxXmlSettings savedkeyframes;
-		if(!savedkeyframes.loadFile("settings/timeline/" + xmlFileName)){
+		if(!savedkeyframes.loadFile(timeline->getWorkingFolder() + xmlFileName)){
 			ofLog(OF_LOG_NOTICE, "ofxTLKeyframes --- couldn't load xml file " + xmlFileName);
 			return;
 		}
@@ -323,7 +323,7 @@ void ofxTLKeyframes::save(){
 		string xmlRep = getXMLStringForKeyframes(keyframes);
 		ofxXmlSettings savedkeyframes;
 		savedkeyframes.loadFromBuffer(xmlRep);
-		savedkeyframes.saveFile(xmlFileName);
+		savedkeyframes.saveFile(timeline->getWorkingFolder() + xmlFileName);
 	}
 }
 

@@ -359,7 +359,6 @@ void ofxSimpleGuiToo::mouseDragged(ofMouseEventArgs &e) {
 void ofxSimpleGuiToo::mouseReleased(ofMouseEventArgs &e) {
 	headerPage->mouseReleased(e);
 	pages[currentPage]->mouseReleased(e);
-//	if(doAutoSave) doSave = true;
 	if(doAutoSave) saveToXML();
 }
 
@@ -389,30 +388,4 @@ void ofxSimpleGuiToo::keyReleased(ofKeyEventArgs &e) {
 	headerPage->keyReleased(e);
 	pages[currentPage]->keyReleased(e);
 }
-
-/*
-//------------------------------------------------------------------------ mouse moved
-void ofxSimpleGuiToo::mouseMoved(int x, int y) {
-	mx = x; my = y;
-}
-
-//------------------------------------------------------------------------ mouse released
-void ofxSimpleGuiToo::mouseReleased() {
-	if(doAutoSave) {
-		saveToXML();
-	}
-}
-
-//------------------------------------------------------------------------ key released
-void ofxSimpleGuiToo::keyReleased(int key) {
-	if(doAutoSave) {
-		saveToXML();
-	}
-}
-
-//------------------------------------------------------------------------ key press
-void ofxSimpleGuiToo::keyPressed(int key) {
-
-}
-*/
 

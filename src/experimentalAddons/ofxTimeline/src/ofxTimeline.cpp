@@ -191,10 +191,10 @@ void ofxTimeline::setName(string newName){
 
 void ofxTimeline::setupStandardElements(){
 	
-	inoutTrack->setXMLFileName("settings/timeline/" + name + "_inout.xml");
+	inoutTrack->setXMLFileName(workingFolder + name + "_inout.xml");
 	inoutTrack->setup();
 	
-	zoomer->setXMLFileName("settings/timeline/" + name + "_zoomer.xml");
+	zoomer->setXMLFileName(workingFolder + name + "_zoomer.xml");
 	zoomer->setup();
 	
 	currentPage->loadTrackPositions();	
@@ -205,10 +205,11 @@ string ofxTimeline::getName(){
 }
 
 void ofxTimeline::setWorkingFolder(string folderPath){
-	workingFolder = folderPath = ofFilePath::addTrailingSlash(folderPath);
-    inoutTrack->setXMLFileName("settings/timeline/" + name + "_inout.xml");
+	//workingFolder = folderPath = ofFilePath::addTrailingSlash(folderPath);
+    workingFolder = folderPath;
+    inoutTrack->setXMLFileName(workingFolder + name + "_inout.xml");
 	inoutTrack->load();
-    zoomer->setXMLFileName("settings/timeline/" + name + "_zoomer.xml");
+    zoomer->setXMLFileName(workingFolder + name + "_zoomer.xml");
 	zoomer->load();
 	
 	currentPage->loadTrackPositions();
@@ -455,6 +456,8 @@ void ofxTimeline::save(){
 	zoomer->save();
 	inoutTrack->save();
 	unsavedChanges = false;
+    
+    printf("SAVING TIMELINE");
 }
 
 void ofxTimeline::play(){

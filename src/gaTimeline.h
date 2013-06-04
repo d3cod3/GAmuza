@@ -5,6 +5,8 @@
 #include "ofxNSWindowApp.h"
 
 #include "ofxTimeline.h"
+#include "ofxTLEmptyTrack.h"
+#include "ofxTLEmptyKeyframes.h"
 
 class gaTimeline : public ofxNSWindowApp {
 	
@@ -34,6 +36,7 @@ public:
     void bangFired(ofxTLBangEventArgs& args);
     
     ofxTimeline timeline;
+    string      actualBang;
     
     int scrW, scrH;
 	

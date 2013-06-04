@@ -78,6 +78,9 @@ void gamuzaMain::loadScript(string _script){
     // reset frames counter & time
     gaFrameCounter      = 0;
     
+    // reset timeline
+    gaTL->timeline.reset();
+    
     printError = true;
 	
 }
@@ -113,6 +116,9 @@ void gamuzaMain::renderScript(string & _script){
     
     // reset frames counter & time
     gaFrameCounter      = 0;
+    
+    // reset timeline
+    gaTL->timeline.reset();
     
     printError = true;
     

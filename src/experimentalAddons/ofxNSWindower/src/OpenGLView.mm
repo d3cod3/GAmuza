@@ -315,23 +315,23 @@ static CVReturn displayLinkCallback(CVDisplayLinkRef displayLink, const CVTimeSt
 - (void) rightMouseDown: (NSEvent*) event {
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
-	windowApp->mousePressed(p.x, self.frame.size.height - p.y, 1);
-    ofNotifyMousePressed(p.x, self.frame.size.height - p.y, 1);
+	windowApp->mousePressed(p.x, self.frame.size.height - p.y, 2);
+    ofNotifyMousePressed(p.x, self.frame.size.height - p.y, 2);
 }
 
 - (void) rightMouseDragged: (NSEvent*) event {
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
-	windowApp->mouseDragged(p.x, self.frame.size.height - p.y, 1);
-    ofNotifyMouseDragged(p.x, self.frame.size.height - p.y, 1);
+	windowApp->mouseDragged(p.x, self.frame.size.height - p.y, 2);
+    ofNotifyMouseDragged(p.x, self.frame.size.height - p.y, 2);
 }
 
 - (void) rightMouseUp: (NSEvent*) event {
 	
 	NSPoint p = [self convertPoint:[event locationInWindow] fromView:nil];
-	windowApp->mouseReleased(p.x, self.frame.size.height - p.y, 1);
+	windowApp->mouseReleased(p.x, self.frame.size.height - p.y, 2);
 	windowApp->mouseReleased();
-    ofNotifyMouseReleased(p.x, self.frame.size.height - p.y, 1);
+    ofNotifyMouseReleased(p.x, self.frame.size.height - p.y, 2);
 }
 
 - (void) mouseMoved: (NSEvent*) event {

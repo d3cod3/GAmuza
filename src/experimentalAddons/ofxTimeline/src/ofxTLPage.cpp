@@ -724,7 +724,7 @@ void ofxTLPage::loadTrackPositions(){
 	ofxXmlSettings trackPositions;
 	string xmlPageName = name;
 	ofStringReplace(xmlPageName," ", "_");
-	string positionFileName = "settings/timeline/" + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml";
+	string positionFileName = timeline->getWorkingFolder() + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml";
     
 	if(trackPositions.loadFile(positionFileName)){
 		
@@ -773,7 +773,7 @@ void ofxTLPage::saveTrackPositions(){
 	trackPositions.popTag();
 	string xmlPageName = name;
 	ofStringReplace(xmlPageName," ", "_");
-	string trackPositionsFile = ofToDataPath(timeline->getWorkingFolder() + timeline->getName() + "_" +  xmlPageName + "_trackPositions.xml");
+	string trackPositionsFile = timeline->getWorkingFolder() + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml";
 	trackPositions.saveFile( trackPositionsFile );
 }
 

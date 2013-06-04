@@ -60,7 +60,9 @@
     gaTLWindow->setWindowTitle("Timeline");
     gaTLWindow->setWindowShape(screenX,screenY-30);
     gaTLWindow->setWindowPosition(0,0);
+    //[gaTLWindow->getWindow() setContentSize:NSMakeSize(800,400)];
     [gaTLWindow->getWindow() orderOut:self];
+    
     
     // START GAmuza render window
     gapp = new gamuzaMain();

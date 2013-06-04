@@ -7,6 +7,7 @@
 #include "ofxSimpleGuiToo.h"
 
 extern gamuzaMain   *gapp; // external reference to gamuza app, declared in AppDelegate.h
+extern gaTimeline   *gaTL; // external reference to TIMELINE GUI Panel, declared in AppDelegate.h
 
 //--------------------------------------------------------------
 // SYSTEM SECTION
@@ -247,40 +248,175 @@ void gaDrawZAxis(float _size, ofColor _color, bool posNeg){
 //--------------------------------------------------------------
 // TIMELINE SECTION
 //--------------------------------------------------------------
-/*void gaPlayTimeline(){
-    gapp->timeline.play();
+void gaSetupTimeline(string folder,string _name){
+    gaTL->timeline.setWorkingFolder(folder);
+    gaTL->timeline.setPageName(_name);
+	gaTL->timeline.setCurrentPage(0);
+}
+
+void gaPlayTimeline(){
+    gaTL->timeline.play();
 }
 
 void gaStopTimeline(){
-    gapp->timeline.stop();
+    gaTL->timeline.stop();
 }
 
 void gaSetTimelineDurationInFrames(int frames){
-    gapp->timeline.setDurationInFrames(frames);
+    gaTL->timeline.setDurationInFrames(frames);
+}
+
+void gaSetTimelineDurationInSeconds(int seconds){
+    gaTL->timeline.setDurationInSeconds(seconds);
+}
+
+void gaSetTimelineEnableSnap(bool _b){
+    gaTL->timeline.enableSnapToOtherKeyframes(_b);
 }
 
 void gaSetTimelineLoopType(int _type){
     if(_type == OF_LOOP_NONE){
-        gapp->timeline.setLoopType(OF_LOOP_NONE);
+        gaTL->timeline.setLoopType(OF_LOOP_NONE);
     }else if(_type == OF_LOOP_NORMAL){
-        gapp->timeline.setLoopType(OF_LOOP_NORMAL);
+        gaTL->timeline.setLoopType(OF_LOOP_NORMAL);
     }
 }
 
-void gaAddTimelineKeyframes(string _name, string _file, float _min, float _max){
-    char temp[256];
-    sprintf(temp,"settings/timeline/keyframes/%s",_file.c_str());
-    gapp->timeline.addKeyframes(_name, temp, ofRange(_min, _max));
-    
+void gaTimelineSetFrameRate(int _fr){
+    gaTL->timeline.setFrameRate(_fr);
 }
 
-float gaGetTimelineKeyframeValue(string _name){
-    return gapp->timeline.getKeyframeValue(_name);
+void gaTimelineSetBPM(int _bpm){
+    gaTL->timeline.setBPM(_bpm);
 }
 
-string gaGetTimelineTrigger(){
-    return gapp->actualTriggerName;
-}*/
+void gaTimelineEnableSnapToBPM(bool _b){
+    gaTL->timeline.enableSnapToBPM(_b);
+}
+
+void gaTimelineSetShowBPMGrid(bool _b){
+    gaTL->timeline.setShowBPMGrid(_b);
+}
+
+void gaTimelineSetTimecontrolTrack(string _name){
+    gaTL->timeline.setTimecontrolTrack(_name);
+}
+
+void gaTimelineBringTrackToTop(string _name){
+    gaTL->timeline.bringTrackToTop(_name);
+}
+
+void gaTimelineBringVideoTrackToTop(string _name){
+    gaTL->timeline.bringTrackToTop(gaTL->timeline.getVideoTrack(_name));
+}
+
+void gaTimelineBringAudioTrackToTop(string _name){
+    gaTL->timeline.bringTrackToTop(gaTL->timeline.getAudioTrack(_name));
+}
+
+void gaTimelineAddCurves(string _name,int _min, int _max){
+    gaTL->timeline.addCurves(_name, ofRange(_min, _max));
+}
+
+void gaTimelineAddBangs(string _name){
+    gaTL->timeline.addBangs(_name);
+}
+
+void gaTimelineAddFlags(string _name){
+    gaTL->timeline.addFlags(_name);
+}
+
+void gaTimelineAddColors(string _name){
+    gaTL->timeline.addColors(_name);
+}
+
+void gaTimelineAddLFO(string _name){
+    gaTL->timeline.addLFO(_name);
+}
+
+void gaTimelineAddSwitches(string _name){
+    gaTL->timeline.addSwitches(_name);
+}
+
+void gaTimelineAddAudioTrack(string _name, string _file){
+    gaTL->timeline.addAudioTrack(_name, _file);
+}
+
+void gaTimelineAddVideoTrack(string _name, string _file){
+    gaTL->timeline.addVideoTrack(_name, _file);
+}
+
+float gaTimelineGetValue(string _name){
+    return gaTL->timeline.getValue(_name);
+}
+
+bool gaTimelineGetSwitch(string _name){
+    return gaTL->timeline.isSwitchOn(_name);
+}
+
+ofColor gaTimelineGetColor(string _name){
+    return gaTL->timeline.getColor(_name);
+}
+
+string gaTimelineGetBang(){
+    return gaTL->actualBang;
+}
+
+int gaTimelineGetINFrame(){
+    return gaTL->timeline.getInFrame();
+}
+
+int gaTimelineGetOUTFrame(){
+    return gaTL->timeline.getOutFrame();
+}
+
+ofxTLVideoTrack* gaTimelineGetVideoTrack(string _name){
+    return gaTL->timeline.getVideoTrack(_name);
+}
+
+ofxTLAudioTrack* gaTimelineGetAudioTrack(string _name){
+    return gaTL->timeline.getAudioTrack(_name);
+}
+
+int gaTimelineGetAudioTrackDuration(string _name){
+    return gaTL->timeline.getAudioTrack(_name)->getDuration();
+}
+
+int gaTimelineGetAudioTrackFFTSize(string _name){
+    return gaTL->timeline.getAudioTrack(_name)->getFFTSize();
+}
+
+float gaTimelineGetAudioTrackFFTBin(string _name, int _bin){
+    return gaTL->timeline.getAudioTrack(_name)->getFFT()[_bin];
+}
+
+int gaTimelineGetVideoTrackPosition(string _name){
+    return gaTL->timeline.getVideoTrack(_name)->getPlayer()->getPosition();
+}
+
+int gaTimelineGetVideoTrackDuration(string _name){
+    return gaTL->timeline.getVideoTrack(_name)->getPlayer()->getDuration();
+}
+
+int gaTimelineGetVideoTrackNumFrames(string _name){
+    return gaTL->timeline.getVideoTrack(_name)->getPlayer()->getTotalNumFrames();
+}
+
+int gaTimelineGetVideoTrackCurrentFrame(string _name){
+    return gaTL->timeline.getVideoTrack(_name)->getPlayer()->getCurrentFrame();
+}
+
+void gaTimelineVideoPlayerNextFrame(string _name){
+    gaTL->timeline.getVideoPlayer(_name)->nextFrame();
+}
+
+void gaTimelineVideoPlayerUpdate(string _name){
+    gaTL->timeline.getVideoPlayer(_name)->update();
+}
+
+void gaTimelineVideoPlayerDraw(string _name, ofRectangle _r){
+    gaTL->timeline.getVideoPlayer(_name)->draw(_r);
+}
 
 //--------------------------------------------------------------
 // MIDI SECTION
