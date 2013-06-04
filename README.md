@@ -118,7 +118,7 @@ function draw()
     gaBackground(0.0,1.0)
 
     ofSetColor(255)
-    ofCircle(gamouseX(),gaMouseY(),ofRandom(20,200))
+    ofCircle(gaMouseX(),gaMouseY(),ofRandom(20,200))
 end
 
 ```
@@ -134,9 +134,11 @@ These are the most important LUA 5.1 patches
 
 ## Bindings
 
+### LUA language
+
 LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.html)
 
-### All OF 0.7.4 language **EXCLUDING**:
+### OF 0.7.4 language **EXCLUDING**:
 
  * ofArduino  --> managed from Arduino GUI module + GAmuza framework related functions
  * ofVideoGrabber --> managed from ComputerVision GUI module + GAmuza framework related functions
@@ -148,15 +150,15 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
  * ofPtr
  
 
-### All the OF 0.7.4 official addons (ofx3DModelLoader, ofxAssimpModelLoader, ofxNetwork, ofxOpenCv, ofxSvg, ofxVectorGraphics, ofxXmlSettings)
+### OF 0.7.4 official addons
 
-### some OFXADDONS
+### others OFXADDONS
 
  * list [here](https://github.com/d3cod3/GAmuza/blob/master/bindedAddons)
 
 ### GAmuza framework
 
-
+ * work in progress
 
 ### OPENGL 1.1
 
@@ -164,10 +166,10 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
 ## Modules
 
- * ARDUINO
- * AUDIO ANALYSIS
- * COMPUTER VISION
- * TIMELINE
+ * ARDUINO					- NOT READY YET
+ * AUDIO ANALYSIS 			- NOT READY YET
+ * COMPUTER VISION 			- NOT READY YET
+ * TIMELINE 				- work in progress
 
 
 # Known issues
