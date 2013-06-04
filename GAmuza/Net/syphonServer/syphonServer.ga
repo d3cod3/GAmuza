@@ -11,25 +11,25 @@
  
 */
 
-cam = of.texture()
-stream = ofx.syphonServer()
+gaTex = ofTexture()
+stream = ofxSyphonServer()
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
-    cam:clear()
+    gaTex:allocate(OUTPUT_W,OUTPUT_H,GL_RGB)
+    gaTex:clear()
     
-    stream:setName("webcam")
+    stream:setName("GAmuza")
 end
 
 function update()
-    cam = ga.cameraTexture(0)
+    gaTex = gaGetOutputTexture()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.2,0.1)
     
-    of.setColor(255)
-    cam:draw(0,0)
+    ofSetColor(255)
+    ofCircle(gaMouseX(),gaMouseY(),200)
     
-    stream:publishTexture(cam)
+    stream:publishTexture(gaTex)
 end

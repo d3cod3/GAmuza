@@ -1,0 +1,33 @@
+
+/* 
+   
+ GAmuza 1.0 examples 
+ ---------------------
+ Image/QRCodeGenerator.ga
+ 
+ The empty GAmuza script (you can start from here).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+qrCodeGenerator = ofxQRCodeGenerator()
+gamuzaQRImage = ofImage()
+link = "http://www.gamuza.cc"
+
+function setup()
+	gamuzaQRImage = qrCodeGenerator:generate(link,OUTPUT_H/2)
+end
+
+function update()
+    	
+end
+
+function draw()
+    	gaBackground(0.5,1.0)
+    	
+	ofSetColor(255)
+	ofSetRectMode(OF_RECTMODE_CENTER)
+     gamuzaQRImage:draw(OUTPUT_W/2,OUTPUT_H/2)
+     
+end

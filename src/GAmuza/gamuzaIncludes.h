@@ -82,6 +82,13 @@
 #include "ofxDither.h"
 #include "ofxCLD.h"                 // Coherent Line Drawing <http://www.cs.umsl.edu/~kang/Papers/kang_npar07.html>
 
+// IMAGE
+#include "ofxQRCodeGenerator.h"
+
+// VIDEO
+#include "ofxPBOVideoPlayer.h"
+#include "ofxQTKitAVScreenRecorder.h"
+
 // SHADERS
 #include "ofxFX.h"
 
@@ -91,14 +98,16 @@
 #include "ofxTextSuite.h"
 
 // GRAPHICS
+#include "ofxGenerative.h"
 #include "ofxDelaunay.h"
 #include "ofxSlitScan.h"            // simple utility for creating slit scan effects and video time delays
 
 // NET
 #include "ofxTwitter.h"
 
-// VIDEO STREAMING
+// STREAMING
 #include "ofxSyphon.h"
+#include "ofxJitterNetworkSender.h"
 
 
 //////////////////////////////////////

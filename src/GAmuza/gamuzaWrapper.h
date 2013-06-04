@@ -3884,12 +3884,36 @@ class ofGamuzaWrapper{
          .def("setTotalFaces", (void(ofxKaleidoscope::*)(float)) &ofxKaleidoscope::setTotalFaces)
          .def_readwrite("angle", &ofxKaleidoscope::angle)
          .def_readwrite("offset", &ofxKaleidoscope::offset),
-         
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXGAUSSIAN
          def("ofxGaussian", (float(*)(void)) &ofxGaussian),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXJITTERNETWORKSENDER --> extending ofxTCPClient
+         class_<ofxJitterNetworkSender>("ofxJitterNetworkSender")
+         .def(constructor<>())
+         
+         .def("setVerbose", (void(ofxJitterNetworkSender::*)(bool)) &ofxJitterNetworkSender::setVerbose)
+         .def("setup", (bool(ofxJitterNetworkSender::*)(string,int,bool)) &ofxJitterNetworkSender::setup)
+         .def("setMessageDelimiter", (void(ofxJitterNetworkSender::*)(string)) &ofxJitterNetworkSender::setMessageDelimiter)
+         .def("close", (bool(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::close)
+         .def("send", (bool(ofxJitterNetworkSender::*)(string)) &ofxJitterNetworkSender::send)
+         .def("sendRaw", (bool(ofxJitterNetworkSender::*)(string)) &ofxJitterNetworkSender::sendRaw)
+         .def("getNumReceivedBytes", (int(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::getNumReceivedBytes)
+         .def("sendRawBytes", (bool(ofxJitterNetworkSender::*)(const char*, const int)) &ofxJitterNetworkSender::sendRawBytes)
+         .def("receive", (string(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::receive)
+         .def("receiveRaw", (string(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::receiveRaw)
+         .def("receiveRawBytes", (int(ofxJitterNetworkSender::*)(const char*,int)) &ofxJitterNetworkSender::receiveRawBytes)
+         .def("isConnected", (bool(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::isConnected)
+         .def("getPort", (int(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::getPort)
+         .def("getIP", (string(ofxJitterNetworkSender::*)(void)) &ofxJitterNetworkSender::getIP)
+         .def("setup", (bool(ofxJitterNetworkSender::*)(int,bool)) &ofxJitterNetworkSender::setup)
+         
+         .def("sendFrame", (void(ofxJitterNetworkSender::*)(const ofPixelsRef)) &ofxJitterNetworkSender::sendFrame)
+         .def("sendText", (void(ofxJitterNetworkSender::*)(const string&)) &ofxJitterNetworkSender::sendText),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4010,7 +4034,42 @@ class ofGamuzaWrapper{
          .def("allocate", (void(ofxPBO::*)(ofTexture&,int)) &ofxPBO::allocate)
          .def("loadData", (void(ofxPBO::*)(const ofPixels&)) &ofxPBO::loadData)
          .def("updateTexture", (void(ofxPBO::*)(void)) &ofxPBO::updateTexture),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXPBOVIDEOPLAYER
+         class_<ofxPBOVideoPlayer>("ofxPBOVideoPlayer")
+         .def(constructor<>())
+         .def("load", (void(ofxPBOVideoPlayer::*)(string)) &ofxPBOVideoPlayer::load)
+         .def("play", (void(ofxPBOVideoPlayer::*)(void)) &ofxPBOVideoPlayer::play)
+         .def("update", (void(ofxPBOVideoPlayer::*)(void)) &ofxPBOVideoPlayer::update)
+         .def("draw", (void(ofxPBOVideoPlayer::*)(void)) &ofxPBOVideoPlayer::draw)
+         .def("isFrameNew", (bool(ofxPBOVideoPlayer::*)(void)) &ofxPBOVideoPlayer::isFrameNew)
+         .def_readwrite("player", &ofxPBOVideoPlayer::player),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXQRCODEGENERATOR
+         class_<ofxQRCodeGenerator>("ofxQRCodeGenerator")
+         .def(constructor<>())
+         .def("generate",&QRgenerate),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXQTKITAVSCREENRECORDER
+         class_<ofxQTKitAVScreenRecorder>("ofxQTKitAVScreenRecorder")
+         .def(constructor<>())
+         .def("setup", (void(ofxQTKitAVScreenRecorder::*)(string,string)) &ofxQTKitAVScreenRecorder::setup)
+         .def("update", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::update)
+         .def("exit", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::exit)
+         .def("initAudio", (void(ofxQTKitAVScreenRecorder::*)(string,string)) &ofxQTKitAVScreenRecorder::initAudio)
+         .def("initAVRecording", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::initAVRecording)
+         .def("startNewRecording", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::startNewRecording)
+         .def("finishMovie", (void(ofxQTKitAVScreenRecorder::*)(bool)) &ofxQTKitAVScreenRecorder::finishMovie)
+         .def("addFrame", (void(ofxQTKitAVScreenRecorder::*)(ofPixels&)) &ofxQTKitAVScreenRecorder::addFrame)
+         .def("listAudioDevices", (string*(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::listAudioDevices)
+         .def("listAudioCodecs", (string*(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::listAudioCodecs)
+         .def("getIsRecording", (bool(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::getIsRecording),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4039,7 +4098,6 @@ class ofGamuzaWrapper{
          .def("getCapacity", (int(ofxSlitScan::*)(void)) &ofxSlitScan::getCapacity)
          .def("getType", (int(ofxSlitScan::*)(void)) &ofxSlitScan::getType)
          .def("isBlending", (bool(ofxSlitScan::*)(void)) &ofxSlitScan::isBlending),
-         
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4250,6 +4308,8 @@ class ofGamuzaWrapper{
          def("gaCameraPixels", (unsigned char*(*)(int)) &gaGetWebcamPixels),
          def("gaCameraPixelsRef", (ofPixelsRef(*)(int)) &gaGetWebcamPixelsRef),
          def("gaSaveFrame", (void(*)(string)) &gaSaveFrame),
+         def("gaGetOutputPixels", (ofPixels(*)(void)) &gaGetOutputPixels),
+         def("gaGetOutputTexture", (ofTexture(*)(void)) &gaGetOutputTexture),
          
          ///////////////////////////////
 		 // 3D section
@@ -4265,6 +4325,8 @@ class ofGamuzaWrapper{
          /////////////////////////////// (TIMELINE Module)
 		 // timeline section
          def("gaTimelineSetup", (void(*)(string,string)) &gaSetupTimeline),
+         def("gaTimelineSetPageName", (void(*)(string)) &gaSetTimelinePageName),
+         def("gaTimelineSetCurrentPage", (void(*)(string)) &gaSetTimelineCurrentPage),
          def("gaTimelinePlay", (void(*)(void)) &gaPlayTimeline),
          def("gaTimelineStop", (void(*)(void)) &gaStopTimeline),
          def("gaTimelineDurationInFrames", (void(*)(int)) &gaSetTimelineDurationInFrames),
@@ -4279,6 +4341,7 @@ class ofGamuzaWrapper{
          def("gaTimelineBringTrackToTop", (void(*)(string)) &gaTimelineBringTrackToTop),
          def("gaTimelineBringVideoTrackToTop", (void(*)(string)) &gaTimelineBringVideoTrackToTop),
          def("gaTimelineBringAudioTrackToTop", (void(*)(string)) &gaTimelineBringAudioTrackToTop),
+         def("gaTimelineAddPage", (void(*)(string)) &gaTimelineAddPage),
          def("gaTimelineAddCurves", (void(*)(string,int,int)) &gaTimelineAddCurves),
          def("gaTimelineAddBangs", (void(*)(string)) &gaTimelineAddBangs),
          def("gaTimelineAddFlags", (void(*)(string)) &gaTimelineAddFlags),
@@ -4845,13 +4908,9 @@ class ofGamuzaWrapper{
         file->open(path);
     }
     
-    /// ofxFx --> ofxFluid
-    static void addTemporalForce(ofxFluid* fluid, ofVec2f _pos, ofVec2f _dir, ofColor _col, float _rad){
-        fluid->addTemporalForce(_pos,_dir,_col,_rad);
-    }
-    
-    static void addConstantForce(ofxFluid* fluid, ofVec2f _pos, ofVec2f _dir, ofColor _col, float _rad){
-        fluid->addConstantForce(_pos,_dir,_col,_rad);
+    // OFXQRCODEGENERATOR
+    static ofImage QRgenerate(ofxQRCodeGenerator* gen, string _s, int _i){
+        return gen->generate(_s,_i);
     }
     
     /// ofxOpenCv

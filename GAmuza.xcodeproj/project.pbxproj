@@ -42,6 +42,22 @@
 		200CE9BB17357E120001192B /* PSMTabBarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE9A817357E120001192B /* PSMTabBarCell.m */; };
 		200CE9BC17357E120001192B /* PSMTabBarControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE9AB17357E120001192B /* PSMTabBarControl.m */; };
 		200CE9BF17357E120001192B /* PSMTabDragAssistant.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE9B117357E120001192B /* PSMTabDragAssistant.m */; };
+		20201425175D7089003D25F3 /* ofxBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F1175D7089003D25F3 /* ofxBehavior.cpp */; };
+		20201426175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F5175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp */; };
+		20201427175D7089003D25F3 /* ofxDamperBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F8175D7089003D25F3 /* ofxDamperBehavior.cpp */; };
+		20201428175D7089003D25F3 /* ofxDistorterBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013FA175D7089003D25F3 /* ofxDistorterBehavior.cpp */; };
+		20201429175D7089003D25F3 /* ofxElectroStaticBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013FC175D7089003D25F3 /* ofxElectroStaticBehavior.cpp */; };
+		2020142A175D7089003D25F3 /* ofxField2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013FE175D7089003D25F3 /* ofxField2D.cpp */; };
+		2020142B175D7089003D25F3 /* ofxHomingBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201405175D7089003D25F3 /* ofxHomingBehavior.cpp */; };
+		2020142C175D7089003D25F3 /* ofxPerlinBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2020140A175D7089003D25F3 /* ofxPerlinBehavior.cpp */; };
+		2020142D175D7089003D25F3 /* ofxRParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2020140E175D7089003D25F3 /* ofxRParticle.cpp */; };
+		2020142E175D7089003D25F3 /* ofxRParticleGlowieRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201411175D7089003D25F3 /* ofxRParticleGlowieRenderer.cpp */; };
+		2020142F175D7089003D25F3 /* ofxRParticleRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201413175D7089003D25F3 /* ofxRParticleRenderer.cpp */; };
+		20201430175D7089003D25F3 /* ofxRParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201415175D7089003D25F3 /* ofxRParticleSystem.cpp */; };
+		20201431175D7089003D25F3 /* ofxSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201419175D7089003D25F3 /* ofxSolver.cpp */; };
+		20201432175D7089003D25F3 /* ofxSphericalAttractionBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2020141B175D7089003D25F3 /* ofxSphericalAttractionBehavior.cpp */; };
+		20201433175D7089003D25F3 /* ofxSwarmBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201420175D7089003D25F3 /* ofxSwarmBehavior.cpp */; };
+		20201434175D7089003D25F3 /* ofxVerletSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20201423175D7089003D25F3 /* ofxVerletSolver.cpp */; };
 		202E60F3175A504000C53CFC /* ofOpenALSoundPlayer_TimelineAdditions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202E60A7175A504000C53CFC /* ofOpenALSoundPlayer_TimelineAdditions.cpp */; };
 		202E60F4175A504000C53CFC /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 202E60B8175A504000C53CFC /* libsndfile.a */; };
 		202E60F5175A504000C53CFC /* ofxHotKeys_impl_linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202E60BB175A504000C53CFC /* ofxHotKeys_impl_linux.cpp */; };
@@ -171,7 +187,6 @@
 		20784B381732D6370098ABF0 /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849BB1732D6370098ABF0 /* ofxFXObject.cpp */; };
 		20784B391732D6370098ABF0 /* ofxGaussian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849C91732D6370098ABF0 /* ofxGaussian.cpp */; };
 		20784B3A1732D6370098ABF0 /* ofxHttpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849CE1732D6370098ABF0 /* ofxHttpUtils.cpp */; };
-		20784B3B1732D6370098ABF0 /* ofxKeyMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849D21732D6370098ABF0 /* ofxKeyMap.cpp */; };
 		20784B3D1732D6370098ABF0 /* cameras.c in Sources */ = {isa = PBXBuildFile; fileRef = 207849D81732D6370098ABF0 /* cameras.c */; };
 		20784B3F1732D6370098ABF0 /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = 207849DB1732D6370098ABF0 /* core.c */; };
 		20784B441732D6370098ABF0 /* registration.c in Sources */ = {isa = PBXBuildFile; fileRef = 207849E71732D6370098ABF0 /* registration.c */; };
@@ -254,6 +269,10 @@
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20DA4ED51744F9EE00B507F6 /* GASketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DA4ED31744F9EE00B507F6 /* GASketchFile.m */; };
+		20DECD9A175E22C2009F07F0 /* libqrencode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DECD99175E22C2009F07F0 /* libqrencode.a */; };
+		20DECDA9175E7C0C009F07F0 /* ofxPBOVideoPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20DECDA7175E7C0C009F07F0 /* ofxPBOVideoPlayer.cpp */; };
+		20DECDC2175EA6EE009F07F0 /* ofxQTKitAVScreenRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20DECDBB175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder.mm */; };
+		20DECDC3175EA6EE009F07F0 /* ofxQTKitRecorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20DECDBE175EA6EE009F07F0 /* ofxQTKitRecorder.mm */; };
 		20E227EE1759401C0033D376 /* Gamuza.icns in Resources */ = {isa = PBXBuildFile; fileRef = 20E227ED1759401C0033D376 /* Gamuza.icns */; };
 		20E2290B1759882F0033D376 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E228A81759882F0033D376 /* b2BroadPhase.cpp */; };
 		20E2290C1759882F0033D376 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E228AA1759882F0033D376 /* b2CollideCircle.cpp */; };
@@ -297,6 +316,7 @@
 		20E229321759882F0033D376 /* ofxBox2dJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229021759882F0033D376 /* ofxBox2dJoint.cpp */; };
 		20E229331759882F0033D376 /* ofxBox2dPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229041759882F0033D376 /* ofxBox2dPolygon.cpp */; };
 		20E229341759882F0033D376 /* ofxBox2dRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229071759882F0033D376 /* ofxBox2dRect.cpp */; };
+		20E77B8B175E0F3A00E468EC /* ofxKeyMap.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20E77B8A175E0F3A00E468EC /* ofxKeyMap.mm */; };
 		20EE1E3C1740F3CC0067DC29 /* GATextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */; };
 		20EE1E411740F5460067DC29 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E401740F5460067DC29 /* CoreData.framework */; };
 		20EE1E431740F5500067DC29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E421740F5500067DC29 /* Foundation.framework */; };
@@ -433,6 +453,59 @@
 		200CE9B017357E120001192B /* PSMTabDragAssistant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMTabDragAssistant.h; sourceTree = "<group>"; };
 		200CE9B117357E120001192B /* PSMTabDragAssistant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSMTabDragAssistant.m; sourceTree = "<group>"; };
 		200CE9B217357E120001192B /* PSMTabStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMTabStyle.h; sourceTree = "<group>"; };
+		202013F0175D7089003D25F3 /* ofx1DExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofx1DExtruder.h; sourceTree = "<group>"; };
+		202013F1175D7089003D25F3 /* ofxBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBehavior.cpp; sourceTree = "<group>"; };
+		202013F2175D7089003D25F3 /* ofxBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBehavior.h; sourceTree = "<group>"; };
+		202013F3175D7089003D25F3 /* ofxBoidParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBoidParticle.h; sourceTree = "<group>"; };
+		202013F4175D7089003D25F3 /* ofxBoidSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBoidSystem.h; sourceTree = "<group>"; };
+		202013F5175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBufferEffectorBehavior.cpp; sourceTree = "<group>"; };
+		202013F6175D7089003D25F3 /* ofxBufferEffectorBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBufferEffectorBehavior.h; sourceTree = "<group>"; };
+		202013F7175D7089003D25F3 /* ofxCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxCircle.h; sourceTree = "<group>"; };
+		202013F8175D7089003D25F3 /* ofxDamperBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDamperBehavior.cpp; sourceTree = "<group>"; };
+		202013F9175D7089003D25F3 /* ofxDamperBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDamperBehavior.h; sourceTree = "<group>"; };
+		202013FA175D7089003D25F3 /* ofxDistorterBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDistorterBehavior.cpp; sourceTree = "<group>"; };
+		202013FB175D7089003D25F3 /* ofxDistorterBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDistorterBehavior.h; sourceTree = "<group>"; };
+		202013FC175D7089003D25F3 /* ofxElectroStaticBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxElectroStaticBehavior.cpp; sourceTree = "<group>"; };
+		202013FD175D7089003D25F3 /* ofxElectroStaticBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxElectroStaticBehavior.h; sourceTree = "<group>"; };
+		202013FE175D7089003D25F3 /* ofxField2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxField2D.cpp; sourceTree = "<group>"; };
+		202013FF175D7089003D25F3 /* ofxField2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxField2D.h; sourceTree = "<group>"; };
+		20201400175D7089003D25F3 /* ofxFieldAgitator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxFieldAgitator.h; sourceTree = "<group>"; };
+		20201401175D7089003D25F3 /* ofxGenerative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGenerative.h; sourceTree = "<group>"; };
+		20201402175D7089003D25F3 /* ofxGenericShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxGenericShape.h; sourceTree = "<group>"; };
+		20201403175D7089003D25F3 /* ofxHOCParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHOCParticle.h; sourceTree = "<group>"; };
+		20201404175D7089003D25F3 /* ofxHOCParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHOCParticleSystem.h; sourceTree = "<group>"; };
+		20201405175D7089003D25F3 /* ofxHomingBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHomingBehavior.cpp; sourceTree = "<group>"; };
+		20201406175D7089003D25F3 /* ofxHomingBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHomingBehavior.h; sourceTree = "<group>"; };
+		20201407175D7089003D25F3 /* ofxParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxParticle.h; sourceTree = "<group>"; };
+		20201408175D7089003D25F3 /* ofxParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxParticleSystem.h; sourceTree = "<group>"; };
+		20201409175D7089003D25F3 /* ofxParticleTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxParticleTouch.h; sourceTree = "<group>"; };
+		2020140A175D7089003D25F3 /* ofxPerlinBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPerlinBehavior.cpp; sourceTree = "<group>"; };
+		2020140B175D7089003D25F3 /* ofxPerlinBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPerlinBehavior.h; sourceTree = "<group>"; };
+		2020140C175D7089003D25F3 /* ofxRezaParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRezaParticle.h; sourceTree = "<group>"; };
+		2020140D175D7089003D25F3 /* ofxRezaParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRezaParticleSystem.h; sourceTree = "<group>"; };
+		2020140E175D7089003D25F3 /* ofxRParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRParticle.cpp; sourceTree = "<group>"; };
+		2020140F175D7089003D25F3 /* ofxRParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRParticle.h; sourceTree = "<group>"; };
+		20201410175D7089003D25F3 /* ofxRParticleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRParticleData.h; sourceTree = "<group>"; };
+		20201411175D7089003D25F3 /* ofxRParticleGlowieRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRParticleGlowieRenderer.cpp; sourceTree = "<group>"; };
+		20201412175D7089003D25F3 /* ofxRParticleGlowieRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRParticleGlowieRenderer.h; sourceTree = "<group>"; };
+		20201413175D7089003D25F3 /* ofxRParticleRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRParticleRenderer.cpp; sourceTree = "<group>"; };
+		20201414175D7089003D25F3 /* ofxRParticleRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRParticleRenderer.h; sourceTree = "<group>"; };
+		20201415175D7089003D25F3 /* ofxRParticleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxRParticleSystem.cpp; sourceTree = "<group>"; };
+		20201416175D7089003D25F3 /* ofxRParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRParticleSystem.h; sourceTree = "<group>"; };
+		20201417175D7089003D25F3 /* ofxSmartParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSmartParticle.h; sourceTree = "<group>"; };
+		20201418175D7089003D25F3 /* ofxSmartParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSmartParticleSystem.h; sourceTree = "<group>"; };
+		20201419175D7089003D25F3 /* ofxSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSolver.cpp; sourceTree = "<group>"; };
+		2020141A175D7089003D25F3 /* ofxSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSolver.h; sourceTree = "<group>"; };
+		2020141B175D7089003D25F3 /* ofxSphericalAttractionBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSphericalAttractionBehavior.cpp; sourceTree = "<group>"; };
+		2020141C175D7089003D25F3 /* ofxSphericalAttractionBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSphericalAttractionBehavior.h; sourceTree = "<group>"; };
+		2020141D175D7089003D25F3 /* ofxSpring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSpring.h; sourceTree = "<group>"; };
+		2020141E175D7089003D25F3 /* ofxSpringSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSpringSystem.h; sourceTree = "<group>"; };
+		2020141F175D7089003D25F3 /* ofxSuperShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSuperShape.h; sourceTree = "<group>"; };
+		20201420175D7089003D25F3 /* ofxSwarmBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxSwarmBehavior.cpp; sourceTree = "<group>"; };
+		20201421175D7089003D25F3 /* ofxSwarmBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSwarmBehavior.h; sourceTree = "<group>"; };
+		20201422175D7089003D25F3 /* ofxTrailParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTrailParticle.h; sourceTree = "<group>"; };
+		20201423175D7089003D25F3 /* ofxVerletSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVerletSolver.cpp; sourceTree = "<group>"; };
+		20201424175D7089003D25F3 /* ofxVerletSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVerletSolver.h; sourceTree = "<group>"; };
 		202E60A7175A504000C53CFC /* ofOpenALSoundPlayer_TimelineAdditions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofOpenALSoundPlayer_TimelineAdditions.cpp; sourceTree = "<group>"; };
 		202E60A8175A504000C53CFC /* ofOpenALSoundPlayer_TimelineAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofOpenALSoundPlayer_TimelineAdditions.h; sourceTree = "<group>"; };
 		202E60AC175A504000C53CFC /* al.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = al.h; sourceTree = "<group>"; };
@@ -830,7 +903,6 @@
 		207849CD1732D6370098ABF0 /* ofxHttpTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpTypes.h; sourceTree = "<group>"; };
 		207849CE1732D6370098ABF0 /* ofxHttpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHttpUtils.cpp; sourceTree = "<group>"; };
 		207849CF1732D6370098ABF0 /* ofxHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpUtils.h; sourceTree = "<group>"; };
-		207849D21732D6370098ABF0 /* ofxKeyMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKeyMap.cpp; sourceTree = "<group>"; };
 		207849D31732D6370098ABF0 /* ofxKeyMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKeyMap.h; sourceTree = "<group>"; };
 		207849D71732D6370098ABF0 /* APACHE20 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = APACHE20; sourceTree = "<group>"; };
 		207849D81732D6370098ABF0 /* cameras.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cameras.c; sourceTree = "<group>"; };
@@ -1056,6 +1128,13 @@
 		20DA4ECE1744EB6500B507F6 /* GAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAConstants.h; path = ScriptEditor/GAConstants.h; sourceTree = "<group>"; };
 		20DA4ED21744F9EE00B507F6 /* GASketchFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GASketchFile.h; path = ScriptEditor/GASketchFile.h; sourceTree = "<group>"; };
 		20DA4ED31744F9EE00B507F6 /* GASketchFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GASketchFile.m; path = ScriptEditor/GASketchFile.m; sourceTree = "<group>"; };
+		20DECD99175E22C2009F07F0 /* libqrencode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libqrencode.a; sourceTree = "<group>"; };
+		20DECDA7175E7C0C009F07F0 /* ofxPBOVideoPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxPBOVideoPlayer.cpp; sourceTree = "<group>"; };
+		20DECDA8175E7C0C009F07F0 /* ofxPBOVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPBOVideoPlayer.h; sourceTree = "<group>"; };
+		20DECDBA175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQTKitAVScreenRecorder.h; sourceTree = "<group>"; };
+		20DECDBB175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxQTKitAVScreenRecorder.mm; sourceTree = "<group>"; };
+		20DECDBD175EA6EE009F07F0 /* ofxQTKitRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQTKitRecorder.h; sourceTree = "<group>"; };
+		20DECDBE175EA6EE009F07F0 /* ofxQTKitRecorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxQTKitRecorder.mm; sourceTree = "<group>"; };
 		20E227ED1759401C0033D376 /* Gamuza.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Gamuza.icns; sourceTree = "<group>"; };
 		20E228A61759882F0033D376 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		20E228A81759882F0033D376 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
@@ -1150,6 +1229,10 @@
 		20E229081759882F0033D376 /* ofxBox2dRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dRect.h; sourceTree = "<group>"; };
 		20E229091759882F0033D376 /* ofxBox2dRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dRender.h; sourceTree = "<group>"; };
 		20E2290A1759882F0033D376 /* ofxBox2dUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dUtils.h; sourceTree = "<group>"; };
+		20E77B7B175E040000E468EC /* ofxJitterNetworkSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxJitterNetworkSender.h; sourceTree = "<group>"; };
+		20E77B83175E040A00E468EC /* ofxQRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQRCodeGenerator.h; sourceTree = "<group>"; };
+		20E77B8A175E0F3A00E468EC /* ofxKeyMap.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxKeyMap.mm; sourceTree = "<group>"; };
+		20E77BB2175E1DC500E468EC /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
 		20E91816175924CD007E1EE8 /* gamuzaConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamuzaConsole.h; sourceTree = "<group>"; };
 		20EE1E391740F3CC0067DC29 /* GATextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GATextDocument.h; path = ScriptEditor/GATextDocument.h; sourceTree = "<group>"; };
 		20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GATextDocument.m; path = ScriptEditor/GATextDocument.m; sourceTree = "<group>"; };
@@ -1255,6 +1338,7 @@
 				202E60F4175A504000C53CFC /* libsndfile.a in Frameworks */,
 				202E6209175AC84B00C53CFC /* Accelerate.framework in Frameworks */,
 				202E620B175AC86100C53CFC /* OpenAL.framework in Frameworks */,
+				20DECD9A175E22C2009F07F0 /* libqrencode.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,6 +1424,75 @@
 				200CE9B217357E120001192B /* PSMTabStyle.h */,
 			);
 			path = PSMTabBarControl;
+			sourceTree = "<group>";
+		};
+		202013EE175D7089003D25F3 /* ofxGenerative */ = {
+			isa = PBXGroup;
+			children = (
+				202013EF175D7089003D25F3 /* src */,
+			);
+			name = ofxGenerative;
+			path = src/experimentalAddons/ofxGenerative;
+			sourceTree = "<group>";
+		};
+		202013EF175D7089003D25F3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				202013F0175D7089003D25F3 /* ofx1DExtruder.h */,
+				202013F1175D7089003D25F3 /* ofxBehavior.cpp */,
+				202013F2175D7089003D25F3 /* ofxBehavior.h */,
+				202013F3175D7089003D25F3 /* ofxBoidParticle.h */,
+				202013F4175D7089003D25F3 /* ofxBoidSystem.h */,
+				202013F5175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp */,
+				202013F6175D7089003D25F3 /* ofxBufferEffectorBehavior.h */,
+				202013F7175D7089003D25F3 /* ofxCircle.h */,
+				202013F8175D7089003D25F3 /* ofxDamperBehavior.cpp */,
+				202013F9175D7089003D25F3 /* ofxDamperBehavior.h */,
+				202013FA175D7089003D25F3 /* ofxDistorterBehavior.cpp */,
+				202013FB175D7089003D25F3 /* ofxDistorterBehavior.h */,
+				202013FC175D7089003D25F3 /* ofxElectroStaticBehavior.cpp */,
+				202013FD175D7089003D25F3 /* ofxElectroStaticBehavior.h */,
+				202013FE175D7089003D25F3 /* ofxField2D.cpp */,
+				202013FF175D7089003D25F3 /* ofxField2D.h */,
+				20201400175D7089003D25F3 /* ofxFieldAgitator.h */,
+				20201401175D7089003D25F3 /* ofxGenerative.h */,
+				20201402175D7089003D25F3 /* ofxGenericShape.h */,
+				20201403175D7089003D25F3 /* ofxHOCParticle.h */,
+				20201404175D7089003D25F3 /* ofxHOCParticleSystem.h */,
+				20201405175D7089003D25F3 /* ofxHomingBehavior.cpp */,
+				20201406175D7089003D25F3 /* ofxHomingBehavior.h */,
+				20201407175D7089003D25F3 /* ofxParticle.h */,
+				20201408175D7089003D25F3 /* ofxParticleSystem.h */,
+				20201409175D7089003D25F3 /* ofxParticleTouch.h */,
+				2020140A175D7089003D25F3 /* ofxPerlinBehavior.cpp */,
+				2020140B175D7089003D25F3 /* ofxPerlinBehavior.h */,
+				2020140C175D7089003D25F3 /* ofxRezaParticle.h */,
+				2020140D175D7089003D25F3 /* ofxRezaParticleSystem.h */,
+				2020140E175D7089003D25F3 /* ofxRParticle.cpp */,
+				2020140F175D7089003D25F3 /* ofxRParticle.h */,
+				20201410175D7089003D25F3 /* ofxRParticleData.h */,
+				20201411175D7089003D25F3 /* ofxRParticleGlowieRenderer.cpp */,
+				20201412175D7089003D25F3 /* ofxRParticleGlowieRenderer.h */,
+				20201413175D7089003D25F3 /* ofxRParticleRenderer.cpp */,
+				20201414175D7089003D25F3 /* ofxRParticleRenderer.h */,
+				20201415175D7089003D25F3 /* ofxRParticleSystem.cpp */,
+				20201416175D7089003D25F3 /* ofxRParticleSystem.h */,
+				20201417175D7089003D25F3 /* ofxSmartParticle.h */,
+				20201418175D7089003D25F3 /* ofxSmartParticleSystem.h */,
+				20201419175D7089003D25F3 /* ofxSolver.cpp */,
+				2020141A175D7089003D25F3 /* ofxSolver.h */,
+				2020141B175D7089003D25F3 /* ofxSphericalAttractionBehavior.cpp */,
+				2020141C175D7089003D25F3 /* ofxSphericalAttractionBehavior.h */,
+				2020141D175D7089003D25F3 /* ofxSpring.h */,
+				2020141E175D7089003D25F3 /* ofxSpringSystem.h */,
+				2020141F175D7089003D25F3 /* ofxSuperShape.h */,
+				20201420175D7089003D25F3 /* ofxSwarmBehavior.cpp */,
+				20201421175D7089003D25F3 /* ofxSwarmBehavior.h */,
+				20201422175D7089003D25F3 /* ofxTrailParticle.h */,
+				20201423175D7089003D25F3 /* ofxVerletSolver.cpp */,
+				20201424175D7089003D25F3 /* ofxVerletSolver.h */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		202E60A3175A504000C53CFC /* ofxTimeline */ = {
@@ -1692,7 +1845,9 @@
 				2078498D1732D6370098ABF0 /* ofxFft */,
 				2078499A1732D6370098ABF0 /* ofxFX */,
 				207849C71732D6370098ABF0 /* ofxGaussian */,
+				202013EE175D7089003D25F3 /* ofxGenerative */,
 				207849CB1732D6370098ABF0 /* ofxHttpUtils */,
+				20E77B79175E040000E468EC /* ofxJitterNetworkSender */,
 				207849D01732D6370098ABF0 /* ofxKeyMap */,
 				207849D41732D6370098ABF0 /* ofxKinect */,
 				20784BC91732D73A0098ABF0 /* ofxLua */,
@@ -1704,6 +1859,10 @@
 				20784A531732D6370098ABF0 /* ofxOpenCVBlobTrackingExt */,
 				20F9E0FB175525B3009278C3 /* ofxOpticalFlowFarneback */,
 				20784A591732D6370098ABF0 /* ofxPBO */,
+				20DECDA5175E7C0C009F07F0 /* ofxPBOVideoPlayer */,
+				20E77B7C175E040A00E468EC /* ofxQRCodeGenerator */,
+				20DECDB9175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder */,
+				20DECDBC175EA6ED009F07F0 /* ofxQTKitRecorder */,
 				20784A5D1732D6370098ABF0 /* ofxRange */,
 				20784A601732D6370098ABF0 /* ofxSimpleGuiToo */,
 				20784A851732D6370098ABF0 /* ofxSlitScan */,
@@ -2736,7 +2895,7 @@
 		207849D11732D6370098ABF0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				207849D21732D6370098ABF0 /* ofxKeyMap.cpp */,
+				20E77B8A175E0F3A00E468EC /* ofxKeyMap.mm */,
 				207849D31732D6370098ABF0 /* ofxKeyMap.h */,
 			);
 			path = src;
@@ -3416,6 +3575,44 @@
 			name = "custom frameworks";
 			sourceTree = "<group>";
 		};
+		20DECDA5175E7C0C009F07F0 /* ofxPBOVideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				20DECDA6175E7C0C009F07F0 /* src */,
+			);
+			name = ofxPBOVideoPlayer;
+			path = src/experimentalAddons/ofxPBOVideoPlayer;
+			sourceTree = "<group>";
+		};
+		20DECDA6175E7C0C009F07F0 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20DECDA7175E7C0C009F07F0 /* ofxPBOVideoPlayer.cpp */,
+				20DECDA8175E7C0C009F07F0 /* ofxPBOVideoPlayer.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		20DECDB9175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				20DECDBA175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder.h */,
+				20DECDBB175EA6ED009F07F0 /* ofxQTKitAVScreenRecorder.mm */,
+			);
+			name = ofxQTKitAVScreenRecorder;
+			path = src/experimentalAddons/ofxQTKitAVScreenRecorder;
+			sourceTree = "<group>";
+		};
+		20DECDBC175EA6ED009F07F0 /* ofxQTKitRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				20DECDBD175EA6EE009F07F0 /* ofxQTKitRecorder.h */,
+				20DECDBE175EA6EE009F07F0 /* ofxQTKitRecorder.mm */,
+			);
+			name = ofxQTKitRecorder;
+			path = src/experimentalAddons/ofxQTKitRecorder;
+			sourceTree = "<group>";
+		};
 		20E228A31759882F0033D376 /* ofxBox2d */ = {
 			isa = PBXGroup;
 			children = (
@@ -3593,6 +3790,66 @@
 				20E229081759882F0033D376 /* ofxBox2dRect.h */,
 				20E229091759882F0033D376 /* ofxBox2dRender.h */,
 				20E2290A1759882F0033D376 /* ofxBox2dUtils.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		20E77B79175E040000E468EC /* ofxJitterNetworkSender */ = {
+			isa = PBXGroup;
+			children = (
+				20E77B7A175E040000E468EC /* src */,
+			);
+			name = ofxJitterNetworkSender;
+			path = src/experimentalAddons/ofxJitterNetworkSender;
+			sourceTree = "<group>";
+		};
+		20E77B7A175E040000E468EC /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20E77B7B175E040000E468EC /* ofxJitterNetworkSender.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		20E77B7C175E040A00E468EC /* ofxQRCodeGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				20E77B7D175E040A00E468EC /* include */,
+				20E77B7F175E040A00E468EC /* lib */,
+				20E77B82175E040A00E468EC /* src */,
+			);
+			name = ofxQRCodeGenerator;
+			path = src/experimentalAddons/ofxQRCodeGenerator;
+			sourceTree = "<group>";
+		};
+		20E77B7D175E040A00E468EC /* include */ = {
+			isa = PBXGroup;
+			children = (
+				20E77BB2175E1DC500E468EC /* qrencode.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		20E77B7F175E040A00E468EC /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				20E77B80175E040A00E468EC /* osx */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		20E77B80175E040A00E468EC /* osx */ = {
+			isa = PBXGroup;
+			children = (
+				20DECD99175E22C2009F07F0 /* libqrencode.a */,
+			);
+			path = osx;
+			sourceTree = "<group>";
+		};
+		20E77B82175E040A00E468EC /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20E77B83175E040A00E468EC /* ofxQRCodeGenerator.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -4055,7 +4312,6 @@
 				20784B381732D6370098ABF0 /* ofxFXObject.cpp in Sources */,
 				20784B391732D6370098ABF0 /* ofxGaussian.cpp in Sources */,
 				20784B3A1732D6370098ABF0 /* ofxHttpUtils.cpp in Sources */,
-				20784B3B1732D6370098ABF0 /* ofxKeyMap.cpp in Sources */,
 				20784B3D1732D6370098ABF0 /* cameras.c in Sources */,
 				20784B3F1732D6370098ABF0 /* core.c in Sources */,
 				20784B441732D6370098ABF0 /* registration.c in Sources */,
@@ -4230,6 +4486,26 @@
 				202E611B175A56CB00C53CFC /* ofxTimecode.cpp in Sources */,
 				202E6121175A588600C53CFC /* ofxMSATimer.cpp in Sources */,
 				202E6124175A93A200C53CFC /* gaTimeline.mm in Sources */,
+				20201425175D7089003D25F3 /* ofxBehavior.cpp in Sources */,
+				20201426175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp in Sources */,
+				20201427175D7089003D25F3 /* ofxDamperBehavior.cpp in Sources */,
+				20201428175D7089003D25F3 /* ofxDistorterBehavior.cpp in Sources */,
+				20201429175D7089003D25F3 /* ofxElectroStaticBehavior.cpp in Sources */,
+				2020142A175D7089003D25F3 /* ofxField2D.cpp in Sources */,
+				2020142B175D7089003D25F3 /* ofxHomingBehavior.cpp in Sources */,
+				2020142C175D7089003D25F3 /* ofxPerlinBehavior.cpp in Sources */,
+				2020142D175D7089003D25F3 /* ofxRParticle.cpp in Sources */,
+				2020142E175D7089003D25F3 /* ofxRParticleGlowieRenderer.cpp in Sources */,
+				2020142F175D7089003D25F3 /* ofxRParticleRenderer.cpp in Sources */,
+				20201430175D7089003D25F3 /* ofxRParticleSystem.cpp in Sources */,
+				20201431175D7089003D25F3 /* ofxSolver.cpp in Sources */,
+				20201432175D7089003D25F3 /* ofxSphericalAttractionBehavior.cpp in Sources */,
+				20201433175D7089003D25F3 /* ofxSwarmBehavior.cpp in Sources */,
+				20201434175D7089003D25F3 /* ofxVerletSolver.cpp in Sources */,
+				20E77B8B175E0F3A00E468EC /* ofxKeyMap.mm in Sources */,
+				20DECDA9175E7C0C009F07F0 /* ofxPBOVideoPlayer.cpp in Sources */,
+				20DECDC2175EA6EE009F07F0 /* ofxQTKitAVScreenRecorder.mm in Sources */,
+				20DECDC3175EA6EE009F07F0 /* ofxQTKitRecorder.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4538,6 +4814,8 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
@@ -4545,6 +4823,8 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libusb/osx/libs\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/src/experimentalAddons/ofxTimeline/libs/sndfile/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
@@ -4647,6 +4927,8 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
@@ -4654,6 +4936,8 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libusb/osx/libs\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_5 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/src/experimentalAddons/ofxTimeline/libs/sndfile/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",

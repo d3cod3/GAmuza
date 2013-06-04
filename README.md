@@ -49,6 +49,7 @@ Due to a lot of modification applied to most of them, are all included in this r
 
 * [BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)  
 * [Sparkle.framework](https://github.com/andymatuschak/Sparkle/wiki): [project page](http://sparkle.andymatuschak.org/)
+* [Syphon.framework](http://syphon.v002.info/)
 
 * Accelerate.frameworks
 * AGL.frameworks

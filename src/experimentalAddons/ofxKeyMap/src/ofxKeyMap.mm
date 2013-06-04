@@ -23,24 +23,42 @@ bool ofxKeyMap::isKeyDown(int key) {
 bool ofxKeyMap::isAltDown() {
     #ifdef TARGET_WIN32
     return ((GetKeyState( VK_MENU ) & 0x80) > 0);
-    #else
+    #endif
+    
+    #ifdef TARGET_LINUX
     return (glutGetModifiers() & GLUT_ACTIVE_ALT);
+    #endif
+    
+    #ifdef TARGET_OSX
+    return [[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask;
     #endif
 }
 
 bool ofxKeyMap::isShiftDown() {
     #ifdef TARGET_WIN32
     return ((GetKeyState( VK_SHIFT ) & 0x80) > 0);
-    #else
+    #endif
+    
+    #ifdef TARGET_LINUX
     return (glutGetModifiers() & GLUT_ACTIVE_SHIFT);
+    #endif
+    
+    #ifdef TARGET_OSX
+    return [[NSApp currentEvent] modifierFlags] & NSShiftKeyMask;
     #endif
 }
 
 bool ofxKeyMap::isControlDown() {
     #ifdef TARGET_WIN32
     return ((GetKeyState( VK_CONTROL ) & 0x80) > 0);
-    #else
+    #endif
+    
+    #ifdef TARGET_LINUX
     return (glutGetModifiers() & GLUT_ACTIVE_CTRL);
+    #endif
+    
+    #ifdef TARGET_OSX
+    return [[NSApp currentEvent] modifierFlags] & NSControlKeyMask;
     #endif
 }
 

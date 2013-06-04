@@ -58,6 +58,12 @@ void gamuzaMain::loadScript(string _script){
     if(computeAudioOutput  && audioOutputChannels > 0){
         resetAudioOutput();
     }
+    
+    // reset timeline
+    gaTL->timeline.reset();
+    gaTL->timeline.timelineResizeWithWindow(
+                                            ofxNSWindower::instance()->getWindowPtr("Timeline")->getWidth(),
+                                            ofxNSWindower::instance()->getWindowPtr("Timeline")->getHeight());
 	
 	// init the lua state
 	lua.scriptExit();
@@ -78,9 +84,6 @@ void gamuzaMain::loadScript(string _script){
     // reset frames counter & time
     gaFrameCounter      = 0;
     
-    // reset timeline
-    gaTL->timeline.reset();
-    
     printError = true;
 	
 }
@@ -97,6 +100,12 @@ void gamuzaMain::renderScript(string & _script){
     if(computeAudioOutput && audioOutputChannels > 0){
         resetAudioOutput();
     }
+    
+    // reset timeline
+    gaTL->timeline.reset();
+    gaTL->timeline.timelineResizeWithWindow(
+                                            ofxNSWindower::instance()->getWindowPtr("Timeline")->getWidth(),
+                                            ofxNSWindower::instance()->getWindowPtr("Timeline")->getHeight());
 	
 	// init the lua state
 	lua.scriptExit();
@@ -116,9 +125,6 @@ void gamuzaMain::renderScript(string & _script){
     
     // reset frames counter & time
     gaFrameCounter      = 0;
-    
-    // reset timeline
-    gaTL->timeline.reset();
     
     printError = true;
     

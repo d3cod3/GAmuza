@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples
+ GAmuza 1.0 examples
  ---------------------
  Timeline/basicTimeline.ga
  
@@ -10,8 +10,7 @@
  the timeline engine; original source code:
  <https://github.com/Flightphase/ofxTimeline>
  
- press ALT t, to show/hide the timeline
- press ALT g, to play/stop the timeline
+ press space bar to play/stop timeline
  
  created by n3m3da | www.d3cod3.org
  
@@ -21,29 +20,30 @@ circleX = 0
 circleY = 0
 
 function setup()
-    of.setCircleResolution(3)
+    ofSetCircleResolution(3)
 
-    ga.addTimelineKeyframes("posX","posX.xml",0,OUTPUT_W)
-    ga.addTimelineKeyframes("posY","posY.xml",0,OUTPUT_H)
-    ga.setTimelineFrames(200)
-    ga.setTimelineLoop(OF_LOOP_NORMAL)
-    ga.playTimeline()
+	gaTimelineSetup(gaImportFile("timeline/"),"timelineTest")
+    gaTimelineDurationInSeconds(10)
+    gaTimelineSetLoopType(OF_LOOP_NORMAL)
+    gaTimelineEnableKeySnap(false)
+    gaTimelineSetFrameRate(25)
+    gaTimelineAddCurves("circleX",0,OUTPUT_W)
+    gaTimelineAddCurves("circleY",0,OUTPUT_H)
+    gaTimelineAddColors("circleColor")
+    
+    gaTimelinePlay()
     
 end
 
 function update()
-    circleX = ga.getTimelineValue("posX")
-    circleY = ga.getTimelineValue("posY")    
+    circleX = gaTimelineGetValue("circleX")
+    circleY = gaTimelineGetValue("circleY")    
 end
 
 function draw()
-    ga.background(0.0,0.03)
+    gaBackground(0.0,0.03)
 
-    if ga.getTimelineTrigger() == "WHITE" then
-        of.setColor(255,255,255)
-    elseif ga.getTimelineTrigger() == "PINK" then
-        of.setColor(235,25,175)
-    end
-    of.noFill()
-    of.circle(circleX,circleY,90)
+	ofSetColor(gaTimelineGetColor("circleColor"))
+	ofCircle(circleX, circleY,300)
+    
 end

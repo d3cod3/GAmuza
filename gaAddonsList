@@ -11,7 +11,9 @@ ofxFastFboReader
 ofxFft
 ofxFX
 ofxGaussian
+ofxGenerative
 ofxHttpUtils
+ofxJitterNetworkSender
 oofKinect
 ofxLua
 ofxMidi
@@ -22,6 +24,10 @@ ofxMSATimer
 ofxOpenCVBlobTrackingExt
 ofxOpticalFlowFarneback
 ofxPBO
+ofxPBOVideoPlayer
+ofxQRCodeGenerator
+ofxQTKitAVScreenRecorder
+ofxQTKitRecorder
 ofxRange
 ofxSimpleGuiToo
 ofxSlitScan

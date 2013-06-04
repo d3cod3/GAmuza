@@ -12,6 +12,15 @@ extern gaTimeline   *gaTL; // external reference to TIMELINE GUI Panel, declared
 //--------------------------------------------------------------
 // SYSTEM SECTION
 //--------------------------------------------------------------
+ofPixels gaGetOutputPixels(){
+    gapp->pixelsReader.readToPixels(gapp->drawingFbo, gapp->gamuzaPixels);
+    return gapp->gamuzaPixels;
+}
+
+ofTexture gaGetOutputTexture(){
+    return gapp->drawingFbo.getTextureReference();
+}
+
 void gaSaveFrame(string _name){
     gapp->pixelsReader.readToPixels(gapp->drawingFbo, gapp->gamuzaPixels);
     gapp->tempFrame.setFromPixels(gapp->gamuzaPixels);
@@ -254,6 +263,14 @@ void gaSetupTimeline(string folder,string _name){
 	gaTL->timeline.setCurrentPage(0);
 }
 
+void gaSetTimelinePageName(string _name){
+    gaTL->timeline.setPageName(_name);
+}
+
+void gaSetTimelineCurrentPage(string _name){
+    gaTL->timeline.setCurrentPage(_name);
+}
+
 void gaPlayTimeline(){
     gaTL->timeline.play();
 }
@@ -312,6 +329,10 @@ void gaTimelineBringVideoTrackToTop(string _name){
 
 void gaTimelineBringAudioTrackToTop(string _name){
     gaTL->timeline.bringTrackToTop(gaTL->timeline.getAudioTrack(_name));
+}
+
+void gaTimelineAddPage(string _name){
+    gaTL->timeline.addPage(_name);
 }
 
 void gaTimelineAddCurves(string _name,int _min, int _max){

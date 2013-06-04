@@ -1,0 +1,34 @@
+
+/* 
+   
+ GAmuza 1.0 examples 
+ ---------------------
+ Video/largeVideoFile.ga
+ 
+ The empty GAmuza script (you can start from here).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+video = ofxPBOVideoPlayer()
+
+function setup()
+	video:load(gaImportFile("video/las_vidasdeL_final.mov"))
+	video:play()
+end
+
+function update()
+	video:update()
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	ofSetColor(255)
+	video:draw()
+end
+
+function mouseDragged()
+	//video.player:setSpeed((gaMouseX()-OUTPUT_W*0.5)/(OUTPUT_W*0.5))
+end
