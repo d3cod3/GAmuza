@@ -35,6 +35,12 @@ public:
     
     void bangFired(ofxTLBangEventArgs& args);
     
+    void undoTimeline();
+    void redoTimeline();
+    void copyTimeline();
+    void cutTimeline();
+    void pasteTimeline();
+    
     ofxTimeline timeline;
     string      actualBang;
     

@@ -600,6 +600,8 @@
 	gapp->gamuzaFullscreen();
 }
 
+///////////////////////////////////////////// MAPPING
+
 -(IBAction) resetMapping: (id)sender{
 	gapp->resetMappingPoints();
 }
@@ -614,6 +616,70 @@
 
 -(IBAction) drawMappingGrid:(id)sender{
     gapp->toggleDrawGrid();
+}
+
+- (IBAction) switchMouseKeyControl:(id)sender{
+    if(gapp->switchMouseKeyControl()){
+        [sender setTitle:@"Keyboard Control"];
+    }else{
+        [sender setTitle:@"Mouse Control"];
+    }
+}
+
+- (IBAction) mappingManualEditON:(id)sender{
+    gapp->manualPointEditON();
+}
+
+- (IBAction) mappingManualEditOFF:(id)sender{
+    gapp->manualPointEditOFF();
+}
+
+- (IBAction) goToNorthMappingPoint:(id)sender{
+    gapp->northMappingPoint();
+}
+
+- (IBAction) goToSouthMappingPoint:(id)sender{
+    gapp->southMappingPoint();
+}
+
+- (IBAction) goToEastMappingPoint:(id)sender{
+    gapp->eastMappingPoint();
+}
+
+- (IBAction) goToWestMappingPoint:(id)sender{
+    gapp->westMappingPoint();
+}
+
+///////////////////////////////////////////// TIMELINE
+
+- (IBAction) undoOnTimeline:(id)sender{
+    if(isTimelineON){
+        gaTL->undoTimeline();
+    }
+}
+
+- (IBAction) redoOnTimeline:(id)sender{
+    if(isTimelineON){
+        gaTL->redoTimeline();
+    }
+}
+
+- (IBAction) copyOnTimeline:(id)sender{
+    if(isTimelineON){
+        gaTL->copyTimeline();
+    }
+}
+
+- (IBAction) cutOnTimeline:(id)sender{
+    if(isTimelineON){
+        gaTL->cutTimeline();
+    }
+}
+
+- (IBAction) pasteOnTimeline:(id)sender{
+    if(isTimelineON){
+        gaTL->pasteTimeline();
+    }
 }
 
 

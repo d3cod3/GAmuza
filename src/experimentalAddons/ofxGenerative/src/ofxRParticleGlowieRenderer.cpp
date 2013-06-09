@@ -52,21 +52,21 @@ void ofxRParticleGlowieRenderer::draw()
     
 }
 
-void ofxRParticleGlowieRenderer::setAxisAngleOffsets(ofx1DExtruder *_xAxis, ofx1DExtruder *_yAxis, ofx1DExtruder *_zAxis)
+void ofxRParticleGlowieRenderer::setAxisAngleOffsets(ofx1DExtruder _xAxis, ofx1DExtruder _yAxis, ofx1DExtruder _zAxis)
 {
-    xAxis = _xAxis;
-    yAxis = _yAxis;
-    zAxis = _zAxis;
+    xAxis = &_xAxis;
+    yAxis = &_yAxis;
+    zAxis = &_zAxis;
 }
 
-void ofxRParticleGlowieRenderer::setCamPtr(ofEasyCam *_cam)
+void ofxRParticleGlowieRenderer::setCamPtr(ofEasyCam _cam)
 {
-    cam = _cam; 
+    cam = &_cam;
 }
 
-void ofxRParticleGlowieRenderer::setGlowImage(ofImage *_glow)
+void ofxRParticleGlowieRenderer::setGlowImage(ofImage _glow)
 {
-    glow = _glow;
+    glow = &_glow;
 }
 
 void ofxRParticleGlowieRenderer::billBoard()

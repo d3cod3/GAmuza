@@ -52,14 +52,15 @@ void ofxQTKitAVScreenRecorder::initAudio(string device, string compression) {
 }
 
 
-void ofxQTKitAVScreenRecorder::initAVRecording() {
+void ofxQTKitAVScreenRecorder::initAVRecording(string _file) {
     
     //temp audio file
     char $audiofilename[1024];
 	time_t now = time(NULL);
 	struct tm *ts = localtime(&now);
 	strftime($audiofilename, sizeof($audiofilename), "%m_%d_%H_%M_%S_audio.mov", ts);
-    audioFullPath = string($audiofilename);    
+    //audioFullPath = string($audiofilename);
+    audioFullPath = _file + "_audio.mov";
     audioTrack.startRecording(audioFullPath);
     
     //temp video file
@@ -67,7 +68,8 @@ void ofxQTKitAVScreenRecorder::initAVRecording() {
 	now = time(NULL);
 	struct tm *ts2 = localtime(&now);
 	strftime($videofilename, sizeof($videofilename), "%m_%d_%H_%M_%S_video.mov", ts2);
-    videoFullPath = string($videofilename);
+    //videoFullPath = string($videofilename);
+    videoFullPath = _file + "_video.mov";
     recorder.setup(videoFullPath);
     
     //final output combining both files. 
@@ -75,15 +77,16 @@ void ofxQTKitAVScreenRecorder::initAVRecording() {
 	now = time(NULL);
 	struct tm *ts3 = localtime(&now);
 	strftime($temp, sizeof($temp), "%m_%d_%H_%M_%S_Recording.mov", ts3);
-    selfContainedFullPath = string($temp);
+    //selfContainedFullPath = string($temp);
+    selfContainedFullPath = _file + ".mov";
     
     isRecording = true; 
 }
 
-void ofxQTKitAVScreenRecorder::startNewRecording() {
+void ofxQTKitAVScreenRecorder::startNewRecording(string _file) {
     if(!isRecording) {
         recorder.releaseRecording();
-        initAVRecording();
+        initAVRecording(_file);
         stopAddingFrames = false;
     } else {
         printf("/n AUDIO RECORDER: a recording is already in progress "); 

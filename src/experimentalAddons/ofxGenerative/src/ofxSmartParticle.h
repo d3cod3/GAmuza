@@ -144,7 +144,7 @@ public:
 		}
 	}
 	
-	void setCenterPos(ofVec3f *_centerPos) { centerPos = _centerPos; }
+	void setCenterPos(ofVec3f _centerPos) { centerPos = &_centerPos; }
 	
 	void setTargetHome(bool _targetHome) { targetHome = _targetHome; }
 	
@@ -166,7 +166,7 @@ public:
 	
 	void toggleDistortion() { distort = !distort; }
 	
-	void setDistortVector(ofVec3f *_distorter) { distorter = _distorter; }
+	void setDistortVector(ofVec3f _distorter) { distorter = &_distorter; }
 	
 	
 protected:			//for reference

@@ -109,6 +109,87 @@ void gamuzaMain::toggleDrawGrid(){
 }
 
 //--------------------------------------------------------------
+bool gamuzaMain::switchMouseKeyControl(){
+    activateMouseMapping = !activateMouseMapping;
+    
+    return activateMouseMapping;
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::manualPointEditON(){
+    if(!activateMouseMapping){
+        manualEditMappingPoint = true; // OF_KEY_RETURN
+    }
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::manualPointEditOFF(){
+    if(!activateMouseMapping){
+        manualEditMappingPoint = false; // OF_KEY_BACKSPACE
+    }
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::northMappingPoint(){
+    if(!activateMouseMapping){
+        if(manualEditMappingPoint){
+            finalTextureMapping.points[actualMappingPoint].y--;
+        }else{
+            if(actualMappingPoint > gridRes){
+                actualMappingPoint -= (gridRes+1);
+            }else{
+                actualMappingPoint += (gridRes+1)*gridRes;
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::southMappingPoint(){
+    if(!activateMouseMapping){
+        if(manualEditMappingPoint){
+            finalTextureMapping.points[actualMappingPoint].y++;
+        }else{
+            if(actualMappingPoint < ((gridRes+1)*(gridRes+1))-(gridRes+1)){
+                actualMappingPoint += (gridRes+1);
+            }else{
+                actualMappingPoint -= (gridRes+1)*gridRes;
+            }
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::eastMappingPoint(){
+    if(!activateMouseMapping){
+        if(!manualEditMappingPoint){
+            if(actualMappingPoint < totalMappingPoints){
+                actualMappingPoint++;
+            }else{
+                actualMappingPoint = 0;
+            }
+        }else{
+            finalTextureMapping.points[actualMappingPoint].x++;
+        }
+    }
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::westMappingPoint(){
+    if(!activateMouseMapping){
+        if(!manualEditMappingPoint){
+            if(actualMappingPoint > 0){
+                actualMappingPoint--;
+            }else{
+                actualMappingPoint = totalMappingPoints-1;
+            }
+        }else{
+            finalTextureMapping.points[actualMappingPoint].x--;
+        }
+    }
+}
+
+//--------------------------------------------------------------
 void gamuzaMain::applyHomography(){
 	
 	//lets make a matrix for openGL

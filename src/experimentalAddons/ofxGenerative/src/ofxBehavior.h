@@ -26,6 +26,7 @@
 #define OFXBEHAVIOR
 
 #include "ofMain.h"
+#include "ofxRParticle.h"
 
 class ofxRParticle; 
 
@@ -36,7 +37,7 @@ public:
     virtual ~ofxBehavior();
     void init();
     virtual void update();
-    virtual void actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt);
+    virtual void actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt);
     bool *getEnabledPtr();
     bool isEnabled();
     

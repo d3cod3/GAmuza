@@ -25,6 +25,7 @@ ofxOpenCVBlobTrackingExt
 ofxOpticalFlowFarneback
 ofxPBO
 ofxPBOVideoPlayer
+ofxPD
 ofxQRCodeGenerator
 ofxQTKitAVScreenRecorder
 ofxQTKitRecorder

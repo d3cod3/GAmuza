@@ -11,7 +11,7 @@
 <!-- activate OpenNI SensorKinect module  -->
 <tracking_activated>0</tracking_activated>
 <!-- activate video tracking module       -->
-<audio_activated>0</audio_activated>
+<audio_activated>1</audio_activated>
 <!-- activate audio input analysis module -->
 <arduino_activated>0</arduino_activated>
 <!-- activate arduino comunication module -->
@@ -69,7 +69,7 @@
 <!-- -------------------------------------------------------------------------------------------------------     -->
 <!-- -------------------------------------------------------------------------------------------------------     -->
 <!------------------------------------------------------ AUDIO ---------------------------------------------------->
-<audio_Dev_ID>2</audio_Dev_ID>
+<audio_Dev_ID>3</audio_Dev_ID>
 <!-- audio device ID -->
 <output_ch>2</output_ch>
 <!-- output channel number -->

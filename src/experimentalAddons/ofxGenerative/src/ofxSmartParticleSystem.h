@@ -83,14 +83,14 @@ public:
 	{
 		uniqueIDs++; 
 		p->setID(uniqueIDs); 		
-		p->setCenterPos(center); 
+		p->setCenterPos(*center);
 		p->setSphericalRadius(sphericalRadius); 
 		p->setTargetHome(targetHome); 
 		p->setTargetSphere(targetSphere); 
 		p->setDistortion(distort);
 		if(distorter != NULL)
 		{
-			p->setDistortVector(distorter); 
+			p->setDistortVector(*distorter);
 		}
 		particles.push_back(p); 
 	}
@@ -108,7 +108,7 @@ public:
 		for(int i = 0; i < particles.size(); i++)
 		{
 			ofxSmartParticle *sp = (ofxSmartParticle *) particles[i];
-			sp->setCenterPos(center); 
+			sp->setCenterPos(*center);
 		}				
 	}
 
@@ -211,7 +211,7 @@ public:
 		for(int i = 0; i < particles.size(); i++)
 		{
 			ofxSmartParticle *sp = (ofxSmartParticle *) particles[i];
-			sp->setDistortVector(distorter); 
+			sp->setDistortVector(*distorter);
 		}				
 	}
 	

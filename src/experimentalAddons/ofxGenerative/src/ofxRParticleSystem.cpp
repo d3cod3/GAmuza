@@ -52,14 +52,15 @@ void ofxRParticleSystem::init()
     setCount(0);
     setDamping(.25);
     setRestitution(1.0);
-    setAccerationLimit(5.0);
+    setAccelerationLimit(5.0);
     setVelocityLimit(10.0);
     
     renderer = new ofxRParticleRenderer();
     renderer->setParticlesPtr(&particles);
 
     solver = NULL;
-    setSolver(new ofxSolver());
+    solver = new ofxSolver(1);
+    setSolver(*solver);
 }
 
 void ofxRParticleSystem::update()
@@ -80,9 +81,9 @@ void ofxRParticleSystem::draw()
     renderer->draw();
 }
 
-void ofxRParticleSystem::addBehavior(ofxBehavior *b)
+void ofxRParticleSystem::addBehavior(ofxBehavior b)
 {
-    behaviors.push_back(b);
+    behaviors.push_back(&b);
 }
 
 void ofxRParticleSystem::addParticle(ofxRParticle& p)
@@ -103,9 +104,9 @@ void ofxRParticleSystem::setDt(float _dt)
     *dt = _dt;
 }
 
-float* ofxRParticleSystem::getDt()
+float ofxRParticleSystem::getDt()
 {
-    return dt;
+    return *dt;
 }
 
 void ofxRParticleSystem::setDamping(float _damping)
@@ -113,9 +114,9 @@ void ofxRParticleSystem::setDamping(float _damping)
     *damping = _damping;
 }
 
-float* ofxRParticleSystem::getDamping()
+float ofxRParticleSystem::getDamping()
 {
-    return damping;
+    return *damping;
 }
 
 void ofxRParticleSystem::setRestitution(float _restitution)
@@ -123,9 +124,9 @@ void ofxRParticleSystem::setRestitution(float _restitution)
     *restitution = _restitution;
 }
 
-float* ofxRParticleSystem::getRestitution()
+float ofxRParticleSystem::getRestitution()
 {
-    return restitution;
+    return *restitution;
 }
 
 void ofxRParticleSystem::setVelocityLimit(float _vlimit)
@@ -133,19 +134,19 @@ void ofxRParticleSystem::setVelocityLimit(float _vlimit)
     *velLimit = _vlimit;
 }
 
-float* ofxRParticleSystem::getVelocityLimit()
+float ofxRParticleSystem::getVelocityLimit()
 {
-    return velLimit;
+    return *velLimit;
 }
 
-void ofxRParticleSystem::setAccerationLimit(float _alimit)
+void ofxRParticleSystem::setAccelerationLimit(float _alimit)
 {
     *accLimit = _alimit;
 }
 
-float* ofxRParticleSystem::getAccelerationLimit()
+float ofxRParticleSystem::getAccelerationLimit()
 {
-    return accLimit;
+    return *accLimit;
 }
 
 void ofxRParticleSystem::setCount(int _count)
@@ -153,9 +154,9 @@ void ofxRParticleSystem::setCount(int _count)
     *count = _count;
 }
 
-float* ofxRParticleSystem::getCount()
+float ofxRParticleSystem::getCount()
 {
-    return count;
+    return *count;
 }
 
 vector<ofxRParticle>& ofxRParticleSystem::getParticles()
@@ -180,13 +181,13 @@ ofxRParticle& ofxRParticleSystem::getParticle(int index)
     }
 }
 
-void ofxRParticleSystem::setRenderer(ofxRParticleRenderer *_renderer)
+void ofxRParticleSystem::setRenderer(ofxRParticleRenderer _renderer)
 {
     if(renderer != NULL)
     {
         delete renderer;
     }
-    renderer = _renderer;
+    renderer = &_renderer;
     renderer->setParticlesPtr(&particles);    
 }
 
@@ -195,13 +196,13 @@ ofxRParticleRenderer* ofxRParticleSystem::getRenderer()
     return renderer;
 }
 
-void ofxRParticleSystem::setSolver(ofxSolver *_solver)
+void ofxRParticleSystem::setSolver(ofxSolver _solver)
 {
     if(solver != NULL)
     {
         delete solver;
     }
-    solver = _solver;
+    solver = &_solver;
     solver->setDtPtr(dt);
 }
 

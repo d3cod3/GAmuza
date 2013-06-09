@@ -19,7 +19,9 @@ extern gaVideoPreview   *gaVP; // OUTPUT TEXTURE PREVIEW
 extern gaTimeline       *gaTL; // TIMELINE PANEL WINDOW external reference
 /////////////////////////////////
 
-class gamuzaMain : public ofxNSWindowApp, public ofxMidiListener{
+class gamuzaMain : public ofxNSWindowApp,
+                    public ofxMidiListener,
+                    public pd::PdReceiver, public pd::PdMidiReceiver{
 
 public:
     
@@ -41,6 +43,8 @@ public:
 	void draw();
 	void close();
 	
+    //////////////////////////////////// RECEIVERS
+    /////////////////////////////////////////////////////////////////////
     // KEYBOARD //////////////////////// --> gamuzaKeyboard.h
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -56,6 +60,26 @@ public:
     void audioIn(float *input, int bufferSize, int nChannels);
     void audioOut(float *output, int bufferSize, int nChannels);
     ////////////////////////////////////
+    
+    // LIBPD / PURE DATA /////////////// --> gamuzaPD.h
+    void setupPD();
+    // pd message receiver callbacks
+    void receiveBang(const std::string& dest);
+    void receiveFloat(const std::string& dest, float value);
+    void receiveSymbol(const std::string& dest, const std::string& symbol);
+    void receiveList(const std::string& dest, const pd::List& list);
+    void receiveMessage(const std::string& dest, const std::string& msg, const pd::List& list);
+    // pd midi receiver callbacks
+    void receiveNoteOn(const int channel, const int pitch, const int velocity);
+    void receiveControlChange(const int channel, const int controller, const int value);
+    void receiveProgramChange(const int channel, const int value);
+    void receivePitchBend(const int channel, const int value);
+    void receiveAftertouch(const int channel, const int value);
+    void receivePolyAftertouch(const int channel, const int pitch, const int value);
+    void receiveMidiByte(const int port, const int byte);
+    ////////////////////////////////////
+    
+    /////////////////////////////////////////////////////////////////////
 	
 	// APP ///////////////////////////// --> gamuzaApp.h
     void resetApp();
@@ -112,6 +136,13 @@ public:
     void loadMappingPoints();
     void saveMappingPoints();
     void toggleDrawGrid();
+    bool switchMouseKeyControl();
+    void manualPointEditON();
+    void manualPointEditOFF();
+    void northMappingPoint();
+    void southMappingPoint();
+    void eastMappingPoint();
+    void westMappingPoint();
     
     void applyHomography();
     void applyGridMesh(int xCalib, int yCalib, int w, int h);
@@ -126,8 +157,6 @@ public:
     void setupOSC();
     void updateOSC();
     void receiveOSC();
-    void receiveScript(string script);
-    void receiveScriptFile(string scriptFile);
     void resetIncomingOSC();
     void resetOutgoingOSC();
     void sendBuffer();
@@ -136,6 +165,8 @@ public:
     // SCRIPTING /////////////////////// --> gamuzaScripting.h
     void    setupScripting();
     void    updateScripting();
+    void    receiveScript(string script);
+    void    receiveScriptFile(string scriptFile);
     void    loadScript(string _script);
     void    renderScript(string & _script);
     string  readScript(string _scriptFile,bool dialog);
@@ -197,7 +228,6 @@ public:
     // ARDUINO --> gamuzaArduino.h
     ofArduino				arduino;
     bool					useArduino;
-    int						arduinoIndex;
     int						*digitalPinModes;
     int						*analogPinModes;
     int						*digitalPinValuesInput;
@@ -219,7 +249,9 @@ public:
     // AUDIO --> gamuzaAudio.h
     ofSoundStream			soundStream;
     audioInputChannel		*inputAudioCH;
-    int						audioInputStartIndex;
+    
+    ofxPd                   pd;
+    vector<string>          pdPatches;
 	
     gaDsp					gamuzaDSP;
     gaAmplifier				gamuzaAMP;
@@ -278,7 +310,6 @@ public:
      
      //////////////////////////////////////////////
      // GUI --> gamuzaGui.h
-     ofxKeyMap				gamuzaKmap;
      ofTexture				emptyTexture;
      ofImage                _hueWheel;
      bool                   isFullscreen;

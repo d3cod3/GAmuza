@@ -14,6 +14,8 @@
 #include "gamuzaMapping.h"
 #include "gamuzaMidi.h"
 #include "gamuzaOSC.h"
+#include "gamuzaPD.h"
+#include "gamuzaReceivers.h"
 #include "gamuzaScripting.h"
 
 //--------------------------------------------------------------

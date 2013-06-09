@@ -36,10 +36,10 @@ public:
     ~ofxRParticleGlowieRenderer();
     void setup();
     void draw();
-    void setCamPtr(ofEasyCam *_cam);
-    void setAxisAngleOffsets(ofx1DExtruder *_xAxis, ofx1DExtruder *_yAxis, ofx1DExtruder *_zAxis); 
+    void setCamPtr(ofEasyCam _cam);
+    void setAxisAngleOffsets(ofx1DExtruder _xAxis, ofx1DExtruder _yAxis, ofx1DExtruder _zAxis); 
     void billBoard(); 
-    void setGlowImage(ofImage *_glow);
+    void setGlowImage(ofImage _glow);
     
 protected:
     ofImage *glow;

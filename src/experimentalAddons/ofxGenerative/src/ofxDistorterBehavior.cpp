@@ -38,7 +38,7 @@ void ofxDistorterBehavior::setup()
     setExpFactor(2.0); 
 }
 
-void ofxDistorterBehavior::actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
+void ofxDistorterBehavior::actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
 {
     float length = pos.distance(*position);
 //    if(length < (*radius))

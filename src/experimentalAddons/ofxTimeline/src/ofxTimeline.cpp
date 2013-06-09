@@ -324,6 +324,28 @@ void ofxTimeline::redo(){
     }
 }
 
+void ofxTimeline::copyOnTimeline(){
+    vector<string> copyattempt;
+    currentPage->copyRequest(copyattempt);
+    if(copyattempt.size() > 0){
+        pasteboard = copyattempt;
+    }
+}
+
+void ofxTimeline::cutOnTimeline(){
+    vector<string> copyattempt;
+    currentPage->cutRequest(copyattempt);
+    if(copyattempt.size() > 0){
+        pasteboard = copyattempt;
+    }
+}
+
+void ofxTimeline::pasteOnTimeline(){
+    if (pasteboard.size() > 0) {
+        currentPage->pasteSent(pasteboard);
+    }
+}
+
 void ofxTimeline::restoreToState(vector<UndoItem>& state){
     for(int i = 0; i < state.size(); i++){
 //		cout << "restoring state for track " << state[i].track->getDisplayName() << endl;
@@ -1747,6 +1769,47 @@ bool ofxTimeline::isSwitchOn(string trackName, int atFrame){
 	return isSwitchOn(trackName, timecode.secondsForFrame(atFrame));	
 }
 
+ofxTLNotes* ofxTimeline::addNotes(string trackName){
+    string uniqueName = confirmedUniqueName(trackName);
+	return addNotes(uniqueName, nameToXMLName(uniqueName));
+}
+
+ofxTLNotes* ofxTimeline::addNotes(string trackName, string xmlFileName){
+	ofxTLNotes* newNotes = new ofxTLNotes();
+	newNotes->setCreatedByTimeline(true);
+	newNotes->setXMLFileName(xmlFileName);
+	addTrack(confirmedUniqueName(trackName), newNotes);
+	return newNotes;
+}
+
+int ofxTimeline::getNotePitch(string trackName){
+    if(!hasTrack(trackName)){
+		ofLogError("ofxTimeline -- Couldn't find track " + trackName);
+		return 0;
+	}
+	ofxTLNotes* notes = (ofxTLNotes*)trackNameToPage[trackName]->getTrack(trackName);
+	return notes->getPitch();
+}
+
+float ofxTimeline::getNoteVelocity(string trackName){
+    if(!hasTrack(trackName)){
+		ofLogError("ofxTimeline -- Couldn't find track " + trackName);
+		return 0.0;
+	}
+	ofxTLNotes* notes = (ofxTLNotes*)trackNameToPage[trackName]->getTrack(trackName);
+	return notes->getVelocity();
+}
+
+bool ofxTimeline::isNoteOn(string trackName){
+	if(!hasTrack(trackName)){
+		ofLogError("ofxTimeline -- Couldn't find notes track " + trackName);
+		return false;
+	}
+	
+	ofxTLNotes* notes = (ofxTLNotes*)trackNameToPage[trackName]->getTrack(trackName);
+	return notes->isOn();
+}
+
 ofxTLBangs* ofxTimeline::addBangs(string trackName){
     string uniqueName = confirmedUniqueName(trackName);
  	return addBangs(uniqueName, nameToXMLName(uniqueName));   
@@ -1932,6 +1995,17 @@ ofxTLAudioTrack* ofxTimeline::addAudioTrack(string trackName, string audioPath){
 
 ofxTLAudioTrack* ofxTimeline::getAudioTrack(string audioTrackName){
     return (ofxTLAudioTrack*)getTrack(audioTrackName);
+}
+
+ofxTLCameraTrack* ofxTimeline::addCameraTrack(string trackName){
+    ofxTLCameraTrack* cameraTrack = new ofxTLCameraTrack();
+    cameraTrack->setCreatedByTimeline(true);
+    addTrack(confirmedUniqueName(trackName), cameraTrack);
+    return cameraTrack;
+}
+
+ofxTLCameraTrack* ofxTimeline::getCameraTrack(string cameraTrackName){
+    return (ofxTLCameraTrack*)getTrack(cameraTrackName);
 }
 
 ofxTLTrackHeader* ofxTimeline::getTrackHeader(string trackName){

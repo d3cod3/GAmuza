@@ -1,0 +1,32 @@
+<positions>
+    <element name="circleColor">
+        <x>0.000000000</x>
+        <y>205.000000000</y>
+        <width>1073.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="circleX">
+        <x>0.000000000</x>
+        <y>52.000000000</y>
+        <width>1073.000000000</width>
+        <height>65.000000000</height>
+    </element>
+    <element name="circleY">
+        <x>0.000000000</x>
+        <y>141.000000000</y>
+        <width>1073.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="lfo">
+        <x>0.000000000</x>
+        <y>269.000000000</y>
+        <width>1073.000000000</width>
+        <height>64.000000000</height>
+    </element>
+    <element name="notes">
+        <x>0.000000000</x>
+        <y>357.000000000</y>
+        <width>1073.000000000</width>
+        <height>165.000000000</height>
+    </element>
+</positions>

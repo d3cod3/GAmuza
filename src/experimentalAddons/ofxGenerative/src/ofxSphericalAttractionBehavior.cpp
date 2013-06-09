@@ -34,7 +34,7 @@ void ofxSphericalAttractionBehavior::setup()
     setRadius(100.0);
 }
 
-void ofxSphericalAttractionBehavior::actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
+void ofxSphericalAttractionBehavior::actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
 {
     ofVec3f temp = pos-(*position);
     temp.normalize();

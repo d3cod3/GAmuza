@@ -23,7 +23,7 @@ void ofxSwarmBehavior::setup()
     
 }
 
-void ofxSwarmBehavior::actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
+void ofxSwarmBehavior::actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
 {
     
 }

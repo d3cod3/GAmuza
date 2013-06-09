@@ -3892,6 +3892,710 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXGENERATIVE
+         
+         // ofx1DExtruder
+         class_<ofx1DExtruder>("ofx1DExtruder")
+         .def(constructor<>())
+         .def(constructor<float>())
+         .def("setPhysics", (void(ofx1DExtruder::*)(float,float,float)) &ofx1DExtruder::setPhysics)
+         .def("setDamping", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setDamping)
+         .def("setAccLimit", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setAccLimit)
+         .def("setVelLimit", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setVelLimit)
+         .def("getDamping", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::getDamping)
+         .def("getVelLimit", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::getVelLimit)
+         .def("getAccLimit", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::getAccLimit)
+         .def("update", (void(ofx1DExtruder::*)(void)) &ofx1DExtruder::update)
+         .def("goHome", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::goHome)
+         .def("draw", (void(ofx1DExtruder::*)(void)) &ofx1DExtruder::draw)
+         .def("getPos", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::getPos)
+         .def("setPos", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setPos)
+         .def("setHome", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setHome)
+         .def("getHome", (float(ofx1DExtruder::*)(void)) &ofx1DExtruder::getHome)
+         .def("setPosAndHome", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::setPosAndHome)
+         .def("addForce", (void(ofx1DExtruder::*)(float)) &ofx1DExtruder::addForce),
+         
+         // ofxBehavior
+         class_<ofxBehavior>("ofxBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxBehavior::*)(void)) &ofxBehavior::update)
+         .def("actUpon", (void(ofxBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxBehavior::actUpon)
+         .def("isEnabled", (bool(ofxBehavior::*)(void)) &ofxBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxBehavior::*)(void)) &ofxBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxBehavior::*)(float)) &ofxBehavior::setMagnitude),
+         
+         // ofxBoidParticle
+         class_<ofxBoidParticle>("ofxBoidParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("setBorders", (void(ofxBoidParticle::*)(float,float)) &ofxBoidParticle::setBorders)
+         .def("update", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::update)
+         .def("draw", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::draw)
+         .def("drawVertex", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::drawVertex)
+         .def("borders", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::borders)
+         .def("elasticBorder", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::elasticBorder)
+         .def("circleborders", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::circleborders)
+         .def("setRadius", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setRadius)
+         .def("setPos", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::setPos)
+         .def("setVel", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::setVel)
+         .def("setAcc", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::setAcc)
+         .def("setHome", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::setHome)
+         .def("setHome", (void(ofxBoidParticle::*)(float,float,float)) &ofxBoidParticle::setHome)
+         .def("setColor", (void(ofxBoidParticle::*)(ofColor)) &ofxBoidParticle::setColor)
+         .def("setDamping", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setDamping)
+         .def("setAccerationLimit", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::addSpringForce)
+         .def("setFixed", (void(ofxBoidParticle::*)(bool)) &ofxBoidParticle::setFixed)
+         .def("isFixed", (bool(ofxBoidParticle::*)(void)) &ofxBoidParticle::isFixed)
+         .def("addForce", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getAcc)
+         .def("getColor", (ofColor&(ofxBoidParticle::*)(void)) &ofxBoidParticle::getColor)
+         .def("setColorAlpha", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxBoidParticle::*)(void)) &ofxBoidParticle::getColorAlpha)
+         .def("getRadius", (float(ofxBoidParticle::*)(void)) &ofxBoidParticle::getRadius)
+         .def("getID", (int(ofxBoidParticle::*)(void)) &ofxBoidParticle::getID)
+         .def("setID", (void(ofxBoidParticle::*)(int)) &ofxBoidParticle::setID)
+         .def("decay", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::decay)
+         .def("getLifeTime", (float(ofxBoidParticle::*)(void)) &ofxBoidParticle::getLifeTime)
+         .def("isDead", (bool(ofxBoidParticle::*)(void)) &ofxBoidParticle::isDead)
+         
+         .def("setZoneRadius", (void(ofxBoidParticle::*)(float)) &ofxBoidParticle::setZoneRadius)
+         .def("separation", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::separation)
+         .def("drawDebug", (void(ofxBoidParticle::*)(void)) &ofxBoidParticle::drawDebug)
+         .def("borders", (void(ofxBoidParticle::*)(float,float)) &ofxBoidParticle::borders)
+         .def("addNeighborPos", (void(ofxBoidParticle::*)(ofVec3f)) &ofxBoidParticle::addNeighborPos),
+         
+         // ofxBoidSystem
+         class_<ofxBoidSystem>("ofxBoidSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxBoidSystem::*)(void)) &ofxBoidSystem::clear)
+         .def("update", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::update)
+         .def("updateAndDecay", (void(ofxBoidSystem::*)(float,float)) &ofxBoidSystem::updateAndDecay)
+         .def("setDamping", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setDamping)
+         .def("setVelocityLimit", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setAccerationLimit)
+         .def("randomize", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::randomize)
+         .def("draw", (void(ofxBoidSystem::*)(void)) &ofxBoidSystem::draw)
+         .def("addParticle", (void(ofxBoidSystem::*)(ofxBoidParticle*)) &ofxBoidSystem::addParticle)
+         .def("getCount", (int(ofxBoidSystem::*)(void)) &ofxBoidSystem::getCount)
+         .def("getParticle", (ofxParticle*(ofxBoidSystem::*)(int)) &ofxBoidSystem::getParticle)
+         
+         .def("angleSigned", (float(ofxBoidSystem::*)(ofVec3f&,ofVec3f&)) &ofxBoidSystem::angleSigned)
+         .def("setZoneRadius", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setZoneRadius)
+         .def("setThreshLow", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setThreshLow)
+         .def("setThreshHigh", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setThreshHigh)
+         .def("setAttractForceConstant", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setAttractForceConstant)
+         .def("setRepelForceConstant", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setRepelForceConstant)
+         .def("setCohesionForceConstant", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setCohesionForceConstant)
+         .def("setAlignForceConstant", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setAlignForceConstant)
+         .def("setPerlinForceConstant", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setPerlinForceConstant)
+         .def("setVelLimitLow", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setVelLimitLow)
+         .def("setVelLimitHigh", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setVelLimitHigh)
+         .def("setVelLimitLowAndHigh", (void(ofxBoidSystem::*)(float,float)) &ofxBoidSystem::setVelLimitLowAndHigh)
+         .def("setAccLimitHigh", (void(ofxBoidSystem::*)(float)) &ofxBoidSystem::setAccLimitHigh),
+         
+         // ofxBufferEffectorBehavior
+         class_<ofxBufferEffectorBehavior>("ofxBufferEffectorBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::update)
+         .def("actUpon", (void(ofxBufferEffectorBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxBufferEffectorBehavior::actUpon)
+         .def("isEnabled", (bool(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxBufferEffectorBehavior::*)(float)) &ofxBufferEffectorBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::setup)
+         .def("getBuffer", (float*(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::getBuffer)
+         .def("setBuffer", (void(ofxBufferEffectorBehavior::*)(float*,int)) &ofxBufferEffectorBehavior::setBuffer)
+         .def("getBufferSize", (int(ofxBufferEffectorBehavior::*)(void)) &ofxBufferEffectorBehavior::getBufferSize),
+         
+         // ofxCircle
+         class_<ofxCircle>("ofxCircle")
+         .def(constructor<>())
+         .def(constructor<float,int,ofVec3f>())
+         .def("setRadius", (void(ofxCircle::*)(float)) &ofxCircle::setRadius)
+         .def("reset", (void(ofxCircle::*)(void)) &ofxCircle::reset),
+         
+         // ofxDamperBehavior
+         class_<ofxDamperBehavior>("ofxDamperBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxDamperBehavior::*)(void)) &ofxDamperBehavior::update)
+         .def("actUpon", (void(ofxDamperBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxDamperBehavior::actUpon)
+         .def("isEnabled", (bool(ofxDamperBehavior::*)(void)) &ofxDamperBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxDamperBehavior::*)(void)) &ofxDamperBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxDamperBehavior::*)(float)) &ofxDamperBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxDamperBehavior::*)(void)) &ofxDamperBehavior::setup),
+         
+         // ofxDistorterBehavior
+         class_<ofxDistorterBehavior>("ofxDistorterBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::update)
+         .def("actUpon", (void(ofxDistorterBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxDistorterBehavior::actUpon)
+         .def("isEnabled", (bool(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxDistorterBehavior::*)(float)) &ofxDistorterBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::setup)
+         .def("getPosition", (ofVec3f&(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::getPosition)
+         .def("setPosition", (void(ofxDistorterBehavior::*)(ofVec3f)) &ofxDistorterBehavior::setPosition)
+         .def("getRadius", (float(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::getRadius)
+         .def("setRadius", (void(ofxDistorterBehavior::*)(float)) &ofxDistorterBehavior::setRadius)
+         .def("getExpFactor", (float(ofxDistorterBehavior::*)(void)) &ofxDistorterBehavior::getExpFactor)
+         .def("setExpFactor", (void(ofxDistorterBehavior::*)(float)) &ofxDistorterBehavior::setExpFactor),
+         
+         // ofxElectroStaticBehavior
+         class_<ofxElectroStaticBehavior>("ofxElectroStaticBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxElectroStaticBehavior::*)(void)) &ofxElectroStaticBehavior::update)
+         .def("actUpon", (void(ofxElectroStaticBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxElectroStaticBehavior::actUpon)
+         .def("isEnabled", (bool(ofxElectroStaticBehavior::*)(void)) &ofxElectroStaticBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxElectroStaticBehavior::*)(void)) &ofxElectroStaticBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxElectroStaticBehavior::*)(float)) &ofxElectroStaticBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxElectroStaticBehavior::*)(void)) &ofxElectroStaticBehavior::setup),
+         
+         // ofxField2D
+         class_<ofxField2D>("ofxField2D")
+         .def(constructor<>())
+         .def("init", (void(ofxField2D::*)(int,int,int,int)) &ofxField2D::init)
+         .def("resize", (void(ofxField2D::*)(int,int)) &ofxField2D::resize)
+         .def("reset", (void(ofxField2D::*)(void)) &ofxField2D::reset)
+         .def("randomize", (void(ofxField2D::*)(void)) &ofxField2D::randomize)
+         .def("update", (void(ofxField2D::*)(void)) &ofxField2D::update)
+         .def("input", (void(ofxField2D::*)(float,float,float,float,float)) &ofxField2D::input)
+         .def("setViscosity", (void(ofxField2D::*)(float)) &ofxField2D::setViscosity)
+         .def("setDensityDecay", (void(ofxField2D::*)(float)) &ofxField2D::setDensityDecay)
+         .def("setDifferential", (void(ofxField2D::*)(float)) &ofxField2D::setDifferential)
+         .def("setDt", (void(ofxField2D::*)(float)) &ofxField2D::setDt)
+         .def("setIterations", (void(ofxField2D::*)(int)) &ofxField2D::setIterations)
+         .def("setPointSize", (void(ofxField2D::*)(float)) &ofxField2D::setPointSize)
+         .def("setLineWidth", (void(ofxField2D::*)(float)) &ofxField2D::setLineWidth)
+         .def("getPointSize", (float&(ofxField2D::*)(void)) &ofxField2D::getPointSize)
+         .def("getLineWidth", (float&(ofxField2D::*)(void)) &ofxField2D::getLineWidth)
+         .def("getViscosity", (float&(ofxField2D::*)(void)) &ofxField2D::getViscosity)
+         .def("getDensityDecay", (float&(ofxField2D::*)(void)) &ofxField2D::getDensityDecay)
+         .def("getDifferential", (float&(ofxField2D::*)(void)) &ofxField2D::getDifferential)
+         .def("getDt", (float&(ofxField2D::*)(void)) &ofxField2D::getDt)
+         .def("getIterations", (int&(ofxField2D::*)(void)) &ofxField2D::getIterations)
+         .def("getVector", (ofPoint(ofxField2D::*)(int,int,bool)) &ofxField2D::getVector)
+         .def("getDensity", (float(ofxField2D::*)(int,int)) &ofxField2D::getDensity)
+         .def("adaptFromImage", (void(ofxField2D::*)(ofPixels&,float)) &ofxField2D::adaptFromImage)
+         .def("draw", (void(ofxField2D::*)(void)) &ofxField2D::draw)
+         .def("getRenderType", (int(ofxField2D::*)(void)) &ofxField2D::getRenderType)
+         .def("setRenderType", (void(ofxField2D::*)(int)) &ofxField2D::setRenderType)
+         .def("getWidth", (int(ofxField2D::*)(void)) &ofxField2D::getWidth)
+         .def("getHeight", (int(ofxField2D::*)(void)) &ofxField2D::getHeight),
+         
+         // ofxFieldAgitator
+         class_<ofxFieldAgitator>("ofxFieldAgitator")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("update", (void(ofxFieldAgitator::*)(void)) &ofxFieldAgitator::update)
+         .def("getAngle", (float(ofxFieldAgitator::*)(void)) &ofxFieldAgitator::getAngle)
+         .def("getDistance", (ofVec3f(ofxFieldAgitator::*)(void)) &ofxFieldAgitator::getDistance)
+         .def("draw", (void(ofxFieldAgitator::*)(void)) &ofxFieldAgitator::draw),
+         
+         // ofxGenericShape
+         class_<ofxGenericShape>("ofxGenericShape")
+         .def(constructor<>())
+         .def(constructor<ofPolyline,int,float,ofVec3f>())
+         .def("init", (void(ofxGenericShape::*)(ofPolyline&,int,float,ofVec3f&)) &ofxGenericShape::init)
+         .def("update", (void(ofxGenericShape::*)(void)) &ofxGenericShape::update)
+         .def("setVelocityLimit", (void(ofxGenericShape::*)(float)) &ofxGenericShape::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxGenericShape::*)(float)) &ofxGenericShape::setAccerationLimit)
+         .def("setDamping", (void(ofxGenericShape::*)(float)) &ofxGenericShape::setDamping)
+         .def("setRadius", (void(ofxGenericShape::*)(float,bool)) &ofxGenericShape::setRadius)
+         .def("setOffset", (void(ofxGenericShape::*)(float,float,bool)) &ofxGenericShape::setOffset),
+         
+         // ofxHomingBehavior
+         class_<ofxHomingBehavior>("ofxHomingBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxHomingBehavior::*)(void)) &ofxHomingBehavior::update)
+         .def("actUpon", (void(ofxHomingBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxHomingBehavior::actUpon)
+         .def("isEnabled", (bool(ofxHomingBehavior::*)(void)) &ofxHomingBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxHomingBehavior::*)(void)) &ofxHomingBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxHomingBehavior::*)(float)) &ofxHomingBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxHomingBehavior::*)(void)) &ofxHomingBehavior::setup),
+         
+         // ofxParticle
+         class_<ofxParticle>("ofxParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("setBorders", (void(ofxParticle::*)(float,float)) &ofxParticle::setBorders)
+         .def("update", (void(ofxParticle::*)(float)) &ofxParticle::update)
+         .def("draw", (void(ofxParticle::*)(void)) &ofxParticle::draw)
+         .def("drawVertex", (void(ofxParticle::*)(void)) &ofxParticle::drawVertex)
+         .def("borders", (void(ofxParticle::*)(void)) &ofxParticle::borders)
+         .def("elasticBorder", (void(ofxParticle::*)(float)) &ofxParticle::elasticBorder)
+         .def("circleborders", (void(ofxParticle::*)(void)) &ofxParticle::circleborders)
+         .def("setRadius", (void(ofxParticle::*)(float)) &ofxParticle::setRadius)
+         .def("setPos", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::setPos)
+         .def("setVel", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::setVel)
+         .def("setAcc", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::setAcc)
+         .def("setHome", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::setHome)
+         .def("setHome", (void(ofxParticle::*)(float,float,float)) &ofxParticle::setHome)
+         .def("setColor", (void(ofxParticle::*)(ofColor)) &ofxParticle::setColor)
+         .def("setDamping", (void(ofxParticle::*)(float)) &ofxParticle::setDamping)
+         .def("setAccerationLimit", (void(ofxParticle::*)(float)) &ofxParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxParticle::*)(float)) &ofxParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::addSpringForce)
+         .def("setFixed", (void(ofxParticle::*)(bool)) &ofxParticle::setFixed)
+         .def("isFixed", (bool(ofxParticle::*)(void)) &ofxParticle::isFixed)
+         .def("addForce", (void(ofxParticle::*)(ofVec3f)) &ofxParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxParticle::*)(void)) &ofxParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxParticle::*)(void)) &ofxParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxParticle::*)(void)) &ofxParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxParticle::*)(void)) &ofxParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxParticle::*)(void)) &ofxParticle::getAcc)
+         .def("getColor", (ofColor&(ofxParticle::*)(void)) &ofxParticle::getColor)
+         .def("setColorAlpha", (void(ofxParticle::*)(float)) &ofxParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxParticle::*)(void)) &ofxParticle::getColorAlpha)
+         .def("getRadius", (float(ofxParticle::*)(void)) &ofxParticle::getRadius)
+         .def("getID", (int(ofxParticle::*)(void)) &ofxParticle::getID)
+         .def("setID", (void(ofxParticle::*)(int)) &ofxParticle::setID)
+         .def("decay", (void(ofxParticle::*)(float)) &ofxParticle::decay)
+         .def("getLifeTime", (float(ofxParticle::*)(void)) &ofxParticle::getLifeTime)
+         .def("isDead", (bool(ofxParticle::*)(void)) &ofxParticle::isDead),
+         
+         // ofxParticleSystem
+         class_<ofxParticleSystem>("ofxParticleSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxParticleSystem::*)(void)) &ofxParticleSystem::clear)
+         .def("update", (void(ofxParticleSystem::*)(float)) &ofxParticleSystem::update)
+         .def("updateAndDecay", (void(ofxParticleSystem::*)(float,float)) &ofxParticleSystem::updateAndDecay)
+         .def("setDamping", (void(ofxParticleSystem::*)(float)) &ofxParticleSystem::setDamping)
+         .def("setVelocityLimit", (void(ofxParticleSystem::*)(float)) &ofxParticleSystem::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxParticleSystem::*)(float)) &ofxParticleSystem::setAccerationLimit)
+         .def("randomize", (void(ofxParticleSystem::*)(float)) &ofxParticleSystem::randomize)
+         .def("draw", (void(ofxParticleSystem::*)(void)) &ofxParticleSystem::draw)
+         .def("addParticle", (void(ofxParticleSystem::*)(ofxParticle*)) &ofxParticleSystem::addParticle)
+         .def("getCount", (int(ofxParticleSystem::*)(void)) &ofxParticleSystem::getCount)
+         .def("getParticle", (ofxParticle*(ofxParticleSystem::*)(int)) &ofxParticleSystem::getParticle),
+         
+         // ofxPerlinBehavior
+         class_<ofxPerlinBehavior>("ofxPerlinBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxPerlinBehavior::*)(void)) &ofxPerlinBehavior::update)
+         .def("actUpon", (void(ofxPerlinBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxPerlinBehavior::actUpon)
+         .def("isEnabled", (bool(ofxPerlinBehavior::*)(void)) &ofxPerlinBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxPerlinBehavior::*)(void)) &ofxPerlinBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxPerlinBehavior::*)(float)) &ofxPerlinBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxPerlinBehavior::*)(void)) &ofxPerlinBehavior::setup),
+         
+         // ofxRezaParticle
+         class_<ofxRezaParticle>("ofxRezaParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("setBorders", (void(ofxRezaParticle::*)(float,float)) &ofxRezaParticle::setBorders)
+         .def("update", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::update)
+         .def("draw", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::draw)
+         .def("drawVertex", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::drawVertex)
+         .def("borders", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::borders)
+         .def("elasticBorder", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::elasticBorder)
+         .def("circleborders", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::circleborders)
+         .def("setRadius", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setRadius)
+         .def("setPos", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setPos)
+         .def("setVel", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setVel)
+         .def("setAcc", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setAcc)
+         .def("setHome", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setHome)
+         .def("setHome", (void(ofxRezaParticle::*)(float,float,float)) &ofxRezaParticle::setHome)
+         .def("setColor", (void(ofxRezaParticle::*)(ofColor)) &ofxRezaParticle::setColor)
+         .def("setDamping", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setDamping)
+         .def("setAccerationLimit", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::addSpringForce)
+         .def("setFixed", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setFixed)
+         .def("isFixed", (bool(ofxRezaParticle::*)(void)) &ofxRezaParticle::isFixed)
+         .def("addForce", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getAcc)
+         .def("getColor", (ofColor&(ofxRezaParticle::*)(void)) &ofxRezaParticle::getColor)
+         .def("setColorAlpha", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxRezaParticle::*)(void)) &ofxRezaParticle::getColorAlpha)
+         .def("getRadius", (float(ofxRezaParticle::*)(void)) &ofxRezaParticle::getRadius)
+         .def("getID", (int(ofxRezaParticle::*)(void)) &ofxRezaParticle::getID)
+         .def("setID", (void(ofxRezaParticle::*)(int)) &ofxRezaParticle::setID)
+         .def("decay", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::decay)
+         .def("getLifeTime", (float(ofxRezaParticle::*)(void)) &ofxRezaParticle::getLifeTime)
+         .def("isDead", (bool(ofxRezaParticle::*)(void)) &ofxRezaParticle::isDead)
+         
+         .def("goSpherical", (ofVec3f(ofxRezaParticle::*)(void)) &ofxRezaParticle::goSpherical)
+         .def("goHome", (ofVec3f(ofxRezaParticle::*)(void)) &ofxRezaParticle::goHome)
+         .def("addDistortion", (ofVec3f(ofxRezaParticle::*)(void)) &ofxRezaParticle::addDistortion)
+         .def("setCenterPos", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setCenterPos)
+         .def("setTargetHome", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setTargetHome)
+         .def("toggleTargetHome", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::toggleTargetHome)
+         .def("setTargetSphere", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setTargetSphere)
+         .def("toggleTargetSphere", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::toggleTargetSphere)
+         .def("setRandomizeVel", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::setRandomizeVel)
+         .def("setRandomizeVel", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setRandomizeVel)
+         .def("setSphericalRadius", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setSphericalRadius)
+         .def("getSphericalRadius", (float(ofxRezaParticle::*)(void)) &ofxRezaParticle::getSphericalRadius)
+         .def("setDistortion", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setDistortion)
+         .def("toggleDistortion", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::toggleDistortion)
+         .def("setDistortVector", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setDistortVector)
+         
+         .def("goSphericalCenter", (ofVec3f(ofxRezaParticle::*)(void)) &ofxRezaParticle::goSphericalCenter)
+         .def("repulse", (ofVec3f(ofxRezaParticle::*)(void)) &ofxRezaParticle::repulse)
+         .def("setRepulsion", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setRepulsion)
+         .def("toggleRepulsion", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::toggleRepulsion)
+         .def("setAbsCenter", (void(ofxRezaParticle::*)(ofVec3f)) &ofxRezaParticle::setAbsCenter)
+         .def("toggleAbsCenter", (void(ofxRezaParticle::*)(void)) &ofxRezaParticle::toggleAbsCenter)
+         .def("setCenterTargeting", (void(ofxRezaParticle::*)(bool)) &ofxRezaParticle::setCenterTargeting)
+         .def("setSAMulti", (void(ofxRezaParticle::*)(float)) &ofxRezaParticle::setSAMulti),
+         
+         // ofxRezaParticleSystem
+         class_<ofxRezaParticleSystem>("ofxRezaParticleSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::clear)
+         .def("update", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::update)
+         .def("updateAndDecay", (void(ofxRezaParticleSystem::*)(float,float)) &ofxRezaParticleSystem::updateAndDecay)
+         .def("setDamping", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::setDamping)
+         .def("setVelocityLimit", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::setAccerationLimit)
+         .def("randomize", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::randomize)
+         .def("draw", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::draw)
+         .def("addParticle", (void(ofxRezaParticleSystem::*)(ofxRezaParticle*)) &ofxRezaParticleSystem::addParticle)
+         .def("getCount", (int(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::getCount)
+         .def("getParticle", (ofxParticle*(ofxRezaParticleSystem::*)(int)) &ofxRezaParticleSystem::getParticle)
+         
+         .def("setCenter", (void(ofxRezaParticleSystem::*)(ofVec3f*)) &ofxRezaParticleSystem::setCenter)
+         .def("setTargetHome", (void(ofxRezaParticleSystem::*)(bool)) &ofxRezaParticleSystem::setTargetHome)
+         .def("getTargetHome", (bool(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::getTargetHome)
+         .def("toggleTargetHome", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::toggleTargetHome)
+         .def("setTargetSphere", (void(ofxRezaParticleSystem::*)(bool)) &ofxRezaParticleSystem::setTargetSphere)
+         .def("getTargetSphere", (bool(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::getTargetSphere)
+         .def("toggleTargetSphere", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::toggleTargetSphere)
+         .def("setSphericalRadius", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::setSphericalRadius)
+         .def("getSphericalRadius", (float(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::getSphericalRadius)
+         .def("setRandomizeVel", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::setRandomizeVel)
+         .def("setRandomizeVel", (void(ofxRezaParticleSystem::*)(float)) &ofxRezaParticleSystem::setRandomizeVel)
+         .def("toggleDistortion", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::toggleDistortion)
+         .def("setDistortion", (void(ofxRezaParticleSystem::*)(bool)) &ofxRezaParticleSystem::setDistortion)
+         .def("setDistortVector", (void(ofxRezaParticleSystem::*)(ofVec3f*)) &ofxRezaParticleSystem::setDistortVector)
+         
+         .def("setRepulsion", (void(ofxRezaParticleSystem::*)(bool)) &ofxRezaParticleSystem::setRepulsion)
+         .def("getRepulsion", (bool(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::getRepulsion)
+         .def("toggleRepulsion", (void(ofxRezaParticleSystem::*)(void)) &ofxRezaParticleSystem::toggleRepulsion)
+         .def("billBoard", (void(ofxRezaParticleSystem::*)(ofVec3f,ofVec3f)) &ofxRezaParticleSystem::billBoard)
+         .def("setCameraRef", (void(ofxRezaParticleSystem::*)(ofEasyCam)) &ofxRezaParticleSystem::setCameraRef)
+         .def("setGlowImage", (void(ofxRezaParticleSystem::*)(ofImage)) &ofxRezaParticleSystem::setGlowImage),
+         
+         // ofxRParticle
+         class_<ofxRParticle>("ofxRParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("calculateAcceleration", (ofVec3f&(ofxRParticle::*)(ofVec3f&,ofVec3f&,float)) &ofxRParticle::calculateAcceleration)
+         .def("setRadius", (void(ofxRParticle::*)(float)) &ofxRParticle::setRadius)
+         .def("setPos", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::setPos)
+         .def("setPpos", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::setPpos)
+         .def("setVel", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::setVel)
+         .def("setAcc", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::setAcc)
+         .def("setHome", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::setHome)
+         .def("setHome", (void(ofxRParticle::*)(float,float,float)) &ofxRParticle::setHome)
+         .def("setColor", (void(ofxRParticle::*)(ofColor)) &ofxRParticle::setColor)
+         .def("setDamping", (void(ofxRParticle::*)(float)) &ofxRParticle::setDamping)
+         .def("setRestitution", (void(ofxRParticle::*)(float)) &ofxRParticle::setRestitution)
+         .def("setAccerationLimit", (void(ofxRParticle::*)(float)) &ofxRParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxRParticle::*)(float)) &ofxRParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::addSpringForce)
+         .def("setFixed", (void(ofxRParticle::*)(bool)) &ofxRParticle::setFixed)
+         .def("isFixed", (bool(ofxRParticle::*)(void)) &ofxRParticle::isFixed)
+         .def("addForce", (void(ofxRParticle::*)(ofVec3f)) &ofxRParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxRParticle::*)(void)) &ofxRParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxRParticle::*)(void)) &ofxRParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxRParticle::*)(void)) &ofxRParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxRParticle::*)(void)) &ofxRParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxRParticle::*)(void)) &ofxRParticle::getAcc)
+         .def("getColor", (ofColor&(ofxRParticle::*)(void)) &ofxRParticle::getColor)
+         .def("setColorAlpha", (void(ofxRParticle::*)(float)) &ofxRParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxRParticle::*)(void)) &ofxRParticle::getColorAlpha)
+         .def("getRadius", (float(ofxRParticle::*)(void)) &ofxRParticle::getRadius)
+         .def("getID", (int(ofxRParticle::*)(void)) &ofxRParticle::getID)
+         .def("setID", (void(ofxRParticle::*)(int)) &ofxRParticle::setID)
+         .def("getLifeTime", (float(ofxRParticle::*)(void)) &ofxRParticle::getLifeTime)
+         .def("isDead", (bool(ofxRParticle::*)(void)) &ofxRParticle::isDead)
+         .def("setParticleData", (void(ofxRParticle::*)(ofxRParticleData *)) &ofxRParticle::setParticleData),
+         
+         // ofxRParticleData
+         class_<ofxRParticleData>("ofxRParticleData")
+         .def(constructor<>()),
+         
+         // ofxRParticleGlowieRenderer
+         class_<ofxRParticleGlowieRenderer>("ofxRParticleGlowieRenderer")
+         .def(constructor<>())
+         .def("setup", (void(ofxRParticleGlowieRenderer::*)(void)) &ofxRParticleGlowieRenderer::setup)
+         .def("draw", (void(ofxRParticleGlowieRenderer::*)(void)) &ofxRParticleGlowieRenderer::draw)
+         .def("setPointSize", (void(ofxRParticleGlowieRenderer::*)(float)) &ofxRParticleGlowieRenderer::setPointSize)
+         .def("setAdditiveBlending", (void(ofxRParticleGlowieRenderer::*)(bool)) &ofxRParticleGlowieRenderer::setAdditiveBlending)
+         
+         .def("setAxisAngleOffsets", (void(ofxRParticleGlowieRenderer::*)(ofx1DExtruder,ofx1DExtruder,ofx1DExtruder)) &ofxRParticleGlowieRenderer::setAxisAngleOffsets)
+         .def("setCamPtr", (void(ofxRParticleGlowieRenderer::*)(ofEasyCam)) &ofxRParticleGlowieRenderer::setCamPtr)
+         .def("setGlowImage", (void(ofxRParticleGlowieRenderer::*)(ofImage)) &ofxRParticleGlowieRenderer::setGlowImage),
+         
+         // ofxRParticleRenderer
+         class_<ofxRParticleRenderer>("ofxRParticleRenderer")
+         .def(constructor<>())
+         .def("setup", (void(ofxRParticleRenderer::*)(void)) &ofxRParticleRenderer::setup)
+         .def("draw", (void(ofxRParticleRenderer::*)(void)) &ofxRParticleRenderer::draw)
+         .def("setPointSize", (void(ofxRParticleRenderer::*)(float)) &ofxRParticleRenderer::setPointSize)
+         .def("setAdditiveBlending", (void(ofxRParticleRenderer::*)(bool)) &ofxRParticleRenderer::setAdditiveBlending),
+         
+         // ofxRParticleSystem
+         class_<ofxRParticleSystem>("ofxRParticleSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::clear)
+         .def("update", (void(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::update)
+         .def("draw", (void(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::draw)
+         .def("addBehavior", (void(ofxRParticleSystem::*)(ofxBehavior)) &ofxRParticleSystem::addBehavior)
+         .def("addParticle", (void(ofxRParticleSystem::*)(ofxRParticle&)) &ofxRParticleSystem::addParticle)
+         .def("setDt", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::setDt)
+         .def("getDt", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getDt)
+         .def("setDamping", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::setDamping)
+         .def("getDamping", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getDamping)
+         .def("setRestitution", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::setRestitution)
+         .def("getRestitution", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getRestitution)
+         .def("setVelocityLimit", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::setVelocityLimit)
+         .def("getVelocityLimit", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getVelocityLimit)
+         .def("setAccelerationLimit", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::setAccelerationLimit)
+         .def("getAccelerationLimit", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getAccelerationLimit)
+         .def("setCount", (void(ofxRParticleSystem::*)(int)) &ofxRParticleSystem::setCount)
+         .def("getCount", (float(ofxRParticleSystem::*)(void)) &ofxRParticleSystem::getCount)
+         .def("getParticle", (ofxRParticle&(ofxRParticleSystem::*)(int)) &ofxRParticleSystem::getParticle)
+         .def("setRenderer", (void(ofxRParticleSystem::*)(ofxRParticleRenderer)) &ofxRParticleSystem::setRenderer)
+         .def("setSolver", (void(ofxRParticleSystem::*)(ofxSolver)) &ofxRParticleSystem::setSolver)
+         .def("randomize", (void(ofxRParticleSystem::*)(float)) &ofxRParticleSystem::randomize),
+         
+         // ofxSmartParticle
+         class_<ofxSmartParticle>("ofxSmartParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def("setBorders", (void(ofxSmartParticle::*)(float,float)) &ofxSmartParticle::setBorders)
+         .def("update", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::update)
+         .def("draw", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::draw)
+         .def("drawVertex", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::drawVertex)
+         .def("borders", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::borders)
+         .def("elasticBorder", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::elasticBorder)
+         .def("circleborders", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::circleborders)
+         .def("setRadius", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setRadius)
+         .def("setPos", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setPos)
+         .def("setVel", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setVel)
+         .def("setAcc", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setAcc)
+         .def("setHome", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setHome)
+         .def("setHome", (void(ofxSmartParticle::*)(float,float,float)) &ofxSmartParticle::setHome)
+         .def("setColor", (void(ofxSmartParticle::*)(ofColor)) &ofxSmartParticle::setColor)
+         .def("setDamping", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setDamping)
+         .def("setAccerationLimit", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::addSpringForce)
+         .def("setFixed", (void(ofxSmartParticle::*)(bool)) &ofxSmartParticle::setFixed)
+         .def("isFixed", (bool(ofxSmartParticle::*)(void)) &ofxSmartParticle::isFixed)
+         .def("addForce", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getAcc)
+         .def("getColor", (ofColor&(ofxSmartParticle::*)(void)) &ofxSmartParticle::getColor)
+         .def("setColorAlpha", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxSmartParticle::*)(void)) &ofxSmartParticle::getColorAlpha)
+         .def("getRadius", (float(ofxSmartParticle::*)(void)) &ofxSmartParticle::getRadius)
+         .def("getID", (int(ofxSmartParticle::*)(void)) &ofxSmartParticle::getID)
+         .def("setID", (void(ofxSmartParticle::*)(int)) &ofxSmartParticle::setID)
+         .def("decay", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::decay)
+         .def("getLifeTime", (float(ofxSmartParticle::*)(void)) &ofxSmartParticle::getLifeTime)
+         .def("isDead", (bool(ofxSmartParticle::*)(void)) &ofxSmartParticle::isDead)
+         
+         .def("goSpherical", (ofVec3f(ofxSmartParticle::*)(void)) &ofxSmartParticle::goSpherical)
+         .def("goHome", (ofVec3f(ofxSmartParticle::*)(void)) &ofxSmartParticle::goHome)
+         .def("addDistortion", (ofVec3f(ofxSmartParticle::*)(void)) &ofxSmartParticle::addDistortion)
+         .def("setCenterPos", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setCenterPos)
+         .def("setTargetHome", (void(ofxSmartParticle::*)(bool)) &ofxSmartParticle::setTargetHome)
+         .def("toggleTargetHome", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::toggleTargetHome)
+         .def("setTargetSphere", (void(ofxSmartParticle::*)(bool)) &ofxSmartParticle::setTargetSphere)
+         .def("toggleTargetSphere", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::toggleTargetSphere)
+         .def("setRandomizeVel", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::setRandomizeVel)
+         .def("setRandomizeVel", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setRandomizeVel)
+         .def("setSphericalRadius", (void(ofxSmartParticle::*)(float)) &ofxSmartParticle::setSphericalRadius)
+         .def("getSphericalRadius", (float(ofxSmartParticle::*)(void)) &ofxSmartParticle::getSphericalRadius)
+         .def("setDistortion", (void(ofxSmartParticle::*)(bool)) &ofxSmartParticle::setDistortion)
+         .def("toggleDistortion", (void(ofxSmartParticle::*)(void)) &ofxSmartParticle::toggleDistortion)
+         .def("setDistortVector", (void(ofxSmartParticle::*)(ofVec3f)) &ofxSmartParticle::setDistortVector),
+         
+         // ofxSmartParticleSystem
+         class_<ofxSmartParticleSystem>("ofxSmartParticleSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::clear)
+         .def("update", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::update)
+         .def("updateAndDecay", (void(ofxSmartParticleSystem::*)(float,float)) &ofxSmartParticleSystem::updateAndDecay)
+         .def("setDamping", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::setDamping)
+         .def("setVelocityLimit", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::setAccerationLimit)
+         .def("randomize", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::randomize)
+         .def("draw", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::draw)
+         .def("addParticle", (void(ofxSmartParticleSystem::*)(ofxSmartParticle*)) &ofxSmartParticleSystem::addParticle)
+         .def("getCount", (int(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::getCount)
+         .def("getParticle", (ofxParticle*(ofxSmartParticleSystem::*)(int)) &ofxSmartParticleSystem::getParticle)
+         
+         .def("setCenter", (void(ofxSmartParticleSystem::*)(ofVec3f*)) &ofxSmartParticleSystem::setCenter)
+         .def("setTargetHome", (void(ofxSmartParticleSystem::*)(bool)) &ofxSmartParticleSystem::setTargetHome)
+         .def("getTargetHome", (bool(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::getTargetHome)
+         .def("toggleTargetHome", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::toggleTargetHome)
+         .def("setTargetSphere", (void(ofxSmartParticleSystem::*)(bool)) &ofxSmartParticleSystem::setTargetSphere)
+         .def("getTargetSphere", (bool(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::getTargetSphere)
+         .def("toggleTargetSphere", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::toggleTargetSphere)
+         .def("setSphericalRadius", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::setSphericalRadius)
+         .def("getSphericalRadius", (float(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::getSphericalRadius)
+         .def("setRandomizeVel", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::setRandomizeVel)
+         .def("setRandomizeVel", (void(ofxSmartParticleSystem::*)(float)) &ofxSmartParticleSystem::setRandomizeVel)
+         .def("toggleDistortion", (void(ofxSmartParticleSystem::*)(void)) &ofxSmartParticleSystem::toggleDistortion)
+         .def("setDistortion", (void(ofxSmartParticleSystem::*)(bool)) &ofxSmartParticleSystem::setDistortion)
+         .def("setDistortVector", (void(ofxSmartParticleSystem::*)(ofVec3f*)) &ofxSmartParticleSystem::setDistortVector),
+         
+         // ofxSolver
+         class_<ofxSolver>("ofxSolver")
+         .def(constructor<float>())
+         .def("update", (void(ofxSolver::*)(ofxRParticle&)) &ofxSolver::update)
+         .def("getDt", (float(ofxSolver::*)(void)) &ofxSolver::getDt),
+         
+         // ofxSphericalAttractionBehavior
+         class_<ofxSphericalAttractionBehavior>("ofxSphericalAttractionBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::update)
+         .def("actUpon", (void(ofxSphericalAttractionBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxSphericalAttractionBehavior::actUpon)
+         .def("isEnabled", (bool(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxSphericalAttractionBehavior::*)(float)) &ofxSphericalAttractionBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::setup)
+         .def("getPosition", (ofVec3f&(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::getPosition)
+         .def("setPosition", (void(ofxSphericalAttractionBehavior::*)(ofVec3f)) &ofxSphericalAttractionBehavior::setPosition)
+         .def("getRadius", (float(ofxSphericalAttractionBehavior::*)(void)) &ofxSphericalAttractionBehavior::getRadius)
+         .def("setRadius", (void(ofxSphericalAttractionBehavior::*)(float)) &ofxSphericalAttractionBehavior::setRadius),
+         
+         // ofxSpring
+         class_<ofxSpring>("ofxSpring")
+         .def(constructor<>())
+         .def("update", (void(ofxSpring::*)(float)) &ofxSpring::update)
+         .def("draw", (void(ofxSpring::*)(void)) &ofxSpring::draw)
+         .def("getForce", (ofVec3f&(ofxSpring::*)(int)) &ofxSpring::getForce)
+         .def("setRestDistance", (void(ofxSpring::*)(float)) &ofxSpring::setRestDistance)
+         .def("getRestDistance", (float(ofxSpring::*)(void)) &ofxSpring::getRestDistance)
+         .def("getK", (float(ofxSpring::*)(void)) &ofxSpring::getK)
+         .def("setK", (void(ofxSpring::*)(float)) &ofxSpring::setK)
+         .def("getPos", (ofVec3f&(ofxSpring::*)(int)) &ofxSpring::getPos)
+         .def("setID", (void(ofxSpring::*)(int)) &ofxSpring::setID)
+         .def("getID", (int(ofxSpring::*)(void)) &ofxSpring::getID)
+         .def("getDelta", (float(ofxSpring::*)(void)) &ofxSpring::getDelta)
+         .def("setColor", (void(ofxSpring::*)(ofColor)) &ofxSpring::setColor)
+         .def("getColor", (ofColor&(ofxSpring::*)(void)) &ofxSpring::getColor)
+         .def("setColorAlpha", (void(ofxSpring::*)(float)) &ofxSpring::setColorAlpha)
+         .def("getColorAlpha", (float(ofxSpring::*)(void)) &ofxSpring::getColorAlpha),
+         
+         // ofxSpringSystem
+         class_<ofxSpringSystem>("ofxSpringSystem")
+         .def(constructor<>())
+         .def("clear", (void(ofxSpringSystem::*)(void)) &ofxSpringSystem::clear)
+         .def("update", (void(ofxSpringSystem::*)(float)) &ofxSpringSystem::update)
+         .def("draw", (void(ofxSpringSystem::*)(void)) &ofxSpringSystem::draw)
+         .def("addSpring", (void(ofxSpringSystem::*)(ofxSpring)) &ofxSpringSystem::addSpring)
+         .def("getCount", (int(ofxSpringSystem::*)(void)) &ofxSpringSystem::getCount)
+         .def("getSpring", (ofxSpring(ofxSpringSystem::*)(int)) &ofxSpringSystem::getSpring)
+         .def("setRestDistance", (void(ofxSpringSystem::*)(float)) &ofxSpringSystem::setRestDistance),
+         
+         // ofxSuperShape
+         class_<ofxSuperShape>("ofxSuperShape")
+         .def(constructor<>())
+         .def("update", (void(ofxSuperShape::*)(void)) &ofxSuperShape::update)
+         .def("setVelocityLimit", (void(ofxSuperShape::*)(float)) &ofxSuperShape::setVelocityLimit)
+         .def("setAccerationLimit", (void(ofxSuperShape::*)(float)) &ofxSuperShape::setAccerationLimit)
+         .def("setDamping", (void(ofxSuperShape::*)(float)) &ofxSuperShape::setDamping)
+         .def("setRadius", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setRadius)
+         .def("setA", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setA)
+         .def("setB", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setB)
+         .def("setM", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setM)
+         .def("setN1", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setN1)
+         .def("setN2", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setN2)
+         .def("setN3", (void(ofxSuperShape::*)(float,bool)) &ofxSuperShape::setN3)
+         .def("reset", (void(ofxSuperShape::*)(void)) &ofxSuperShape::reset),
+         
+         // ofxSwarmBehavior
+         class_<ofxSwarmBehavior>("ofxSwarmBehavior")
+         .def(constructor<>())
+         .def("update", (void(ofxSwarmBehavior::*)(void)) &ofxSwarmBehavior::update)
+         .def("actUpon", (void(ofxSwarmBehavior::*)(ofxRParticle,ofVec3f&,ofVec3f&,ofVec3f&,float)) &ofxSwarmBehavior::actUpon)
+         .def("isEnabled", (bool(ofxSwarmBehavior::*)(void)) &ofxSwarmBehavior::isEnabled)
+         .def("getMagnitude", (float(ofxSwarmBehavior::*)(void)) &ofxSwarmBehavior::getMagnitude)
+         .def("setMagnitude", (void(ofxSwarmBehavior::*)(float)) &ofxSwarmBehavior::setMagnitude)
+         
+         .def("setup", (void(ofxSwarmBehavior::*)(void)) &ofxSwarmBehavior::setup),
+         
+         // ofxTrailParticle
+         class_<ofxTrailParticle>("ofxTrailParticle")
+         .def(constructor<>())
+         .def(constructor<ofVec3f>())
+         .def(constructor<ofVec3f,int>())
+         .def("setBorders", (void(ofxTrailParticle::*)(float,float)) &ofxTrailParticle::setBorders)
+         .def("update", (void(ofxTrailParticle::*)(void)) &ofxTrailParticle::update)
+         .def("draw", (void(ofxTrailParticle::*)(void)) &ofxTrailParticle::draw)
+         .def("drawVertex", (void(ofxTrailParticle::*)(int)) &ofxTrailParticle::drawVertex)
+         .def("borders", (void(ofxTrailParticle::*)(void)) &ofxTrailParticle::borders)
+         .def("elasticBorder", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::elasticBorder)
+         .def("circleborders", (void(ofxTrailParticle::*)(void)) &ofxTrailParticle::circleborders)
+         .def("setRadius", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::setRadius)
+         .def("setPos", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::setPos)
+         .def("setVel", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::setVel)
+         .def("setAcc", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::setAcc)
+         .def("setHome", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::setHome)
+         .def("setHome", (void(ofxTrailParticle::*)(float,float,float)) &ofxTrailParticle::setHome)
+         .def("setColor", (void(ofxTrailParticle::*)(ofColor)) &ofxTrailParticle::setColor)
+         .def("setDamping", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::setDamping)
+         .def("setAccerationLimit", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::setAccerationLimit)
+         .def("setVelocityLimit", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::setVelocityLimit)
+         .def("addExternalForce", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::addExternalForce)
+         .def("addSpringForce", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::addSpringForce)
+         .def("setFixed", (void(ofxTrailParticle::*)(bool)) &ofxTrailParticle::setFixed)
+         .def("isFixed", (bool(ofxTrailParticle::*)(void)) &ofxTrailParticle::isFixed)
+         .def("addForce", (void(ofxTrailParticle::*)(ofVec3f)) &ofxTrailParticle::addForce)
+         .def("getPos", (ofVec3f&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getPos)
+         .def("getHome", (ofVec3f&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getHome)
+         .def("getPpos", (ofVec3f&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getPpos)
+         .def("getVel", (ofVec3f&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getVel)
+         .def("getAcc", (ofVec3f&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getAcc)
+         .def("getColor", (ofColor&(ofxTrailParticle::*)(void)) &ofxTrailParticle::getColor)
+         .def("setColorAlpha", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::setColorAlpha)
+         .def("getColorAlpha", (float(ofxTrailParticle::*)(void)) &ofxTrailParticle::getColorAlpha)
+         .def("getRadius", (float(ofxTrailParticle::*)(void)) &ofxTrailParticle::getRadius)
+         .def("getID", (int(ofxTrailParticle::*)(void)) &ofxTrailParticle::getID)
+         .def("setID", (void(ofxTrailParticle::*)(int)) &ofxTrailParticle::setID)
+         .def("decay", (void(ofxTrailParticle::*)(float)) &ofxTrailParticle::decay)
+         .def("getLifeTime", (float(ofxTrailParticle::*)(void)) &ofxTrailParticle::getLifeTime)
+         .def("isDead", (bool(ofxTrailParticle::*)(void)) &ofxTrailParticle::isDead),
+         
+         // ofxVerletSolver
+         class_<ofxVerletSolver>("ofxVerletSolver")
+         .def(constructor<float>())
+         .def("update", (void(ofxVerletSolver::*)(ofxRParticle&)) &ofxVerletSolver::update)
+         .def("getDt", (float(ofxVerletSolver::*)(void)) &ofxVerletSolver::getDt),
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXJITTERNETWORKSENDER --> extending ofxTCPClient
          class_<ofxJitterNetworkSender>("ofxJitterNetworkSender")
          .def(constructor<>())
@@ -4063,8 +4767,8 @@ class ofGamuzaWrapper{
          .def("update", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::update)
          .def("exit", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::exit)
          .def("initAudio", (void(ofxQTKitAVScreenRecorder::*)(string,string)) &ofxQTKitAVScreenRecorder::initAudio)
-         .def("initAVRecording", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::initAVRecording)
-         .def("startNewRecording", (void(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::startNewRecording)
+         .def("initAVRecording", (void(ofxQTKitAVScreenRecorder::*)(string)) &ofxQTKitAVScreenRecorder::initAVRecording)
+         .def("startNewRecording", (void(ofxQTKitAVScreenRecorder::*)(string)) &ofxQTKitAVScreenRecorder::startNewRecording)
          .def("finishMovie", (void(ofxQTKitAVScreenRecorder::*)(bool)) &ofxQTKitAVScreenRecorder::finishMovie)
          .def("addFrame", (void(ofxQTKitAVScreenRecorder::*)(ofPixels&)) &ofxQTKitAVScreenRecorder::addFrame)
          .def("listAudioDevices", (string*(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::listAudioDevices)
@@ -4269,12 +4973,13 @@ class ofGamuzaWrapper{
 		/// gamuza core api wrapper
          ///////////////////////////////
 		 // app section
-         def("gaKey", &getKey),           // ga.key()
-         def("gaMouseX", &getMouseX),     // ga.mouseX()
-		 def("gaMouseY", &getMouseY),     // ga.mouseY()
+         def("gaKey", &getKey),
+         def("gaMouseX", &getMouseX),
+		 def("gaMouseY", &getMouseY),
          def("gaSystem", &system),
          def("gaLog", (void(*)(string)) &gaLog),
          def("gaImportFile", (string(*)(string)) &gaGetLocalDataPath),
+         def("gaDataPath", (string(*)(string)) &gaGetLocalDataPath),
          def("gaSendingOscTo", (string(*)(void)) &gaGetOSCSendingIP),
          def("gaGetFrameNum", (int(*)(void)) &gaGetFrameNum),
          
@@ -4348,16 +5053,26 @@ class ofGamuzaWrapper{
          def("gaTimelineAddColors", (void(*)(string)) &gaTimelineAddColors),
          def("gaTimelineAddLFO", (void(*)(string)) &gaTimelineAddLFO),
          def("gaTimelineAddSwitches", (void(*)(string)) &gaTimelineAddSwitches),
+         def("gaTimelineAddNotes", (void(*)(string)) &gaTimelineAddNotes),
          def("gaTimelineAddAudioTrack", (void(*)(string,string)) &gaTimelineAddAudioTrack),
          def("gaTimelineAddVideoTrack", (void(*)(string,string)) &gaTimelineAddVideoTrack),
+         def("gaTimelineAddCameraTrack", (void(*)(string)) &gaTimelineAddCameraTrack),
          def("gaTimelineGetValue", (float(*)(string)) &gaTimelineGetValue),
          def("gaTimelineGetSwitch", (bool(*)(string)) &gaTimelineGetSwitch),
+         def("gaTimelineGetNote", (bool(*)(string)) &gaTimelineGetNote),
+         def("gaTimelineGetNotePitch", (int(*)(string)) &gaTimelineGetNotePitch),
+         def("gaTimelineGetNoteVelocity", (float(*)(string)) &gaTimelineGetNoteVelocity),
          def("gaTimelineGetColor", (ofColor(*)(string)) &gaTimelineGetColor),
          def("gaTimelineGetBang", (string(*)(void)) &gaTimelineGetBang),
          def("gaTimelineGetINFrame", (int(*)(void)) &gaTimelineGetINFrame),
+         def("gaTimelineSetINFrame", (void(*)(float)) &gaTimelineSetINFrame),
          def("gaTimelineGetOUTFrame", (int(*)(void)) &gaTimelineGetOUTFrame),
+         def("gaTimelineSetOUTFrame", (void(*)(float)) &gaTimelineSetOUTFrame),
+         def("gaTimelineClearINOUT", (void(*)(void)) &gaTimelineClearINOUT),
          def("gaTimelineGetVideoTrack", (ofxTLVideoTrack*(*)(string)) &gaTimelineGetVideoTrack),
          def("gaTimelineGetAudioTrack", (ofxTLAudioTrack*(*)(string)) &gaTimelineGetAudioTrack),
+         def("gaTimelineGetCameraTrack", (ofxTLCameraTrack*(*)(string)) &gaTimelineGetCameraTrack),
+         def("gaTimelineSetCameraTrackCamera", (void(*)(string,ofCamera&)) &gaTimelineSetCameraTrackCamera),
          def("gaTimelineGetAudioTrackDuration", (int(*)(string)) &gaTimelineGetAudioTrackDuration),
          def("gaTimelineGetAudioTrackFFTSize", (int(*)(string)) &gaTimelineGetAudioTrackFFTSize),
          def("gaTimelineGetAudioTrackFFTBin", (float(*)(string,int)) &gaTimelineGetAudioTrackFFTBin),
@@ -4418,6 +5133,29 @@ class ofGamuzaWrapper{
          def("gaSetOSCMessage", (void(*)(string,int)) &gaSendOSCMessage),
          def("gaSetOSCValue", (void(*)(string,string)) &gaSetOSCValue),
          def("gaSetOSCActive", (void(*)(string,bool)) &gaSetOSCActive),
+         
+         ///////////////////////////////
+		 // PURE DATA section
+         def("pdAddToSearchPath", (void(*)(string)) &pdAddToSearchPath),
+         def("pdOpenPatch", (void(*)(string)) &pdOpenPatch),
+         def("pdClosePatch", (void(*)(string)) &pdClosePatch),
+         def("pdStart", (void(*)(void)) &pdStart),
+         def("pdStop", (void(*)(void)) &pdStop),
+         def("pdComputeAudio", (void(*)(bool)) &pdComputeAudio),
+         def("pdSendBang", (void(*)(string)) &pdSendBang),
+         def("pdSendFloat", (void(*)(string,float)) &pdSendFloat),
+         def("pdSendSymbol", (void(*)(string,string)) &pdSendSymbol),
+         def("pdStartMessage", (void(*)(void)) &pdStartMessage),
+         def("pdAddFloat", (void(*)(float)) &pdAddFloat),
+         def("pdAddSymbol", (void(*)(string)) &pdAddSymbol),
+         def("pdFinishList", (void(*)(string)) &pdFinishList),
+         def("pdFinishMessage", (void(*)(string,string)) &pdFinishMessage),
+         def("pdSendNoteOn", (void(*)(int,int,int)) &pdSendNoteOn),
+         def("pdSendControlChange", (void(*)(int,int,int)) &pdSendControlChange),
+         def("pdSendProgramChange", (void(*)(int,int)) &pdSendProgramChange),
+         def("pdSendPitchBend", (void(*)(int,int)) &pdSendPitchBend),
+         def("pdSendAftertouch", (void(*)(int,int)) &pdSendAftertouch),
+         def("pdSendPolyAftertouch", (void(*)(int,int,int)) &pdSendPolyAftertouch),
 		 
 		 ///////////////////////////////
 		 // openni sensor kinect

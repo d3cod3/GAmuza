@@ -71,6 +71,9 @@
 #include "ofxTLVideoTrack.h"
 #include "ofxTLAudioTrack.h"
 
+#include "ofxTLNotes.h"
+#include "ofxTLCameraTrack.h"
+
 
 typedef struct {
     ofxTLTrack* track;
@@ -340,6 +343,13 @@ class ofxTimeline : ofThread {
 	bool isSwitchOn(string name);
 	bool isSwitchOn(string name, float atTime);
 	bool isSwitchOn(string name, int atFrame);
+    
+    // Notes track
+    ofxTLNotes* addNotes(string name);
+    ofxTLNotes* addNotes(string name, string xmlFileName);
+    int     getNotePitch(string name);
+    float   getNoteVelocity(string name);
+    bool    isNoteOn(string name);
 	
     ofxTLBangs* addBangs(string name);
 	ofxTLBangs* addBangs(string name, string xmlFileName);
@@ -380,6 +390,10 @@ class ofxTimeline : ofThread {
     ofxTLAudioTrack* addAudioTrackWithPath(string audioPath);
     ofxTLAudioTrack* addAudioTrack(string name, string audioPath);
     ofxTLAudioTrack* getAudioTrack(string audioTrackName);
+    
+    // Camera tracks
+    ofxTLCameraTrack* addCameraTrack(string name);
+    ofxTLCameraTrack* getCameraTrack(string cameraTrackName);
 
     //used for audio and video.
     //we punt to the track to control time.
@@ -459,6 +473,11 @@ class ofxTimeline : ofThread {
     
 	//binary test hack
 	bool curvesUseBinary;
+    
+    // pasteboard getters
+    void copyOnTimeline();
+    void cutOnTimeline();
+    void pasteOnTimeline();
 	
   protected:
 

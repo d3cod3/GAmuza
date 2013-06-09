@@ -128,3 +128,4 @@ void instrumentSequencer::stopSequenceThreaded(){
 void instrumentSequencer::muteSequence(){
 	mute = !mute;
 }
+

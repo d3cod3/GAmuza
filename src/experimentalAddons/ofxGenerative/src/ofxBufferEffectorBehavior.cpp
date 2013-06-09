@@ -24,9 +24,9 @@ void ofxBufferEffectorBehavior::setup()
     buffer = NULL; 
 }
 
-void ofxBufferEffectorBehavior::actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
+void ofxBufferEffectorBehavior::actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
 {
-    particle->setRadius(buffer[particle->getID()%bufferSize]*(*magnitude));
+    particle.setRadius(buffer[particle.getID()%bufferSize]*(*magnitude));
 }
 
 void ofxBufferEffectorBehavior::setBuffer(float *_buffer, int _bufferSize)

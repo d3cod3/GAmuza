@@ -47,6 +47,17 @@ void gamuzaMain::updateScripting(){
 //--------------------------------------------------------------
 //-- LIVE CODING exec script from ofxGlEditor to ofxLua --------
 //--------------------------------------------------------------
+//--------------------------------------------------------------
+void gamuzaMain::receiveScript(string script){
+    ofNotifyEvent(doCompileEvent, script);
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::receiveScriptFile(string scriptFile){
+    loadScript(scriptFile);
+}
+
+//--------------------------------------------------------------
 void gamuzaMain::loadScript(string _script){
 	
     // reset incoming OSC messages
@@ -55,7 +66,7 @@ void gamuzaMain::loadScript(string _script){
     resetOutgoingOSC();
     
 	// reset the audio output stream
-    if(computeAudioOutput  && audioOutputChannels > 0){
+    if(computeAudioOutput  && audioOutputChannels > 0 && flagSystemLoaded){
         resetAudioOutput();
     }
     
@@ -64,20 +75,29 @@ void gamuzaMain::loadScript(string _script){
     gaTL->timeline.timelineResizeWithWindow(
                                             ofxNSWindower::instance()->getWindowPtr("Timeline")->getWidth(),
                                             ofxNSWindower::instance()->getWindowPtr("Timeline")->getHeight());
-	
+    
+    // reset PD ENGINE
+    pd.computeAudio(false);
+    for(int i=0;i<pdPatches.size();i++){
+        pd.closePatch(pdPatches[i]);
+    }
+    if(pdPatches.size() > 0){
+        pdPatches.clear();
+    }
+    pd.clearSearchPath();
+    pd.stop();
+    
 	// init the lua state
 	lua.scriptExit();
 	lua.init(true,true);
-	// bind OF007, GAmuza & openGL2.1 api to lua
+	// bind OF0.7.4, GAmuza & openGL1.1 api to lua
 	lua.bind<ofGamuzaWrapper>();
 	// exec the script from editor
 	lua.doScript(_script);
     
     ofPushView();
     ofPushMatrix();
-    //ofPushStyle();
         lua.scriptSetup();
-    //ofPopStyle();
     ofPopMatrix();
     ofPopView();
     
@@ -97,7 +117,7 @@ void gamuzaMain::renderScript(string & _script){
     resetOutgoingOSC();
     
 	// reset the audio output stream
-    if(computeAudioOutput && audioOutputChannels > 0){
+    if(computeAudioOutput && audioOutputChannels > 0 && flagSystemLoaded){
         resetAudioOutput();
     }
     
@@ -106,20 +126,29 @@ void gamuzaMain::renderScript(string & _script){
     gaTL->timeline.timelineResizeWithWindow(
                                             ofxNSWindower::instance()->getWindowPtr("Timeline")->getWidth(),
                                             ofxNSWindower::instance()->getWindowPtr("Timeline")->getHeight());
+    
+    // reset PD ENGINE
+    pd.computeAudio(false);
+    for(int i=0;i<pdPatches.size();i++){
+        pd.closePatch(pdPatches[i]);
+    }
+    if(pdPatches.size() > 0){
+        pdPatches.clear();
+    }
+    pd.clearSearchPath();
+    pd.stop();
 	
 	// init the lua state
 	lua.scriptExit();
 	lua.init(true,true);
-	// bind OF007, GAmuza & openGL2.1 api to lua
+	// bind OF0.7.4, GAmuza & openGL1.1 api to lua
 	lua.bind<ofGamuzaWrapper>();
 	// exec the script from editor
 	lua.doString(_script);
     
 	ofPushView();
     ofPushMatrix();
-    //ofPushStyle();
         lua.scriptSetup();
-    //ofPopStyle();
     ofPopMatrix();
     ofPopView();
     

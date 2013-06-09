@@ -9,7 +9,7 @@
 #include "ofxVerletSolver.h"
 #include "ofxRParticle.h"
 
-ofxVerletSolver::ofxVerletSolver(float *_dt) : ofxSolver(_dt)
+ofxVerletSolver::ofxVerletSolver(float _dt) : ofxSolver(_dt)
 {
     
 }

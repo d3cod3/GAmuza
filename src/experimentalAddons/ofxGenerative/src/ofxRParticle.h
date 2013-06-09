@@ -29,6 +29,8 @@
 #include "ofxRParticleData.h"
 #include "ofxBehavior.h"
 
+class ofxBehavior;
+
 class ofxRParticle
 {
 public:
@@ -57,8 +59,8 @@ public:
     void setVelocityLimit(float _vellimit);
     void setVelocityLimitPtr(float *_vellimit);
     float& getVelocityLimit();
-    void addExternalForce(ofVec3f *_extforce);
-    void addSpringForce(ofVec3f *_extforce);
+    void addExternalForce(ofVec3f _extforce);
+    void addSpringForce(ofVec3f _extforce);
     void setFixed(bool _fixed);
     bool isFixed();
     void addForce(ofVec3f _force);

@@ -80,11 +80,11 @@ public:
         mesh.draw();
 	}
 	
-	virtual void addSpring(ofxSpring *s)
+	virtual void addSpring(ofxSpring s)
 	{
 		uniqueIDs++; 
-		s->setID(uniqueIDs); 
-		springs.push_back(s); 
+		s.setID(uniqueIDs);
+		springs.push_back(&s);
 	}
 	
 	virtual int getCount()
@@ -92,14 +92,11 @@ public:
 		return (int)springs.size(); 
 	}
 	
-	ofxSpring *getSpring(int index)
+	ofxSpring getSpring(int index)
 	{
 		if(index < springs.size() && index >= 0)
 		{
-			return springs[index];
-		}
-		else {
-			return NULL;
+			return *springs[index];
 		}
 	}
 	

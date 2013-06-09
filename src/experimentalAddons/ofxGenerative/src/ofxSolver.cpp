@@ -9,13 +9,10 @@
 #include "ofxSolver.h"
 #include "ofxRParticle.h"
 
-ofxSolver::ofxSolver(float *_dt)
+ofxSolver::ofxSolver(float _dt)
 {
     init();
-    if(_dt != NULL)
-    {
-        setDtPtr(_dt);
-    }
+    setDt(_dt);
 }
 
 ofxSolver::~ofxSolver()
@@ -65,9 +62,9 @@ void ofxSolver::update(ofxRParticle& particle)
 //    (*vel)*=particle.getDamping();
 }
 
-float* ofxSolver::getDt()
+float ofxSolver::getDt()
 {
-    return dt;
+    return *dt;
 }
 
 void ofxSolver::setDtPtr(float *_dt)   //in case we set DT from the sketch

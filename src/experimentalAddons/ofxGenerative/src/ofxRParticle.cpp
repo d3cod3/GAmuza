@@ -82,7 +82,7 @@ ofVec3f& ofxRParticle::calculateAcceleration(ofVec3f &pos, ofVec3f &vel, float d
         ofxBehavior *b = (*bit);
         if(b->isEnabled())
         {
-            b->actUpon(this, pos, vel, acc, dt);
+            b->actUpon(*this, pos, vel, acc, dt);
         }
     }
     acc.limit(*accLimit);
@@ -209,14 +209,18 @@ float& ofxRParticle::getVelocityLimit()
     return *velLimit;
 }
 
-void ofxRParticle::addExternalForce(ofVec3f *_extforce)
+void ofxRParticle::addExternalForce(ofVec3f _extforce)
 {
-    externalForces.push_back(_extforce);
+    ofVec3f *_temp = new ofVec3f();
+    _temp[0] = _extforce;
+    externalForces.push_back(_temp);
 }
 
-void ofxRParticle::addSpringForce(ofVec3f *_extforce)
+void ofxRParticle::addSpringForce(ofVec3f _extforce)
 {
-    springForces.push_back(_extforce);
+    ofVec3f *_temp = new ofVec3f();
+    _temp[0] = _extforce;
+    springForces.push_back(_temp);
 }
 
 void ofxRParticle::setFixed(bool _fixed)

@@ -56,6 +56,7 @@
 #include "ofxKinect.h"
 
 // AUDIO
+#include "ofxPd.h"
 #include "ofxAudioSample.h"			// reading&writing audio sample from hard drive with libsndfile
 
 // MIDI
@@ -65,7 +66,6 @@
 #include "ofxDmx.h"                 // DMX input/output
 
 // SYSTEM
-#include "ofxKeyMap.h"
 #include "ofxMissing.h"				// Date/Time, INI Reader, Recursive file listing. Roxlu missing utils
 #include "ofxStringEncoders.h"		// Html string encoders (UTF8, unquote)
 #include "ofxSubtitles.h"           // load/save .srt subtitles files

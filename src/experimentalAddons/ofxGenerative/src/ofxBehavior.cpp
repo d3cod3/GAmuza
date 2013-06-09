@@ -35,7 +35,7 @@ void ofxBehavior::update()
     
 }
 
-void ofxBehavior::actUpon(ofxRParticle *particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
+void ofxBehavior::actUpon(ofxRParticle particle, ofVec3f &pos, ofVec3f &vel, ofVec3f &acc, float dt)
 {
  
 }

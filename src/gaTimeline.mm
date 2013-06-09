@@ -56,8 +56,31 @@ void gaTimeline::draw() {
 //--------------------------------------------------------------
 void gaTimeline::bangFired(ofxTLBangEventArgs& args){
     actualBang = args.flag;
-     
-    // timeline.getVideoPlayer("Video")->getPlayer()->setFrame(currentRenderFrame);
+}
+
+//--------------------------------------------------------------
+void gaTimeline::undoTimeline(){
+	timeline.undo();
+}
+
+//--------------------------------------------------------------
+void gaTimeline::redoTimeline(){
+	timeline.redo();
+}
+
+//--------------------------------------------------------------
+void gaTimeline::copyTimeline(){
+	timeline.copyOnTimeline();
+}
+
+//--------------------------------------------------------------
+void gaTimeline::cutTimeline(){
+	timeline.cutOnTimeline();
+}
+
+//--------------------------------------------------------------
+void gaTimeline::pasteTimeline(){
+	timeline.pasteOnTimeline();
 }
 
 //--------------------------------------------------------------

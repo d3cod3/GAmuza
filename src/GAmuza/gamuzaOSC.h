@@ -101,16 +101,6 @@ void gamuzaMain::receiveOSC(){
 }
 
 //--------------------------------------------------------------
-void gamuzaMain::receiveScript(string script){
-    ofNotifyEvent(doCompileEvent, script);
-}
-
-//--------------------------------------------------------------
-void gamuzaMain::receiveScriptFile(string scriptFile){
-    loadScript(scriptFile);
-}
-
-//--------------------------------------------------------------
 void gamuzaMain::resetIncomingOSC(){
     if(oscReceivingLabels.size() > 0){
         oscReceivingLabels.clear();

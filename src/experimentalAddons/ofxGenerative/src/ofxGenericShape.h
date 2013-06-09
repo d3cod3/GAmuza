@@ -83,9 +83,9 @@ public:
             if(last != NULL)
             {
                 ofxSpring *s = new ofxSpring(last->getPosPtr(), sp->getPosPtr(), last->getPos().distance(sp->getPos()), 2.0);
-                ss->addSpring(s);
-                last->addExternalForce(s->getForcePtr(0));
-                sp->addExternalForce(s->getForcePtr(1));
+                ss->addSpring(*s);
+                last->addExternalForce(s->getForce(0));
+                sp->addExternalForce(s->getForce(1));
                 
                 last = sp;                 
             }
@@ -97,7 +97,7 @@ public:
         
         ofxSmartParticle *sp = (ofxSmartParticle *)sps->particles[0]; 
         ofxSpring *s = new ofxSpring(last->getPosPtr(), sp->getPosPtr(), last->getPos().distance(sp->getPos()), 1.0);
-        ss->addSpring(s);        
+        ss->addSpring(*s);
         
         
         sps->setTargetHome(true);

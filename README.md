@@ -51,25 +51,26 @@ Due to a lot of modification applied to most of them, are all included in this r
 * [Sparkle.framework](https://github.com/andymatuschak/Sparkle/wiki): [project page](http://sparkle.andymatuschak.org/)
 * [Syphon.framework](http://syphon.v002.info/)
 
-* Accelerate.frameworks
-* AGL.frameworks
-* AppKit.frameworks
-* ApplicationServices.frameworks
-* AudioToolbox.frameworks
-* Carbon.frameworks
-* Cocoa.frameworks
-* CoreAudio.frameworks
-* CoreData.frameworks
-* CoreFoundation.frameworks
-* CoreMIDI.frameworks
-* CoreServices.frameworks
-* CoreVideo.frameworks
-* Foundation.frameworks
-* IOKit.frameworks
-* OpenAL.frameworks
-* OpenGL.frameworks
-* QTKit.frameworks
-* QuickTime.frameworks
+* Accelerate.framework
+* AGL.framework
+* AppKit.framework
+* ApplicationServices.framework
+* AudioToolbox.framework
+* Carbon.framework
+* Cocoa.framework
+* CoreAudio.framework
+* CoreData.framework
+* CoreFoundation.framework
+* CoreMIDI.framework
+* CoreServices.framework
+* CoreVideo.framework
+* Foundation.framework
+* IOKit.framework
+* OpenAL.framework
+* OpenGL.framework
+* QTKit.framework
+* QuickTime.framework
+* ScriptingBrigde.framework
 
 
 # Compatibilities
@@ -80,7 +81,7 @@ openFrameworks 0074
 
 Compile with LLVM GCC 4.2 (NOT Apple LLVM Compiler 4.1), for 32-bit architecture using OS X 10.7 base sdk.
 
-# Sketching (like every Processing's son do)
+# Sketching (like every Processing's child do)
 
 ### These are some of the GAmuza IDE futures:
 
@@ -168,9 +169,9 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 ## Modules
 
  * ARDUINO					- NOT READY YET
- * AUDIO ANALYSIS 			- NOT READY YET
+ * AUDIO ANALYSIS 			- work in progress
  * COMPUTER VISION 			- NOT READY YET
- * TIMELINE 				- work in progress
+ * TIMELINE 				- READY
 
 
 # Known issues
@@ -184,7 +185,7 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # NOW Working on:
 
-* The TIMELINE GUI Module, binding the last version of [ofxTimeline](https://github.com/YCAMInterlab/ofxTimeline), and make it compatible with GAmuza core
+* The AUDIO ANALYSIS GUI Module
 
 # Version history
 

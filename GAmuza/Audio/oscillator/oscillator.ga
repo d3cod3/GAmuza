@@ -16,30 +16,29 @@
 freq = 0.0
 
 function setup()
-	of.setCircleResolution(50)
-	ga.wave(GA_RECT,220)    
+	ofSetCircleResolution(50)
+	gaWave(GA_RECT,220)    
 end
 
 function update()
-	freq = (ga.mouseX()/OUTPUT_W)*ga.nToF(SI_4)
-	ga.waveFrequency(0,freq)
-	ga.waveVolume(0,(ga.mouseY()/OUTPUT_H)/4)
+	freq = (gaMouseX()/OUTPUT_W)*gaNToF(SI_4)
+	gaWaveFrequency(0,freq)
+	gaWaveVolume(0,(gaMouseY()/OUTPUT_H)/4)
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 
-	of.enableAlphaBlending()
-	of.fill()
-	of.setColor(255,0,123,255*(ga.mouseY()/OUTPUT_H))
-	of.circle(ga.mouseX(),ga.mouseY(),80)
+	ofEnableAlphaBlending()
+	ofFill()
+	ofSetColor(255,0,123,255*(gaMouseY()/OUTPUT_H))
+	ofCircle(gaMouseX(),gaMouseY(),80)
     
-	of.noFill()
+	ofNoFill()
 	for i=0, math.ceil(freq) do
-		of.setColor(255,70)
-		of.rect(i*(OUTPUT_W/freq),0,(OUTPUT_W/freq),OUTPUT_H)
+		ofSetColor(255,70)
+		ofRect(i*(OUTPUT_W/freq),0,(OUTPUT_W/freq),OUTPUT_H)
 	end
     
-	of.disableAlphaBlending()
-    
+	ofDisableAlphaBlending()
 end

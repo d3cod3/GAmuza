@@ -30,7 +30,7 @@
 class ofxVerletSolver : public ofxSolver
 {
 public:
-    ofxVerletSolver(float *_dt = NULL);
+    ofxVerletSolver(float _dt);
     ~ofxVerletSolver();
     void init();
     void update(ofxRParticle& particle);

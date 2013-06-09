@@ -1,0 +1,42 @@
+
+/* 
+   
+ GAmuza 1.0 examples 
+ ---------------------
+ Video/videoExport.ga
+ 
+ This show how to export video+audio file form GAmuza.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+recorder = ofxQTKitAVScreenRecorder()
+
+function setup()
+	recorder:setup("Built-in Microphone","QTCompressionOptionsVoiceQualityAACAudio")
+end
+
+function update()
+	
+	if recorder:getIsRecording() then
+		recorder:addFrame(gaGetOutputPixels())
+	end
+
+	recorder:update()
+end
+
+function draw()
+	gaBackground(ofRandomuf(),ofRandomuf(),ofRandomuf(),0.1)
+	
+	ofSetColor(0)
+	ofCircle(gaMouseX(),gaMouseY(),200)
+end
+
+function keyReleased()
+	if gaKey() == string.byte('r') then
+		recorder:startNewRecording(gaImportFile("exportFile"))
+	elseif gaKey() == string.byte('s') then
+		recorder:finishMovie(true)
+	end
+end

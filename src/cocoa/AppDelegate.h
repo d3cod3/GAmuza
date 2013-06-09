@@ -93,13 +93,27 @@
 
 - (IBAction) toggleGAmuzaFullscreen:(id)sender;
 
+// MAPPING
+
 - (IBAction) resetMapping:(id)sender;
-
 - (IBAction) loadMapping:(id)sender;
-
 - (IBAction) saveMapping:(id)sender;
-
 - (IBAction) drawMappingGrid:(id)sender;
+- (IBAction) switchMouseKeyControl:(id)sender;
+- (IBAction) mappingManualEditON:(id)sender;
+- (IBAction) mappingManualEditOFF:(id)sender;
+- (IBAction) goToNorthMappingPoint:(id)sender;
+- (IBAction) goToSouthMappingPoint:(id)sender;
+- (IBAction) goToEastMappingPoint:(id)sender;
+- (IBAction) goToWestMappingPoint:(id)sender;
+
+// TIMELINE
+- (IBAction) undoOnTimeline:(id)sender;
+- (IBAction) redoOnTimeline:(id)sender;
+- (IBAction) copyOnTimeline:(id)sender;
+- (IBAction) cutOnTimeline:(id)sender;
+- (IBAction) pasteOnTimeline:(id)sender;
+
 
 
 // GAmuza render window reference
@@ -112,5 +126,6 @@ ofPtr<ofxNSWindow> gaVPWindow;
 //////////////////////////////// GAmuza GUI PANELS
 gaTimeline      *gaTL;
 ofPtr<ofxNSWindow> gaTLWindow;
+
 
 @end

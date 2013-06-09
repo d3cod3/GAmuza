@@ -24,8 +24,8 @@ public:
     void update(); 
     void exit(); 
     void initAudio(string device, string compression); 
-    void initAVRecording();
-    void startNewRecording(); 
+    void initAVRecording(string _file);
+    void startNewRecording(string _file); 
     void finishMovie(bool exiting=false); 
     void addFrame(ofPixels& framePixels); 
     bool getIsRecording() { return isRecording; }

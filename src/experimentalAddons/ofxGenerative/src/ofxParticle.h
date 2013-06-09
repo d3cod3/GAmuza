@@ -47,6 +47,12 @@ public:
 	{
 
 	}
+    
+    virtual void setBorders(float _w, float _h)
+    {
+        _width = _w;
+        _height = _h;
+    }
 	
 	virtual void init()
 	{
@@ -124,33 +130,33 @@ public:
 	
 	virtual void borders()
 	{
-        if(pos.x > ofGetWidth())
+        if(pos.x > _width)
         {
             pos.x = 0;
             ppos = pos;
         }
         else if(pos.x < 0)
         {
-            pos.x = ofGetWidth();
+            pos.x = _width;
             ppos = pos; 
         }
                 
-        if(pos.y > ofGetHeight())
+        if(pos.y > _height)
         {
             pos.y = 0;
             ppos = pos;
         }
         else if(pos.y < 0)
         {            
-            pos.y = ofGetHeight();
+            pos.y = _height;
             ppos = pos; 
         }
     }
 
 	virtual void elasticBorder(float _k)
     {
-        float w = ofGetWidth();
-        float h = ofGetHeight();
+        float w = _width;
+        float h = _height;
         if(pos.x > w)
         {
             pos.x = w-1;
@@ -176,22 +182,22 @@ public:
     virtual void circleborders()
     {
         float halfRadius = radius;
-        if(pos.x > ofGetWidth()+halfRadius)
+        if(pos.x > _width+halfRadius)
         {
             pos.x = -halfRadius; 
         }
         else if(pos.x < -halfRadius)
         {
-            pos.x = ofGetWidth()+halfRadius;
+            pos.x = _width+halfRadius;
         }
         
-        if(pos.y > ofGetHeight()+halfRadius)
+        if(pos.y > _height+halfRadius)
         {
             pos.y = -halfRadius;
         }
         else if(pos.y < -halfRadius)
         {            
-            pos.y = ofGetHeight()+halfRadius;
+            pos.y = _height+halfRadius;
         }        
     }
 
@@ -205,8 +211,16 @@ public:
 	void setDamping(float _damping) { damping = _damping; }	
 	void setAccerationLimit(float _acclimit) { accLimit = _acclimit; }
 	void setVelocityLimit(float _vellimit) { velLimit = _vellimit; }
-	void addExternalForce(ofVec3f *_extforce) { externalForces.push_back(_extforce); }
-    void addSpringForce(ofVec3f *_extforce) { springForces.push_back(_extforce); }
+	void addExternalForce(ofVec3f _extforce) {
+        ofVec3f *_temp = new ofVec3f();
+        _temp[0] = _extforce;
+        externalForces.push_back(_temp);
+    }
+    void addSpringForce(ofVec3f _extforce) {
+        ofVec3f *_temp = new ofVec3f();
+        _temp[0] = _extforce;
+        springForces.push_back(_temp);
+    }
 	void setFixed(bool _fixed) { fixed = _fixed; }
 	bool isFixed() { return fixed; } 
 	void addForce(ofVec3f _force) { (acc) += _force; } 
@@ -256,7 +270,8 @@ protected:
 	bool fixed; 
 	float radius;
     float hradius;
-	int pid; 	
+	int pid;
+    float _width, _height;
 };
 
 

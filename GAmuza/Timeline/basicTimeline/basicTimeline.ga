@@ -20,28 +20,30 @@ circleX = 0
 circleY = 0
 
 function setup()
-    ofSetCircleResolution(3)
+	ofSetCircleResolution(50)
 
-	gaTimelineSetup(gaImportFile("timeline/"),"timelineTest")
-    gaTimelineDurationInSeconds(10)
-    gaTimelineSetLoopType(OF_LOOP_NORMAL)
+    gaTimelineSetup(gaDataPath("timeline/"),"timelineTest")
+	gaTimelineDurationInSeconds(10)
+	gaTimelineSetLoopType(OF_LOOP_NORMAL)
     gaTimelineEnableKeySnap(false)
     gaTimelineSetFrameRate(25)
     gaTimelineAddCurves("circleX",0,OUTPUT_W)
     gaTimelineAddCurves("circleY",0,OUTPUT_H)
     gaTimelineAddColors("circleColor")
+    gaTimelineAddLFO("lfo")
+    gaTimelineAddNotes("notes")
     
     gaTimelinePlay()
     
 end
 
 function update()
-    circleX = gaTimelineGetValue("circleX")
-    circleY = gaTimelineGetValue("circleY")    
+	circleX = gaTimelineGetValue("circleX")
+	circleY = gaTimelineGetValue("circleY")    
 end
 
 function draw()
-    gaBackground(0.0,0.03)
+	gaBackground(0.0,0.03)
 
 	ofSetColor(gaTimelineGetColor("circleColor"))
 	ofCircle(circleX, circleY,300)

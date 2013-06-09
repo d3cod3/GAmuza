@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 1.0 examples 
+ ---------------------
+ Basics/emptyExample.ga
+ 
+ The empty GAmuza script (you can start from here).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+function setup()
+	
+	// init the buffer
+    for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
+	
+	//pdAddToSearchPath("pd")
+	pdOpenPatch(gaDataPath("pd/sineWave.pd"))
+	pdStart()
+	pdComputeAudio(true)
+end
+
+function update()
+	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
+end
+
+function draw()
+	gaBackground(0.2,1.0)
+	
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
+	
+end

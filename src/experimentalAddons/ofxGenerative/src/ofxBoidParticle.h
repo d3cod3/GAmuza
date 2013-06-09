@@ -31,6 +31,7 @@
 class ofxBoidParticle : public ofxParticle
 {
 public:
+    
     ofxBoidParticle() : ofxParticle()
     {
         initBoid();   
@@ -97,7 +98,7 @@ public:
         
 			pos += vel; 		
 			acc.set(0);        
-            borders();            
+            borders();
 		}		
 	}
     
@@ -195,6 +196,7 @@ public:
         particles = _particles; 
     }
     
+    
     virtual void borders()
 	{
 //        if(pos.x >= ofGetWidth()-radius*.5)
@@ -214,11 +216,10 @@ public:
 //        {            
 //            pos.y = ofGetHeight()-radius*.5;
 //        }
-        float w = ofGetWidth();
-        float h = ofGetHeight();
-        if(pos.x > w)
+
+        if(pos.x > _width)
         {
-            pos.x = w-1;
+            pos.x = _width-1;
             vel*=-1.0;
         }
         else if(pos.x < 0)
@@ -226,9 +227,9 @@ public:
             pos.x = 1; 
             vel*=-1.0;
         }
-        if(pos.y > h)
+        if(pos.y > _height)
         {
-            pos.y = h-1;
+            pos.y = _height-1;
             vel*=-1.0;            
         }
         else if(pos.y < 0)

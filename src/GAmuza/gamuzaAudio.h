@@ -19,15 +19,35 @@ void gamuzaMain::setupAudio(){
     recordingInput          = false;
 	
 	soundStream.setDeviceID(audioDevID);
+    soundStream.setInput(this);
+	soundStream.setOutput(this);
 	soundStream.setup(audioOutputChannels,audioInputChannels,audioSamplingRate,audioBufferSize, audioNumBuffers);
+    
+    int ticksPerBuffer = (int)audioBufferSize/64;
+    pd.init(audioOutputChannels,audioInputChannels,audioSamplingRate,ticksPerBuffer);
 	
-	inputAudioCH = new audioInputChannel[audioInputChannels];
-	
-	for(int i=0; i<audioInputChannels; i++){
-		inputAudioCH[i].setupChannel(i,audioSamplingRate,audioBufferSize,audioInputChannels,fftWindowUse);
-	}
-	
-	soundStream.stop();
+    if(audioInputChannels > 0){
+        inputAudioCH = new audioInputChannel[audioInputChannels];
+        for(int i=0; i<audioInputChannels; i++){
+            inputAudioCH[i].setupChannel(i,audioSamplingRate,audioBufferSize,audioInputChannels,fftWindowUse);
+        }
+    }
+    
+    if(audioActivated){
+        soundStream.start();
+        sendGALog("soundStream STARTED");
+        sendGALog(" ");
+        sendGALog("PURE DATA SYNTHESIS ENGINE STARTED");
+        sendGALog(" ");
+        for(unsigned int i = 0; i < audioInputChannels; i++){
+            inputAudioCH[i].computeChannel = true;
+        }
+        computeAudioInput	= true;
+        computeAudioOutput	= true;
+        
+    }else{
+        soundStream.stop();
+    }
 	
 	if(audioOutputChannels > 0){
 		gamuzaDSP.setupDSP(audioOutputChannels);
@@ -61,6 +81,12 @@ void gamuzaMain::audioIn(float * input, int bufferSize, int nChannels){
 				}
 			}
 			///////////////////////////////////////////
+            
+            ///////////////////////////////////////////
+            // PD Synthesis Engine
+            pd.audioIn(input, bufferSize, nChannels);
+            ///////////////////////////////////////////
+            
 			inputBufferCounter++;
 		}
 	}
@@ -76,7 +102,6 @@ void gamuzaMain::audioOut(float * output, int bufferSize, int nChannels){
 		if(audioOutputChannels > 0){
 			gamuzaDSP.clearBuffer(output, bufferSize);
 			///////////////////////////////////////////
-            
 			// audio synthesis
 			for(int i = 0; i < audioModules.size(); i++){
 				audioModules[i].addToSoundBuffer(output, bufferSize, gamuzaDSP.numOscInCh);
@@ -88,9 +113,13 @@ void gamuzaMain::audioOut(float * output, int bufferSize, int nChannels){
                     inputRecSamples[i].addToSoundBuffer(output, bufferSize);
                 }
             }
-            
 			///////////////////////////////////////////
 			gamuzaAMP.addToSoundBuffer(output, bufferSize, 1.0);
+            
+            ///////////////////////////////////////////
+            // PD Synthesis Engine
+            pd.audioOut(output, bufferSize, nChannels);
+            ///////////////////////////////////////////
             
             ///////////////////////////////////////////
             // visualizing output signal

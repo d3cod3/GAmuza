@@ -590,6 +590,47 @@
 							</array>
 						</object>
 					</object>
+					<object class="NSMenuItem" id="804170797">
+						<reference key="NSMenu" ref="649796088"/>
+						<string key="NSTitle">Timeline</string>
+						<string key="NSKeyEquiv"/>
+						<int key="NSMnemonicLoc">2147483647</int>
+						<reference key="NSOnImage" ref="756751024"/>
+						<reference key="NSMixedImage" ref="908425081"/>
+						<string key="NSAction">submenuAction:</string>
+						<object class="NSMenu" key="NSSubmenu" id="966341524">
+							<string key="NSTitle">Timeline</string>
+							<array class="NSMutableArray" key="NSMenuItems">
+								<object class="NSMenuItem" id="439635984">
+									<reference key="NSMenu" ref="966341524"/>
+									<string key="NSTitle">Cut</string>
+									<string key="NSKeyEquiv">x</string>
+									<int key="NSKeyEquivModMask">262144</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
+								<object class="NSMenuItem" id="618524116">
+									<reference key="NSMenu" ref="966341524"/>
+									<string key="NSTitle">Copy</string>
+									<string key="NSKeyEquiv">c</string>
+									<int key="NSKeyEquivModMask">262144</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
+								<object class="NSMenuItem" id="233416142">
+									<reference key="NSMenu" ref="966341524"/>
+									<string key="NSTitle">Paste</string>
+									<string key="NSKeyEquiv">v</string>
+									<int key="NSKeyEquivModMask">262144</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
+							</array>
+						</object>
+					</object>
 					<object class="NSMenuItem" id="17249581">
 						<reference key="NSMenu" ref="649796088"/>
 						<string key="NSTitle">Video</string>
@@ -624,13 +665,86 @@
 											<object class="NSMenuItem" id="99065091">
 												<reference key="NSMenu" ref="445811647"/>
 												<string key="NSTitle">Reset mapping</string>
-												<string key="NSKeyEquiv">M</string>
+												<string key="NSKeyEquiv">R</string>
 												<int key="NSKeyEquivModMask">1048576</int>
 												<int key="NSMnemonicLoc">2147483647</int>
 												<reference key="NSOnImage" ref="756751024"/>
 												<reference key="NSMixedImage" ref="908425081"/>
 											</object>
 											<object class="NSMenuItem" id="470794136">
+												<reference key="NSMenu" ref="445811647"/>
+												<bool key="NSIsDisabled">YES</bool>
+												<bool key="NSIsSeparator">YES</bool>
+												<string key="NSTitle"/>
+												<string key="NSKeyEquiv"/>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="277175087">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Keyboard Control</string>
+												<string key="NSKeyEquiv">M</string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="887367187">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Manual Edit Point ON</string>
+												<string type="base64-UTF8" key="NSKeyEquiv">DQ</string>
+												<int key="NSKeyEquivModMask">1179648</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="302229288">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Manual Edit Point OFF</string>
+												<string type="base64-UTF8" key="NSKeyEquiv">CA</string>
+												<int key="NSKeyEquivModMask">1179648</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="511772510">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Go To North Point</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="453854868">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Go To South Point</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="303499708">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Go To East Point</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="861099759">
+												<reference key="NSMenu" ref="445811647"/>
+												<string key="NSTitle">Go To West Point</string>
+												<string key="NSKeyEquiv"></string>
+												<int key="NSKeyEquivModMask">1048576</int>
+												<int key="NSMnemonicLoc">2147483647</int>
+												<reference key="NSOnImage" ref="756751024"/>
+												<reference key="NSMixedImage" ref="908425081"/>
+											</object>
+											<object class="NSMenuItem" id="740237600">
 												<reference key="NSMenu" ref="445811647"/>
 												<bool key="NSIsDisabled">YES</bool>
 												<bool key="NSIsSeparator">YES</bool>
@@ -929,7 +1043,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="491504328">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSColorWell" id="699760157">
@@ -1451,7 +1565,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 264}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="699760157"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -1469,7 +1582,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="890217461">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSScrollView" id="139853588">
@@ -1746,7 +1859,6 @@ wGw</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{640, 220}</string>
-					<reference key="NSSuperview"/>
 					<reference key="NSNextKeyView" ref="139853588"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -2160,6 +2272,86 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">switchMouseKeyControl:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="277175087"/>
+					</object>
+					<int key="connectionID">1093</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">mappingManualEditON:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="887367187"/>
+					</object>
+					<int key="connectionID">1094</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">mappingManualEditOFF:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="302229288"/>
+					</object>
+					<int key="connectionID">1095</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goToNorthMappingPoint:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="511772510"/>
+					</object>
+					<int key="connectionID">1096</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goToSouthMappingPoint:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="453854868"/>
+					</object>
+					<int key="connectionID">1097</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goToEastMappingPoint:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="303499708"/>
+					</object>
+					<int key="connectionID">1098</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">goToWestMappingPoint:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="861099759"/>
+					</object>
+					<int key="connectionID">1099</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">cutOnTimeline:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="439635984"/>
+					</object>
+					<int key="connectionID">1110</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">copyOnTimeline:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="618524116"/>
+					</object>
+					<int key="connectionID">1111</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">pasteOnTimeline:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="233416142"/>
+					</object>
+					<int key="connectionID">1112</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">makeKeyAndOrderFront:</string>
 						<reference key="source" ref="717770335"/>
 						<reference key="destination" ref="767662390"/>
@@ -2422,6 +2614,7 @@ wGw</bytes>
 							<reference ref="711654562"/>
 							<reference ref="17249581"/>
 							<reference ref="68375293"/>
+							<reference ref="804170797"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -3241,6 +3434,14 @@ wGw</bytes>
 							<reference ref="346745631"/>
 							<reference ref="888462074"/>
 							<reference ref="99065091"/>
+							<reference ref="277175087"/>
+							<reference ref="740237600"/>
+							<reference ref="887367187"/>
+							<reference ref="302229288"/>
+							<reference ref="511772510"/>
+							<reference ref="453854868"/>
+							<reference ref="303499708"/>
+							<reference ref="861099759"/>
 						</array>
 						<reference key="parent" ref="239399211"/>
 					</object>
@@ -3468,6 +3669,79 @@ wGw</bytes>
 						<reference key="object" ref="135289121"/>
 						<reference key="parent" ref="624513634"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1085</int>
+						<reference key="object" ref="277175087"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1086</int>
+						<reference key="object" ref="740237600"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1087</int>
+						<reference key="object" ref="887367187"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1088</int>
+						<reference key="object" ref="302229288"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1089</int>
+						<reference key="object" ref="511772510"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1090</int>
+						<reference key="object" ref="453854868"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1091</int>
+						<reference key="object" ref="303499708"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1092</int>
+						<reference key="object" ref="861099759"/>
+						<reference key="parent" ref="445811647"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1100</int>
+						<reference key="object" ref="804170797"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="966341524"/>
+						</array>
+						<reference key="parent" ref="649796088"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1101</int>
+						<reference key="object" ref="966341524"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="439635984"/>
+							<reference ref="618524116"/>
+							<reference ref="233416142"/>
+						</array>
+						<reference key="parent" ref="804170797"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1104</int>
+						<reference key="object" ref="439635984"/>
+						<reference key="parent" ref="966341524"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1106</int>
+						<reference key="object" ref="618524116"/>
+						<reference key="parent" ref="966341524"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1107</int>
+						<reference key="object" ref="233416142"/>
+						<reference key="parent" ref="966341524"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3521,6 +3795,19 @@ wGw</bytes>
 				<string key="1080.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1081.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1084.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1085.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1086.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1087.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1088.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1089.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1090.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1091.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1092.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1100.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1101.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1104.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1106.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1107.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="112.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="124.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="125.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3646,7 +3933,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1084</int>
+			<int key="maxID">1112</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3655,31 +3942,67 @@ wGw</bytes>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cleanScriptToGAmuza:">id</string>
+						<string key="copyOnTimeline:">id</string>
+						<string key="cutOnTimeline:">id</string>
 						<string key="drawMappingGrid:">id</string>
+						<string key="goToEastMappingPoint:">id</string>
+						<string key="goToNorthMappingPoint:">id</string>
+						<string key="goToSouthMappingPoint:">id</string>
+						<string key="goToWestMappingPoint:">id</string>
 						<string key="gotoGAWeb:">id</string>
 						<string key="loadMapping:">id</string>
+						<string key="mappingManualEditOFF:">id</string>
+						<string key="mappingManualEditON:">id</string>
 						<string key="openItemFromGAmuzaFolder:">id</string>
 						<string key="openItemFromSketchbookFolder:">id</string>
 						<string key="openOFReference:">id</string>
 						<string key="openOfxAddonsPage:">id</string>
 						<string key="openOnlineReference:">id</string>
+						<string key="pasteOnTimeline:">id</string>
+						<string key="redoOnTimeline:">id</string>
 						<string key="resetMapping:">id</string>
 						<string key="restartGAmuzaWindow:">id</string>
 						<string key="saveMapping:">id</string>
 						<string key="sendScriptToGAmuza:">id</string>
 						<string key="setPreviewDimensions:">id</string>
 						<string key="showGettingStartedPage:">id</string>
+						<string key="switchMouseKeyControl:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
 						<string key="togglePreviewWindow:">id</string>
 						<string key="toggleTimelinePanel:">id</string>
+						<string key="undoOnTimeline:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cleanScriptToGAmuza:">
 							<string key="name">cleanScriptToGAmuza:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="copyOnTimeline:">
+							<string key="name">copyOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cutOnTimeline:">
+							<string key="name">cutOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="drawMappingGrid:">
 							<string key="name">drawMappingGrid:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToEastMappingPoint:">
+							<string key="name">goToEastMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToNorthMappingPoint:">
+							<string key="name">goToNorthMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToSouthMappingPoint:">
+							<string key="name">goToSouthMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToWestMappingPoint:">
+							<string key="name">goToWestMappingPoint:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="gotoGAWeb:">
@@ -3688,6 +4011,14 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="loadMapping:">
 							<string key="name">loadMapping:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mappingManualEditOFF:">
+							<string key="name">mappingManualEditOFF:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mappingManualEditON:">
+							<string key="name">mappingManualEditON:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openItemFromGAmuzaFolder:">
@@ -3708,6 +4039,14 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="openOnlineReference:">
 							<string key="name">openOnlineReference:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteOnTimeline:">
+							<string key="name">pasteOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="redoOnTimeline:">
+							<string key="name">redoOnTimeline:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="resetMapping:">
@@ -3734,6 +4073,10 @@ wGw</bytes>
 							<string key="name">showGettingStartedPage:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="switchMouseKeyControl:">
+							<string key="name">switchMouseKeyControl:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toggleGAmuzaFullscreen:">
 							<string key="name">toggleGAmuzaFullscreen:</string>
 							<string key="candidateClassName">id</string>
@@ -3744,6 +4087,10 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="toggleTimelinePanel:">
 							<string key="name">toggleTimelinePanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="undoOnTimeline:">
+							<string key="name">undoOnTimeline:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

@@ -146,7 +146,7 @@ public:
 	
 	void toggleRepulsion() { repulsion = !repulsion; }
 	
-	void setAbsCenter(ofVec3f *_absCenter) { absCenter = _absCenter; }
+	void setAbsCenter(ofVec3f _absCenter) { absCenter = &_absCenter; }
 	
 	void toggleAbsCenter() { targetAbsCenter = !targetAbsCenter; }	
 	

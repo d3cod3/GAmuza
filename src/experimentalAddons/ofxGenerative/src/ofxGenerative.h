@@ -26,6 +26,7 @@
 #define OFX_GENERATIVE
 
 #include "ofxCircle.h"
+#include "ofxGenericShape.h"
 #include "ofxSuperShape.h"
 
 #include "ofxSpring.h"

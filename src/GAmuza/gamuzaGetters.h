@@ -359,6 +359,10 @@ void gaTimelineAddSwitches(string _name){
     gaTL->timeline.addSwitches(_name);
 }
 
+void gaTimelineAddNotes(string _name){
+    gaTL->timeline.addNotes(_name);
+}
+
 void gaTimelineAddAudioTrack(string _name, string _file){
     gaTL->timeline.addAudioTrack(_name, _file);
 }
@@ -367,12 +371,28 @@ void gaTimelineAddVideoTrack(string _name, string _file){
     gaTL->timeline.addVideoTrack(_name, _file);
 }
 
+void gaTimelineAddCameraTrack(string _name){
+    gaTL->timeline.addCameraTrack(_name);
+}
+
 float gaTimelineGetValue(string _name){
     return gaTL->timeline.getValue(_name);
 }
 
 bool gaTimelineGetSwitch(string _name){
     return gaTL->timeline.isSwitchOn(_name);
+}
+
+bool gaTimelineGetNote(string _name){
+    return gaTL->timeline.isNoteOn(_name);
+}
+
+int gaTimelineGetNotePitch(string _name){
+    return gaTL->timeline.getNotePitch(_name);
+}
+
+float gaTimelineGetNoteVelocity(string _name){
+    return gaTL->timeline.getNoteVelocity(_name);
 }
 
 ofColor gaTimelineGetColor(string _name){
@@ -387,8 +407,20 @@ int gaTimelineGetINFrame(){
     return gaTL->timeline.getInFrame();
 }
 
+void gaTimelineSetINFrame(float _time){
+    gaTL->timeline.setInPointAtSeconds(_time);
+}
+
 int gaTimelineGetOUTFrame(){
     return gaTL->timeline.getOutFrame();
+}
+
+void gaTimelineSetOUTFrame(float _time){
+    gaTL->timeline.setOutPointAtSeconds(_time);
+}
+
+void gaTimelineClearINOUT(){
+    gaTL->timeline.clearInOut();
 }
 
 ofxTLVideoTrack* gaTimelineGetVideoTrack(string _name){
@@ -397,6 +429,14 @@ ofxTLVideoTrack* gaTimelineGetVideoTrack(string _name){
 
 ofxTLAudioTrack* gaTimelineGetAudioTrack(string _name){
     return gaTL->timeline.getAudioTrack(_name);
+}
+
+ofxTLCameraTrack* gaTimelineGetCameraTrack(string _name){
+    return gaTL->timeline.getCameraTrack(_name);
+}
+
+void gaTimelineSetCameraTrackCamera(string _name, ofCamera& _cam){
+    gaTL->timeline.getCameraTrack(_name)->setCamera(_cam);
 }
 
 int gaTimelineGetAudioTrackDuration(string _name){
@@ -532,6 +572,112 @@ void gaSetOSCActive(string _oscLabel,bool _value){
         }
     }
 }
+
+//--------------------------------------------------------------
+// PURE DATA SYNTHESIS ENGINE SECTION --> ofxPD addon
+//--------------------------------------------------------------
+void pdAddToSearchPath(string _folder){
+    string correctedPath;
+    string finalPath;
+    string path = gapp->GAscriptFileName;
+    
+    size_t cutPos = path.find_last_of("/");
+    
+    correctedPath = path.substr(0,cutPos);
+    finalPath = correctedPath+"/data/"+_folder;
+    gapp->pd.addToSearchPath(finalPath);
+}
+
+void pdOpenPatch(string _patch){
+    gapp->pdPatches.push_back(_patch);
+    gapp->pd.openPatch(_patch);
+}
+
+void pdClosePatch(string _patch){
+    gapp->pd.closePatch(_patch);
+}
+
+void pdStart(){
+    gapp->pd.start();
+}
+
+void pdStop(){
+    gapp->pd.stop();
+}
+
+void pdComputeAudio(bool _c){
+    gapp->pd.computeAudio(_c);
+}
+
+void pdSendBang(string _name){
+    gapp->pd.sendBang(_name);
+}
+
+void pdSendFloat(string _name, float _value){
+    gapp->pd.sendFloat(_name,_value);
+}
+
+void pdSendSymbol(string _name, string _value){
+    gapp->pd.sendSymbol(_name,_value);
+}
+
+void pdStartMessage(){
+    gapp->pd.startMessage();
+}
+
+void pdAddFloat(float _value){
+    gapp->pd.addFloat(_value);
+}
+
+void pdAddSymbol(string _value){
+    gapp->pd.addSymbol(_value);
+}
+
+void pdFinishList(string _name){
+    gapp->pd.finishList(_name);
+}
+
+void pdFinishMessage(string _name, string _msg){
+    gapp->pd.finishMessage(_name,_msg);
+}
+
+/// number ranges:
+/// channel		1 - 16 * dev# (dev #0: 1-16, dev #1: 17-32, etc)
+/// pitch 		0 - 127
+/// velocity	0 - 127
+/// control value	0 - 127
+/// program value	1 - 128
+/// bend value		-8192 - 8191
+/// touch value		0 - 127
+///
+/// note, in pd:
+/// [bendin] takes 0 - 16383 while [bendout] returns -8192 - 8192
+/// [pgmin] and [pgmout] are 1 - 128
+
+void pdSendNoteOn(int _ch, int _pitch, int _vel){
+    gapp->pd.sendNoteOn(_ch,_pitch,_vel);
+}
+
+void pdSendControlChange(int _ch, int _controller, int _value){
+    gapp->pd.sendControlChange(_ch,_controller,_value);
+}
+
+void pdSendProgramChange(int _ch,int _value){
+    gapp->pd.sendProgramChange(_ch,_value);
+}
+
+void pdSendPitchBend(int _ch,int _value){
+    gapp->pd.sendPitchBend(_ch,_value);
+}
+
+void pdSendAftertouch(int _ch,int _value){
+    gapp->pd.sendAftertouch(_ch,_value);
+}
+
+void pdSendPolyAftertouch(int _ch,int _pitch,int _value){
+    gapp->pd.sendPolyAftertouch(_ch,_pitch,_value);
+}
+
 
 //--------------------------------------------------------------
 // AUDIO INPUT RECORDING SECTION

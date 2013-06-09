@@ -86,14 +86,14 @@ public:
 		uniqueIDs++; 
 		p->setID(uniqueIDs); 
 		
-		p->setCenterPos(center); 
+		p->setCenterPos(*center);
 		p->setSphericalRadius(sphericalRadius); 
 		p->setTargetHome(targetHome); 
 		p->setTargetSphere(targetSphere); 
 		p->setDistortion(distort);
 		if(distorter != NULL)
 		{
-			p->setDistortVector(distorter); 
+			p->setDistortVector(*distorter);
 		}
 		
 		p->setRepulsion(repulsion); 
@@ -133,9 +133,9 @@ public:
 		glRotatef(-theta, axisOfRotation.x, axisOfRotation.y, axisOfRotation.z);  
 	}
 	
-	void setCameraRef(ofEasyCam *_camRef) { camRef = _camRef; }
+	void setCameraRef(ofEasyCam _camRef) { camRef = &_camRef; }
 	
-	void setGlowImage(ofImage *_glow) { glow = _glow; }
+	void setGlowImage(ofImage _glow) { glow = &_glow; }
 	
 	ofxRezaParticle* getParticle(int index)
 	{
