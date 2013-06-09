@@ -15,7 +15,7 @@ public:
     ~ofxCLD();
     
     void setup(int _w, int _h);
-    ofTexture& getCLDTextureRef(unsigned char* _pix,int _black, float _sigma1, float _sigma2, float _tau, float _thresh);
+    ofTexture& getCLDTextureRef(ofPixels _pix,int _black, float _sigma1, float _sigma2, float _tau, float _thresh);
     
     unsigned char           *cld_pixels;
     imatrix                 cld_img;

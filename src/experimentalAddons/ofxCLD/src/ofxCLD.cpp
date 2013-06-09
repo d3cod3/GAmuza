@@ -25,7 +25,7 @@ void ofxCLD::setup(int _w, int _h){
     
 }
 
-ofTexture& ofxCLD::getCLDTextureRef(unsigned char* _pix,int _black, float _sigma1, float _sigma2, float _tau, float _thresh){
+ofTexture& ofxCLD::getCLDTextureRef(ofPixels _pix,int _black, float _sigma1, float _sigma2, float _tau, float _thresh){
     
     if(_black < -255){
         _black = 255;
@@ -58,7 +58,7 @@ ofTexture& ofxCLD::getCLDTextureRef(unsigned char* _pix,int _black, float _sigma
     }
     
     
-    cld_pixels = _pix;
+    cld_pixels = _pix.getPixels();
     
     for(int w=0; w<_width; w++) {
         for(int h=0; h<_height; h++) {

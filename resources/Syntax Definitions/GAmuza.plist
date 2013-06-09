@@ -189,6 +189,7 @@
 				<string>transformGL</string>
 				<string>restoreTransformGL</string>
 				<string>resetTransform</string>
+				<string>draw</string>
 				<string>ofEasyCam</string>
 				<string>beginCamera</string>
 				<string>endCamera</string>
@@ -208,15 +209,20 @@
 				<string>clear</string>
 				<string>setupIndicesAuto</string>
 				<string>getVertex</string>
+				<string>removeVertex</string>
 				<string>clearVertices</string>
 				<string>getNormal</string>
+				<string>removeNormal</string>
 				<string>clearNormals</string>
 				<string>getColor</string>
+				<string>removeColor</string>
 				<string>clearColors</string>
 				<string>getTexCoord</string>
+				<string>removeTexCoord</string>
 				<string>clearTexCoords</string>
 				<string>getIndex</string>
 				<string>addIndex</string>
+				<string>removeIndex</string>
 				<string>setIndex</string>
 				<string>clearIndices</string>
 				<string>addTriangle</string>
@@ -230,11 +236,6 @@
 				<string>getNormalsPointer</string>
 				<string>getTexCoordsPointer</string>
 				<string>getIndexPointer</string>
-				<string>getVertices</string>
-				<string>getColors</string>
-				<string>getNormals</string>
-				<string>getTexCoords</string>
-				<string>getIndices</string>
 				<string>setName</string>
 				<string>haveVertsChanged</string>
 				<string>haveColorsChanged</string>
@@ -258,25 +259,38 @@
 				<string>addTexCoord</string>
 				<string>setTexCoord</string>
 				<string>addIndices</string>
+				<string>getCentroid</string>
 				<string>ofCamera</string>
 				<string>setFov</string>
 				<string>setNearClip</string>
 				<string>setFarClip</string>
+				<string>setLensOffset</string>
+				<string>setAspectRatio</string>
+				<string>setForceAspectRatio</string>
+				<string>getFov</string>
+				<string>getNearClip</string>
+				<string>getFarClip</string>
+				<string>getLensOffset</string>
+				<string>getForceAspectRatio</string>
+				<string>getAspectRatio</string>
+				<string>setupPerspective</string>
+				<string>setupOffAxisViewPortal</string>
 				<string>enableOrtho</string>
 				<string>disableOrtho</string>
 				<string>getOrtho</string>
 				<string>getModelViewMatrix</string>
 				<string>getImagePlaneDistance</string>
-				<string>cacheMatrices</string>
 				<string>getProjectionMatrix</string>
 				<string>getModelViewProjectionMatrix</string>
 				<string>worldToScreen</string>
 				<string>screenToWorld</string>
 				<string>worldToCamera</string>
 				<string>cameraToWorld</string>
-				<string>beginCamera</string>
-				<string>endCamera</string>
 				<string>ofDrawAxis</string>
+				<string>ofDrawGrid</string>
+				<string>ofDrawGridPlane</string>
+				<string>ofDrawArrow</string>
+				<string>ofDrawRotationAxes</string>
 				<string>ofSeedRandom</string>
 				<string>ofRandom</string>
 				<string>ofRandomf</string>
@@ -304,6 +318,8 @@
 				<string>ofLineSegmentIntersection</string>
 				<string>ofBezierPoint</string>
 				<string>ofCurvePoint</string>
+				<string>ofBezierTangent</string>
+				<string>ofCurveTangent</string>
 				<string>ofMatrix3x3</string>
 				<string>set</string>
 				<string>transpose</string>
@@ -323,21 +339,19 @@
 				<string>makeInvertOf</string>
 				<string>makeOrthoNormalOf</string>
 				<string>makeFromMultiplicationOf</string>
+				<string>getInverse</string>
+				<string>makeOrthoMatrix</string>
+				<string>makeOrtho2DMatrix</string>
 				<string>makeFrustumMatrix</string>
 				<string>makePerspectiveMatrix</string>
 				<string>makeLookAtMatrix</string>
 				<string>makeLookAtViewMatrix</string>
-				<string>getOrtho</string>
 				<string>getFrustum</string>
 				<string>getPerspective</string>
 				<string>getLookAt</string>
 				<string>decompose</string>
-				<string>getInverse</string>
-				<string>makeOrthoMatrix</string>
-				<string>makeOrtho2DMatrix</string>
 				<string>setRotate</string>
 				<string>setTranslation</string>
-				<string>rotate</string>
 				<string>translate</string>
 				<string>scale</string>
 				<string>glRotate</string>
@@ -345,11 +359,9 @@
 				<string>glScale</string>
 				<string>getRotate</string>
 				<string>getTranslation</string>
-				<string>getScale</string>
 				<string>ofQuaternion</string>
 				<string>asVec4</string>
 				<string>asVec3</string>
-				<string>set</string>
 				<string>get</string>
 				<string>zeroRotation</string>
 				<string>length</string>
@@ -360,12 +372,11 @@
 				<string>getEuler</string>
 				<string>slerp</string>
 				<string>ofVec2f</string>
-				<string>ofVec3f</string>
-				<string>ofVec4f</string>
 				<string>match</string>
 				<string>align</string>
 				<string>alignRad</string>
 				<string>getScaled</string>
+				<string>rotateRad</string>
 				<string>getMapped</string>
 				<string>map</string>
 				<string>distance</string>
@@ -379,16 +390,11 @@
 				<string>normalize</string>
 				<string>getLimited</string>
 				<string>limit</string>
-				<string>getCrossed</string>
-				<string>cross</string>
 				<string>getPerpendicular</string>
 				<string>perpendicular</string>
-				<string>length</string>
 				<string>squareLength</string>
 				<string>angle</string>
 				<string>angleRad</string>
-				<string>rotate</string>
-				<string>rotateRad</string>
 				<string>dot</string>
 				<string>rescaled</string>
 				<string>rescale</string>
@@ -400,6 +406,10 @@
 				<string>middled</string>
 				<string>mapped</string>
 				<string>distanceSquared</string>
+				<string>ofVec3f</string>
+				<string>getCrossed</string>
+				<string>cross</string>
+				<string>ofVec4f</string>
 				<string>ofMaterial</string>
 				<string>setColors</string>
 				<string>setDiffuseColor</string>
@@ -421,6 +431,8 @@
 				<string>resetAnchor</string>
 				<string>setDefaultTextureIndex</string>
 				<string>getDefaultTextureIndex</string>
+				<string>getTextureReference</string>
+				<string>getDepthTexture</string>
 				<string>setUseTexture</string>
 				<string>beginFbo</string>
 				<string>endFbo</string>
@@ -440,10 +452,7 @@
 				<string>ofGLRenderer</string>
 				<string>getType</string>
 				<string>setCurrentFBO</string>
-				<string>drawMesh</string>
-				<string>drawPoly</string>
-				<string>drawPath</string>
-				<string>drawImage</string>
+				<string>update</string>
 				<string>rendersPathPrimitives</string>
 				<string>pushView</string>
 				<string>popView</string>
@@ -455,9 +464,6 @@
 				<string>getViewportHeight</string>
 				<string>pushMatrix</string>
 				<string>popMatrix</string>
-				<string>translate</string>
-				<string>scale</string>
-				<string>rotate</string>
 				<string>rotateX</string>
 				<string>rotateY</string>
 				<string>rotateZ</string>
@@ -473,18 +479,17 @@
 				<string>setBlendMode</string>
 				<string>enablePointSprites</string>
 				<string>disablePointSprites</string>
-				<string>setColor</string>
 				<string>setHexColor</string>
 				<string>getBgColor</string>
 				<string>bClearBg</string>
 				<string>background</string>
 				<string>setBackgroundAuto</string>
-				<string>clear</string>
 				<string>clearAlpha</string>
 				<string>drawLine</string>
 				<string>drawRectangle</string>
 				<string>drawTriangle</string>
 				<string>drawCircle</string>
+				<string>drawSphere</string>
 				<string>drawEllipse</string>
 				<string>drawString</string>
 				<string>ofVbo</string>
@@ -517,11 +522,9 @@
 				<string>updateVertexDataF</string>
 				<string>updateColorDataF</string>
 				<string>updateNormalDataF</string>
-				<string>updateTexCoordDataF</string>
 				<string>ofTextureData</string>
 				<string>ofShader</string>
 				<string>load</string>
-				<string>unload</string>
 				<string>beginShader</string>
 				<string>endShader</string>
 				<string>setUniformTexture</string>
@@ -533,54 +536,9 @@
 				<string>setUniform2f</string>
 				<string>setUniform3f</string>
 				<string>setUniform4f</string>
+				<string>unload</string>
 				<string>ofVboMesh</string>
 				<string>setUsage</string>
-				<string>setMode</string>
-				<string>getMode</string>
-				<string>setupIndicesAuto</string>
-				<string>clear</string>
-				<string>getVertex</string>
-				<string>clearVertices</string>
-				<string>getNormal</string>
-				<string>clearNormals</string>
-				<string>getColor</string>
-				<string>clearColors</string>
-				<string>getTexCoord</string>
-				<string>clearTexCoords</string>
-				<string>getIndex</string>
-				<string>addIndex</string>
-				<string>setIndex</string>
-				<string>clearIndices</string>
-				<string>addTriangle</string>
-				<string>getNumVertices</string>
-				<string>getNumColors</string>
-				<string>getNumNormals</string>
-				<string>getNumTexCoords</string>
-				<string>getNumIndices</string>
-				<string>getVerticesPointer</string>
-				<string>getColorsPointer</string>
-				<string>getNormalsPointer</string>
-				<string>getTexCoordsPointer</string>
-				<string>getIndexPointer</string>
-				<string>getVertices</string>
-				<string>getColors</string>
-				<string>getNormals</string>
-				<string>getTexCoords</string>
-				<string>getIndices</string>
-				<string>setName</string>
-				<string>haveVertsChanged</string>
-				<string>haveColorsChanged</string>
-				<string>haveNormalsChanged</string>
-				<string>haveTexCoordsChanged</string>
-				<string>haveIndicesChanged</string>
-				<string>hasVertices</string>
-				<string>hasColors</string>
-				<string>hasNormals</string>
-				<string>hasTexCoords</string>
-				<string>hasIndices</string>
-				<string>drawVertices</string>
-				<string>drawWireframe</string>
-				<string>drawFaces</string>
 				<string>ofTexture</string>
 				<string>loadData</string>
 				<string>loadScreenData</string>
@@ -591,14 +549,12 @@
 				<string>setTextureMinMagFilter</string>
 				<string>setCompression</string>
 				<string>isAllocated</string>
-				<string>getWidth</string>
-				<string>getHeight</string>
-				<string>ofGetGlInternalFormat</string>
-				<string>ofGetGlFormatAndType</string>
-				<string>ofGetImageTypeFromGLType</string>
-				<string>ofGetGLPolyMode</string>
-				<string>ofGetOFPolyMode</string>
-				<string>ofGetGLPrimitiveMode</string>
+				<string>getGlInternalFormat</string>
+				<string>getGlFormatAndType</string>
+				<string>getImageTypeFromGLType</string>
+				<string>getGLPolyMode</string>
+				<string>getOFPolyMode</string>
+				<string>getGLPrimitiveMode</string>
 				<string>ofLight</string>
 				<string>destroy</string>
 				<string>enable</string>
@@ -613,13 +569,6 @@
 				<string>setPointLight</string>
 				<string>getIsPointLight</string>
 				<string>setAttenuation</string>
-				<string>getType</string>
-				<string>setAmbientColor</string>
-				<string>setDiffuseColor</string>
-				<string>setSpecularColor</string>
-				<string>getAmbientColor</string>
-				<string>getDiffuseColor</string>
-				<string>getSpecularColor</string>
 				<string>getLightID</string>
 				<string>customDraw</string>
 				<string>ofEnableLighting</string>
@@ -650,7 +599,6 @@
 				<string>getFile</string>
 				<string>getFiles</string>
 				<string>getShowHidden</string>
-				<string>reset</string>
 				<string>sort</string>
 				<string>size</string>
 				<string>numFiles</string>
@@ -658,31 +606,19 @@
 				<string>isDirectoryEmpty</string>
 				<string>doesDirectoryExist</string>
 				<string>removeDirectory</string>
-				<string>getFile</string>
 				<string>ofHttpResponse</string>
 				<string>ofFileDialogResult</string>
-				<string>getName</string>
-				<string>getPath</string>
 				<string>ofSystemAlertDialog</string>
 				<string>ofBuffer</string>
-				<string>set</string>
 				<string>writeTo</string>
-				<string>clear</string>
-				<string>allocate</string>
-				<string>getBinaryBuffer</string>
 				<string>setBinaryBuffer</string>
+				<string>getBinaryBuffer</string>
 				<string>getText</string>
-				<string>size</string>
 				<string>getNextLine</string>
 				<string>getFirstLine</string>
 				<string>isLastLine</string>
 				<string>resetLineReader</string>
 				<string>ofFile</string>
-				<string>open</string>
-				<string>close</string>
-				<string>create</string>
-				<string>exists</string>
-				<string>path</string>
 				<string>getExtension</string>
 				<string>getFileName</string>
 				<string>getBaseName</string>
@@ -693,28 +629,20 @@
 				<string>canExecute</string>
 				<string>isFile</string>
 				<string>isLink</string>
-				<string>isDirectory</string>
 				<string>isDevice</string>
-				<string>isHidden</string>
-				<string>setWriteable</string>
-				<string>setReadOnly</string>
-				<string>setExecutable</string>
-				<string>copyTo</string>
-				<string>moveTo</string>
-				<string>renameTo</string>
-				<string>remove</string>
 				<string>getSize</string>
 				<string>readToBuffer</string>
 				<string>writeFromBuffer</string>
-				<string>removeFile</string>
 				<string>copyFromTo</string>
 				<string>moveFromTo</string>
 				<string>doesFileExist</string>
+				<string>removeFile</string>
 				<string>ofBufferFromFile</string>
 				<string>ofBufferToFile</string>
 				<string>ofHttpRequest</string>
 				<string>getID</string>
 				<string>ofGetElapsedTimeMillis</string>
+				<string>ofGetElapsedTimeMicros</string>
 				<string>ofGetElapsedTimef</string>
 				<string>ofGetSeconds</string>
 				<string>ofGetMinutes</string>
@@ -724,13 +652,14 @@
 				<string>ofToInt</string>
 				<string>ofToFloat</string>
 				<string>ofSaveScreen</string>
+				<string>ofSaveFrame</string>
+				<string>ofSaveViewport</string>
 				<string>ofSplitString</string>
 				<string>ofGetYear</string>
 				<string>ofGetMonth</string>
 				<string>ofGetDay</string>
 				<string>ofGetWeekday</string>
 				<string>ofResetElapsedTimeCounter</string>
-				<string>ofGetElapsedTimeMicros</string>
 				<string>ofGetUnixTime</string>
 				<string>ofGetSystemTime</string>
 				<string>ofGetSystemTimeMicros</string>
@@ -749,11 +678,7 @@
 				<string>ofHexToString</string>
 				<string>ofStringReplace</string>
 				<string>ofIsStringInString</string>
-				<string>ofGetFrameRate</string>
-				<string>ofSetFrameRate</string>
 				<string>ofSleepMillis</string>
-				<string>ofGetLastFrameTime</string>
-				<string>ofGetFrameNum</string>
 				<string>ofThread</string>
 				<string>isThreadRunning</string>
 				<string>startThread</string>
@@ -762,12 +687,9 @@
 				<string>stopThread</string>
 				<string>waitForThread</string>
 				<string>ofURLFileLoader</string>
-				<string>get</string>
 				<string>getAsync</string>
 				<string>saveTo</string>
 				<string>saveAsync</string>
-				<string>remove</string>
-				<string>clear</string>
 				<string>ofLoadURL</string>
 				<string>ofLoadURLAsync</string>
 				<string>ofSaveURLTo</string>
@@ -777,27 +699,19 @@
 				<string>ofVideoPlayer</string>
 				<string>loadMovie</string>
 				<string>closeMovie</string>
-				<string>close</string>
 				<string>idleMovie</string>
 				<string>play</string>
 				<string>stop</string>
 				<string>isFrameNew</string>
 				<string>getPixels</string>
-				<string>getPosition</string>
 				<string>getSpeed</string>
 				<string>getDuration</string>
 				<string>getIsMovieDone</string>
-				<string>setPosition</string>
 				<string>setVolume</string>
 				<string>setLoopState</string>
 				<string>getLoopState</string>
 				<string>setSpeed</string>
 				<string>setFrame</string>
-				<string>setUseTexture</string>
-				<string>getTextureReference</string>
-				<string>setAnchorPercent</string>
-				<string>setAnchorPoint</string>
-				<string>resetAnchor</string>
 				<string>setPaused</string>
 				<string>getCurrentFrame</string>
 				<string>getTotalNumFrames</string>
@@ -810,7 +724,6 @@
 				<string>ofPath</string>
 				<string>newSubPath</string>
 				<string>lineTo</string>
-				<string>moveTo</string>
 				<string>curveTo</string>
 				<string>bezierTo</string>
 				<string>quadBezierTo</string>
@@ -818,8 +731,6 @@
 				<string>setPolyWindingMode</string>
 				<string>setFilled</string>
 				<string>setStrokeWidth</string>
-				<string>setColor</string>
-				<string>setHexColor</string>
 				<string>setFillColor</string>
 				<string>setFillHexColor</string>
 				<string>setStrokeColor</string>
@@ -841,17 +752,11 @@
 				<string>setUseShapeColor</string>
 				<string>getUseShapeColor</string>
 				<string>tessellate</string>
-				<string>translate</string>
-				<string>rotate</string>
-				<string>scale</string>
 				<string>ofImage</string>
 				<string>clone</string>
-				<string>setUseTexture</string>
-				<string>getTextureReference</string>
 				<string>loadImage</string>
 				<string>saveImage</string>
 				<string>saveImageBuffer</string>
-				<string>getPixels</string>
 				<string>getPixelsRef</string>
 				<string>setFromPixels</string>
 				<string>setImageType</string>
@@ -861,8 +766,6 @@
 				<string>cropFrom</string>
 				<string>rotate90</string>
 				<string>mirror</string>
-				<string>setAnchorPoint</string>
-				<string>bAllocated</string>
 				<string>reloadTexture</string>
 				<string>ofLoadImage</string>
 				<string>ofSaveImage</string>
@@ -871,15 +774,10 @@
 				<string>setFromExternalPixels</string>
 				<string>setFromAlignedPixels</string>
 				<string>swapRgb</string>
-				<string>getPixels</string>
 				<string>getPixelIndex</string>
-				<string>getColor</string>
-				<string>setColor</string>
-				<string>isAllocated</string>
 				<string>getBytesPerPixel</string>
 				<string>getBitsPerPixel</string>
 				<string>getImageType</string>
-				<string>resize</string>
 				<string>ofBackground</string>
 				<string>ofBackgroundGradient</string>
 				<string>ofSetCircleResolution</string>
@@ -908,6 +806,7 @@
 				<string>ofEnableSmoothing</string>
 				<string>ofDisableSmoothing</string>
 				<string>ofDrawBitmapString</string>
+				<string>ofDrawBitmapStringHighlight</string>
 				<string>ofRotate</string>
 				<string>ofRotateX</string>
 				<string>ofRotateY</string>
@@ -929,6 +828,8 @@
 				<string>ofGetCurrentViewport</string>
 				<string>ofGetViewportWidth</string>
 				<string>ofGetViewportHeight</string>
+				<string>ofSetupGraphicDefaults</string>
+				<string>ofSetupScreen</string>
 				<string>ofSetCurveResolution</string>
 				<string>ofSetSphereResolution</string>
 				<string>ofGetFill</string>
@@ -940,6 +841,8 @@
 				<string>ofClearAlpha</string>
 				<string>ofSphere</string>
 				<string>ofBox</string>
+				<string>ofCone</string>
+				<string>ofSetDrawBitmapMode</string>
 				<string>ofTrueTypeFont</string>
 				<string>loadFont</string>
 				<string>getLineHeight</string>
@@ -947,12 +850,9 @@
 				<string>stringWidth</string>
 				<string>stringHeight</string>
 				<string>getStringBoundingBox</string>
-				<string>drawString</string>
 				<string>drawStringAsShapes</string>
-				<string>isLoaded</string>
 				<string>isAntiAliased</string>
 				<string>hasFullCharacterSet</string>
-				<string>getSize</string>
 				<string>getLetterSpacing</string>
 				<string>setLetterSpacing</string>
 				<string>getSpaceSize</string>
@@ -970,17 +870,14 @@
 				<string>setClosed</string>
 				<string>isClosed</string>
 				<string>hasChanged</string>
+				<string>getVertices</string>
 				<string>getPerimeter</string>
+				<string>ofTessellator</string>
 				<string>ofColor</string>
-				<string>ofFloatColor</string>
-				<string>ofShortColor</string>
 				<string>getHex</string>
 				<string>clamp</string>
-				<string>invert</string>
-				<string>normalize</string>
 				<string>getClamped</string>
 				<string>getInverted</string>
-				<string>getNormalized</string>
 				<string>getHue</string>
 				<string>getSaturation</string>
 				<string>getBrightness</string>
@@ -989,56 +886,98 @@
 				<string>setSaturation</string>
 				<string>setBrightness</string>
 				<string>setHsb</string>
-				<string>set</string>
 				<string>setHex</string>
 				<string>lerp</string>
 				<string>getLerped</string>
 				<string>getHsb</string>
+				<string>ofFloatColor</string>
+				<string>ofShortColor</string>
 				<string>ofStyle</string>
 				<string>ofRectangle</string>
+				<string>setX</string>
+				<string>setY</string>
+				<string>setWidth</string>
+				<string>setHeight</string>
 				<string>setFromCenter</string>
+				<string>translateX</string>
+				<string>translateY</string>
+				<string>scaleWidth</string>
+				<string>scaleHeight</string>
+				<string>scaleFromCenter</string>
+				<string>scaleTo</string>
+				<string>alignToHorz</string>
+				<string>alignToVert</string>
+				<string>alignTo</string>
+				<string>growToInclude</string>
+				<string>getIntersection</string>
+				<string>getUnion</string>
+				<string>standardize</string>
+				<string>getStandardized</string>
+				<string>isStandardized</string>
+				<string>getArea</string>
+				<string>isEmpty</string>
+				<string>getMin</string>
+				<string>getMax</string>
+				<string>getMinX</string>
+				<string>getMaxX</string>
+				<string>getMinY</string>
+				<string>getMaxY</string>
+				<string>getLeft</string>
+				<string>getRight</string>
+				<string>getTop</string>
+				<string>getBottom</string>
+				<string>getTopLeft</string>
+				<string>getTopRight</string>
+				<string>getBottomLeft</string>
+				<string>getBottomRight</string>
+				<string>getHorzAnchor</string>
+				<string>getVertAnchor</string>
 				<string>getCenter</string>
-				<string>inside</string>
-				<string>ofGetMousePressed</string>
-				<string>ofGetKeyPressed</string>
-				<string>ofGetMouseX</string>
-				<string>ofGetMouseY</string>
-				<string>ofGetPreviousMouseX</string>
-				<string>ofGetPreviousMouseY</string>
 				<string>ofSoundUpdate</string>
 				<string>ofSoundGetSpectrum</string>
 				<string>ofSoundPlayer</string>
 				<string>loadSound</string>
 				<string>unloadSound</string>
-				<string>play</string>
-				<string>stop</string>
-				<string>setVolume</string>
 				<string>setPan</string>
-				<string>setSpeed</string>
-				<string>setPaused</string>
 				<string>setLoop</string>
 				<string>setMultiPlay</string>
-				<string>setPosition</string>
-				<string>getPosition</string>
+				<string>setPositionMS</string>
+				<string>getPositionMS</string>
 				<string>getIsPlaying</string>
-				<string>getSpeed</string>
 				<string>getPan</string>
+				<string>getVolume</string>
+				<string>ofSerial</string>
+				<string>listDevices</string>
+				<string>setup</string>
+				<string>readBytes</string>
+				<string>writeBytes</string>
+				<string>writeByte</string>
+				<string>readByte</string>
+				<string>flush</string>
+				<string>available</string>
+				<string>drain</string>
 				<string>ofx3DBaseLoader</string>
 				<string>loadModel</string>
 				<string>ofx3DModelLoader</string>
-				<string>setScale</string>
 				<string>setRotation</string>
 				<string>ofxAssimpModelLoader</string>
 				<string>createEmptyModel</string>
 				<string>createLightsFromAiModel</string>
 				<string>optimizeScene</string>
+				<string>hasAnimations</string>
+				<string>getAnimationCount</string>
+				<string>getAnimation</string>
+				<string>playAllAnimations</string>
+				<string>stopAllAnimations</string>
+				<string>resetAllAnimations</string>
+				<string>setPausedForAllAnimations</string>
+				<string>setLoopStateForAllAnimations</string>
+				<string>setPositionForAllAnimations</string>
+				<string>hasMeshes</string>
+				<string>getMeshCount</string>
+				<string>getMeshHelper</string>
 				<string>setScaleNomalization</string>
 				<string>setNormalizationFactor</string>
-				<string>getAnimationCount</string>
-				<string>setAnimation</string>
-				<string>setNormalizedTime</string>
-				<string>setTime</string>
-				<string>getMeshNames</string>
 				<string>getNumMeshes</string>
 				<string>getMesh</string>
 				<string>getCurrentAnimatedMesh</string>
@@ -1054,13 +993,13 @@
 				<string>disableMaterials</string>
 				<string>getSceneCenter</string>
 				<string>getNormalizedScale</string>
+				<string>getModelMatrix</string>
 				<string>getSceneMin</string>
 				<string>getSceneMax</string>
 				<string>getNumRotations</string>
 				<string>getRotationAxis</string>
 				<string>getRotationAngle</string>
 				<string>calculateDimensions</string>
-				<string>getAssimpScene</string>
 				<string>ofxTCPClient</string>
 				<string>setVerbose</string>
 				<string>setMessageDelimiter</string>
@@ -1075,10 +1014,15 @@
 				<string>getPort</string>
 				<string>getIP</string>
 				<string>ofxUDPManager</string>
+				<string>Close</string>
+				<string>Create</string>
 				<string>Connect</string>
 				<string>ConnectMcast</string>
+				<string>Bind</string>
 				<string>BindMcast</string>
+				<string>Send</string>
 				<string>SendAll</string>
+				<string>Receive</string>
 				<string>SetTimeoutSend</string>
 				<string>SetTimeoutReceive</string>
 				<string>GetTimeoutSend</string>
@@ -1115,6 +1059,59 @@
 				<string>isClientConnected</string>
 				<string>sendToAll</string>
 				<string>sendRawBytesToAll</string>
+				<string>ofxCvColorImage</string>
+				<string>flagImageChanged</string>
+				<string>setROI</string>
+				<string>getROI</string>
+				<string>resetROI</string>
+				<string>getIntersectionROI</string>
+				<string>setRoiFromPixels</string>
+				<string>updateTexture</string>
+				<string>drawROI</string>
+				<string>erode</string>
+				<string>dilate</string>
+				<string>blur</string>
+				<string>blurGaussian</string>
+				<string>transform</string>
+				<string>undistort</string>
+				<string>warpPerspective</string>
+				<string>warpIntoMe</string>
+				<string>countNonZeroInRegion</string>
+				<string>setFromGrayscalePlanarImages</string>
+				<string>convertToGrayscalePlanarImages</string>
+				<string>contrastStretch</string>
+				<string>convertToRange</string>
+				<string>scaleIntoMe</string>
+				<string>convertRgbToHsv</string>
+				<string>convertHsvToRgb</string>
+				<string>ofxCvContourFinder</string>
+				<string>findContours</string>
+				<string>ofxCvFloatImage</string>
+				<string>addWeighted</string>
+				<string>getPixelsAsFloats</string>
+				<string>getFloatPixelsRef</string>
+				<string>getRoiPixelsAsFloats</string>
+				<string>getRoiFloatPixelsRef</string>
+				<string>ofxCvGrayscaleImage</string>
+				<string>setFromCvColorImage</string>
+				<string>absDiff</string>
+				<string>threshold</string>
+				<string>adaptiveThreshold</string>
+				<string>brightnessContrast</string>
+				<string>blurHeavily</string>
+				<string>erode_3x3</string>
+				<string>dilate_3x3</string>
+				<string>setFromColorImage</string>
+				<string>ofxCvHaarFinder</string>
+				<string>setScaleHaar</string>
+				<string>setNeighbors</string>
+				<string>findHaarObjects</string>
+				<string>ofxCvShortImage</string>
+				<string>getShortPixelsRef</string>
+				<string>getRoiShortPixelsRef</string>
+				<string>ofxSVG</string>
+				<string>getNumPath</string>
+				<string>getPathAt</string>
 				<string>ofxVectorGraphics</string>
 				<string>beginEPS</string>
 				<string>endEPS</string>
@@ -1137,43 +1134,93 @@
 				<string>bezierVertex</string>
 				<string>curveVertex</string>
 				<string>endShape</string>
-				<string>ofxCvColorImage</string>
-				<string>flagImageChanged</string>
-				<string>setROI</string>
-				<string>getROI</string>
-				<string>resetROI</string>
-				<string>getIntersectionROI</string>
-				<string>setRoiFromPixels</string>
-				<string>updateTexture</string>
-				<string>drawROI</string>
-				<string>erode</string>
-				<string>dilate</string>
-				<string>blur</string>
-				<string>blurGaussian</string>
-				<string>transform</string>
-				<string>undistort</string>
-				<string>warpPerspective</string>
-				<string>warpIntoMe</string>
-				<string>countNonZeroInRegion</string>
-				<string>setFromGrayscalePlanarImages</string>
-				<string>convertToGrayscalePlanarImages</string>
-				<string>convertToGrayscalePlanarImages</string>
-				<string>contrastStretch</string>
-				<string>convertToRange</string>
-				<string>scaleIntoMe</string>
-				<string>convertRgbToHsv</string>
-				<string>convertHsvToRgb</string>
-				<string>ofxCvGrayscaleImage</string>
-				<string>setFromCvColorImage</string>
-				<string>absDiff</string>
-				<string>threshold</string>
-				<string>adaptiveThreshold</string>
-				<string>brightnessContrast</string>
-				<string>blurHeavily</string>
-				<string>erode_3x3</string>
-				<string>dilate_3x3</string>
+				<string>ofxXmlSettings</string>
+				<string>loadFile</string>
+				<string>saveFile</string>
+				<string>clearTagContents</string>
+				<string>removeTag</string>
+				<string>tagExists</string>
+				<string>getValue</string>
+				<string>setValue</string>
+				<string>pushTag</string>
+				<string>popTag</string>
+				<string>getPushLevel</string>
+				<string>getNumTags</string>
+				<string>addValue</string>
+				<string>addTag</string>
+				<string>addAttribute</string>
+				<string>removeAttribute</string>
+				<string>clearTagAttributes</string>
+				<string>getNumAttributes</string>
+				<string>attributeExists</string>
+				<string>getAttribute</string>
+				<string>setAttribute</string>
+				<string>loadFromBuffer</string>
+				<string>copyXmlToString</string>
 				<string>ofxArcText</string>
 				<string>getCharacterWidth</string>
+				<string>b2World</string>
+				<string>ofxBox2d</string>
+				<string>init</string>
+				<string>setFPS</string>
+				<string>registerGrabbing</string>
+				<string>grabShapeDown</string>
+				<string>grabShapeUp</string>
+				<string>grabShapeDragged</string>
+				<string>getWorld</string>
+				<string>getBodyCount</string>
+				<string>getJointCount</string>
+				<string>enableGrabbing</string>
+				<string>disableGrabbing</string>
+				<string>setContactListener</string>
+				<string>setIterations</string>
+				<string>setGravity</string>
+				<string>setBounds</string>
+				<string>createBounds</string>
+				<string>createGround</string>
+				<string>checkBounds</string>
+				<string>drawGround</string>
+				<string>ofxBox2dCircle</string>
+				<string>isBody</string>
+				<string>isFixed</string>
+				<string>setBounce</string>
+				<string>setDensity</string>
+				<string>setFriction</string>
+				<string>setPhysics</string>
+				<string>setData</string>
+				<string>getData</string>
+				<string>setFilterData</string>
+				<string>enableGravity</string>
+				<string>setFixedRotation</string>
+				<string>setRotationFriction</string>
+				<string>getRotation</string>
+				<string>getB2DPosition</string>
+				<string>setVelocity</string>
+				<string>getVelocity</string>
+				<string>setDamping</string>
+				<string>addForce</string>
+				<string>addImpulseForce</string>
+				<string>getRadius</string>
+				<string>setRadius</string>
+				<string>addAttractionPoint</string>
+				<string>addRepulsionForce</string>
+				<string>ofxBox2dJoint</string>
+				<string>setWorld</string>
+				<string>isSetup</string>
+				<string>setLength</string>
+				<string>getLength</string>
+				<string>setFrequency</string>
+				<string>getFrequency</string>
+				<string>getDamping</string>
+				<string>getReactionForce</string>
+				<string>getReactionForceB2D</string>
+				<string>getReactionTorque</string>
+				<string>ofxBox2dPolygon</string>
+				<string>triangulate</string>
+				<string>isGoodShape</string>
+				<string>setAsEdge</string>
+				<string>updateShape</string>
+				<string>ofxBox2dRect</string>
 				<string>ofxChromaKey</string>
 				<string>setPixels</string>
 				<string>learnBgColor</string>
@@ -1181,47 +1228,69 @@
 				<string>setThreshold</string>
 				<string>drawBgColor</string>
 				<string>getThreshold</string>
+				<string>ofxCLD</string>
+				<string>getCLDTextureRef</string>
+				<string>ofxCrypto</string>
+				<string>md5</string>
+				<string>sha1</string>
+				<string>base64_encode</string>
+				<string>base64_decode</string>
+				<string>base64_decode_to_buffer</string>
 				<string>ofxDelaunay</string>
 				<string>setMaxPoints</string>
 				<string>addPoint</string>
-				<string>triangulate</string>
 				<string>drawCenter</string>
 				<string>ofxDither</string>
 				<string>ordered</string>
 				<string>floyd_steinberg</string>
 				<string>atkinson</string>
 				<string>ofxDmx</string>
+				<string>connect</string>
 				<string>disconnect</string>
 				<string>setLevel</string>
 				<string>getLevel</string>
 				<string>setChannels</string>
-				<string>ofxFTGLFont</string>
-				<string>setSize</string>
-				<string>ofxBloom</string>
+				<string>ofxAbsDiff</string>
+				<string>setCode</string>
+				<string>compileCode</string>
+				<string>setPasses</string>
+				<string>setInternalFormat</string>
+				<string>setTexture</string>
 				<string>beginFx</string>
 				<string>endFx</string>
+				<string>compiled</string>
+				<string>getCode</string>
+				<string>getPasses</string>
+				<string>getResolution</string>
+				<string>getInternalFormat</string>
+				<string>getNumberOfCalledTextures</string>
+				<string>getBackBuffer</string>
+				<string>ofxBlend</string>
+				<string>addLayer</string>
+				<string>beginBackground</string>
+				<string>endBackground</string>
+				<string>ofxClone</string>
+				<string>setStrength</string>
+				<string>ofxMask</string>
+				<string>ofxMultiTexture</string>
+				<string>ofxSubstract</string>
+				<string>ofxBloom</string>
 				<string>ofxBlur</string>
-				<string>setPasses</string>
-				<string>setRadius</string>
-				<string>ofxBlurFast</string>
 				<string>setFade</string>
-				<string>ofxConway</string>
-				<string>ofxFlocking</string>
-				<string>setParticleSize</string>
-				<string>setTimpeStep</string>
-				<string>ofxFluid</string>
-				<string>setDensity</string>
-				<string>setVelocity</string>
-				<string>setTemperature</string>
-				<string>setGravity</string>
-				<string>setDensityDissipation</string>
-				<string>setVelocityDissipation</string>
-				<string>setTemperatureDissipation</string>
-				<string>addTemporalForce</string>
-				<string>addConstantForce</string>
+				<string>ofxBokeh</string>
+				<string>ofxChromaAb</string>
+				<string>ofxContrast</string>
+				<string>ofxGaussianBlur</string>
 				<string>ofxGlow</string>
+				<string>ofxGrayscale</string>
+				<string>ofxInverse</string>
+				<string>ofxLUT</string>
+				<string>loadLUT</string>
+				<string>ofxMedian</string>
+				<string>ofxOldTv</string>
+				<string>ofxFire</string>
+				<string>setZoom</string>
 				<string>ofxGrayScott</string>
-				<string>setIterations</string>
 				<string>setDiffU</string>
 				<string>setDiffV</string>
 				<string>setK</string>
@@ -1230,21 +1299,286 @@
 				<string>getDiffV</string>
 				<string>getK</string>
 				<string>getF</string>
-				<string>ofxMask</string>
-				<string>beginMask</string>
-				<string>endMask</string>
-				<string>ofxOldTv</string>
-				<string>setBrightness</string>
-				<string>setRows</string>
-				<string>ofxWater</string>
-				<string>loadBackground</string>
-				<string>linkBackground</string>
-				<string>setDensity</string>
+				<string>ofxNoise</string>
+				<string>ofxTint</string>
+				<string>ofxFlocking</string>
+				<string>setParticleSize</string>
+				<string>setTimpeStep</string>
+				<string>ofxFluid</string>
+				<string>setTemperature</string>
+				<string>addTemporalForce</string>
+				<string>addConstantForce</string>
+				<string>ofxBounce</string>
+				<string>ofxDisplacePixels</string>
+				<string>ofxNormals</string>
+				<string>ofxRipples</string>
+				<string>ofxThreshold</string>
+				<string>ofxRotate</string>
+				<string>ofxKaleidoscope</string>
+				<string>setFacesRotation</string>
+				<string>setTotalFaces</string>
 				<string>ofxGaussian</string>
+				<string>ofx1DExtruder</string>
+				<string>setAccLimit</string>
+				<string>setVelLimit</string>
+				<string>getVelLimit</string>
+				<string>getAccLimit</string>
+				<string>goHome</string>
+				<string>getPos</string>
+				<string>setPos</string>
+				<string>setHome</string>
+				<string>getHome</string>
+				<string>setPosAndHome</string>
+				<string>ofxBehavior</string>
+				<string>actUpon</string>
+				<string>isEnabled</string>
+				<string>getMagnitude</string>
+				<string>setMagnitude</string>
+				<string>ofxBoidParticle</string>
+				<string>setBorders</string>
+				<string>drawVertex</string>
+				<string>borders</string>
+				<string>elasticBorder</string>
+				<string>circleborders</string>
+				<string>setVel</string>
+				<string>setAcc</string>
+				<string>setAccerationLimit</string>
+				<string>setVelocityLimit</string>
+				<string>addExternalForce</string>
+				<string>addSpringForce</string>
+				<string>setFixed</string>
+				<string>getPpos</string>
+				<string>getVel</string>
+				<string>getAcc</string>
+				<string>setColorAlpha</string>
+				<string>getColorAlpha</string>
+				<string>setID</string>
+				<string>decay</string>
+				<string>getLifeTime</string>
+				<string>isDead</string>
+				<string>setZoneRadius</string>
+				<string>separation</string>
+				<string>drawDebug</string>
+				<string>addNeighborPos</string>
+				<string>ofxBoidSystem</string>
+				<string>updateAndDecay</string>
+				<string>randomize</string>
+				<string>addParticle</string>
+				<string>getCount</string>
+				<string>getParticle</string>
+				<string>angleSigned</string>
+				<string>setThreshLow</string>
+				<string>setThreshHigh</string>
+				<string>setAttractForceConstant</string>
+				<string>setRepelForceConstant</string>
+				<string>setCohesionForceConstant</string>
+				<string>setAlignForceConstant</string>
+				<string>setPerlinForceConstant</string>
+				<string>setVelLimitLow</string>
+				<string>setVelLimitHigh</string>
+				<string>setVelLimitLowAndHigh</string>
+				<string>setAccLimitHigh</string>
+				<string>ofxBufferEffectorBehavior</string>
+				<string>getBuffer</string>
+				<string>setBuffer</string>
+				<string>getBufferSize</string>
+				<string>ofxCircle</string>
+				<string>ofxDamperBehavior</string>
+				<string>ofxDistorterBehavior</string>
+				<string>getExpFactor</string>
+				<string>setExpFactor</string>
+				<string>ofxElectroStaticBehavior</string>
+				<string>ofxField2D</string>
+				<string>input</string>
+				<string>setViscosity</string>
+				<string>setDensityDecay</string>
+				<string>setDifferential</string>
+				<string>setDt</string>
+				<string>setPointSize</string>
+				<string>getPointSize</string>
+				<string>getLineWidth</string>
+				<string>getViscosity</string>
+				<string>getDensityDecay</string>
+				<string>getDifferential</string>
+				<string>getDt</string>
+				<string>getIterations</string>
+				<string>getVector</string>
+				<string>getDensity</string>
+				<string>adaptFromImage</string>
+				<string>getRenderType</string>
+				<string>setRenderType</string>
+				<string>ofxFieldAgitator</string>
+				<string>getAngle</string>
+				<string>ofxGenericShape</string>
+				<string>setOffset</string>
+				<string>ofxHomingBehavior</string>
+				<string>ofxParticle</string>
+				<string>ofxParticleSystem</string>
+				<string>ofxPerlinBehavior</string>
+				<string>ofxRezaParticle</string>
+				<string>goSpherical</string>
+				<string>addDistortion</string>
+				<string>setCenterPos</string>
+				<string>setTargetHome</string>
+				<string>toggleTargetHome</string>
+				<string>setTargetSphere</string>
+				<string>toggleTargetSphere</string>
+				<string>setRandomizeVel</string>
+				<string>setSphericalRadius</string>
+				<string>getSphericalRadius</string>
+				<string>setDistortion</string>
+				<string>toggleDistortion</string>
+				<string>setDistortVector</string>
+				<string>goSphericalCenter</string>
+				<string>repulse</string>
+				<string>setRepulsion</string>
+				<string>toggleRepulsion</string>
+				<string>setAbsCenter</string>
+				<string>toggleAbsCenter</string>
+				<string>setCenterTargeting</string>
+				<string>setSAMulti</string>
+				<string>ofxRezaParticleSystem</string>
+				<string>setCenter</string>
+				<string>getTargetHome</string>
+				<string>getTargetSphere</string>
+				<string>getRepulsion</string>
+				<string>billBoard</string>
+				<string>setCameraRef</string>
+				<string>setGlowImage</string>
+				<string>ofxRParticle</string>
+				<string>calculateAcceleration</string>
+				<string>setPpos</string>
+				<string>setRestitution</string>
+				<string>setParticleData</string>
+				<string>ofxRParticleData</string>
+				<string>ofxRParticleGlowieRenderer</string>
+				<string>setAdditiveBlending</string>
+				<string>setAxisAngleOffsets</string>
+				<string>setCamPtr</string>
+				<string>ofxRParticleRenderer</string>
+				<string>ofxRParticleSystem</string>
+				<string>addBehavior</string>
+				<string>getRestitution</string>
+				<string>getVelocityLimit</string>
+				<string>setAccelerationLimit</string>
+				<string>getAccelerationLimit</string>
+				<string>setCount</string>
+				<string>setRenderer</string>
+				<string>setSolver</string>
+				<string>ofxSmartParticle</string>
+				<string>ofxSmartParticleSystem</string>
+				<string>ofxSolver</string>
+				<string>ofxSphericalAttractionBehavior</string>
+				<string>ofxSpring</string>
+				<string>getForce</string>
+				<string>setRestDistance</string>
+				<string>getRestDistance</string>
+				<string>getDelta</string>
+				<string>ofxSpringSystem</string>
+				<string>addSpring</string>
+				<string>getSpring</string>
+				<string>ofxSuperShape</string>
+				<string>setA</string>
+				<string>setB</string>
+				<string>setM</string>
+				<string>setN1</string>
+				<string>setN2</string>
+				<string>setN3</string>
+				<string>ofxSwarmBehavior</string>
+				<string>ofxTrailParticle</string>
+				<string>ofxVerletSolver</string>
+				<string>ofxJitterNetworkSender</string>
+				<string>sendFrame</string>
+				<string>sendText</string>
+				<string>ofxKinect</string>
+				<string>setRegistration</string>
+				<string>getDistanceAt</string>
+				<string>getWorldCoordinateAt</string>
+				<string>getColorAt</string>
+				<string>getRawAccel</string>
+				<string>getMksAccel</string>
+				<string>getAccelPitch</string>
+				<string>getAccelRoll</string>
+				<string>getDepthPixels</string>
+				<string>getRawDepthPixels</string>
+				<string>getDistancePixels</string>
+				<string>getDepthPixelsRef</string>
+				<string>getRawDepthPixelsRef</string>
+				<string>getDistancePixelsRef</string>
+				<string>getDepthTextureReference</string>
+				<string>enableDepthNearValueWhite</string>
+				<string>isDepthNearValueWhite</string>
+				<string>setDepthClipping</string>
+				<string>getNearClipping</string>
+				<string>getFarClipping</string>
+				<string>setCameraTiltAngle</string>
+				<string>getCurrentCameraTiltAngle</string>
+				<string>getTargetCameraTiltAngle</string>
+				<string>setLed</string>
+				<string>drawDepth</string>
+				<string>getDeviceId</string>
+				<string>getSerial</string>
+				<string>numTotalDevices</string>
+				<string>numAvailableDevices</string>
+				<string>numConnectedDevices</string>
+				<string>isDeviceConnected</string>
+				<string>nextAvailableId</string>
+				<string>nextAvailableSerial</string>
 				<string>ofxGetDateTimeAsString</string>
 				<string>ofxMD5</string>
+				<string>ofxOpticalFlowLK</string>
+				<string>getVelAtNorm</string>
+				<string>getVelAtPixel</string>
+				<string>drawColored</string>
+				<string>setMirror</string>
+				<string>isInitialized</string>
+				<string>getPyramidScale</string>
+				<string>getPyramidLevels</string>
+				<string>getWindowSize</string>
+				<string>getIterationsPerLevel</string>
+				<string>getExpansionArea</string>
+				<string>getExpansionSigma</string>
+				<string>getFlowFeedback</string>
+				<string>getGaussianFiltering</string>
+				<string>setPyramidScale</string>
+				<string>setPyramidLevels</string>
+				<string>setWindowSize</string>
+				<string>setIterationsPerLevel</string>
+				<string>setExpansionArea</string>
+				<string>setExpansionSigma</string>
+				<string>setFlowFeedback</string>
+				<string>setGaussianFiltering</string>
+				<string>ofxPBO</string>
+				<string>ofxPBOVideoPlayer</string>
+				<string>ofxQRCodeGenerator</string>
+				<string>generate</string>
+				<string>ofxQTKitAVScreenRecorder</string>
+				<string>exit</string>
+				<string>initAudio</string>
+				<string>initAVRecording</string>
+				<string>startNewRecording</string>
+				<string>finishMovie</string>
+				<string>addFrame</string>
+				<string>listAudioDevices</string>
+				<string>listAudioCodecs</string>
+				<string>getIsRecording</string>
+				<string>ofxSlitScan</string>
+				<string>setDelayMap</string>
+				<string>addImage</string>
+				<string>getOutputImage</string>
+				<string>getDelayMap</string>
+				<string>pixelsForFrame</string>
+				<string>setCapacity</string>
+				<string>setTimeDelayAndWidth</string>
+				<string>setTimeDelay</string>
+				<string>setTimeWidth</string>
+				<string>setBlending</string>
+				<string>toggleBlending</string>
+				<string>getTimeDelay</string>
+				<string>getTimeWidth</string>
+				<string>getCapacity</string>
+				<string>isBlending</string>
 				<string>ofxSubtitles</string>
-				<string>setScreen</string>
 				<string>save</string>
 				<string>add</string>
 				<string>getHowMany</string>
@@ -1255,14 +1589,11 @@
 				<string>loadfont</string>
 				<string>setScreen</string>
 				<string>ofxSyphonClient</string>
-				<string>ofxSyphonServer</string>
 				<string>setServerName</string>
-				<string>setName</string>
-				<string>getName</string>
+				<string>ofxSyphonServer</string>
 				<string>publishScreen</string>
 				<string>publishTexture</string>
 				<string>ofxTextBlock</string>
-				<string>init</string>
 				<string>setText</string>
 				<string>wrapTextX</string>
 				<string>wrapTextArea</string>
@@ -1271,21 +1602,35 @@
 				<string>drawRight</string>
 				<string>drawJustified</string>
 				<string>forceScale</string>
+				<string>ofxThermitrack</string>
+				<string>flushCameraBuffer</string>
+				<string>getVersion</string>
+				<string>setBaudRate</string>
+				<string>factoryReset</string>
+				<string>clearRequestedPacketTypes</string>
+				<string>addRequestedPacketType</string>
+				<string>updateRequestedPacketTypeOnCamera</string>
+				<string>setRequestedPacketTypeNone</string>
+				<string>getStatus</string>
+				<string>isCamOK</string>
+				<string>isSerialOK</string>
+				<string>setDefaultPacket</string>
+				<string>setDefaultPacketNone</string>
+				<string>setParameters</string>
+				<string>sendPacketType</string>
+				<string>getPackets</string>
+				<string>waitForPackets</string>
+				<string>ofxThermitrackImage</string>
 				<string>ofxTrueTypeFontUC</string>
-				<string>getNumMaxCharacters</string>
-				<string>setNumMaxCharacters</string>
 				<string>ofxTwitter</string>
-				<string>setup</string>
 				<string>startTwitterQuery</string>
 				<string>getResponse</string>
 				<string>getTotalResponse</string>
-				<string>clear</string>
 				<string>ofxTweet</string>
 				<string>getTitle</string>
 				<string>getLink</string>
 				<string>getDate</string>
 				<string>getUpdated</string>
-				<string>getID</string>
 				<string>getLanguage</string>
 				<string>getAuthorName</string>
 				<string>getAvatar</string>
@@ -1293,9 +1638,7 @@
 				<string>ofxVectorField</string>
 				<string>deallocate</string>
 				<string>setFromImage</string>
-				<string>randomize</string>
 				<string>animate</string>
-				<string>getVector</string>
 				<string>getVectorInterpolated</string>
 				<string>bias</string>
 				<string>smudge</string>
@@ -1304,28 +1647,91 @@
 				<string>gaMouseY</string>
 				<string>gaSystem</string>
 				<string>gaLog</string>
+				<string>gaImportFile</string>
+				<string>gaDataPath</string>
 				<string>gaSendingOscTo</string>
 				<string>gaGetFrameNum</string>
-				<string>gaImportFile</string>
+				<string>gaGuiLoadXML</string>
+				<string>gaGuiToggle</string>
+				<string>gaGuiPrevPage</string>
+				<string>gaGuiNextPage</string>
+				<string>gaGuiDraw</string>
+				<string>gaGuiSetPage</string>
+				<string>gaGuiAddFPS</string>
+				<string>gaGuiAddTitle</string>
+				<string>gaGuiAddPage</string>
+				<string>gaGuiAddSliderInt</string>
+				<string>gaGuiAddSliderFloat</string>
+				<string>gaGuiAddToggle</string>
+				<string>gaGuiAddButton</string>
 				<string>gaStringReplace</string>
 				<string>gaDrawString</string>
 				<string>gaBackground</string>
 				<string>gaCameraTexture</string>
-				<string>gaOniTexture</string>
 				<string>gaCameraPixels</string>
 				<string>gaCameraPixelsRef</string>
 				<string>gaSaveFrame</string>
+				<string>gaGetOutputPixels</string>
+				<string>gaGetOutputTexture</string>
 				<string>gaDrawAxis</string>
 				<string>gaDrawXAxis</string>
 				<string>gaDrawYAxis</string>
 				<string>gaDrawZAxis</string>
-				<string>gaPlayTimeline</string>
-				<string>gaStopTimeline</string>
-				<string>gaSetTimelineFrames</string>
-				<string>gaSetTimelineLoop</string>
-				<string>gaAddTimelineKeyframes</string>
-				<string>gaGetTimelineValue</string>
-				<string>gaGetTimelineTrigger</string>
+				<string>gaGaussianFn</string>
+				<string>gaTimelineSetup</string>
+				<string>gaTimelineSetPageName</string>
+				<string>gaTimelineSetCurrentPage</string>
+				<string>gaTimelinePlay</string>
+				<string>gaTimelineStop</string>
+				<string>gaTimelineDurationInFrames</string>
+				<string>gaTimelineDurationInSeconds</string>
+				<string>gaTimelineEnableKeySnap</string>
+				<string>gaTimelineSetLoopType</string>
+				<string>gaTimelineSetFrameRate</string>
+				<string>gaTimelineSetBPM</string>
+				<string>gaTimelineEnableBPMSnap</string>
+				<string>gaTimelineShowBPMGrid</string>
+				<string>gaTimelineSetTimecontrolTrack</string>
+				<string>gaTimelineBringTrackToTop</string>
+				<string>gaTimelineBringVideoTrackToTop</string>
+				<string>gaTimelineBringAudioTrackToTop</string>
+				<string>gaTimelineAddPage</string>
+				<string>gaTimelineAddCurves</string>
+				<string>gaTimelineAddBangs</string>
+				<string>gaTimelineAddFlags</string>
+				<string>gaTimelineAddColors</string>
+				<string>gaTimelineAddLFO</string>
+				<string>gaTimelineAddSwitches</string>
+				<string>gaTimelineAddNotes</string>
+				<string>gaTimelineAddAudioTrack</string>
+				<string>gaTimelineAddVideoTrack</string>
+				<string>gaTimelineAddCameraTrack</string>
+				<string>gaTimelineGetValue</string>
+				<string>gaTimelineGetSwitch</string>
+				<string>gaTimelineGetNote</string>
+				<string>gaTimelineGetNotePitch</string>
+				<string>gaTimelineGetNoteVelocity</string>
+				<string>gaTimelineGetColor</string>
+				<string>gaTimelineGetBang</string>
+				<string>gaTimelineGetINFrame</string>
+				<string>gaTimelineSetINFrame</string>
+				<string>gaTimelineGetOUTFrame</string>
+				<string>gaTimelineSetOUTFrame</string>
+				<string>gaTimelineClearINOUT</string>
+				<string>gaTimelineGetVideoTrack</string>
+				<string>gaTimelineGetAudioTrack</string>
+				<string>gaTimelineGetCameraTrack</string>
+				<string>gaTimelineSetCameraTrackCamera</string>
+				<string>gaTimelineGetAudioTrackDuration</string>
+				<string>gaTimelineGetAudioTrackFFTSize</string>
+				<string>gaTimelineGetAudioTrackFFTBin</string>
+				<string>gaTimelineGetVideoTrackPosition</string>
+				<string>gaTimelineGetVideoTrackDuration</string>
+				<string>gaTimelineGetVideoTrackNumFrames</string>
+				<string>gaTimelineGetVideoTrackCurrentFrame</string>
+				<string>gaTimelineVideoPlayerNextFrame</string>
+				<string>gaTimelineVideoPlayerUpdate</string>
+				<string>gaTimelineVideoPlayerDraw</string>
 				<string>gaGetVolume</string>
 				<string>gaGetPitch</string>
 				<string>gaGetBin</string>
@@ -1334,11 +1740,11 @@
 				<string>gaGetOutputBuffer</string>
 				<string>gaGetSoundSpectrum</string>
 				<string>gaWave</string>
-				<string>gaWonoWave</string>
+				<string>gaMonoWave</string>
 				<string>gaWaveVolume</string>
 				<string>gaWaveFrequency</string>
 				<string>gaWaveType</string>
-				<string>gaWaveTuning</string>
+				<string>gaWaveTuning,</string>
 				<string>gaNToF</string>
 				<string>gaStartRec</string>
 				<string>gaStopRec</string>
@@ -1352,70 +1758,69 @@
 				<string>gaGetMidiChannel</string>
 				<string>gaGetMidiByteOne</string>
 				<string>gaGetMidiByteTwo</string>
+				<string>gaGetMidiPitch</string>
+				<string>gaGetMidiVelocity</string>
 				<string>gaGetMidiValue</string>
 				<string>gaGetOSCMessage</string>
 				<string>gaGetOSCValue</string>
+				<string>gaGetOSCNumVars</string>
 				<string>gaSetOSCMessage</string>
 				<string>gaSetOSCValue</string>
 				<string>gaSetOSCActive</string>
-				<string>gaOniBlobs</string>
-				<string>gaOniBlobX</string>
-				<string>gaOniBlobY</string>
-				<string>gaOniBlobW</string>
-				<string>gaOniBlobH</string>
-				<string>gaOniBlobAngle</string>
-				<string>gaOniBlobContourSize</string>
-				<string>gaOniBlobCPointX</string>
-				<string>gaOniBlobCPointY</string>
-				<string>gaOniBlobGeometrySize</string>
-				<string>gaOniBlobGLineX1</string>
-				<string>gaOniBlobGLineY1</string>
-				<string>gaOniBlobGLineX2</string>
-				<string>gaOniBlobGLineY2</string>
-				<string>gaOniOpticalFlowX</string>
-				<string>gaOniOpticalFlowY</string>
-				<string>gaOniOpticalFlowVX</string>
-				<string>gaOniOpticalFlowVY</string>
-				<string>gaOniTrigger</string>
-				<string>gaOniHandX</string>
-				<string>gaOniHandY</string>
-				<string>gaOniHandZ</string>
-				<string>gaOniAccelerometerX</string>
-				<string>gaOniAccelerometerY</string>
-				<string>gaOniAccelerometerZ</string>
-				<string>gaOniTilt</string>
-				<string>gaCaptureBackground</string>
-				<string>gaCamMotionQ</string>
-				<string>gaCamMotionX</string>
-				<string>gaCamMotionY</string>
-				<string>gaCamBlobs</string>
-				<string>gaCamBlobX</string>
-				<string>gaCamBlobY</string>
-				<string>gaCamBlobW</string>
-				<string>gaCamBlobH</string>
-				<string>gaCamBlobAngle</string>
-				<string>gaCamBlobContourSize</string>
-				<string>gaCamBlobCPointX</string>
-				<string>gaCamBlobCPointY</string>
-				<string>gaCamBlobGeometrySize</string>
-				<string>gaCamBlobGLineX1</string>
-				<string>gaCamBlobGLineY1</string>
-				<string>gaCamBlobGLineX2</string>
-				<string>gaCamBlobGLineY2</string>
-				<string>gaCamOpticalFlowX</string>
-				<string>gaCamOpticalFlowY</string>
-				<string>gaCamOpticalFlowVX</string>
-				<string>gaCamOpticalFlowVY</string>
-				<string>gaCamHaars</string>
-				<string>gaCamHaarX</string>
-				<string>gaCamHaarY</string>
-				<string>gaCamHaarW</string>
-				<string>gaCamHaarH</string>
-				<string>gaCamTrigger</string>
+				<string>pdAddToSearchPath</string>
+				<string>pdOpenPatch</string>
+				<string>pdClosePatch</string>
+				<string>pdStart</string>
+				<string>pdStop</string>
+				<string>pdComputeAudio</string>
+				<string>pdSendBang</string>
+				<string>pdSendFloat</string>
+				<string>pdSendSymbol</string>
+				<string>pdStartMessage</string>
+				<string>pdAddFloat</string>
+				<string>pdAddSymbol</string>
+				<string>pdFinishList</string>
+				<string>pdFinishMessage</string>
+				<string>pdSendNoteOn</string>
+				<string>pdSendControlChange</string>
+				<string>pdSendProgramChange</string>
+				<string>pdSendPitchBend</string>
+				<string>pdSendAftertouch</string>
+				<string>pdSendPolyAftertouch</string>
+				<string>captureBackground</string>
+				<string>camMotionQ</string>
+				<string>camMotionX</string>
+				<string>camMotionY</string>
+				<string>camBlobs</string>
+				<string>camBlobX</string>
+				<string>camBlobY</string>
+				<string>camBlobW</string>
+				<string>camBlobH</string>
+				<string>camBlobAngle</string>
+				<string>camBlobContourSize</string>
+				<string>camBlobCPointX</string>
+				<string>camBlobCPointY</string>
+				<string>camBlobGeometrySize</string>
+				<string>camBlobGLineX1</string>
+				<string>camBlobGLineY1</string>
+				<string>camBlobGLineX2</string>
+				<string>camBlobGLineY2</string>
+				<string>camOpticalFlowX</string>
+				<string>camOpticalFlowY</string>
+				<string>camOpticalFlowVX</string>
+				<string>camOpticalFlowVY</string>
+				<string>camHaars</string>
+				<string>camHaarX</string>
+				<string>camHaarY</string>
+				<string>camHaarW</string>
+				<string>camHaarH</string>
+				<string>camTrigger</string>
 				<string>gaSerialDevice</string>
 				<string>gaAnalogRead</string>
 				<string>gaDigitalRead</string>
 				<string>gaDigitalWrite</string>
+				<string>gaSetServoPin</string>
+				<string>gaServoWrite</string>
 			</array>
 			<key>Type</key>
 			<string>Keywords</string>

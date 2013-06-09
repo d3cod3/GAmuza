@@ -287,11 +287,8 @@ class ofGamuzaWrapper{
 		 def("ofLerpRadians", &ofLerpRadians),
 		 def("ofAngleDifferenceDegrees", &ofAngleDifferenceDegrees),
 		 def("ofAngleDifferenceRadians", &ofAngleDifferenceRadians),
-         //def("ofAngleSumRadians", (float(*)(float,float)) &ofAngleSumRadians),
 		 def("ofWrapRadians", &ofWrapRadians),
 		 def("ofWrapDegrees", &ofWrapDegrees),
-         def("ofRandomWidth", &ofRandomWidth),
-         def("ofRandomHeight", &ofRandomHeight),
 		 def("ofNoise", (float(*)(float)) &ofNoise),
 		 def("ofNoise", (float(*)(float,float)) &ofNoise),
 		 def("ofNoise", (float(*)(float,float,float)) &ofNoise),
@@ -1262,11 +1259,11 @@ class ofGamuzaWrapper{
          def("ofHexToString", (string(*)(const string&)) &ofHexToString),
 		 def("ofStringReplace", (void(*)(string&, string, string)) &ofStringReplace),
 		 def("ofIsStringInString", (bool(*)(string, string)) &ofIsStringInString),
-		 def("ofGetFrameRate", &ofGetFrameRate),
-		 def("ofSetFrameRate", &ofSetFrameRate),
+		 //def("ofGetFrameRate", &ofGetFrameRate),
+		 //def("ofSetFrameRate", &ofSetFrameRate),
 		 def("ofSleepMillis", &ofSleepMillis),
-		 def("ofGetLastFrameTime", &ofGetLastFrameTime),
-		 def("ofGetFrameNum", &ofGetFrameNum),
+		 //def("ofGetLastFrameTime", &ofGetLastFrameTime),
+		 //def("ofGetFrameNum", &ofGetFrameNum),
 
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofThread
@@ -1969,7 +1966,7 @@ class ofGamuzaWrapper{
 		 .def_readonly("height", &ofRectangle::height),
          
          ///////////////////////////////////////////////////////////////////////////////////
-		 /// \section ofPoint --  Use ofVec2f instead
+		 /// \section ofPoint --  Use ofVec3f instead
          
          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 /// \section events [ofKeyEventArgs, ofAudioEventArgs, ofCoreEvents, ofEventArgs, ofEvent, ofMouseEventArgs, ofResizeEventArgs, ofEvents, ofEventUtils]
@@ -1978,12 +1975,12 @@ class ofGamuzaWrapper{
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofEvents
          
-         def("ofGetMousePressed", &ofGetMousePressed),
+         /*def("ofGetMousePressed", &ofGetMousePressed),
          def("ofGetKeyPressed", &ofGetKeyPressed),
          def("ofGetMouseX", &ofGetMouseX),
          def("ofGetMouseY", &ofGetMouseY),
          def("ofGetPreviousMouseX", &ofGetPreviousMouseX),
-         def("ofGetPreviousMouseY", &ofGetPreviousMouseY),
+         def("ofGetPreviousMouseY", &ofGetPreviousMouseY),*/
          
          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 /// \section sound [ofSoundPlayer, ofSoundStream]
@@ -2882,7 +2879,7 @@ class ofGamuzaWrapper{
          class_<ofxCLD>("ofxCLD")
          .def(constructor<>())
          .def("setup", (void(ofxCLD::*)(int,int)) &ofxCLD::setup)
-         .def("getCLDTextureRef", (ofTexture&(ofxCLD::*)(unsigned char*,int,float,float,float,float)) &ofxCLD::getCLDTextureRef),
+         .def("getCLDTextureRef", (ofTexture&(ofxCLD::*)(ofPixels,int,float,float,float,float)) &ofxCLD::getCLDTextureRef),
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
@@ -5009,7 +5006,6 @@ class ofGamuzaWrapper{
 		 def("gaBackground", (void(*)(float,float)) &gaBackground),
 		 def("gaBackground", (void(*)(float,float,float,float)) &gaBackground),
 		 def("gaCameraTexture", (ofTexture(*)(int)) &gaGetWebcamTexture),
-         def("gaOniTexture", (ofTexture(*)(void)) &gaGetONITexture),
          def("gaCameraPixels", (unsigned char*(*)(int)) &gaGetWebcamPixels),
          def("gaCameraPixelsRef", (ofPixelsRef(*)(int)) &gaGetWebcamPixelsRef),
          def("gaSaveFrame", (void(*)(string)) &gaSaveFrame),
@@ -5157,37 +5153,10 @@ class ofGamuzaWrapper{
          def("pdSendAftertouch", (void(*)(int,int)) &pdSendAftertouch),
          def("pdSendPolyAftertouch", (void(*)(int,int,int)) &pdSendPolyAftertouch),
 		 
-		 ///////////////////////////////
-		 // openni sensor kinect
-		 /*def("oniBlobs", (int(*)(void)) &gaONIRunningBlob),
-		 def("oniBlobX", (float(*)(int)) &gaONIBlobX),
-		 def("oniBlobY", (float(*)(int)) &gaONIBlobY),
-		 def("oniBlobW", (float(*)(int)) &gaONIBlobW),
-		 def("oniBlobH", (float(*)(int)) &gaONIBlobH),
-		 def("oniBlobAngle", (float(*)(int)) &gaONIBlobAngle),
-		 def("oniBlobContourSize", (int(*)(int)) &gaONIBlobContourSize),
-         def("oniBlobCPointX", (float(*)(int,int)) &gaONIBlobCPointX),
-         def("oniBlobCPointY", (float(*)(int,int)) &gaONIBlobCPointY),
-		 def("oniBlobGeometrySize", (int(*)(int)) &gaONIBlobGeometrySize),
-         def("oniBlobGLineX1", (float(*)(int,int)) &gaONIBlobGLineX1),
-         def("oniBlobGLineY1", (float(*)(int,int)) &gaONIBlobGLineY1),
-         def("oniBlobGLineX2", (float(*)(int,int)) &gaONIBlobGLineX2),
-         def("oniBlobGLineY2", (float(*)(int,int)) &gaONIBlobGLineY2),
-		 def("oniOpticalFlowX", (float(*)(int)) &gaONIOpticalFlowX),
-         def("oniOpticalFlowY", (float(*)(int)) &gaONIOpticalFlowY),
-         def("oniOpticalFlowVX", (float(*)(int)) &gaONIOpticalFlowVX),
-         def("oniOpticalFlowVY", (float(*)(int)) &gaONIOpticalFlowVY),
-		 def("oniTrigger", (bool(*)(int)) &gaONITrigger),
-		 def("oniHandX", (float(*)(int)) &gaONIHandX),
-         def("oniHandY", (float(*)(int)) &gaONIHandY),
-         def("oniHandZ", (float(*)(int)) &gaONIHandZ),
-		 def("oniAccelerometerX", (float(*)(void)) &gaONIAccelerometerX),
-         def("oniAccelerometerY", (float(*)(void)) &gaONIAccelerometerY),
-         def("oniAccelerometerZ", (float(*)(void)) &gaONIAccelerometerZ),
-		 def("oniTilt", (float(*)(void)) &gaONITilt),
 		 
 		 /////////////////////////////// (COMPUTER VISION Module)
 		 // webcam tracking
+         /*
          def("captureBackground", (void(*)(int)) &gaCaptureBackground),
 		 def("camMotionQ", (float(*)(int)) &gaCamMotionQ),
 		 def("camMotionX", (float(*)(int)) &gaCamMotionX),

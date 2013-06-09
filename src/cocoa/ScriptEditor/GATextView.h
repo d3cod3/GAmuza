@@ -37,6 +37,7 @@
 -(NSRect)marginRect;
 
 // Auto completion
+-(void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)flag;
 -(NSArray*)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger*)index;
 -(void)loadCompletionDict;
 

@@ -233,9 +233,26 @@
     [super keyUp:event];
 }
 
+-(void)insertCompletion:(NSString *)word forPartialWordRange:(NSRange)charRange movement:(NSInteger)movement isFinal:(BOOL)flag{
+    // suppress completion if user types a space
+    if (movement == NSRightTextMovement) return;
+    
+    [super insertCompletion:word forPartialWordRange:charRange movement:movement isFinal:flag];
+    
+}
+
 - (NSArray*)completionsForPartialWordRange:(NSRange)charRange indexOfSelectedItem:(NSInteger*)index{
 	if(completionDict != NULL){
+        NSString*   finalQuery;
+        NSString*   preQuery;
         NSString* queryStr = [(NSAttributedString *)[self attributedSubstringFromRange:charRange] string];
+        if([queryStr rangeOfString:@":"].location != NSNotFound){
+            preQuery = [[[queryStr componentsSeparatedByString:@":"] objectAtIndex:0] stringByAppendingString:@":"];
+            finalQuery = [[queryStr componentsSeparatedByString:@":"] objectAtIndex:1];
+        }else{
+            finalQuery = queryStr;
+        }
+        
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"description" ascending:YES];
         NSArray *sortedArray = [[completionDict allObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
         // create an NSArray containing all object names which match the query
@@ -244,8 +261,13 @@
         NSEnumerator * enumerator = [sortedArray objectEnumerator];
         NSString* element;
         while(element = (NSString*)[enumerator nextObject]){
-            if([element hasPrefix: queryStr]){
-                [completions addObject: element];
+            if([element hasPrefix: finalQuery]){
+                if([queryStr rangeOfString:@":"].location != NSNotFound && [[element componentsSeparatedByString:@":"] count] > 1){
+                    NSString* finalElement = [preQuery stringByAppendingString:[[element componentsSeparatedByString:@":"] objectAtIndex:1]];
+                    [completions addObject: finalElement];
+                }else{
+                    [completions addObject: element];
+                }
             }
         }
 		return completions;
