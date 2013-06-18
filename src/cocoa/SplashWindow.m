@@ -35,4 +35,8 @@
     return YES;
 }
 
+- (void) mouseDown: (NSEvent*) event{
+    [self orderOut:self];
+}
+
 @end
