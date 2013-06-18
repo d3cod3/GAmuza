@@ -56,9 +56,11 @@ Due to a lot of modification applied to most of them, are all included in this r
 * AppKit.framework
 * ApplicationServices.framework
 * AudioToolbox.framework
+* AudioUnit.framework
 * Carbon.framework
 * Cocoa.framework
 * CoreAudio.framework
+* CoreAudioKit.framework
 * CoreData.framework
 * CoreFoundation.framework
 * CoreMIDI.framework

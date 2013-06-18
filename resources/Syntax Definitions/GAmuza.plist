@@ -1787,6 +1787,10 @@
 				<string>pdSendPitchBend</string>
 				<string>pdSendAftertouch</string>
 				<string>pdSendPolyAftertouch</string>
+				<string>auAddPlugin</string>
+				<string>auAddPluginFromPreset</string>
+				<string>auPluginSetParam</string>
+				<string>auListPlugins</string>
 				<string>captureBackground</string>
 				<string>camMotionQ</string>
 				<string>camMotionX</string>

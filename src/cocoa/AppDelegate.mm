@@ -325,7 +325,7 @@
         NSScreen *screen = [screenArray objectAtIndex: index];
         screenRect = [screen visibleFrame];
         
-        NSString *tempMessage = [NSString stringWithFormat:@"Screen %i @ %ix%i", index+1, (int)screenRect.size.width, (int)screenRect.size.height];
+        NSString *tempMessage = [NSString stringWithFormat:@"\n\nScreen %i @ %ix%i", index+1, (int)screenRect.size.width, (int)screenRect.size.height];
         [self sendGALog:tempMessage];
     }
     

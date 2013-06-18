@@ -17,12 +17,18 @@ void gamuzaMain::setupAudio(){
 	outputBufferCopy		= new float[audioBufferSize*audioOutputChannels];
     recChannel              = 0;
     recordingInput          = false;
+    
+    // Audio Unit AU plugins setup
+    ofxAUPlugin::init(audioSamplingRate,audioBufferSize);
+    gamuzaAUList = ofxAUPlugin::getPluginsList();
 	
+    // Sound Stream Init
 	soundStream.setDeviceID(audioDevID);
     soundStream.setInput(this);
 	soundStream.setOutput(this);
 	soundStream.setup(audioOutputChannels,audioInputChannels,audioSamplingRate,audioBufferSize, audioNumBuffers);
     
+    // Pure Data libPD Init
     int ticksPerBuffer = (int)audioBufferSize/64;
     pd.init(audioOutputChannels,audioInputChannels,audioSamplingRate,ticksPerBuffer);
 	
@@ -33,21 +39,26 @@ void gamuzaMain::setupAudio(){
         }
     }
     
-    if(audioActivated){
-        soundStream.start();
-        sendGALog("soundStream STARTED");
+    // ACTIVATE AUDIO STREAMING
+    char _tempString[256];
+    soundStream.start();
+    sendGALog("AUDIO STREAMING STARTED");
+    sendGALog(" ");
+    sendGALog("PURE DATA SYNTHESIS ENGINE STARTED");
+    sendGALog(" ");
+    sendGALog("AUDIO UNIT PLUGINS AVAILABLE");
+    sendGALog(" ");
+    for(unsigned int i = 0; i < gamuzaAUList.size(); i++){
+        string _t = *gamuzaAUList[i];
+        sprintf(_tempString,"%i - %s",i,_t.c_str());
+        sendGALog(_tempString);
         sendGALog(" ");
-        sendGALog("PURE DATA SYNTHESIS ENGINE STARTED");
-        sendGALog(" ");
-        for(unsigned int i = 0; i < audioInputChannels; i++){
-            inputAudioCH[i].computeChannel = true;
-        }
-        computeAudioInput	= true;
-        computeAudioOutput	= true;
-        
-    }else{
-        soundStream.stop();
     }
+    for(unsigned int i = 0; i < audioInputChannels; i++){
+        inputAudioCH[i].computeChannel = true;
+    }
+    computeAudioInput	= true;
+    computeAudioOutput	= true;
 	
 	if(audioOutputChannels > 0){
 		gamuzaDSP.setupDSP(audioOutputChannels);
@@ -84,7 +95,9 @@ void gamuzaMain::audioIn(float * input, int bufferSize, int nChannels){
             
             ///////////////////////////////////////////
             // PD Synthesis Engine
-            pd.audioIn(input, bufferSize, nChannels);
+            if(pdPatches.size() > 0){
+                pd.audioIn(input, bufferSize, nChannels);
+            }
             ///////////////////////////////////////////
             
 			inputBufferCounter++;
@@ -102,13 +115,13 @@ void gamuzaMain::audioOut(float * output, int bufferSize, int nChannels){
 		if(audioOutputChannels > 0){
 			gamuzaDSP.clearBuffer(output, bufferSize);
 			///////////////////////////////////////////
-			// audio synthesis
-			for(int i = 0; i < audioModules.size(); i++){
+			// GA audio synthesis
+			for(unsigned int i = 0; i < audioModules.size(); i++){
 				audioModules[i].addToSoundBuffer(output, bufferSize, gamuzaDSP.numOscInCh);
 			}
             
-            // audio input recordings
-            for(int i = 0; i < inputRecSamples.size(); i++){
+            // GA audio input recordings
+            for(unsigned int i = 0; i < inputRecSamples.size(); i++){
                 if(inputRecSamples[i].getIsPlaying()){
                     inputRecSamples[i].addToSoundBuffer(output, bufferSize);
                 }
@@ -117,8 +130,19 @@ void gamuzaMain::audioOut(float * output, int bufferSize, int nChannels){
 			gamuzaAMP.addToSoundBuffer(output, bufferSize, 1.0);
             
             ///////////////////////////////////////////
-            // PD Synthesis Engine
-            pd.audioOut(output, bufferSize, nChannels);
+            // PD Synthesis Engine (libPD)
+            if(pdPatches.size() > 0){
+                pd.audioOut(output, bufferSize, nChannels);
+            }
+            ///////////////////////////////////////////
+            
+            ///////////////////////////////////////////
+            // Audio Unit AU Plugins effects
+            if(auPlugins.size() > 0){
+                for(unsigned int i = 0; i < auPlugins.size(); i++){
+                    auPlugins.at(i)->process(output,output);
+                }
+            }
             ///////////////////////////////////////////
             
             ///////////////////////////////////////////

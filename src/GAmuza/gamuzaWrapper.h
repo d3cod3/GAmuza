@@ -5153,6 +5153,12 @@ class ofGamuzaWrapper{
          def("pdSendAftertouch", (void(*)(int,int)) &pdSendAftertouch),
          def("pdSendPolyAftertouch", (void(*)(int,int,int)) &pdSendPolyAftertouch),
 		 
+         ///////////////////////////////
+		 // AUDIO UNIT PLUGINS section
+         def("auAddPlugin", (void(*)(string)) &auAddPlugin),
+         def("auAddPluginFromPreset", (void(*)(string)) &auAddPluginFromPreset),
+         def("auPluginSetParam", (void(*)(string,string,float)) &auPluginSetParam),
+         def("auListPlugins", (void(*)(void)) &auListPlugins),
 		 
 		 /////////////////////////////// (COMPUTER VISION Module)
 		 // webcam tracking

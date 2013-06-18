@@ -59,8 +59,8 @@ void gamuzaMain::resetApp(){
 
 //--------------------------------------------------------------
 void gamuzaMain::getScreenInfo(int w, int h){
-    _screenW = w;
-    _screenH = h;
+    mainScreenW = _screenW = w;
+    mainScreenH = _screenH = h;
 }
 
 //--------------------------------------------------------------
@@ -96,21 +96,11 @@ void gamuzaMain::dataInsideBundle(){
 void gamuzaMain::loadGamuzaSettings(){
 	
 	setting_data.loadFile(GAMUZA_SETTINGS);
-    
-    //oscPortField.text        = setting_data.getValue("host_port"," ",0);
-    //oscIPField.text          = setting_data.getValue("host_ip"," ",0);
-    //oscServerPortField.text  = setting_data.getValue("server_port"," ",0);
-    
-    //_scriptFile               = setting_data.getValue("script_file"," ",0);
-    //_videoTestFile            = setting_data.getValue("video_test_file"," ",0);
-    //_haarCascadeFile          = setting_data.getValue("haar_finder_file"," ",0);
 	
 	//////////////////////////////////////////////
 	// get SCREENS settings
-	mainScreenW				= setting_data.getValue("ms_width",0,0);
-	mainScreenH				= setting_data.getValue("ms_height",0,0);
-	projectionScreenW		= setting_data.getValue("ps_width",0,0);
-	projectionScreenH		= setting_data.getValue("ps_height",0,0);
+	projectionScreenW		= setting_data.getValue("GAmuzaSettings:ps_width",0,0);
+	projectionScreenH		= setting_data.getValue("GAmuzaSettings:ps_height",0,0);
 	INVprojectionScreenW	= 1.0f/projectionScreenW;
 	INVprojectionScreenH	= 1.0f/projectionScreenH;
     
@@ -119,33 +109,32 @@ void gamuzaMain::loadGamuzaSettings(){
 	
 	//////////////////////////////////////////////
 	// get AUTOMATION settings
-	autoPilot				= setting_data.getValue("auto_pilot",0,0);
-	autoLoadScript			= setting_data.getValue("autoload_script",0,0);
-	autoScriptFile			= setting_data.getValue("script_file"," ",0);
+	autoPilot				= setting_data.getValue("GAmuzaSettings:auto_pilot",0,0);
+	autoLoadScript			= setting_data.getValue("GAmuzaSettings:autoload_script",0,0);
+	autoScriptFile			= setting_data.getValue("GAmuzaSettings:script_file"," ",0);
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get SENSOR KINECT TRACKING settings
-	useKinectInfrared		= setting_data.getValue("use_infrared",0,0);
-	sensorKinectLedState	= setting_data.getValue("led_state",0,0);
+	useKinectInfrared		= setting_data.getValue("GAmuzaSettings:use_infrared",0,0);
+	sensorKinectLedState	= setting_data.getValue("GAmuzaSettings:led_state",0,0);
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get WEBCAM TRACKING settings
-	trackingActivated		= setting_data.getValue("tracking_activated",0,0);
-	openniActivated			= setting_data.getValue("openni_activated",0,0);
-	useVideoTest			= setting_data.getValue("video_test",0,0);
-	workingW				= setting_data.getValue("capture_width",0,0);
-	workingH				= setting_data.getValue("capture_height",0,0);
+	useVideoTest			= setting_data.getValue("GAmuzaSettings:video_test",0,0);
+    videoTestFile           = setting_data.getValue("GAmuzaSettings:video_test_file"," ",0);
+	workingW				= setting_data.getValue("GAmuzaSettings:capture_width",0,0);
+	workingH				= setting_data.getValue("GAmuzaSettings:capture_height",0,0);
 	totPixels				= workingW*workingH;
 	
-	haarFinderFile			= setting_data.getValue("haar_finder_file"," ",0);
+	haarFinderFile			= setting_data.getValue("GAmuzaSettings:haar_finder_file"," ",0);
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get MAPPING settings
-	gridRes					= setting_data.getValue("grid_res",0,0);
-	fboNumSamples			= setting_data.getValue("fbo_num_samples",0,0);
+	gridRes					= setting_data.getValue("GAmuzaSettings:grid_res",0,0);
+	fboNumSamples			= setting_data.getValue("GAmuzaSettings:fbo_num_samples",0,0);
 	
 	if(gridRes > 20){
 		gridRes = 20;
@@ -157,38 +146,31 @@ void gamuzaMain::loadGamuzaSettings(){
 	
 	//////////////////////////////////////////////
 	// get AUDIO settings
-	audioActivated			= setting_data.getValue("audio_activated",0,0);
-	audioDevID				= setting_data.getValue("audio_Dev_ID",0,0);
-	audioOutputChannels		= setting_data.getValue("output_ch",0,0);
-	audioInputChannels		= setting_data.getValue("input_ch",0,0);
-	audioSamplingRate		= setting_data.getValue("sampling_rate",0,0);
-	audioBufferSize			= setting_data.getValue("buffer_size",0,0);
-	audioNumBuffers			= setting_data.getValue("num_buffers",0,0);
-	fftWindowUse			= setting_data.getValue("fft_window",0,0);
-	
-	if(!audioActivated){
-		audioInputChannels = 0;
-		audioOutputChannels = 0;
-	}
+	audioDevID				= setting_data.getValue("GAmuzaSettings:audio_Dev_ID",0,0);
+	audioOutputChannels		= setting_data.getValue("GAmuzaSettings:output_ch",0,0);
+	audioInputChannels		= setting_data.getValue("GAmuzaSettings:input_ch",0,0);
+	audioSamplingRate		= setting_data.getValue("GAmuzaSettings:sampling_rate",0,0);
+	audioBufferSize			= setting_data.getValue("GAmuzaSettings:buffer_size",0,0);
+	audioNumBuffers			= setting_data.getValue("GAmuzaSettings:num_buffers",0,0);
+	fftWindowUse			= setting_data.getValue("GAmuzaSettings:fft_window",0,0);
 	//////////////////////////////////////////////
     
     //////////////////////////////////////////////
 	// get MIDI settings
-    midiPortNumber          = setting_data.getValue("midi_port",0,0);
+    midiPortNumber          = setting_data.getValue("GAmuzaSettings:midi_port",0,0);
     //////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get ARDUINO settings
-	arduinoActivated		= setting_data.getValue("arduino_activated",0,0);
-	serialDevice			= setting_data.getValue("serial_device_name"," ",0);
-	baudRate				= setting_data.getValue("baud_rate",0,0);
+	serialDevice			= setting_data.getValue("GAmuzaSettings:serial_device_name"," ",0);
+	baudRate				= setting_data.getValue("GAmuzaSettings:baud_rate",0,0);
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get OSC settings
-	host_number				= setting_data.getValue("host_ip"," ",0);
-	host_port				= setting_data.getValue("host_port"," ",0);
-    server_port             = setting_data.getValue("server_port"," ",0);
+	host_number				= setting_data.getValue("GAmuzaSettings:host_ip"," ",0);
+	host_port				= setting_data.getValue("GAmuzaSettings:host_port"," ",0);
+    server_port             = setting_data.getValue("GAmuzaSettings:server_port"," ",0);
 	//////////////////////////////////////////////
     
 }

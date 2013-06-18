@@ -37,9 +37,7 @@ void gamuzaMain::setupScripting(){
 void gamuzaMain::updateScripting(){
     ofPushView();
     ofPushMatrix();
-    ofPushStyle();
         lua.scriptUpdate();
-    ofPopStyle();
     ofPopMatrix();
     ofPopView();
 }
@@ -86,6 +84,15 @@ void gamuzaMain::loadScript(string _script){
     }
     pd.clearSearchPath();
     pd.stop();
+    
+    // reset AU Plugins
+    for(int i=0;i<auPlugins.size();i++){
+        // release plugins
+        auPlugins[i]->clear();
+    }
+    if(auPlugins.size() > 0){
+        auPlugins.clear();
+    }
     
 	// init the lua state
 	lua.scriptExit();
@@ -137,6 +144,16 @@ void gamuzaMain::renderScript(string & _script){
     }
     pd.clearSearchPath();
     pd.stop();
+    
+    // reset AU Plugins
+    for(int i=0;i<auPlugins.size();i++){
+        // release plugins
+        auPlugins[i]->clear();
+        auPlugins[i]->clearPluginUI();
+    }
+    if(auPlugins.size() > 0){
+        auPlugins.clear();
+    }
 	
 	// init the lua state
 	lua.scriptExit();

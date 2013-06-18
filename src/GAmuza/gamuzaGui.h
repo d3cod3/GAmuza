@@ -38,7 +38,6 @@ void gamuzaMain::drawGui(){
 //--------------------------------------------------------------
 void gamuzaMain::gamuzaFullscreen(){
 	
-    //ofToggleFullscreen();
 	if(isFullscreen){
 		isFullscreen = false;
         if(projectionScreenW > MAIN_WINDOW_W){

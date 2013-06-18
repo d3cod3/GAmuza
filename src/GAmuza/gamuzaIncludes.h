@@ -58,6 +58,7 @@
 // AUDIO
 #include "ofxPd.h"
 #include "ofxAudioSample.h"			// reading&writing audio sample from hard drive with libsndfile
+#include "ofxAUPlugin.h"
 
 // MIDI
 #include "ofxMidi.h"                // MIDI input/output

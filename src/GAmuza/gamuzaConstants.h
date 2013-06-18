@@ -7,10 +7,8 @@
 // SETTINGS
 #define	GAMUZA_LIVECODING_FONT          "fonts/Anonymous_Pro_B.ttf"
 #define	GAMUZA_SETTINGS					"settings/gamuzaSettings.xml"
-#define	GAMUZA_RECEIVING_PORT_XML		"settings/receivingPort.xml"
 #define	GAMUZAGUI_SETTINGS				"settings/guiSettings.xml"
 #define	GAMUZA_SPLASH					"img/gamuza04_splash.png"
-#define	GAMUZA_LOGO						"img/gamuza003_logo.png"
 #define GAMUZA_VIDEOTEST				"videos/video.mov"
 #define GAMUZA_MAPPING_FILE				"settings/projection/mapping.xml"
 #define GAMUZA_SHADER					"shaders/gamuzaShader"
@@ -19,9 +17,6 @@
 // EXTERNAL TEXT EDITOR COMUNICATION
 #define GAMUZA_CONSOLE_LOG              0
 #define GAMUZA_CONSOLE_ERROR            1
-#define GAMUZA_RECEIVING_SCRIPT_ADDRESS "/GAmuzaLiveScript"
-#define GAMUZA_RECEIVING_SCRIPT_NAME    "/GAmuzaScriptName"
-#define GAMUZA_RECEIVING_WINDOW_MODE    "/GAmuzaWindowMode"
 
 // OSC
 #define GA_OSC_MAX_SENDING_VARIABLES    1000

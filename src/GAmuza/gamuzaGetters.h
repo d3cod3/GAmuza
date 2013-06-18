@@ -146,7 +146,7 @@ void gaBackground(float r, float g, float b, float a){
 }
 
 ofTexture gaGetWebcamTexture(){
-	if(gapp->trackingActivated && gapp->inputCam.captureVideo){
+	if(gapp->inputCam.captureVideo){
 		return gapp->inputCam.camTexture;
 	}else{
 		return gapp->emptyTexture;
@@ -162,13 +162,13 @@ ofTexture gaGetONITexture(){
 }
 
 unsigned char* gaGetWebcamPixels(){
-	if(gapp->trackingActivated && gapp->inputCam.captureVideo){
+	if(gapp->inputCam.captureVideo){
 		return gapp->inputCam.vidGrabber.getPixels();
 	}
 }
 
 ofPixelsRef gaGetWebcamPixelsRef(){
-	if(gapp->trackingActivated && gapp->inputCam.captureVideo){
+	if(gapp->inputCam.captureVideo){
 		return gapp->inputCam.vidGrabber.getPixelsRef();
 	}
 }
@@ -574,6 +574,40 @@ void gaSetOSCActive(string _oscLabel,bool _value){
 }
 
 //--------------------------------------------------------------
+// AUDIO UNIT AU PLUGINS EFFECTS --> ofxAUPlugin addon
+//--------------------------------------------------------------
+void auAddPlugin(string _filter){
+    ofxAUPlugin     *newPlugin = new ofxAUPlugin();
+    
+    newPlugin->loadPlugin(_filter);
+    gapp->auPlugins.push_back(newPlugin);
+}
+
+void auAddPluginFromPreset(string _preset){
+    ofxAUPlugin     *newPlugin = new ofxAUPlugin();
+    
+    newPlugin->loadPreset(_preset);
+    gapp->auPlugins.push_back(newPlugin);
+}
+
+void auPluginSetParam(string _plugin, string _param, float _value){
+    for(int i = 0; i < gapp->auPlugins.size(); i++){
+        if(_plugin == gapp->auPlugins[i]->pluginName){
+            // set plugin param
+            gapp->auPlugins[i]->setParam(_param,_value);
+            break;
+        }
+    }
+}
+
+void auListPlugins(){
+    /*vector<string> _temp = ofxAUPlugin::getPluginsList();
+    for(int i = 0; i < _temp.size(); i++){
+        gapp->sendPrivateMessage(GAMUZA_CONSOLE_LOG, " "+_temp[i]);
+    }*/
+}
+
+//--------------------------------------------------------------
 // PURE DATA SYNTHESIS ENGINE SECTION --> ofxPD addon
 //--------------------------------------------------------------
 void pdAddToSearchPath(string _folder){
@@ -683,7 +717,7 @@ void pdSendPolyAftertouch(int _ch,int _pitch,int _value){
 // AUDIO INPUT RECORDING SECTION
 //--------------------------------------------------------------
 void gaStartInputRecording(int _ch){
-	if(gapp->audioActivated && _ch < gapp->audioInputChannels && gapp->audioInputChannels > 0){
+	if(_ch < gapp->audioInputChannels && gapp->audioInputChannels > 0){
 		if(gapp->inputAudioCH[_ch].captureAudio && gapp->recordingInput == false){
             gapp->recChannel = _ch;
 			gapp->recordingInput = true;
@@ -692,14 +726,14 @@ void gaStartInputRecording(int _ch){
 }
 
 void gaStopInputRecording(){
-	if(gapp->audioActivated && gapp->audioInputChannels > 0){
+	if(gapp->audioInputChannels > 0){
 		gapp->recordingInput = false;
         gapp->addInputRecording();
 	}
 }
 
 void gaInputRecPlay(int _pos){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			gapp->inputRecSamples[_pos].play();
 		}
@@ -707,7 +741,7 @@ void gaInputRecPlay(int _pos){
 }
 
 void gaInputRecStop(int _pos){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			gapp->inputRecSamples[_pos].stop();
 		}
@@ -715,7 +749,7 @@ void gaInputRecStop(int _pos){
 }
 
 void gaSetInputRecVolume(int _pos, float _vol){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			if(_vol > 1.0 || _vol < -1.0){
 				gapp->inputRecSamples[_pos].setVolume(1.0);
@@ -727,7 +761,7 @@ void gaSetInputRecVolume(int _pos, float _vol){
 }
 
 void gaSetInputRecLooping(int _pos, bool _l){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			gapp->inputRecSamples[_pos].setLooping(_l);
 		}
@@ -735,7 +769,7 @@ void gaSetInputRecLooping(int _pos, bool _l){
 }
 
 void gaSetInputRecPaused(int _pos, bool _l){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			gapp->inputRecSamples[_pos].setPaused(_l);
 		}
@@ -743,7 +777,7 @@ void gaSetInputRecPaused(int _pos, bool _l){
 }
 
 void gaSetInputRecSpeed(int _pos, float _speed){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			if(_speed > 1.0){
 				gapp->inputRecSamples[_pos].setSpeed(1.0);
@@ -757,7 +791,7 @@ void gaSetInputRecSpeed(int _pos, float _speed){
 }
 
 void gaDrawInputRecHead(int _pos, int x, int y, int w, int h){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->inputRecSamples.size()){
 			gapp->inputRecSamples[_pos].drawHead(x,y,w,h);
 		}
@@ -768,19 +802,19 @@ void gaDrawInputRecHead(int _pos, int x, int y, int w, int h){
 // AUDIO SYNTH SECTION
 //--------------------------------------------------------------
 void gaSetupOSC(int _wt, float _freq){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		gapp->addAudioModule(_wt, _freq);
 	}
 }
 
 void gaSetupMonoOSC(int _wt, float _freq, int _channel){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		gapp->addAudioModule(_wt, _freq, _channel);
 	}
 }
 
 void gaSetOscVolume(int _pos, float _vol){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->audioModules.size()){
 			if(_vol > 1.0 || _vol < -1.0){
 				gapp->audioModules[_pos].setVolume(1.0);
@@ -792,7 +826,7 @@ void gaSetOscVolume(int _pos, float _vol){
 }
 
 void gaSetOscFrequency(int _pos, float _freq){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->audioModules.size()){
 			gapp->audioModules[_pos].setFrequency(_freq);
 		}
@@ -800,7 +834,7 @@ void gaSetOscFrequency(int _pos, float _freq){
 }
 
 void gaSetOscWaveType(int _pos, int _wt){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->audioModules.size()){
 			gapp->audioModules[_pos].setWave(_wt);
 		}
@@ -808,7 +842,7 @@ void gaSetOscWaveType(int _pos, int _wt){
 }
 
 void gaSetOscTuning(int _pos, int _tuning){
-	if(gapp->audioActivated && gapp->audioOutputChannels > 0){
+	if(gapp->audioOutputChannels > 0){
 		if(_pos < gapp->audioModules.size()){
 			if(_tuning <= 1.0 && _tuning >= 0.0){
 				gapp->audioModules[_pos].setTuning(_tuning);
@@ -1631,7 +1665,7 @@ bool gaCamTrigger(int _dID, int _aID){
 // AUDIO INPUT SECTION
 //--------------------------------------------------------------
 float gaGetVolume(int _ch){
-	if(gapp->audioActivated && _ch < gapp->audioInputChannels){
+	if(_ch < gapp->audioInputChannels){
 		if(gapp->inputAudioCH[_ch].captureAudio){
 			return gapp->inputAudioCH[_ch]._osc_chVolume;
 		}else{
@@ -1643,7 +1677,7 @@ float gaGetVolume(int _ch){
 }
 
 float gaGetPitch(int _ch){
-	if(gapp->audioActivated && _ch < gapp->audioInputChannels){
+	if(_ch < gapp->audioInputChannels){
 		if(gapp->inputAudioCH[_ch].captureAudio){
 			return gapp->inputAudioCH[_ch]._osc_chPitch;
 		}else{
@@ -1655,7 +1689,7 @@ float gaGetPitch(int _ch){
 }
 
 float gaGetFFTBand(int _ch, int _pos){
-	if(gapp->audioActivated && _ch < gapp->audioInputChannels && _pos < BARK_SCALE_CRITICAL_BANDS){
+	if(_ch < gapp->audioInputChannels && _pos < BARK_SCALE_CRITICAL_BANDS){
 		if(gapp->inputAudioCH[_ch].captureAudio){
 			return gapp->inputAudioCH[_ch]._osc_barkBins[_pos];
 		}else{
@@ -1668,7 +1702,7 @@ float gaGetFFTBand(int _ch, int _pos){
 }
 
 float gaGetFFTBin(int _ch, int _pos){
-	if(gapp->audioActivated && _ch < gapp->audioInputChannels && _pos < gapp->audioBufferSize){
+	if(_ch < gapp->audioInputChannels && _pos < gapp->audioBufferSize){
 		if(gapp->inputAudioCH[_ch].captureAudio){
 			return  gapp->inputAudioCH[_ch].binsFiltered[_pos];
 		}else{
@@ -1689,7 +1723,7 @@ float gaGetSoundGetSpectrum(int _index, int nBands){
 }
 
 float gaGetAudioInputBuffer(int _ch, int _pos){
-    if(gapp->audioActivated && gapp->audioInputChannels > 0 && _pos < gapp->audioBufferSize && _ch < gapp->audioInputChannels){
+    if(gapp->audioInputChannels > 0 && _pos < gapp->audioBufferSize && _ch < gapp->audioInputChannels){
         return gapp->inputAudioCH[_ch].chRaw[_pos];
     }else{
 		return 0.0f;
@@ -1697,7 +1731,7 @@ float gaGetAudioInputBuffer(int _ch, int _pos){
 }
 
 float gaGetAudioOutputBuffer(int _pos){
-    if(gapp->audioActivated && gapp->audioOutputChannels > 0 && _pos < gapp->audioBufferSize*gapp->audioOutputChannels){
+    if(gapp->audioOutputChannels > 0 && _pos < gapp->audioBufferSize*gapp->audioOutputChannels){
         return gapp->outputBufferCopy[_pos];
     }else{
 		return 0.0f;
@@ -1712,7 +1746,7 @@ string gaGetSerialDevName(){
 }
 
 float gaGetAArduinoPin(int _pin){
-	if(gapp->arduinoActivated && _pin >= 0 && _pin <= 5){
+	if(_pin >= 0 && _pin <= 5){
 		return gapp->_osc_analogPinValues[_pin];
 	}else{
 		return 0.0f;
@@ -1720,13 +1754,13 @@ float gaGetAArduinoPin(int _pin){
 }
 
 int gaGetDArduinoPin(int _pin){
-	if(gapp->arduinoActivated && _pin >= 2 && _pin <= 13){
+	if(_pin >= 2 && _pin <= 13){
 		return gapp->_osc_digitalPinValuesInput[_pin-2];
 	}
 }
 
 void gaSetDArduinoPin(int _pin,int val){
-	if(gapp->arduinoActivated && _pin >= 2 && _pin <= 13){
+	if(_pin >= 2 && _pin <= 13){
 		if(gapp->digitalPinModes[_pin-2] == ARD_OUTPUT){
 			if(val > 1){
 				val = 1;
@@ -1741,7 +1775,7 @@ void gaSetDArduinoPin(int _pin,int val){
 }
 
 void gaSetArduinoPinServo(int _pin,bool _state){
-	if(gapp->arduinoActivated && gapp->digitalPinModes[_pin-2] == ARD_OUTPUT && (_pin == 9 || _pin == 10)){
+	if(gapp->digitalPinModes[_pin-2] == ARD_OUTPUT && (_pin == 9 || _pin == 10)){
         if(_state){
             gapp->arduino.sendServoAttach(_pin, 544, 2400, 180);
         }else{
@@ -1751,7 +1785,7 @@ void gaSetArduinoPinServo(int _pin,bool _state){
 }
 
 void gaSetArduinoPinServoValue(int _pin,int val){
-	if(gapp->arduinoActivated && gapp->digitalPinModes[_pin-2] == ARD_OUTPUT && (_pin == 9 || _pin == 10)){
+	if(gapp->digitalPinModes[_pin-2] == ARD_OUTPUT && (_pin == 9 || _pin == 10)){
         gapp->arduino.sendServo(_pin,val,false);
     }
 }

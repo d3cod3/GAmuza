@@ -50,8 +50,8 @@
 			<object class="NSWindowTemplate" id="275939982">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{600, 224}, {501, 612}}</string>
-				<int key="NSWTFlags">1886912512</int>
+				<string key="NSWindowRect">{{20, 401}, {501, 612}}</string>
+				<int key="NSWTFlags">1881669632</int>
 				<string key="NSWindowTitle">GAmuza 0424</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<string key="NSViewClass">View</string>
@@ -194,7 +194,6 @@
 											<string key="NSFrameSize">{502, 387}</string>
 											<reference key="NSSuperview" ref="627277741"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="33071914"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<array class="NSMutableArray" key="NSTabViewItems">
 												<object class="NSTabViewItem" id="223272780">
@@ -235,7 +234,7 @@
 																				<string key="NSFrameSize">{10, 14}</string>
 																				<reference key="NSSuperview" ref="191336305"/>
 																				<reference key="NSWindow"/>
-																				<reference key="NSNextKeyView" ref="1021476340"/>
+																				<reference key="NSNextKeyView" ref="47731392"/>
 																				<string key="NSReuseIdentifierKey">_NS:13</string>
 																				<object class="NSTextContainer" key="NSTextContainer" id="563892114">
 																					<object class="NSLayoutManager" key="NSLayoutManager">
@@ -939,7 +938,7 @@ wGw</bytes>
 																<string key="NSFrameSize">{502, 387}</string>
 																<reference key="NSSuperview" ref="33071914"/>
 																<reference key="NSWindow"/>
-																<reference key="NSNextKeyView" ref="47731392"/>
+																<reference key="NSNextKeyView" ref="191336305"/>
 																<string key="NSReuseIdentifierKey">_NS:9</string>
 																<int key="NSsFlags">133648</int>
 																<reference key="NSVScroller" ref="1021476340"/>
@@ -1042,7 +1041,7 @@ wGw</bytes>
 															<string key="NSFrameSize">{513, 14}</string>
 															<reference key="NSSuperview" ref="68109769"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="597066793"/>
+															<reference key="NSNextKeyView" ref="1011838413"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<object class="NSTextContainer" key="NSTextContainer" id="855773171">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -1280,7 +1279,7 @@ wGw</bytes>
 											<string key="NSFrame">{{-6, 0}, {513, 104}}</string>
 											<reference key="NSSuperview" ref="651930444"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="1011838413"/>
+											<reference key="NSNextKeyView" ref="68109769"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<int key="NSsFlags">133136</int>
 											<reference key="NSVScroller" ref="597066793"/>
@@ -1471,7 +1470,6 @@ wGw</bytes>
 							<string key="NSFrameSize">{501, 21}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1505</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="83870132">
@@ -2574,8 +2572,8 @@ wGw</bytes>
 				<string key="102033.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="102034.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="102035.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersHorizontal"/>
-				<boolean value="YES" key="5.IBNSWindowAutoPositionCentersVertical"/>
+				<boolean value="NO" key="5.IBNSWindowAutoPositionCentersHorizontal"/>
+				<boolean value="NO" key="5.IBNSWindowAutoPositionCentersVertical"/>
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="5.IBWindowTemplateEditedContentRect">{{133, 170}, {507, 413}}</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2593,23 +2591,83 @@ wGw</bytes>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="cleanScriptToGAmuza:">id</string>
+						<string key="copyOnTimeline:">id</string>
+						<string key="cutOnTimeline:">id</string>
+						<string key="drawMappingGrid:">id</string>
+						<string key="goToEastMappingPoint:">id</string>
+						<string key="goToNorthMappingPoint:">id</string>
+						<string key="goToSouthMappingPoint:">id</string>
+						<string key="goToWestMappingPoint:">id</string>
 						<string key="gotoGAWeb:">id</string>
+						<string key="loadMapping:">id</string>
+						<string key="mappingManualEditOFF:">id</string>
+						<string key="mappingManualEditON:">id</string>
 						<string key="openItemFromGAmuzaFolder:">id</string>
 						<string key="openItemFromSketchbookFolder:">id</string>
+						<string key="openOFReference:">id</string>
+						<string key="openOfxAddonsPage:">id</string>
 						<string key="openOnlineReference:">id</string>
+						<string key="pasteOnTimeline:">id</string>
+						<string key="redoOnTimeline:">id</string>
 						<string key="resetMapping:">id</string>
 						<string key="restartGAmuzaWindow:">id</string>
+						<string key="saveMapping:">id</string>
 						<string key="sendScriptToGAmuza:">id</string>
+						<string key="setPreviewDimensions:">id</string>
 						<string key="showGettingStartedPage:">id</string>
+						<string key="switchMouseKeyControl:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
+						<string key="togglePreviewWindow:">id</string>
+						<string key="toggleTimelinePanel:">id</string>
+						<string key="undoOnTimeline:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="cleanScriptToGAmuza:">
 							<string key="name">cleanScriptToGAmuza:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="copyOnTimeline:">
+							<string key="name">copyOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cutOnTimeline:">
+							<string key="name">cutOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="drawMappingGrid:">
+							<string key="name">drawMappingGrid:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToEastMappingPoint:">
+							<string key="name">goToEastMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToNorthMappingPoint:">
+							<string key="name">goToNorthMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToSouthMappingPoint:">
+							<string key="name">goToSouthMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="goToWestMappingPoint:">
+							<string key="name">goToWestMappingPoint:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="gotoGAWeb:">
 							<string key="name">gotoGAWeb:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="loadMapping:">
+							<string key="name">loadMapping:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mappingManualEditOFF:">
+							<string key="name">mappingManualEditOFF:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mappingManualEditON:">
+							<string key="name">mappingManualEditON:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openItemFromGAmuzaFolder:">
@@ -2620,8 +2678,24 @@ wGw</bytes>
 							<string key="name">openItemFromSketchbookFolder:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="openOFReference:">
+							<string key="name">openOFReference:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openOfxAddonsPage:">
+							<string key="name">openOfxAddonsPage:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="openOnlineReference:">
 							<string key="name">openOnlineReference:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="pasteOnTimeline:">
+							<string key="name">pasteOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="redoOnTimeline:">
+							<string key="name">redoOnTimeline:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="resetMapping:">
@@ -2632,30 +2706,57 @@ wGw</bytes>
 							<string key="name">restartGAmuzaWindow:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="saveMapping:">
+							<string key="name">saveMapping:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="sendScriptToGAmuza:">
 							<string key="name">sendScriptToGAmuza:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="setPreviewDimensions:">
+							<string key="name">setPreviewDimensions:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="showGettingStartedPage:">
 							<string key="name">showGettingStartedPage:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="switchMouseKeyControl:">
+							<string key="name">switchMouseKeyControl:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toggleGAmuzaFullscreen:">
 							<string key="name">toggleGAmuzaFullscreen:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="togglePreviewWindow:">
+							<string key="name">togglePreviewWindow:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleTimelinePanel:">
+							<string key="name">toggleTimelinePanel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="undoOnTimeline:">
+							<string key="name">undoOnTimeline:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 					</dictionary>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">_splash</string>
-						<string key="NS.object.0">SplashWindow</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">_splash</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="_splash">SplashWindow</string>
+						<string key="logger">NSTextView</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="_splash">
 							<string key="name">_splash</string>
 							<string key="candidateClassName">SplashWindow</string>
 						</object>
-					</object>
+						<object class="IBToOneOutletInfo" key="logger">
+							<string key="name">logger</string>
+							<string key="candidateClassName">NSTextView</string>
+						</object>
+					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/AppDelegate.h</string>

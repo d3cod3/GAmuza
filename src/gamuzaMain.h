@@ -252,6 +252,9 @@ public:
     
     ofxPd                   pd;
     vector<string>          pdPatches;
+                        
+    vector<ofxAUPlugin*>    auPlugins;
+    vector<string*>         gamuzaAUList;
 	
     gaDsp					gamuzaDSP;
     gaAmplifier				gamuzaAMP;
@@ -412,20 +415,18 @@ public:
      int					fboNumSamples;
      
      // TRACKING settings
-     bool					trackingActivated;
-     bool					openniActivated;
      bool					useVideoTest;
+     string					videoTestFile;
+     string					haarFinderFile;
      int					workingW;
      int					workingH;
      int					totPixels;
-     string					haarFinderFile;
      
      // KINECT settings
      int					sensorKinectLedState;
      bool					useKinectInfrared;
      
      // AUDIO settings
-     bool					audioActivated;
      int					audioDevID;
      int					audioOutputChannels;
      int					audioInputChannels;
@@ -435,7 +436,6 @@ public:
      int					fftWindowUse;
      
      // ARDUINO settings
-     bool					arduinoActivated;
      string					serialDevice;
      int					baudRate;
      
