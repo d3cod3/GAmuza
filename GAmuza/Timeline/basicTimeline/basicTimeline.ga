@@ -1,4 +1,3 @@
-
 /* 
    
  GAmuza 1.0 examples
@@ -22,18 +21,22 @@ circleY = 0
 function setup()
 	ofSetCircleResolution(50)
 
-    gaTimelineSetup(gaDataPath("timeline/"),"timelineTest")
-	gaTimelineDurationInSeconds(10)
+    	gaTimelineSetup(gaDataPath("timeline/"),"timelineTest")
 	gaTimelineSetLoopType(OF_LOOP_NORMAL)
-    gaTimelineEnableKeySnap(false)
-    gaTimelineSetFrameRate(25)
-    gaTimelineAddCurves("circleX",0,OUTPUT_W)
-    gaTimelineAddCurves("circleY",0,OUTPUT_H)
-    gaTimelineAddColors("circleColor")
-    gaTimelineAddLFO("lfo")
-    gaTimelineAddNotes("notes")
+    	gaTimelineEnableKeySnap(false)
+    	gaTimelineSetFrameRate(25)
+    	//gaTimelineAddAudioTrack("audioTrack",gaDataPath("loop00_hypno.wav"))
+    	gaTimelineDurationInSeconds(10)
+    	//gaTimelineSetTimecontrolTrack("audioTrack")
+    	gaTimelineAddCurves("circleX",0,OUTPUT_W)
+    	gaTimelineAddCurves("circleY",0,OUTPUT_H)
+    	gaTimelineAddColors("circleColor")
+    	gaTimelineAddLFO("lfo")
+    	gaTimelineAddFlags("flags")
+    	gaTimelineAddBangs("bangs")
+    	gaTimelineAddSwitches("switches")
     
-    gaTimelinePlay()
+    	gaTimelinePlay()
     
 end
 
@@ -46,6 +49,10 @@ function draw()
 	gaBackground(0.0,0.03)
 
 	ofSetColor(gaTimelineGetColor("circleColor"))
-	ofCircle(circleX, circleY,300)
-    
+	ofNoFill()
+	ofCircle(circleX, circleY,gaTimelineGetValue("lfo")*300)
+	
+	ofSetColor(255)
+	gaDrawString(tostring(gaTimelineGetBang()),30,200,200)
 end
+

@@ -43,6 +43,7 @@ public:
     
     ofxTimeline timeline;
     string      actualBang;
+    int         lastBangTime;
     
     int scrW, scrH;
 	

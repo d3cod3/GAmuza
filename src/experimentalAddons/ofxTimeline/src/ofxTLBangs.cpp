@@ -122,6 +122,7 @@ void ofxTLBangs::bangFired(ofxTLKeyframe* key){
     ofxTLBangEventArgs args;
     args.sender = timeline;
     args.track = this;
+    args.flag = "bang";
 	//play solo change
     //args.currentMillis = timeline->getCurrentTimeMillis();
 	args.currentMillis = currentTrackTime();

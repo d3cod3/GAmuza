@@ -1,0 +1,17 @@
+<keyframes>
+    <key>
+        <flag>test</flag>
+        <time>00:00:00:447</time>
+        <value>0.399999976</value>
+    </key>
+    <key>
+        <flag>test2</flag>
+        <time>00:00:01:545</time>
+        <value>0.524999976</value>
+    </key>
+    <key>
+        <flag>test3</flag>
+        <time>00:00:03:597</time>
+        <value>0.449999988</value>
+    </key>
+</keyframes>

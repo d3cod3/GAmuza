@@ -39,11 +39,16 @@ void gaTimeline::setup(){
     timeline.setup(scrW,scrH);
 	
 	ofAddListener(timeline.events().bangFired, this, &gaTimeline::bangFired);
+    
+    lastBangTime = ofGetElapsedTimeMillis();
 }
 
 //--------------------------------------------------------------
 void gaTimeline::update() {
-	
+    // bangs reset
+    if((ofGetElapsedTimeMillis() - lastBangTime) > 10){
+        actualBang = "";
+    }
 
 }
 
@@ -55,7 +60,9 @@ void gaTimeline::draw() {
 
 //--------------------------------------------------------------
 void gaTimeline::bangFired(ofxTLBangEventArgs& args){
+    lastBangTime = ofGetElapsedTimeMillis();
     actualBang = args.flag;
+    
 }
 
 //--------------------------------------------------------------
