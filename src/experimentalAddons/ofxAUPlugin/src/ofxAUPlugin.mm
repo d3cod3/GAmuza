@@ -27,6 +27,7 @@ void ofxAUPlugin::loadPlugins(){
 
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 
+    ///////////////////////////////////////////////////////////
 	ComponentDescription cd;
 	Component comp;
 
@@ -45,6 +46,22 @@ void ofxAUPlugin::loadPlugins(){
 		comp = FindNextComponent(comp, &cd);
         c++;
 	}
+    
+    cd.componentType = kAudioUnitType_MusicEffect;
+	cd.componentSubType = 0;
+	cd.componentManufacturer = 0;
+	cd.componentFlags = 0;
+	cd.componentFlagsMask = 0;
+    
+	comp = FindNextComponent(NULL, &cd);
+    
+	while (comp != NULL){
+		components.push_back(new CAComponent(comp));
+        pluginsList.push_back(new string([(NSString*)components[c]->GetCompName() UTF8String]));
+		comp = FindNextComponent(comp, &cd);
+        c++;
+	}
+    ///////////////////////////////////////////////////////////
 
 	[pool release];
 }
