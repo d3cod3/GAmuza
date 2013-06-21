@@ -11,7 +11,13 @@ void gamuzaMain::setupMapping(){
     res = gridRes+1;
 	realRes = res*res;
 	finalTextureMapping.setup(0,0,projectionScreenW,projectionScreenH,realRes);
-	finalTextureMapping.loadSettings(GAMUZA_MAPPING_FILE);
+    
+    if(autoLoadMapping == 0){
+        finalTextureMapping.loadSettings(GAMUZA_MAPPING_FILE);
+        resetMappingPoints();
+    }else{
+        finalTextureMapping.loadSettings(autoMappingFile);
+    }
     
     activateMouseMapping    = true;
     manualEditMappingPoint  = false;

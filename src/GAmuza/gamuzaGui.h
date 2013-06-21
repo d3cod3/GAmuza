@@ -20,7 +20,7 @@ void gamuzaMain::setupGui(){
     }
     //////////////////////////////////////////////
     // empty containers
-	emptyTexture.allocate(workingW,workingH,GL_RGB);
+	emptyTexture.allocate(320,240,GL_RGB);
 	//////////////////////////////////////////////
 }
 
@@ -53,16 +53,16 @@ void gamuzaMain::gamuzaFullscreen(){
 		}
 	}else{
 		isFullscreen = true;
-        if(projectionScreenW < mainScreenW){
-			fboDrawingW         = (projectionScreenW*mainScreenH)/projectionScreenH;
-			fboDrawingH         = mainScreenH;
-			fboDrawingPosX      = (mainScreenW-fboDrawingW)/2.0;
+        if(projectionScreenW < _mainScreenW){
+			fboDrawingW         = (projectionScreenW*_mainScreenH)/projectionScreenH;
+			fboDrawingH         = _mainScreenH;
+			fboDrawingPosX      = (_mainScreenW-fboDrawingW)/2.0;
 			fboDrawingPosY      = 0;
 		}else{
-			fboDrawingW         = mainScreenW;
-			fboDrawingH         = (projectionScreenH*mainScreenW)/projectionScreenW;
+			fboDrawingW         = _mainScreenW;
+			fboDrawingH         = (projectionScreenH*_mainScreenW)/projectionScreenW;
 			fboDrawingPosX      = 0;
-			fboDrawingPosY      = (mainScreenH-fboDrawingH)/2.0;
+			fboDrawingPosY      = (_mainScreenH-fboDrawingH)/2.0;
 		}
 	}
 	

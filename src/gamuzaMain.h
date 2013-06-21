@@ -19,10 +19,8 @@ extern gaVideoPreview   *gaVP; // OUTPUT TEXTURE PREVIEW
 extern gaTimeline       *gaTL; // TIMELINE PANEL WINDOW external reference
 /////////////////////////////////
 
-class gamuzaMain : public ofxNSWindowApp,
-                    public ofxMidiListener,
-                    public pd::PdReceiver, public pd::PdMidiReceiver{
-
+class gamuzaMain : public ofxNSWindowApp, public ofxMidiListener, public pd::PdReceiver, public pd::PdMidiReceiver{
+    
 public:
     
     ////////////////////////////////////////////////
@@ -83,7 +81,12 @@ public:
 	
 	// APP ///////////////////////////// --> gamuzaApp.h
     void resetApp();
+    void sendHardwareInfo(vector<string> &aInD,vector<int> &aInDID,
+                          vector<string> &aOutD,vector<int> &aOutDID,
+                          vector<string> &mD,vector<string> &sD,
+                          vector<string> &aOutCh, vector<string> &aInCh);
     void getScreenInfo(int w, int h);
+    void getScreensData(vector<ofRectangle> screensData);
     void setScriptPath(string path);
     void dataInsideBundle();
     void loadGamuzaSettings();
@@ -171,7 +174,7 @@ public:
     void    renderScript(string & _script);
     string  readScript(string _scriptFile,bool dialog);
     void    checkErrors();
-     
+    
     ofEvent<string> doCompileEvent;
     
     ////////////////////////////////////////////////
@@ -180,48 +183,76 @@ public:
     
     //////////////////////////////////////////////
     // APP --> gamuzaApp.h
-    int                         _screenW;
-    int                         _screenH;
+    vector<ofRectangle>         _screensData;
+    int                         _mainScreenW;
+    int                         _mainScreenH;
     ofSerial	                _serial;
+    vector<string>              _videoDevices;
     vector<ofSerialDeviceInfo>  _deviceList;
-    vector<string>			    _screenSizesMain;
-    vector<string>			    _screenSizesProj;
-    int                         _autoPilot;
-    int                         _autoloadScript;
-    string                      _scriptFile;
-    vector<string>			    _oniLedState;
     vector<string>			    _serialDev;
-    vector<string>			    _baudRateS;
     vector<string>			    _audioDev;
+    vector<string>			    _audioInDev;
+    vector<string>			    _audioOutDev;
+    vector<int>                 _audioInDevID;
+    vector<int>                 _audioOutDevID;
     vector<string>			    _midiDev;
     vector<string>				_inputCH;
     vector<string>				_outputCH;
-    vector<string>			    _samplingRates;
-    vector<string>			    _bufferSizes;
-    int                         _openniModule;
-    int                         _trackingModule;
-    int                         _audioModule;
-    int                         _arduinoModule;
-    int                         _mainScreenW;
-    int                         _mainScreenH;
-    int                         _secondaryScreenW;
-    int                         _secondaryScreenH;
     int                         _fboMaxSamples;
-    int                         _mappingGridRes;
-    int                         _loadVideoTest;
-    string                      _videoTestFile;
-    string                      _haarCascadeFile;
-    int                         _useInfrared;
-    int                         _ledState;
-    int                         _audioDevice;
-    int                         _midiDevice;
-    string						_inputChannels;
-    string						_outputChannels;
-    string                      _samplingRate;
-    string                      _bufferSize;
-    string                      _baudRate;
-    string                      _serialPort;
     char                        _windowTitle[256];
+    
+    ////////////////////////////////////////////// //////////////////////////////////////////////
+    ////////////////////////////////////////////// //////////////////////////////////////////////
+    // SETTINGS vars from gamuzaSettings.xml
+    
+    // SCREENS settings
+    int                     projectionScreenW;
+    int                     projectionScreenH;
+    float					INVprojectionScreenW;
+    float					INVprojectionScreenH;
+    
+    // MAPPING settings
+    int                     gridRes;
+    int                     fboNumSamples;
+    
+    // AUTOMATION settings
+    bool					autoPilot;
+    int                     autoPilotScreen;
+    bool					autoLoadScript;
+    bool					autoLoadMapping;
+    string					autoScriptFile;
+    string					autoMappingFile;
+    
+    // TRACKING settings
+    int                     workingW;
+    int                     workingH;
+    int                     totPixels;
+    
+    // AUDIO settings
+    int                     audioInDevID;
+    int                     audioOutDevID;
+    int                     audioOutputChannels;
+    int                     audioInputChannels;
+    int                     audioSamplingRate;
+    int                     audioBufferSize;
+    int                     audioNumBuffers;
+    int                     fftWindowUse;
+    
+    // MIDI settings
+    int                     midiPortNumber;
+    
+    // ARDUINO settings
+    string					serialDevice;
+    int                     baudRate;
+    
+    // OSC settings
+    string					host_number;
+    string					host_port;
+    string                  server_port;
+    
+    ////////////////////////////////////////////// //////////////////////////////////////////////
+    ////////////////////////////////////////////// //////////////////////////////////////////////
+    
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
@@ -252,7 +283,7 @@ public:
     
     ofxPd                   pd;
     vector<string>          pdPatches;
-                        
+    
     vector<ofxAUPlugin*>    auPlugins;
     vector<string*>         gamuzaAUList;
 	
@@ -279,175 +310,119 @@ public:
     
     //////////////////////////////////////////////
     // CONSOLE --> gamuzaConsole.h
-    string                      currentLog;
-    string                      currentErrorLog;
-    string                      currentGlobalLog;
+    string                  currentLog;
+    string                  currentErrorLog;
+    string                  currentGlobalLog;
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
     // FBO --> gamuzaFBO.h
-     ofFbo					drawingFbo;
-     ofFbo                  gamuzaFbo;
-     ofxFastFboReader       pixelsReader;
-     ofPixels               gamuzaPixels;
-     ofShader				shaderColorCorrection;
-     bool					useSecondaryScreen;
-     ofImage				tempFrame;
+    ofFbo					drawingFbo;
+    ofFbo                   gamuzaFbo;
+    ofxFastFboReader        pixelsReader;
+    ofPixels                gamuzaPixels;
+    ofShader				shaderColorCorrection;
+    bool					useSecondaryScreen;
+    ofImage                 tempFrame;
     
-     float                  fboDrawingW;
-     float                  fboDrawingH;
-     float                  fboDrawingPosX;
-     float                  fboDrawingPosY;
+    float                   fboDrawingW;
+    float                   fboDrawingH;
+    float                   fboDrawingPosX;
+    float                   fboDrawingPosY;
     
-     char					shaderName[64];
-     float					fbo_gammaCorrection;
-     float					fbo_brightness;
-     float					fbo_saturation;
-     float					fbo_contrast;
-     float					fbo_filmBleach;
-     float					fbo_techniColor;
-     float					fbo_whiteDiffusion;
-     float					fbo_exposure;
-     float					fbo_diffusion;
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // GUI --> gamuzaGui.h
-     ofTexture				emptyTexture;
-     ofImage                _hueWheel;
-     bool                   isFullscreen;
+    char					shaderName[64];
+    float					fbo_gammaCorrection;
+    float					fbo_brightness;
+    float					fbo_saturation;
+    float					fbo_contrast;
+    float					fbo_filmBleach;
+    float					fbo_techniColor;
+    float					fbo_whiteDiffusion;
+    float					fbo_exposure;
+    float					fbo_diffusion;
+    //////////////////////////////////////////////
     
-     float                  scaledMouseX;
-     float                  scaledMouseY;
+    //////////////////////////////////////////////
+    // GUI --> gamuzaGui.h
+    ofTexture				emptyTexture;
+    ofImage                 _hueWheel;
+    bool                    isFullscreen;
     
-        //////////////////////////////////////////////
-        // Video Tracking vars
-        ofPtr<ofQTKitGrabber>	vidRecorder;
-        vector<string>          videoDevices;
-        sourceTracking          inputCam;
-        //////////////////////////////////////////////
+    float                   scaledMouseX;
+    float                   scaledMouseY;
     
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // MAPPING --> gamuzaMapping.h
-     int					res;
-     int					realRes;
-     bool                   saveMappingSettings;
-     bool                   drawGrid;
-     
-     matrixAreas			finalTextureMapping;
-     int                    totalMappingPoints;
-     int                    actualMappingPoint;
-     bool                   manualEditMappingPoint;
-     bool                   activateMouseMapping;
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // MIDI --> gamuzaMidi.h
-     ofxMidiOut              midiOut;
-     ofxMidiIn               midiIn;
-     vector<ofVec3f>         midiMapping;
-     ofxMidiMessage          midiMessage;
-     MidiStatus              midi_status;
-     int                     midi_channel;
-     int                     midi_pitch;
-     int                     midi_velocity;
-     int                     midi_control;
-     int                     midi_value;
-     double                  midi_deltatime;
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // OSC --> gamuzaOSC.h
-     ofxOscSender			sender;
-     ofxOscReceiver         receiver;
-     
-     ofxOscMessage          received_message;
-     ofxOscMessage			osc_message;
-     ofxOscBundle			osc_bundle;
+    //////////////////////////////////////////////
+    // Video Tracking vars
+    ofPtr<ofQTKitGrabber>	vidRecorder;
+    sourceTracking          inputCam;
+    //////////////////////////////////////////////
     
-     ofxUDPManager          connectionTest;
-     vector<string>         oscReceivingLabels;
-     vector<string>         *oscReceivingValues;
-     vector<string>         oscSendingLabels;
-     vector<string>         oscSendingValues;
-     vector<int>            oscSendingTypes;
-     vector<bool>           oscSendingActive;
-     int					oscIndex;
-     bool                   connectionUP;
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // SCRIPTING --> gamuzaScripting.h
-     ofxLua                      lua;
-     vector<ofTrueTypeFont>      liveCodingFont;
-     vector<float>               guiVectorFloat;
-     vector<int>                 guiVectorInt;
-     vector<bool>                guiVectorBool;
-     int                         liveKey;
-     string                      GAscriptFileName;
+    //////////////////////////////////////////////
     
-     char                        temp_error[512];
-     vector<string>              errorVector;
-     bool                        printError;
-     int                         gaFrameCounter;
-     //////////////////////////////////////////////
-     
-     //////////////////////////////////////////////
-     // SETTINGS vars for gamuzaSettings.xml
-     
-     // SCREENS settings
-     int					mainScreenW;
-     int					mainScreenH;
-     int					projectionScreenW;
-     int					projectionScreenH;
-     float					INVprojectionScreenW;
-     float					INVprojectionScreenH;
-     
-     // AUTOMATION settings
-     bool					autoPilot;
-     bool					autoLoadScript;
-     string					autoScriptFile;
-     
-     // FBO settings
-     int					gridRes;
-     int					fboNumSamples;
-     
-     // TRACKING settings
-     bool					useVideoTest;
-     string					videoTestFile;
-     string					haarFinderFile;
-     int					workingW;
-     int					workingH;
-     int					totPixels;
-     
-     // KINECT settings
-     int					sensorKinectLedState;
-     bool					useKinectInfrared;
-     
-     // AUDIO settings
-     int					audioDevID;
-     int					audioOutputChannels;
-     int					audioInputChannels;
-     int					audioSamplingRate;
-     int					audioBufferSize;
-     int					audioNumBuffers;
-     int					fftWindowUse;
-     
-     // ARDUINO settings
-     string					serialDevice;
-     int					baudRate;
-     
-     // OSC settings
-     string					host_number;
-     string					host_port;
-     string                 server_port;
-     
-     // MIDI settings
-     int                    midiPortNumber;
-     
-     //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    // MAPPING --> gamuzaMapping.h
+    int                     res;
+    int                     realRes;
+    bool                    saveMappingSettings;
+    bool                    drawGrid;
+    
+    matrixAreas             finalTextureMapping;
+    int                     totalMappingPoints;
+    int                     actualMappingPoint;
+    bool                    manualEditMappingPoint;
+    bool                    activateMouseMapping;
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    // MIDI --> gamuzaMidi.h
+    ofxMidiOut              midiOut;
+    ofxMidiIn               midiIn;
+    vector<ofVec3f>         midiMapping;
+    ofxMidiMessage          midiMessage;
+    MidiStatus              midi_status;
+    int                     midi_channel;
+    int                     midi_pitch;
+    int                     midi_velocity;
+    int                     midi_control;
+    int                     midi_value;
+    double                  midi_deltatime;
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    // OSC --> gamuzaOSC.h
+    ofxOscSender			sender;
+    ofxOscReceiver          receiver;
+    
+    ofxOscMessage           received_message;
+    ofxOscMessage			osc_message;
+    ofxOscBundle			osc_bundle;
+    
+    ofxUDPManager           connectionTest;
+    vector<string>          oscReceivingLabels;
+    vector<string>          *oscReceivingValues;
+    vector<string>          oscSendingLabels;
+    vector<string>          oscSendingValues;
+    vector<int>             oscSendingTypes;
+    vector<bool>            oscSendingActive;
+    int                     oscIndex;
+    bool                    connectionUP;
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    // SCRIPTING --> gamuzaScripting.h
+    ofxLua                      lua;
+    vector<ofTrueTypeFont>      liveCodingFont;
+    vector<float>               guiVectorFloat;
+    vector<int>                 guiVectorInt;
+    vector<bool>                guiVectorBool;
+    int                         liveKey;
+    string                      GAscriptFileName;
+    
+    char                        temp_error[512];
+    vector<string>              errorVector;
+    bool                        printError;
+    int                         gaFrameCounter;
+    //////////////////////////////////////////////
     
 private:
     ofxXmlSettings			setting_data;

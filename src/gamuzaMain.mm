@@ -36,6 +36,11 @@ void gamuzaMain::setup() {
 	
     //////////////////////////////////////////////
     // INIT GAmuza CORE
+    // set data path inside biundle
+    dataInsideBundle();
+    // hardware
+    retrieveHardwaredata();
+    // call the re-init routine
     resetApp();
     //////////////////////////////////////////////
     

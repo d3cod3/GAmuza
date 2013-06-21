@@ -11,13 +11,8 @@ void gamuzaMain::close() {
 //--------------------------------------------------------------
 void gamuzaMain::resetApp(){
     //////////////////////////////////////////////
-    // APP
-    // set data path inside biundle
-    dataInsideBundle();
-    // load settings from xml
+    // APP - load settings from xml
     loadGamuzaSettings();
-    // hardware
-    retrieveHardwaredata();
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
@@ -58,9 +53,36 @@ void gamuzaMain::resetApp(){
 }
 
 //--------------------------------------------------------------
+void gamuzaMain::sendHardwareInfo(vector<string> &aInD, vector<int> &aInDID,
+                                  vector<string> &aOutD, vector<int> &aOutDID,
+                                  vector<string> &mD, vector<string> &sD,
+                                  vector<string> &aOutCh, vector<string> &aInCh){
+    // Audio devices
+    aInD        = _audioInDev;
+    aInDID      = _audioInDevID;
+    aOutD       = _audioOutDev;
+    aOutDID     = _audioOutDevID;
+    
+    aOutCh      = _inputCH;
+    aInCh       = _outputCH;
+    
+    // Midi Devices
+    mD = _midiDev;
+    
+    // Serial Devices
+    sD = _serialDev;
+    
+}
+
+//--------------------------------------------------------------
 void gamuzaMain::getScreenInfo(int w, int h){
-    mainScreenW = _screenW = w;
-    mainScreenH = _screenH = h;
+    _mainScreenW = w;
+    _mainScreenH = h;
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::getScreensData(vector<ofRectangle> screensData){
+    _screensData = screensData;
 }
 
 //--------------------------------------------------------------
@@ -110,43 +132,23 @@ void gamuzaMain::loadGamuzaSettings(){
 	//////////////////////////////////////////////
 	// get AUTOMATION settings
 	autoPilot				= setting_data.getValue("GAmuzaSettings:auto_pilot",0,0);
+    autoPilotScreen         = setting_data.getValue("GAmuzaSettings:auto_pilot_screen",0,0);
 	autoLoadScript			= setting_data.getValue("GAmuzaSettings:autoload_script",0,0);
 	autoScriptFile			= setting_data.getValue("GAmuzaSettings:script_file"," ",0);
-	//////////////////////////////////////////////
-	
-	//////////////////////////////////////////////
-	// get SENSOR KINECT TRACKING settings
-	useKinectInfrared		= setting_data.getValue("GAmuzaSettings:use_infrared",0,0);
-	sensorKinectLedState	= setting_data.getValue("GAmuzaSettings:led_state",0,0);
-	//////////////////////////////////////////////
-	
-	//////////////////////////////////////////////
-	// get WEBCAM TRACKING settings
-	useVideoTest			= setting_data.getValue("GAmuzaSettings:video_test",0,0);
-    videoTestFile           = setting_data.getValue("GAmuzaSettings:video_test_file"," ",0);
-	workingW				= setting_data.getValue("GAmuzaSettings:capture_width",0,0);
-	workingH				= setting_data.getValue("GAmuzaSettings:capture_height",0,0);
-	totPixels				= workingW*workingH;
-	
-	haarFinderFile			= setting_data.getValue("GAmuzaSettings:haar_finder_file"," ",0);
+    autoLoadMapping         = setting_data.getValue("GAmuzaSettings:autoload_mapping",0,0);
+    autoMappingFile			= setting_data.getValue("GAmuzaSettings:mapping_file"," ",0);
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get MAPPING settings
 	gridRes					= setting_data.getValue("GAmuzaSettings:grid_res",0,0);
 	fboNumSamples			= setting_data.getValue("GAmuzaSettings:fbo_num_samples",0,0);
-	
-	if(gridRes > 20){
-		gridRes = 20;
-	}
-	if(gridRes < 1){
-		gridRes = 1;
-	}
 	//////////////////////////////////////////////
 	
 	//////////////////////////////////////////////
 	// get AUDIO settings
-	audioDevID				= setting_data.getValue("GAmuzaSettings:audio_Dev_ID",0,0);
+	audioInDevID			= setting_data.getValue("GAmuzaSettings:audioIn_Dev_ID",0,0);
+    audioOutDevID			= setting_data.getValue("GAmuzaSettings:audioOut_Dev_ID",0,0);
 	audioOutputChannels		= setting_data.getValue("GAmuzaSettings:output_ch",0,0);
 	audioInputChannels		= setting_data.getValue("GAmuzaSettings:input_ch",0,0);
 	audioSamplingRate		= setting_data.getValue("GAmuzaSettings:sampling_rate",0,0);
@@ -181,13 +183,18 @@ void gamuzaMain::retrieveHardwaredata(){
     glGetIntegerv(GL_MAX_SAMPLES, &_fboMaxSamples);
     
     //////////////////////////////////////////////
-    // retrieving midi devices info
-    listMidiDevices();
+    // retrieving webcam devices info
+    listWebcamDevices();
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
     // retrieving audio devices info
     listAudioDevices();
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    // retrieving midi devices info
+    listMidiDevices();
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
@@ -199,24 +206,55 @@ void gamuzaMain::retrieveHardwaredata(){
 
 //--------------------------------------------------------------
 void gamuzaMain::listWebcamDevices(){
+    
+    char _m[256];
+    
+    sendGALog(" ------------------------------------------------ WEBCAM DEVICES");
     ///////////////////////////////////////////////
-    vidRecorder = ofPtr<ofQTKitGrabber>( new ofQTKitGrabber() );
-    videoDevices = vidRecorder->listVideoDevices();
+    vidRecorder = ofPtr<ofQTKitGrabber>(new ofQTKitGrabber());
+    _videoDevices = vidRecorder->listVideoDevices();
+    
+    for(int k=0;k<(int)_videoDevices.size();k++){
+        sprintf(_m," Device: %i (%s)", k,_videoDevices[k].c_str());
+        sendGALog(_m);
+    }
 	///////////////////////////////////////////////
+    sendGALog(" ");
 }
 
 //--------------------------------------------------------------
 void gamuzaMain::listAudioDevices(){
-    ofPtr<RtAudio> audioTemp;
-    audioTemp = ofPtr<RtAudio>(new RtAudio());
- 	int devices = audioTemp->getDeviceCount();
     
+    ofPtr<RtAudio> audioTemp;
+	try {
+		audioTemp = ofPtr<RtAudio>(new RtAudio());
+	} catch (RtError &error) {
+		return;
+	}
+ 	int devices = audioTemp->getDeviceCount();
     char _m[256];
     
-	RtAudio::DeviceInfo info;
+    _audioDev.clear();
+    _audioInDev.clear();
+    _audioOutDev.clear();
+    _audioInDevID.clear();
+    _audioOutDevID.clear();
     
-	for (int i=devices-1; i>= 0; i--) {
-        info = audioTemp->getDeviceInfo(i);
+    _audioDev.assign(devices,string());
+    _inputCH.clear();
+    _outputCH.clear();
+    
+	RtAudio::DeviceInfo info;
+    int devCounter = 0;
+    
+    sendGALog(" ------------------------------------------------ AUDIO DEVICES");
+    
+	for (int i=0; i< devices; i++) {
+		try {
+			info = audioTemp->getDeviceInfo(i);
+		} catch (RtError &error) {
+			break;
+		}
         
         ostringstream srate;
         for(unsigned int j=0;j<info.sampleRates.size();j++){
@@ -224,29 +262,36 @@ void gamuzaMain::listAudioDevices(){
         }
         string _sr = srate.str();
         
-        sprintf(_m," device: %i (%s)\n", i,ofToString(info.name).c_str());
-        sendGALog(_m);
-        sprintf(_m," output channels: %s", ofToString(info.outputChannels).c_str());
-        sendGALog(_m);
-        sprintf(_m," input channels: %s", ofToString(info.inputChannels).c_str());
-        sendGALog(_m);
-        sprintf(_m," sample rates: %s", ofToString(_sr).c_str());
-        sendGALog(_m);
+        if(_sr != ""){
+            _audioDev[devCounter] = ofToString(info.name);
+            
+            if(info.inputChannels != 0){
+                _audioInDev.push_back(ofToString(info.name));
+                _audioInDevID.push_back(i);
+                _inputCH.push_back(ofToString(info.inputChannels));
+            }
+            
+            if(info.outputChannels != 0){
+                _audioOutDev.push_back(ofToString(info.name));
+                _audioOutDevID.push_back(i);
+                _outputCH.push_back(ofToString(info.outputChannels));
+            }
+            
+            sprintf(_m," Device: %i (%s)", devCounter,ofToString(info.name).c_str());
+            sendGALog(_m);
+            sprintf(_m," Output Channels: %s", ofToString(info.outputChannels).c_str());
+            sendGALog(_m);
+            sprintf(_m," Input Channels: %s", ofToString(info.inputChannels).c_str());
+            sendGALog(_m);
+            sprintf(_m," Sample Rates: %s", ofToString(_sr).c_str());
+            sendGALog(_m);
+            sendGALog(" ");
+            devCounter++;
+        }
         
 	}
     
-    _audioDev.clear();
-    _audioDev.assign(devices,string());
-    _inputCH.clear();
-    _inputCH.assign(devices,string());
-    _outputCH.clear();
-    _outputCH.assign(devices,string());
-	for (int i=0; i<devices; i++) {
-	    info = audioTemp->getDeviceInfo(i);
-	    _audioDev[i] = ofToString(info.name);
-		_inputCH[i] = ofToString(info.inputChannels);
-		_outputCH[i] = ofToString(info.outputChannels);
-	}
+    sendGALog(" ");
     
 }
 
@@ -255,10 +300,11 @@ void gamuzaMain::listMidiDevices(){
     
     char _m[256];
     
-	for(int i=midiIn.getPortList().size()-1;i>=0;i--){
-        sprintf(_m," MIDI device: %i (%s)", i,ofToString(midiIn.getPortName(i)).c_str());
+    sendGALog(" ------------------------------------------------ MIDI DEVICES");
+	for(int i=0;i<midiIn.getPortList().size();i++){
+        sprintf(_m," Device: %i (%s)", i,ofToString(midiIn.getPortName(i)).c_str());
         sendGALog(_m);
-        sendGALog(" -----------------------");
+        sendGALog(" ");
     }
     
     _midiDev.clear();
@@ -270,32 +316,34 @@ void gamuzaMain::listMidiDevices(){
     }else{
         _midiDev.assign(1,string());
         _midiDev[0] = "NO MIDI DEVICE CONNECTED";
+         sendGALog(" NO MIDI DEVICE CONNECTED");
     }
+    sendGALog(" ");
     
 }
 
 //--------------------------------------------------------------
 void gamuzaMain::listSerialDevices(){
-    char temp[128];
-    char _m[256];
     
-    _serial.listDevices();
+    char _m[256];
+    char _t[256];
+    
+    //_serial.listDevices();
     _deviceList.clear();
 	_deviceList = _serial.getDeviceList();
-    
-    for(int k = 0; k < (int)_deviceList.size(); k++){
-        sprintf(_m," /dev/%s", _deviceList[k].getDeviceName().c_str());
-        sendGALog(_m);
-	}
-    
     _serialDev.clear();
     _serialDev.assign(_deviceList.size(),string());
-    int i = 0;
-	for(int k = (int)_deviceList.size()-1; k >= 0; k--){
-	    sprintf(temp,"/dev/%s",_deviceList[k].getDeviceName().c_str());
-        _serialDev[i] = ofToString(temp);
-        i++;
+    
+    sendGALog(" ------------------------------------------------ SERIAL DEVICES");
+    for(int k = 0; k < (int)_deviceList.size(); k++){
+        sprintf(_m," Device: %i (/dev/%s)", k, _deviceList[k].getDeviceName().c_str());
+        sendGALog(_m);
+        sprintf(_t,"/dev/%s", _deviceList[k].getDeviceName().c_str());
+        _serialDev[k] = ofToString(_t);
+        sendGALog(" ");
 	}
+    sendGALog(" ");
+    
 }
 
 #endif

@@ -11,6 +11,7 @@
 #import <AppKit/AppKit.h>
 
 #import "SplashWindow.h"
+#import "PreferencesController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSMenuDelegate> {
     
@@ -19,18 +20,31 @@
     NSFileManager               *filemgr;
     NSString                    *resPath;
     NSString                    *documentsDirectory;
-    NSArray                     *filelist; // filelist from GAmuza script folder
+    NSArray                     *filelist;
     NSMutableArray              *GAExampleFiles;
     NSMutableArray              *GASketchbookFiles;
     
-    IBOutlet SplashWindow       *_splash;
-    IBOutlet NSTextView         *logger;
+    IBOutlet SplashWindow           *_splash;
+    IBOutlet NSTextView             *logger;
+    IBOutlet PreferencesController  *prefPanel;
     
     int                         numScreen;
-    float                       screenX, screenY;
+    int                         screenW, screenH;
+    int                         fullscreenWinPosX;
     
     bool                        isPreviewON;
     bool                        isTimelineON;
+    
+    NSMutableArray              *screensINFO;
+    
+    vector<string>              aInD;
+    vector<int>                 aInDID;
+    vector<string>              aOutD;
+    vector<int>                 aOutDID;
+    vector<string>				aInputCH;
+    vector<string>				aOutputCH;
+    vector<string>              mD;
+    vector<string>              sD;
     
 }
 
@@ -53,9 +67,13 @@
 
 // -----------------------------------------------------------------------------
 
+- (void) getScreenXPosition:(int)screenNum;
+
 - (void) screenResolution;
 
 - (void) sendScreenResToGA;
+
+- (void) sendDataToPreferences;
 
 - (NSString *) runCommand:(NSString *)commandToRun;
 
@@ -65,6 +83,8 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) applyPreferences:(id)sender;
+
 - (IBAction) toggleTimelinePanel:(id)sender;
 
 - (IBAction) togglePreviewWindow:(id)sender;

@@ -1,28 +1,34 @@
 <?xml version="1.0" ?>
 <GAmuzaSettings>
+    <!-- VIDEO OUTPUT -->
     <ps_width>1920</ps_width>
     <ps_height>1080</ps_height>
-    <auto_pilot>0</auto_pilot>
-    <autoload_script>0</autoload_script>
-    <script_file>scripts/emptyExample.ga</script_file>
-    <fbo_num_samples>1</fbo_num_samples>
     <grid_res>8</grid_res>
-    <capture_width>320</capture_width>
-    <capture_height>240</capture_height>
-    <video_test>0</video_test>
-    <video_test_file>videos/video.mov</video_test_file>
-    <haar_finder_file>settings/haarXML/haarcascade_frontalface_alt.xml</haar_finder_file>
-    <audio_Dev_ID>3</audio_Dev_ID>
+    <fbo_num_samples>1</fbo_num_samples>
+    <!-- AUTOMATION -->
+    <auto_pilot>0</auto_pilot>
+    <auto_pilot_screen>0</auto_pilot_screen>
+    <autoload_script>0</autoload_script>
+    <autoload_mapping>0</autoload_mapping>
+    <script_file>scripts/emptyExample.ga</script_file>
+    <mapping_file>settings/projection/mapping.xml</mapping_file>
+    <!-- AUDIO STREAMING -->
+    <audioIn_Dev_ID>3</audioIn_Dev_ID>
+    <audioOut_Dev_ID>3</audioOut_Dev_ID>
     <output_ch>2</output_ch>
     <input_ch>0</input_ch>
     <sampling_rate>44100</sampling_rate>
     <buffer_size>1024</buffer_size>
     <num_buffers>4</num_buffers>
     <fft_window>3</fft_window>
+    <!-- MIDI -->
     <midi_port>1</midi_port>
+    <!-- ARDUINO -->
     <serial_device_name>/dev/tty.Bluetooth-Modem</serial_device_name>
     <baud_rate>57600</baud_rate>
+    <!-- OSC -->
     <host_ip>127.0.0.1</host_ip>
     <host_port>9666</host_port>
     <server_port>8997</server_port>
+    <!-- -->
 </GAmuzaSettings>

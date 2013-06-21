@@ -23,7 +23,8 @@ void gamuzaMain::setupAudio(){
     gamuzaAUList = ofxAUPlugin::getPluginsList();
 	
     // Sound Stream Init
-	soundStream.setDeviceID(audioDevID);
+	soundStream.setInDeviceID(audioInDevID);
+    soundStream.setOutDeviceID(audioOutDevID);
     soundStream.setInput(this);
 	soundStream.setOutput(this);
 	soundStream.setup(audioOutputChannels,audioInputChannels,audioSamplingRate,audioBufferSize, audioNumBuffers);
@@ -42,15 +43,15 @@ void gamuzaMain::setupAudio(){
     // ACTIVATE AUDIO STREAMING
     char _tempString[256];
     soundStream.start();
-    sendGALog("AUDIO STREAMING STARTED");
+    sendGALog(" --> AUDIO STREAMING STARTED");
     sendGALog(" ");
-    sendGALog("PURE DATA SYNTHESIS ENGINE STARTED");
+    sendGALog(" --> PURE DATA SYNTHESIS ENGINE STARTED");
     sendGALog(" ");
-    sendGALog("AUDIO UNIT PLUGINS AVAILABLE");
+    sendGALog(" AUDIO UNIT PLUGINS AVAILABLE");
     sendGALog(" ");
     for(unsigned int i = 0; i < gamuzaAUList.size(); i++){
         string _t = *gamuzaAUList[i];
-        sprintf(_tempString,"%i - %s",i,_t.c_str());
+        sprintf(_tempString,"  %i - %s",i,_t.c_str());
         sendGALog(_tempString);
         sendGALog(" ");
     }

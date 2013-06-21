@@ -153,14 +153,6 @@ ofTexture gaGetWebcamTexture(){
 	}
 }
 
-ofTexture gaGetONITexture(){
-	//if(gapp->openniActivated && gapp->sensorKinect.useKinect){
-		//return gapp->sensorKinect.camTexture;
-	//}else{
-		return gapp->emptyTexture;
-	//}
-}
-
 unsigned char* gaGetWebcamPixels(){
 	if(gapp->inputCam.captureVideo){
 		return gapp->inputCam.vidGrabber.getPixels();

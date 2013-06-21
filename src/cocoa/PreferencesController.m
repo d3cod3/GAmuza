@@ -6,16 +6,37 @@
 //
 //
 
+#import <IOKit/graphics/IOGraphicsLib.h>
+
 #import "PreferencesController.h"
 
 @implementation PreferencesController
+@synthesize mainPanel, audioInDevices, audioOutDevices, midiDevices, serialDevices, aInCh, aOutCh, _autoFullscreen, _fullscreenScreen;
 
-- (void)awakeFromNib{
-    [customWidth setDelegate:self];
-    [customHeight setDelegate:self];
+
+NSString* screenNameForDisplay(CGDirectDisplayID displayID){
+    NSString *screenName = nil;
+    
+    NSDictionary *deviceInfo = (NSDictionary *)IODisplayCreateInfoDictionary(CGDisplayIOServicePort(displayID), kIODisplayOnlyPreferredName);
+    NSDictionary *localizedNames = [deviceInfo objectForKey:[NSString stringWithUTF8String:kDisplayProductName]];
+    
+    if ([localizedNames count] > 0) {
+    	screenName = [[localizedNames objectForKey:[[localizedNames allKeys] objectAtIndex:0]] retain];
+    }
+    
+    [deviceInfo release];
+    return [screenName autorelease];
 }
 
-- (void)controlTextDidChange:(NSNotification *)notification{
+- (void) awakeFromNib{
+    [self getScreensInfo];
+    [customWidth setDelegate:self];
+    [customHeight setDelegate:self];
+    [self getDataFromXml:nil];
+    [mainPanel orderOut:nil];
+}
+
+- (void) controlTextDidChange:(NSNotification *)notification{
     if([notification object] == customWidth || [notification object] == customHeight){
         [self reduceToAspectRatio];
     }
@@ -41,6 +62,30 @@
         }
     }
     [aspectRatio setStringValue:[NSString stringWithFormat:@"%dx%d", arW, arH]];
+}
+
+- (void) getScreensInfo{
+    NSRect              screenRect;
+    NSDictionary*       screenDescription;
+    CGDirectDisplayID   theCGDisplayID;
+    NSArray*            screenArray = [NSScreen screens];
+    
+    unsigned screenCount = [screenArray count];
+    unsigned i = 0;
+    
+    [screensList removeItemAtIndex:0];
+    
+    for(i;i < screenCount;i++){
+        NSScreen *screen = [screenArray objectAtIndex: i];
+        screenRect = [screen visibleFrame];
+        screenDescription = [screen deviceDescription];
+        
+        theCGDisplayID = (CGDirectDisplayID) [[screenDescription valueForKey:@"NSScreenNumber"] intValue];
+        
+        NSString *tempMessage = [NSString stringWithFormat:@"%@  %ix%i",screenNameForDisplay(theCGDisplayID),(unsigned)CGDisplayPixelsWide(theCGDisplayID),(unsigned)CGDisplayPixelsHigh(theCGDisplayID)];
+        [screensList addItemWithTitle:tempMessage];
+        
+    }
 }
 
 - (IBAction) updateScreenResolution:(id)sender{
@@ -167,6 +212,87 @@
     }
 }
 
+- (IBAction) updateSamplingRate:(id)sender{
+    if([[sender selectedItem] tag] == 0){
+        _samplingRate = @"22050";
+    }else if([[sender selectedItem] tag] == 1){
+        _samplingRate = @"44100";
+    }else if([[sender selectedItem] tag] == 2){
+        _samplingRate = @"48000";
+    }else if([[sender selectedItem] tag] == 3){
+        _samplingRate = @"96000";
+    }else if([[sender selectedItem] tag] == 4){
+        _samplingRate = @"192000";
+    }
+}
+
+- (IBAction) updateBufferSize:(id)sender{
+    if([[sender selectedItem] tag] == 0){
+        _bufferSize = @"32";
+    }else if([[sender selectedItem] tag] == 1){
+        _bufferSize = @"64";
+    }else if([[sender selectedItem] tag] == 2){
+        _bufferSize = @"128";
+    }else if([[sender selectedItem] tag] == 3){
+        _bufferSize = @"256";
+    }else if([[sender selectedItem] tag] == 4){
+        _bufferSize = @"512";
+    }else if([[sender selectedItem] tag] == 5){
+        _bufferSize = @"1024";
+    }else if([[sender selectedItem] tag] == 6){
+        _bufferSize = @"2048";
+    }else if([[sender selectedItem] tag] == 7){
+        _bufferSize = @"4096";
+    }
+}
+
+- (IBAction) updateBaudrate:(id)sender{
+    if([[sender selectedItem] tag] == 0){
+        _baudRate = @"300";
+    }else if([[sender selectedItem] tag] == 1){
+        _baudRate = @"600";
+    }else if([[sender selectedItem] tag] == 2){
+        _baudRate = @"1200";
+    }else if([[sender selectedItem] tag] == 3){
+        _baudRate = @"2400";
+    }else if([[sender selectedItem] tag] == 4){
+        _baudRate = @"4800";
+    }else if([[sender selectedItem] tag] == 5){
+        _baudRate = @"9600";
+    }else if([[sender selectedItem] tag] == 6){
+        _baudRate = @"14400";
+    }else if([[sender selectedItem] tag] == 7){
+        _baudRate = @"19200";
+    }else if([[sender selectedItem] tag] == 8){
+        _baudRate = @"28800";
+    }else if([[sender selectedItem] tag] == 9){
+        _baudRate = @"38400";
+    }else if([[sender selectedItem] tag] == 10){
+        _baudRate = @"57600";
+    }else if([[sender selectedItem] tag] == 11){
+        _baudRate = @"115200";
+    }
+}
+
+- (IBAction) updateAudioInDevice:(id)sender{
+    _audioInDev = [[sender selectedItem] tag];
+    
+}
+
+- (IBAction) updateAudioOutDevice:(id)sender{
+    _audioOutDev = [[sender selectedItem] tag];
+    
+}
+
+- (IBAction) updateMidiDevice:(id)sender{
+    _midiDev = [[sender selectedItem] tag];
+   
+}
+
+- (IBAction) updateSerialDevice:(id)sender{
+     _serialDev = [[sender selectedItem] title];
+}
+
 - (IBAction) getDataFromXml:(id)sender{
     NSXMLDocument *xmlDoc;
     NSArray* itemArray;
@@ -186,7 +312,8 @@
     }
     
     NSXMLElement* root  = [xmlDoc rootElement];
-    NSMutableArray* item = [[NSMutableArray alloc] initWithCapacity:1];
+    
+    ////////////////////////////////////////////////////////////////////// VIDEO OUTPUT
     
     // OUTPUT RESOLUTION
     itemArray = [root nodesForXPath:@"//ps_width" error:nil];
@@ -200,21 +327,286 @@
     }
     [self getOutputRes:outputWidth height:outputHeight];
     
+    // MAPPING RESOLUTION
+    itemArray = [root nodesForXPath:@"//grid_res" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        [mappingGridRes setStringValue:[xmlElement stringValue]];
+        [mappingSliderRes setIntValue:[mappingGridRes intValue]];
+    }
+    
+    ////////////////////////////////////////////////////////////////////// AUTOMATION
+    NSString *_tempA;
+    itemArray = [root nodesForXPath:@"//auto_pilot" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _tempA = [xmlElement stringValue];
+        _autoFullscreen = [_tempA intValue];
+        [autoFullscreen setState:_autoFullscreen];
+    }
+    itemArray = [root nodesForXPath:@"//auto_pilot_screen" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _tempA = [xmlElement stringValue];
+        _fullscreenScreen = [_tempA intValue];
+        [screensList selectItemWithTag:_fullscreenScreen];
+    }
+    itemArray = [root nodesForXPath:@"//autoload_script" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _tempA = [xmlElement stringValue];
+        [autoloadSketch setState:[_tempA intValue]];
+    }
+    itemArray = [root nodesForXPath:@"//autoload_mapping" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _tempA = [xmlElement stringValue];
+        [autoloadMapping setState:[_tempA intValue]];
+    }
+    itemArray = [root nodesForXPath:@"//script_file" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        [autoSketchFile setStringValue:[xmlElement stringValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//mapping_file" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        [autoMappingFile setStringValue:[xmlElement stringValue]];
+    }
+    
+    ////////////////////////////////////////////////////////////////////// AUDIO STREAMING
+    itemArray = [root nodesForXPath:@"//audioIn_Dev_ID" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _audioInDev = [[xmlElement stringValue] intValue];
+        [audioInDevices selectItemWithTag:_audioInDev];
+    }
+    itemArray = [root nodesForXPath:@"//audioOut_Dev_ID" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _audioOutDev = [[xmlElement stringValue] intValue];
+        [audioOutDevices selectItemWithTag:_audioOutDev];
+    }
+    
+    itemArray = [root nodesForXPath:@"//sampling_rate" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _samplingRate = [xmlElement stringValue];
+        if([_samplingRate isEqualToString:@"22050"]){
+            [samplingRate selectItemWithTag:0];
+        }else if([_samplingRate isEqualToString:@"44100"]){
+            [samplingRate selectItemWithTag:1];
+        }else if([_samplingRate isEqualToString:@"48000"]){
+            [samplingRate selectItemWithTag:2];
+        }else if([_samplingRate isEqualToString:@"96000"]){
+            [samplingRate selectItemWithTag:3];
+        }else if([_samplingRate isEqualToString:@"192000"]){
+            [samplingRate selectItemWithTag:4];
+        }
+    }
+    
+    itemArray = [root nodesForXPath:@"//buffer_size" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _bufferSize = [xmlElement stringValue];
+        if([_bufferSize isEqualToString:@"32"]){
+            [bufferSize selectItemWithTag:0];
+        }else if([_bufferSize isEqualToString:@"64"]){
+            [bufferSize selectItemWithTag:1];
+        }else if([_bufferSize isEqualToString:@"128"]){
+            [bufferSize selectItemWithTag:2];
+        }else if([_bufferSize isEqualToString:@"256"]){
+            [bufferSize selectItemWithTag:3];
+        }else if([_bufferSize isEqualToString:@"512"]){
+            [bufferSize selectItemWithTag:4];
+        }else if([_bufferSize isEqualToString:@"1024"]){
+            [bufferSize selectItemWithTag:5];
+        }else if([_bufferSize isEqualToString:@"2048"]){
+            [bufferSize selectItemWithTag:6];
+        }else if([_bufferSize isEqualToString:@"4096"]){
+            [bufferSize selectItemWithTag:7];
+        }
+    }
+    
+    itemArray = [root nodesForXPath:@"//fft_window" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _fftWindowing = [[xmlElement stringValue] intValue];
+        [fftWindowing selectItemWithTag:_fftWindowing];
+    }
+    
+    ////////////////////////////////////////////////////////////////////// ARDUINO
+    itemArray = [root nodesForXPath:@"//serial_device_name" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _serialDev = [xmlElement stringValue];
+        [serialDevices selectItemWithTitle:_serialDev];
+    }
+    
+    itemArray = [root nodesForXPath:@"//baud_rate" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _baudRate = [xmlElement stringValue];
+        if([_baudRate isEqualToString:@"300"]){
+            [baudrate selectItemWithTag:0];
+        }else if([_baudRate isEqualToString:@"600"]){
+            [baudrate selectItemWithTag:1];
+        }else if([_baudRate isEqualToString:@"1200"]){
+            [baudrate selectItemWithTag:2];
+        }else if([_baudRate isEqualToString:@"2400"]){
+            [baudrate selectItemWithTag:3];
+        }else if([_baudRate isEqualToString:@"4800"]){
+            [baudrate selectItemWithTag:4];
+        }else if([_baudRate isEqualToString:@"9600"]){
+            [baudrate selectItemWithTag:5];
+        }else if([_baudRate isEqualToString:@"14400"]){
+            [baudrate selectItemWithTag:6];
+        }else if([_baudRate isEqualToString:@"19200"]){
+            [baudrate selectItemWithTag:7];
+        }else if([_baudRate isEqualToString:@"28800"]){
+            [baudrate selectItemWithTag:8];
+        }else if([_baudRate isEqualToString:@"38400"]){
+            [baudrate selectItemWithTag:9];
+        }else if([_baudRate isEqualToString:@"57600"]){
+            [baudrate selectItemWithTag:10];
+        }else if([_baudRate isEqualToString:@"115200"]){
+            [baudrate selectItemWithTag:11];
+        }
+    }
+    
+    ////////////////////////////////////////////////////////////////////// MIDI
+    itemArray = [root nodesForXPath:@"//midi_port" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        _midiDev = [[xmlElement stringValue] intValue];
+        [midiDevices selectItemWithTag:_midiDev];
+    }
+    
+    ////////////////////////////////////////////////////////////////////// OSC
+    itemArray = [root nodesForXPath:@"//host_ip" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        [sendingToIP setStringValue:[xmlElement stringValue]];
+    }
     
     itemArray = [root nodesForXPath:@"//host_port" error:nil];
+    for(NSXMLElement* xmlElement in itemArray){
+        [sendingToPORT setStringValue:[xmlElement stringValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//server_port" error:nil];
     for(NSXMLElement* xmlElement in itemArray){
         [receivingAtPORT setStringValue:[xmlElement stringValue]];
     }
     
+    
     [xmlDoc release];
-    [item release];
     
     [mainPanel makeKeyAndOrderFront:mainPanel];
     
 }
 
-- (IBAction) saveDataToXml:(id)sender{
+- (void) saveDataToXml{
+    NSXMLDocument   *xmlDoc;
+    NSData          *data;
+    NSArray         *itemArray;
+    NSXMLNode       *node;
     
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/settings/gamuzaSettings.xml"];
+    NSURL *furl = [NSURL fileURLWithPath:path];
+    
+    if (!furl) {
+        NSLog(@"Can't create an URL from file gamuzaSettings.xml.");
+        return;
+    }
+    xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                  options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
+                                                    error:nil];
+    if (xmlDoc == nil) {
+        xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                      options:NSXMLDocumentTidyXML
+                                                        error:nil];
+    }
+    
+    NSXMLNode *rootNode = [xmlDoc rootElement];
+	
+    //////////////////////////////////////////////////////////////////////
+    // SAVE DATA
+    ////////////////////////////////////////////////////////////////////// VIDEO OUTPUT
+    node = [self childNamed:@"ps_width" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[customWidth stringValue]]];
+    
+    node = [self childNamed:@"ps_height" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[customHeight stringValue]]];
+    
+    node = [self childNamed:@"grid_res" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[mappingGridRes stringValue]]];
+    
+    ////////////////////////////////////////////////////////////////////// AUTOMATION
+    node = [self childNamed:@"auto_pilot" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[autoFullscreen state]]];
+    
+    node = [self childNamed:@"auto_pilot_screen" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[screensList indexOfSelectedItem]]];
+    
+    node = [self childNamed:@"autoload_script" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[autoloadSketch state]]];
+    
+    node = [self childNamed:@"autoload_mapping" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[autoloadMapping state]]];
+    
+    node = [self childNamed:@"script_file" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[autoSketchFile stringValue]]];
+    
+    node = [self childNamed:@"mapping_file" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[autoMappingFile stringValue]]];
+    
+    ////////////////////////////////////////////////////////////////////// AUDIO STREAMING
+    node = [self childNamed:@"audioIn_Dev_ID" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[[audioInDevices selectedItem] tag]]];
+    
+    node = [self childNamed:@"audioOut_Dev_ID" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[[audioOutDevices selectedItem] tag]]];
+    
+    // CHANNELS
+    node = [self childNamed:@"input_ch" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[aInCh objectAtIndex:[audioInDevices indexOfSelectedItem]]]];
+    node = [self childNamed:@"output_ch" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[aOutCh objectAtIndex:[audioOutDevices indexOfSelectedItem]]]];
+    
+    node = [self childNamed:@"sampling_rate" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[samplingRate titleOfSelectedItem]]];
+    
+    node = [self childNamed:@"buffer_size" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[bufferSize titleOfSelectedItem]]];
+    
+    node = [self childNamed:@"fft_window" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[fftWindowing indexOfSelectedItem]]];
+    
+    ////////////////////////////////////////////////////////////////////// ARDUINO
+    node = [self childNamed:@"serial_device_name" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[serialDevices titleOfSelectedItem]]];
+    
+    node = [self childNamed:@"baud_rate" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%@",[baudrate titleOfSelectedItem]]];
+    
+    ////////////////////////////////////////////////////////////////////// MIDI
+    node = [self childNamed:@"midi_port" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithFormat:@"%d",[midiDevices indexOfSelectedItem]]];
+    
+    ////////////////////////////////////////////////////////////////////// OSC
+    node = [self childNamed:@"host_ip" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[sendingToIP stringValue]]];
+    
+    node = [self childNamed:@"host_port" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[sendingToPORT stringValue]]];
+    
+    node = [self childNamed:@"server_port" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[receivingAtPORT stringValue]]];
+    
+    
+    // WRITE TO XML
+    data = [xmlDoc XMLData];
+    [data writeToURL:furl atomically:YES];
+    
+    [xmlDoc release];
+    
+}
+
+- (NSXMLNode *)childNamed:(NSString *)name fromNode:(NSXMLNode *)fNode{
+    NSEnumerator *e = [[fNode children] objectEnumerator];
+    
+    NSXMLNode *node;
+    while (node = [e nextObject])
+        if ([[node name] isEqualToString:name])
+            return node;
+    
+    return nil;
 }
 
 - (void) getOutputRes:(NSString*)_w height:(NSString*)_h{
@@ -464,20 +856,52 @@
     
 }
 
-- (IBAction) setOutputRes:(id)sender{
+- (IBAction) openPanelForSketch:(id)sender{
+    NSString        *sketchbookLocation = [@"~/Documents/GAmuza" stringByExpandingTildeInPath];
+    NSArray         *fileTypes = [[NSArray alloc] initWithObjects:@"ga", nil];
     
+    // Custom Open Panel
+    NSOpenPanel                 *oPan;
+    oPan = [NSOpenPanel openPanel];
+    [oPan setTitle:@"Choose a GAmuza Sketch"];
+    [oPan setDirectoryURL:[NSURL fileURLWithPath:sketchbookLocation]];
+    [oPan setAllowsOtherFileTypes:NO];
+    [oPan setAllowsMultipleSelection:NO];
+    [oPan setCanChooseDirectories:NO];
+    [oPan setCanCreateDirectories:NO];
+    [oPan setAllowedFileTypes:fileTypes];
+    
+    NSInteger tvarNSInteger	= [oPan runModal];
+    
+    if(tvarNSInteger == NSOKButton){
+        [autoSketchFile setStringValue:[oPan filename]];
+    }else{
+        return;
+    }
 }
 
-- (void) getCaptureRes:(NSString*)_w height:(NSString*)_h{
+- (IBAction) openPanelForMapping:(id)sender{
+    NSString        *sketchbookLocation = [@"~/Documents/GAmuza" stringByExpandingTildeInPath];
+    NSArray         *fileTypes = [[NSArray alloc] initWithObjects:@"xml", @"XML", nil];
     
-}
-
-- (IBAction) setCaptureRes:(id)sender{
+    // Custom Open Panel
+    NSOpenPanel                 *oPan;
+    oPan = [NSOpenPanel openPanel];
+    [oPan setTitle:@"Choose a Mapping File"];
+    [oPan setDirectoryURL:[NSURL fileURLWithPath:sketchbookLocation]];
+    [oPan setAllowsOtherFileTypes:NO];
+    [oPan setAllowsMultipleSelection:NO];
+    [oPan setCanChooseDirectories:NO];
+    [oPan setCanCreateDirectories:NO];
+    [oPan setAllowedFileTypes:fileTypes];
     
-}
-
-- (IBAction) closePreferences:(id)sender{
-    [mainPanel orderOut:mainPanel];
+    NSInteger tvarNSInteger	= [oPan runModal];
+    
+    if(tvarNSInteger == NSOKButton){
+        [autoMappingFile setStringValue:[oPan filename]];
+    }else{
+        return;
+    }
 }
 
 @end

@@ -37,7 +37,11 @@ Just drag to Application folder.
 
 ## OF
 
-openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/blob/master/gaPatch.patch) and all the official addons.
+openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/blob/master/GA_ofPatch.patch) and all the official addons.
+
+## Additional Libraries
+
+* Boost Library & headers
 
 
 ## OFXADDONS

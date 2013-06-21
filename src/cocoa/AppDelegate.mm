@@ -1,4 +1,6 @@
 
+#import <IOKit/graphics/IOGraphicsLib.h>
+
 #import "AppDelegate.h"
 #import "NSMenu+DeepSearch.h"
 #import "GAMultiTextDocument.h"
@@ -17,10 +19,15 @@
 - (void)terminateSplashWindow:(NSTimer *)timer {
     [_splash orderOut:self];
     
-    [self sendScreenResToGA];
-    
     isPreviewON = false;
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
+    
+    if(prefPanel._autoFullscreen == 1){
+        [self getScreenXPosition:prefPanel._fullscreenScreen];
+        gappWindow->setWindowPosition(fullscreenWinPosX,screenH-60);
+        gappWindow->toggleFullscreen();
+        gapp->gamuzaFullscreen();
+    }
     
 }
 
@@ -50,15 +57,15 @@
     gaVPWindow = ofxNSWindower::instance()->getWindowPtr("Preview");
     gaVPWindow->setWindowTitle("Preview");
     gaVPWindow->setWindowShape(320,240);
-    gaVPWindow->setWindowPosition(screenX-330,screenY-30);
+    gaVPWindow->setWindowPosition(screenW-330,screenH-30);
     [gaVPWindow->getWindow() orderOut:self];
     
     // START GAmuza TIMELINE Panel
-    gaTL = new gaTimeline(screenX,screenY);
+    gaTL = new gaTimeline(screenW,screenH);
     ofxNSWindower::instance()->addWindow(gaTL,"Timeline", NSTitledWindowMask|NSResizableWindowMask, 0);
     gaTLWindow = ofxNSWindower::instance()->getWindowPtr("Timeline");
     gaTLWindow->setWindowTitle("Timeline");
-    gaTLWindow->setWindowShape(screenX,screenY-30);
+    gaTLWindow->setWindowShape(screenW,screenH-30);
     gaTLWindow->setWindowPosition(0,0);
     //[gaTLWindow->getWindow() setContentSize:NSMakeSize(800,400)];
     [gaTLWindow->getWindow() orderOut:self];
@@ -69,14 +76,16 @@
 	ofxNSWindower::instance()->addWindow(gapp,"gamuza", NSTitledWindowMask, 0);
     gappWindow = ofxNSWindower::instance()->getWindowPtr("gamuza");
     gappWindow->setWindowTitle(gapp->_windowTitle);
-    gappWindow->setWindowPosition(screenX - MAIN_WINDOW_W,screenY - MAIN_WINDOW_H);
+    gappWindow->setWindowPosition(screenW - MAIN_WINDOW_W,screenH - MAIN_WINDOW_H);
     [gappWindow->getWindow() orderOut:self];
     gaVP->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
-    
+    [self sendScreenResToGA];
+    gapp->sendHardwareInfo(aInD,aInDID,aOutD,aOutDID,mD,sD,aInputCH,aOutputCH);
+    [self sendDataToPreferences];
     
     // Splash window
     [_splash makeKeyAndOrderFront:self];
-    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.6
+    NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.1
                                     target:self
                                     selector:@selector(terminateSplashWindow:)
                                     userInfo:NULL
@@ -84,7 +93,7 @@
     
     applicationHasStarted = YES;
     
-    NSString *tempRelease = [NSString stringWithFormat:@" GAmuza %@ | Hybrid Live OF Sketching IDE",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
+    NSString *tempRelease = [NSString stringWithFormat:@"GAmuza %@ | Hybrid Live OF Sketching IDE",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
     [self sendGALog:tempRelease];
     [self sendGALog:@"----------------------------------------------------------"];
     [self sendGALog:@" "];
@@ -95,7 +104,7 @@
     [self sendGALog:@"----------------------------------------------------------"];
     [self sendGALog:@" "];
     
-    [self sendGALog:@"GAmuza Started"];
+    [self sendGALog:@"GAmuza STARTED"];
     [self sendGALog:@" "];
     
 
@@ -118,9 +127,9 @@
     // create GAmuza directory
     [filemgr createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes: NULL error:NULL];
     
-    NSString *tempMessage = [NSString stringWithFormat:@"GAmuza Sketchbook directory: %@",documentsDirectory];
-    [self sendGALog:@""];
-    [self sendGALog:tempMessage];
+    //NSString *tempMessage = [NSString stringWithFormat:@"GAmuza Sketchbook directory: %@",documentsDirectory];
+    //[self sendGALog:@""];
+    //[self sendGALog:tempMessage];
     
 }
 
@@ -313,30 +322,144 @@
 }
 
 //------------------------------------------------------------------------------
-- (void) screenResolution {
+- (NSString*) screenNameFromID:(CGDirectDisplayID)displayID{
+    NSString *screenName = NULL;
     
-    NSRect screenRect;
-    NSArray *screenArray = [NSScreen screens];
-    unsigned screenCount = [screenArray count];
-    unsigned index  = 0;
-    numScreen = screenCount;
+    NSDictionary *deviceInfo = (NSDictionary *)IODisplayCreateInfoDictionary(CGDisplayIOServicePort(displayID), kIODisplayOnlyPreferredName);
+    NSDictionary *localizedNames = [deviceInfo objectForKey:[NSString stringWithUTF8String:kDisplayProductName]];
     
-    for (index; index < screenCount; index++){
-        NSScreen *screen = [screenArray objectAtIndex: index];
-        screenRect = [screen visibleFrame];
-        
-        NSString *tempMessage = [NSString stringWithFormat:@"\n\nScreen %i @ %ix%i", index+1, (int)screenRect.size.width, (int)screenRect.size.height];
-        [self sendGALog:tempMessage];
+    if ([localizedNames count] > 0) {
+    	screenName = [[localizedNames objectForKey:[[localizedNames allKeys] objectAtIndex:0]] retain];
     }
     
-    screenX = screenRect.size.width;
-    screenY = screenRect.size.height;
+    [deviceInfo release];
+    return [screenName autorelease];
+}
+
+//------------------------------------------------------------------------------
+- (void) getScreenXPosition:(int)screenNum{
+    int xPos = 20;
+    
+    unsigned i = 0;
+    for(NSString *s in screensINFO){
+        NSRect nsr = NSRectFromString(s);
+        if(i < screenNum){
+            xPos += (int)nsr.size.width;
+        }
+        i++;
+    }
+    
+    fullscreenWinPosX = xPos;
     
 }
 
 //------------------------------------------------------------------------------
-- (void) sendScreenResToGA {
-    gapp->getScreenInfo(screenX,screenY);
+- (void) screenResolution{
+    
+    NSRect              screenRect;
+    NSDictionary*       screenDescription;
+    CGDirectDisplayID   theCGDisplayID;
+    NSArray*            screenArray = [NSScreen screens];
+    
+    unsigned screenCount = [screenArray count];
+    screensINFO = [[NSMutableArray alloc] initWithCapacity:screenCount];
+    
+    unsigned i = 0;
+    
+    [self sendGALog:@""];
+    [self sendGALog:@" ------------------------------------------------ SCREENS CONNECTED"];
+    for(i;i < screenCount;i++){
+        NSScreen *screen = [screenArray objectAtIndex: i];
+        screenRect = [screen visibleFrame];
+        screenDescription = [screen deviceDescription];
+        
+        theCGDisplayID = (CGDirectDisplayID) [[screenDescription valueForKey:@"NSScreenNumber"] intValue];
+        
+        NSRect      tempRect = NSMakeRect((float)CGRectGetMinX(CGDisplayBounds(theCGDisplayID)),(float)CGRectGetMinY(CGDisplayBounds(theCGDisplayID)),(float)CGDisplayPixelsWide(theCGDisplayID),(float)CGDisplayPixelsHigh(theCGDisplayID));
+        [screensINFO addObject:NSStringFromRect(tempRect)];
+        
+        NSString *tempMessage = [NSString stringWithFormat:@" Screen %i: %@  %ix%i", i+1,[self screenNameFromID:theCGDisplayID],(int)tempRect.size.width,(int)tempRect.size.height];
+        [self sendGALog:tempMessage];
+        [self sendGALog:@""];
+        
+        if(i==0){ // main screen
+            screenW = (int)tempRect.size.width;
+            screenH = (int)tempRect.size.height;
+        }
+    }
+    
+}
+
+//------------------------------------------------------------------------------
+- (void) sendScreenResToGA{
+    gapp->getScreenInfo(screenW,screenH);
+    
+    vector<ofRectangle>  _tempScreens;
+    for(NSString *s in screensINFO){
+        NSRect nsr = NSRectFromString(s);
+        ofRectangle _r = ofRectangle(nsr.origin.x,nsr.origin.y,nsr.size.width,nsr.size.height);
+        _tempScreens.push_back(_r);
+    }
+    gapp->getScreensData(_tempScreens);
+}
+
+//------------------------------------------------------------------------------
+- (void) sendDataToPreferences{
+    unsigned i = 0;
+    NSString        *_tempDev;
+    int             _tI;
+    
+    // AUDIO IN DEVICES
+    [prefPanel.audioInDevices removeItemAtIndex:0];
+    for(i;i<aInD.size();i++){
+        _tempDev = [NSString stringWithCString:aInD[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        _tI = aInDID[i];
+        [prefPanel.audioInDevices addItemWithTitle:_tempDev];
+        [[prefPanel.audioInDevices itemAtIndex:i] setTag:_tI];
+    }
+    
+    // AUDIO OUT DEVICES
+    i = 0;
+    [prefPanel.audioOutDevices removeItemAtIndex:0];
+    for(i;i<aOutD.size();i++){
+        _tempDev = [NSString stringWithCString:aOutD[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        _tI = aOutDID[i];
+        [prefPanel.audioOutDevices addItemWithTitle:_tempDev];
+        [[prefPanel.audioOutDevices itemAtIndex:i] setTag:_tI];
+    }
+    
+    prefPanel.aInCh = [[NSMutableArray alloc] initWithCapacity:aInputCH.size()];
+    i = 0;
+    for(i;i<aInputCH.size();i++){
+        _tempDev = [NSString stringWithCString:aInputCH[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        [prefPanel.aInCh addObject:_tempDev];
+    }
+    
+    prefPanel.aOutCh = [[NSMutableArray alloc] initWithCapacity:aOutputCH.size()];
+    i = 0;
+    for(i;i<aOutputCH.size();i++){
+        _tempDev = [NSString stringWithCString:aOutputCH[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        [prefPanel.aOutCh addObject:_tempDev];
+    }
+    
+    // MIDI DEVICES
+    i = 0;
+    [prefPanel.midiDevices removeItemAtIndex:0];
+    for(i;i<mD.size();i++){
+        _tempDev = [NSString stringWithCString:mD[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        [prefPanel.midiDevices addItemWithTitle:_tempDev];
+        [[prefPanel.midiDevices itemAtIndex:i] setTag:i];
+    }
+    
+    // SERIAL DEVICES
+    i = 0;
+    [prefPanel.serialDevices removeItemAtIndex:0];
+    for(i;i<sD.size();i++){
+        _tempDev = [NSString stringWithCString:sD[i].c_str() encoding:[NSString defaultCStringEncoding]];
+        [prefPanel.serialDevices addItemWithTitle:_tempDev];
+        [[prefPanel.serialDevices itemAtIndex:i] setTag:i];
+    }
+    
 }
 
 //------------------------------------------------------------------------------
@@ -405,6 +528,13 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) applyPreferences:(id)sender{
+    [prefPanel saveDataToXml];
+    gapp->resetApp();
+    gappWindow->setWindowTitle(gapp->_windowTitle);
+    [prefPanel.mainPanel orderOut:NULL];
+}
+
 -(IBAction) toggleTimelinePanel:(id)sender{
     if(isTimelineON){
         isTimelineON = false;
@@ -444,35 +574,35 @@
         case 0:
             gaVP->setPreviewDim(320,240);
             gaVPWindow->setWindowShape(320,240);
-            gaVPWindow->setWindowPosition(screenX-330,screenY-30);
+            gaVPWindow->setWindowPosition(screenW-330,screenH-30);
             [sender setState: NSOnState];
             break;
             
         case 1:
             gaVP->setPreviewDim(640,360);
             gaVPWindow->setWindowShape(640,360);
-            gaVPWindow->setWindowPosition(screenX-650,screenY-30);
+            gaVPWindow->setWindowPosition(screenW-650,screenH-30);
             [sender setState: NSOnState];
             break;
             
         case 2:
             gaVP->setPreviewDim(640,480);
             gaVPWindow->setWindowShape(640,480);
-            gaVPWindow->setWindowPosition(screenX-650,screenY-30);
+            gaVPWindow->setWindowPosition(screenW-650,screenH-30);
             [sender setState: NSOnState];
             break;
             
         case 3:
             gaVP->setPreviewDim(800,600);
             gaVPWindow->setWindowShape(800,600);
-            gaVPWindow->setWindowPosition(screenX-810,screenY-30);
+            gaVPWindow->setWindowPosition(screenW-810,screenH-30);
             [sender setState: NSOnState];
             break;
             
         case 4:
             gaVP->setPreviewDim(854,480);
             gaVPWindow->setWindowShape(854,480);
-            gaVPWindow->setWindowPosition(screenX-864,screenY-30);
+            gaVPWindow->setWindowPosition(screenW-864,screenH-30);
             [sender setState: NSOnState];
             break;
             
@@ -568,6 +698,7 @@
 
 -(IBAction) restartGAmuzaWindow: (id)sender{
     gapp->resetApp();
+    gappWindow->setWindowTitle(gapp->_windowTitle);
 }
 
 -(IBAction) sendScriptToGAmuza: (id)sender{

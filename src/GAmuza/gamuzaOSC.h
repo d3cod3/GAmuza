@@ -14,9 +14,9 @@ void gamuzaMain::checkNetConnection(){
     connectionTest.Close();
     
     if(connectionUP){
-        sprintf(temp_message,"OSC Connection UP & RUNNING");
+        sprintf(temp_message," OSC Connection UP & RUNNING");
     }else{
-        sprintf(temp_message,"OSC Connection DOWN");
+        sprintf(temp_message," OSC Connection DOWN");
         
     }
     sendGALog(temp_message);
@@ -37,8 +37,9 @@ void gamuzaMain::setupOSC(){
     
     sprintf(temp_message,"  - receiving at port %s",server_port.c_str());
     sendGALog(temp_message);
-    sprintf(temp_message,"  - sending at host:port %s:%s\n",host_number.c_str(),host_port.c_str());
+    sprintf(temp_message,"  - sending at host:port %s:%s",host_number.c_str(),host_port.c_str());
     sendGALog(temp_message);
+    sendGALog(" ");
 	
 }
 

@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <QTKit/QTkit.h>
 
+
 @interface PreferencesController : NSObject<NSTextFieldDelegate>{
     
     IBOutlet NSPanel*       mainPanel;
@@ -18,6 +19,7 @@
     IBOutlet NSTextField*   mappingGridRes;
     IBOutlet NSTextField*   customWidth;
     IBOutlet NSTextField*   customHeight;
+    IBOutlet NSSlider*      mappingSliderRes;
     IBOutlet NSTextField*   aspectRatio;
     
     // AUTOMATION
@@ -31,26 +33,20 @@
     IBOutlet NSButton*      chooseMappingFile;
     
     // COMPUTER VISION
-    IBOutlet QTCaptureView* deviceCaptureView;
-    IBOutlet NSPopUpButton* videoDevices;
-    IBOutlet NSPopUpButton* captureRes;
-    IBOutlet NSTextField*   testingVideoFile;
-    IBOutlet NSButton*      chooseVideoFile;
-    IBOutlet NSTextField*   haarFile;
-    IBOutlet NSButton*      chooseHaarFile;
     
     // AUDIO STREAMING
-    IBOutlet NSPopUpButton* audioDevices;
-    IBOutlet NSPopUpButton* samplingRate;
-    IBOutlet NSPopUpButton* bufferSize;
-    IBOutlet NSPopUpButton* fftWindowing;
+    IBOutlet NSPopUpButton*     audioInDevices;
+    IBOutlet NSPopUpButton*     audioOutDevices;
+    IBOutlet NSPopUpButton*     samplingRate;
+    IBOutlet NSPopUpButton*     bufferSize;
+    IBOutlet NSPopUpButton*     fftWindowing;
     
     // ARDUINO
-    IBOutlet NSPopUpButton* serialDevices;
-    IBOutlet NSPopUpButton* baudrate;
+    IBOutlet NSPopUpButton*     serialDevices;
+    IBOutlet NSPopUpButton*     baudrate;
     
     // MIDI
-    IBOutlet NSPopUpButton* midiDevices;
+    IBOutlet NSPopUpButton*     midiDevices;
     
     // OSC
     IBOutlet NSTextField*   sendingToIP;
@@ -58,27 +54,58 @@
     IBOutlet NSTextField*   receivingAtPORT;
     
     
+    int         _autoFullscreen;
+    int         _fullscreenScreen;
     NSString*   outputWidth;
     NSString*   outputHeight;
-    NSString*   captureWidth;
-    NSString*   captureHeight;
+    NSString*   _samplingRate;
+    NSString*   _bufferSize;
+    int         _fftWindowing;
+    int         _audioInDev;
+    int         _audioOutDev;
+    int         _midiDev;
+    NSString*   _baudRate;
+    NSString*   _serialDev;
+    
+    NSMutableArray*     aInCh;
+    NSMutableArray*     aOutCh;
     
 }
 
+@property (nonatomic,assign) NSPanel*           mainPanel;
+@property (nonatomic,assign) NSPopUpButton*     audioInDevices;
+@property (nonatomic,assign) NSPopUpButton*     audioOutDevices;
+@property (nonatomic,assign) NSPopUpButton*     midiDevices;
+@property (nonatomic,assign) NSPopUpButton*     serialDevices;
+@property (nonatomic,assign) NSMutableArray*    aInCh;
+@property (nonatomic,assign) NSMutableArray*    aOutCh;
+@property (nonatomic,assign) int                _autoFullscreen;
+@property (nonatomic,assign) int                _fullscreenScreen;
+
+NSString* screenNameForDisplay(CGDirectDisplayID displayID);
+
+- (NSXMLNode *)childNamed:(NSString *)name fromNode:(NSXMLNode *)fNode;
+
 - (void) reduceToAspectRatio;
+- (void) getScreensInfo;
 
 - (IBAction) updateScreenResolution:(id)sender;
+- (IBAction) updateSamplingRate:(id)sender;
+- (IBAction) updateBufferSize:(id)sender;
+- (IBAction) updateBaudrate:(id)sender;
+
+- (IBAction) updateAudioInDevice:(id)sender;
+- (IBAction) updateAudioOutDevice:(id)sender;
+- (IBAction) updateMidiDevice:(id)sender;
+- (IBAction) updateSerialDevice:(id)sender;
 
 - (IBAction) getDataFromXml:(id)sender;
-- (IBAction) saveDataToXml:(id)sender;
+- (void) saveDataToXml;
 
 - (void) getOutputRes:(NSString*)_w height:(NSString*)_h;
-- (IBAction) setOutputRes:(id)sender;
 
-- (void) getCaptureRes:(NSString*)_w height:(NSString*)_h;
-- (IBAction) setCaptureRes:(id)sender;
-
-- (IBAction) closePreferences:(id)sender;
+- (IBAction) openPanelForSketch:(id)sender;
+- (IBAction) openPanelForMapping:(id)sender;
 
 
 
