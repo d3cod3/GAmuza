@@ -532,6 +532,7 @@
     [prefPanel saveDataToXml];
     gapp->resetApp();
     gappWindow->setWindowTitle(gapp->_windowTitle);
+    gaVP->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
     [prefPanel.mainPanel orderOut:NULL];
 }
 
