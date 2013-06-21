@@ -115,6 +115,7 @@
 		206C44391769407A00E2572D /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 206C442A1769407A00E2572D /* CAStreamBasicDescription.cpp */; };
 		206C443A1769407A00E2572D /* ofxAUPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 206C442E1769407A00E2572D /* ofxAUPlugin.mm */; };
 		206C44421769454900E2572D /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 206C44401769454900E2572D /* CADebugMacros.cpp */; };
+		20713A211774CD6000ACCB29 /* ofxUITabbedCanvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20713A1F1774CD6000ACCB29 /* ofxUITabbedCanvas.cpp */; };
 		207847881732C98B0098ABF0 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 207847851732C98B0098ABF0 /* AppDelegate.mm */; };
 		2078478D1732C9960098ABF0 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2078478A1732C9960098ABF0 /* main.mm */; };
 		207847A71732CACA0098ABF0 /* calibrator in Resources */ = {isa = PBXBuildFile; fileRef = 207847951732CAAE0098ABF0 /* calibrator */; };
@@ -713,6 +714,8 @@
 		206C442E1769407A00E2572D /* ofxAUPlugin.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxAUPlugin.mm; sourceTree = "<group>"; };
 		206C44401769454900E2572D /* CADebugMacros.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CADebugMacros.cpp; sourceTree = "<group>"; };
 		206C44411769454900E2572D /* CADebugMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADebugMacros.h; sourceTree = "<group>"; };
+		20713A1F1774CD6000ACCB29 /* ofxUITabbedCanvas.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxUITabbedCanvas.cpp; sourceTree = "<group>"; };
+		20713A201774CD6000ACCB29 /* ofxUITabbedCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUITabbedCanvas.h; sourceTree = "<group>"; };
 		207847841732C98B0098ABF0 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		207847851732C98B0098ABF0 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		2078478A1732C9960098ABF0 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
@@ -3748,6 +3751,8 @@
 				20784B171732D6370098ABF0 /* ofxUISpacer.h */,
 				20784B181732D6370098ABF0 /* ofxUISpectrum.h */,
 				20784B191732D6370098ABF0 /* ofxUISuperCanvas.h */,
+				20713A1F1774CD6000ACCB29 /* ofxUITabbedCanvas.cpp */,
+				20713A201774CD6000ACCB29 /* ofxUITabbedCanvas.h */,
 				20784B1A1732D6370098ABF0 /* ofxUITextArea.h */,
 				20784B1B1732D6370098ABF0 /* ofxUITextInput.h */,
 				20784B1C1732D6370098ABF0 /* ofxUIToggle.h */,
@@ -5065,6 +5070,7 @@
 				206C44391769407A00E2572D /* CAStreamBasicDescription.cpp in Sources */,
 				206C443A1769407A00E2572D /* ofxAUPlugin.mm in Sources */,
 				206C44421769454900E2572D /* CADebugMacros.cpp in Sources */,
+				20713A211774CD6000ACCB29 /* ofxUITabbedCanvas.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
