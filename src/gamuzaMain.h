@@ -123,6 +123,9 @@ public:
     void updateFBO();
     void drawFBO();
     void drawIntoFBO();
+    void setColorCorrection(float gamma, float bright, float sat,
+                            float contr, float filmB, float tech,
+                            float whiteD, float expos, float diff);
     
     // GUI ///////////////////////////// --> gamuzaGui.h
     void setupGui();

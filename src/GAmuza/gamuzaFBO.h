@@ -54,7 +54,6 @@ void gamuzaMain::setupFBO(){
 
 //--------------------------------------------------------------
 void gamuzaMain::updateFBO(){
-    
     // pass the output FBO to the external video preview window
     gaVP->getPreview(drawingFbo);
 }
@@ -138,7 +137,23 @@ void gamuzaMain::drawIntoFBO(){
     ///////////////////////////
     //////////////////////////////////
 	ofDisableAlphaBlending();
-	
 }
+
+//--------------------------------------------------------------
+void gamuzaMain::setColorCorrection(float gamma, float bright, float sat,
+                        float contr, float filmB, float tech,
+                        float whiteD, float expos, float diff){
+    fbo_gammaCorrection = gamma;
+    fbo_brightness = bright;
+    fbo_saturation = sat;
+    fbo_contrast = contr;
+    fbo_filmBleach = filmB;
+    fbo_techniColor = tech;
+    fbo_whiteDiffusion = whiteD;
+    fbo_exposure = expos;
+    fbo_diffusion = diff;
+}
+
+
 
 #endif

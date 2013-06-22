@@ -4,6 +4,8 @@ build/
 openFrameworks.a
 openFrameworksDebug.a
 openFrameworksUniversal.a
+liblua.a
+libluabind.a
 *.app/
 
 #xcode files

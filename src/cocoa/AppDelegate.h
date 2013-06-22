@@ -24,9 +24,24 @@
     NSMutableArray              *GAExampleFiles;
     NSMutableArray              *GASketchbookFiles;
     
+    // SPLASH WINDOW
     IBOutlet SplashWindow           *_splash;
+    // LOGGER
     IBOutlet NSTextView             *logger;
+    // PREFERENCE PANEL
     IBOutlet PreferencesController  *prefPanel;
+    
+    // COLOR CORRECTION PANEL
+    IBOutlet NSPanel                *colorCorrectionPanel;
+    IBOutlet NSSlider               *gammaS;
+    IBOutlet NSSlider               *brightS;
+    IBOutlet NSSlider               *satS;
+    IBOutlet NSSlider               *contrS;
+    IBOutlet NSSlider               *filmBS;
+    IBOutlet NSSlider               *techS;
+    IBOutlet NSSlider               *whiteDS;
+    IBOutlet NSSlider               *exposS;
+    IBOutlet NSSlider               *diffS;
     
     int                         numScreen;
     int                         screenW, screenH;
@@ -83,6 +98,10 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) resetColorCorrection:(id)sender;
+
+- (IBAction) applyColorCorrection:(id)sender;
+
 - (IBAction) applyPreferences:(id)sender;
 
 - (IBAction) toggleTimelinePanel:(id)sender;
@@ -114,7 +133,6 @@
 - (IBAction) toggleGAmuzaFullscreen:(id)sender;
 
 // MAPPING
-
 - (IBAction) resetMapping:(id)sender;
 - (IBAction) loadMapping:(id)sender;
 - (IBAction) saveMapping:(id)sender;

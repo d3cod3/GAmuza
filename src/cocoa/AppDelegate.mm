@@ -528,6 +528,24 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) resetColorCorrection:(id)sender{
+    [gammaS setFloatValue:1.0];
+    [brightS setFloatValue:1.0];
+    [satS setFloatValue:1.0];
+    [contrS setFloatValue:1.0];
+    [filmBS setFloatValue:0.0];
+    [techS setFloatValue:0.0];
+    [whiteDS setFloatValue:0.0];
+    [exposS setFloatValue:0.0];
+    [diffS setFloatValue:0.0];
+    
+    gapp->setColorCorrection([gammaS floatValue],[brightS floatValue],[satS floatValue],[contrS floatValue],[filmBS floatValue],[techS floatValue],[whiteDS floatValue],[exposS floatValue],[diffS floatValue]);
+}
+
+- (IBAction) applyColorCorrection:(id)sender{
+    gapp->setColorCorrection([gammaS floatValue],[brightS floatValue],[satS floatValue],[contrS floatValue],[filmBS floatValue],[techS floatValue],[whiteDS floatValue],[exposS floatValue],[diffS floatValue]);
+}
+
 - (IBAction) applyPreferences:(id)sender{
     [prefPanel saveDataToXml];
     gapp->resetApp();
