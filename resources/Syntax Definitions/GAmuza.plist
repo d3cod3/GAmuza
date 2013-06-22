@@ -1215,6 +1215,44 @@
 				<string>getReactionForce</string>
 				<string>getReactionForceB2D</string>
 				<string>getReactionTorque</string>
+				<string>ofxBox2dDistanceJoint</string>
+				<string>setWorld</string>
+				<string>isAlive</string>
+				<string>destroy</string>
+				<string>setup</string>
+				<string>setLength</string>
+				<string>getLength</string>
+				<string>setFrequency</string>
+				<string>getFrequency</string>
+				<string>setDamping</string>
+				<string>getDamping</string>
+				<string>getReactionForce</string>
+				<string>getReactionForceB2D</string>
+				<string>getReactionTorque</string>
+				<string>ofxBox2dGearJoint</string>
+				<string>setRatio</string>
+				<string>getRatio</string>
+				<string>ofxBox2dPrismaticJoint</string>
+				<string>getJoint</string>
+				<string>getLowerLimit</string>
+				<string>getUpperLimit</string>
+				<string>setLimits</string>
+				<string>setEnableLimit</string>
+				<string>isLimitEnabled</string>
+				<string>isMotorEnabled</string>
+				<string>setEnableMotor</string>
+				<string>setMotorSpeed</string>
+				<string>getMotorSpeed</string>
+				<string>setMaxMotorForce</string>
+				<string>getMotorForce</string>
+				<string>ofxBox2dPulleyJoint</string>
+				<string>getLength1</string>
+				<string>getLength2</string>
+				<string>ofxBox2dRevoluteJoint</string>
+				<string>getAngle</string>
+				<string>setMaxMotorTorque</string>
+				<string>getMotorTorque</string>
+				<string>ofxBox2dWeldJoint</string>
 				<string>ofxBox2dPolygon</string>
 				<string>triangulate</string>
 				<string>isGoodShape</string>

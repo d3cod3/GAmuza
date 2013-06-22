@@ -34,6 +34,13 @@
 		20027F8B1734601F00ED0C52 /* NSMenu+DeepSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 20027F831734601F00ED0C52 /* NSMenu+DeepSearch.m */; };
 		20027F8C1734601F00ED0C52 /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = 20027F851734601F00ED0C52 /* NSScanner+SkipUpToCharset.m */; };
 		20027F9C173496B200ED0C52 /* GAmuza in Resources */ = {isa = PBXBuildFile; fileRef = 20027F9B173496B100ED0C52 /* GAmuza */; };
+		20040D89177614C10058FF2C /* ofxBox2dBaseJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D7B177614C00058FF2C /* ofxBox2dBaseJoint.cpp */; };
+		20040D8A177614C10058FF2C /* ofxBox2dDistanceJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D7D177614C00058FF2C /* ofxBox2dDistanceJoint.cpp */; };
+		20040D8B177614C10058FF2C /* ofxBox2dGearJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D7F177614C00058FF2C /* ofxBox2dGearJoint.cpp */; };
+		20040D8C177614C10058FF2C /* ofxBox2dPrismaticJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D81177614C00058FF2C /* ofxBox2dPrismaticJoint.cpp */; };
+		20040D8D177614C10058FF2C /* ofxBox2dPulleyJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D83177614C00058FF2C /* ofxBox2dPulleyJoint.cpp */; };
+		20040D8E177614C10058FF2C /* ofxBox2dRevoluteJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D85177614C00058FF2C /* ofxBox2dRevoluteJoint.cpp */; };
+		20040D8F177614C10058FF2C /* ofxBox2dWeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20040D87177614C00058FF2C /* ofxBox2dWeldJoint.cpp */; };
 		200CE98E17357C1D0001192B /* NSBezierPath_AMShading.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE97317357C1D0001192B /* NSBezierPath_AMShading.m */; };
 		200CE9B617357E120001192B /* PSMMetalTabStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE99E17357E120001192B /* PSMMetalTabStyle.m */; };
 		200CE9B717357E120001192B /* PSMOverflowPopUpButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 200CE9A117357E120001192B /* PSMOverflowPopUpButton.m */; };
@@ -529,6 +536,20 @@
 		20027F841734601F00ED0C52 /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSScanner+SkipUpToCharset.h"; path = "ScriptEditor/NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
 		20027F851734601F00ED0C52 /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSScanner+SkipUpToCharset.m"; path = "ScriptEditor/NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
 		20027F9B173496B100ED0C52 /* GAmuza */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GAmuza; sourceTree = "<group>"; };
+		20040D7B177614C00058FF2C /* ofxBox2dBaseJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dBaseJoint.cpp; sourceTree = "<group>"; };
+		20040D7C177614C00058FF2C /* ofxBox2dBaseJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dBaseJoint.h; sourceTree = "<group>"; };
+		20040D7D177614C00058FF2C /* ofxBox2dDistanceJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dDistanceJoint.cpp; sourceTree = "<group>"; };
+		20040D7E177614C00058FF2C /* ofxBox2dDistanceJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dDistanceJoint.h; sourceTree = "<group>"; };
+		20040D7F177614C00058FF2C /* ofxBox2dGearJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dGearJoint.cpp; sourceTree = "<group>"; };
+		20040D80177614C00058FF2C /* ofxBox2dGearJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dGearJoint.h; sourceTree = "<group>"; };
+		20040D81177614C00058FF2C /* ofxBox2dPrismaticJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dPrismaticJoint.cpp; sourceTree = "<group>"; };
+		20040D82177614C00058FF2C /* ofxBox2dPrismaticJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dPrismaticJoint.h; sourceTree = "<group>"; };
+		20040D83177614C00058FF2C /* ofxBox2dPulleyJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dPulleyJoint.cpp; sourceTree = "<group>"; };
+		20040D84177614C00058FF2C /* ofxBox2dPulleyJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dPulleyJoint.h; sourceTree = "<group>"; };
+		20040D85177614C00058FF2C /* ofxBox2dRevoluteJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dRevoluteJoint.cpp; sourceTree = "<group>"; };
+		20040D86177614C00058FF2C /* ofxBox2dRevoluteJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dRevoluteJoint.h; sourceTree = "<group>"; };
+		20040D87177614C00058FF2C /* ofxBox2dWeldJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBox2dWeldJoint.cpp; sourceTree = "<group>"; };
+		20040D88177614C10058FF2C /* ofxBox2dWeldJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBox2dWeldJoint.h; sourceTree = "<group>"; };
 		200CE97217357C1D0001192B /* NSBezierPath_AMShading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBezierPath_AMShading.h; sourceTree = "<group>"; };
 		200CE97317357C1D0001192B /* NSBezierPath_AMShading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBezierPath_AMShading.m; sourceTree = "<group>"; };
 		200CE99D17357E120001192B /* PSMMetalTabStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSMMetalTabStyle.h; sourceTree = "<group>"; };
@@ -4262,6 +4283,20 @@
 				20E229081759882F0033D376 /* ofxBox2dRect.h */,
 				20E229091759882F0033D376 /* ofxBox2dRender.h */,
 				20E2290A1759882F0033D376 /* ofxBox2dUtils.h */,
+				20040D7B177614C00058FF2C /* ofxBox2dBaseJoint.cpp */,
+				20040D7C177614C00058FF2C /* ofxBox2dBaseJoint.h */,
+				20040D7D177614C00058FF2C /* ofxBox2dDistanceJoint.cpp */,
+				20040D7E177614C00058FF2C /* ofxBox2dDistanceJoint.h */,
+				20040D7F177614C00058FF2C /* ofxBox2dGearJoint.cpp */,
+				20040D80177614C00058FF2C /* ofxBox2dGearJoint.h */,
+				20040D81177614C00058FF2C /* ofxBox2dPrismaticJoint.cpp */,
+				20040D82177614C00058FF2C /* ofxBox2dPrismaticJoint.h */,
+				20040D83177614C00058FF2C /* ofxBox2dPulleyJoint.cpp */,
+				20040D84177614C00058FF2C /* ofxBox2dPulleyJoint.h */,
+				20040D85177614C00058FF2C /* ofxBox2dRevoluteJoint.cpp */,
+				20040D86177614C00058FF2C /* ofxBox2dRevoluteJoint.h */,
+				20040D87177614C00058FF2C /* ofxBox2dWeldJoint.cpp */,
+				20040D88177614C10058FF2C /* ofxBox2dWeldJoint.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -5071,6 +5106,13 @@
 				206C443A1769407A00E2572D /* ofxAUPlugin.mm in Sources */,
 				206C44421769454900E2572D /* CADebugMacros.cpp in Sources */,
 				20713A211774CD6000ACCB29 /* ofxUITabbedCanvas.cpp in Sources */,
+				20040D89177614C10058FF2C /* ofxBox2dBaseJoint.cpp in Sources */,
+				20040D8A177614C10058FF2C /* ofxBox2dDistanceJoint.cpp in Sources */,
+				20040D8B177614C10058FF2C /* ofxBox2dGearJoint.cpp in Sources */,
+				20040D8C177614C10058FF2C /* ofxBox2dPrismaticJoint.cpp in Sources */,
+				20040D8D177614C10058FF2C /* ofxBox2dPulleyJoint.cpp in Sources */,
+				20040D8E177614C10058FF2C /* ofxBox2dRevoluteJoint.cpp in Sources */,
+				20040D8F177614C10058FF2C /* ofxBox2dWeldJoint.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

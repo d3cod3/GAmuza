@@ -2738,6 +2738,125 @@ class ofGamuzaWrapper{
          .def("getReactionTorque", (float(ofxBox2dJoint::*)(float)) &ofxBox2dJoint::getReactionTorque),
          
          ///////////////////////////////
+         // ofxBox2dDistanceJoint
+         class_<ofxBox2dDistanceJoint>("ofxBox2dDistanceJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dDistanceJoint::*)(b2World*)) &ofxBox2dDistanceJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dDistanceJoint::*)(void)) &ofxBox2dDistanceJoint::isAlive)
+         .def("destroy", (void(ofxBox2dDistanceJoint::*)(void)) &ofxBox2dDistanceJoint::destroy)
+         
+         .def("setup", (void(ofxBox2dDistanceJoint::*)(b2World*,b2Body*,b2Body*,float,float,float,bool)) &ofxBox2dDistanceJoint::setup)
+         .def("setup", (void(ofxBox2dDistanceJoint::*)(b2World*,b2Body*,b2Body*,float,float,bool)) &ofxBox2dDistanceJoint::setup)
+         .def("setup", (void(ofxBox2dDistanceJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,b2Vec2,float,float,float,bool)) &ofxBox2dDistanceJoint::setup)
+         .def("setup", (void(ofxBox2dDistanceJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,b2Vec2,float,float,bool)) &ofxBox2dDistanceJoint::setup)
+         .def("setLength", (void(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::setLength)
+         .def("getLength", (float(ofxBox2dDistanceJoint::*)(void)) &ofxBox2dDistanceJoint::getLength)
+         .def("setFrequency", (void(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::setFrequency)
+         .def("getFrequency", (float(ofxBox2dDistanceJoint::*)(void)) &ofxBox2dDistanceJoint::getFrequency)
+         .def("setDamping", (void(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::setDamping)
+         .def("getDamping", (float(ofxBox2dDistanceJoint::*)(void)) &ofxBox2dDistanceJoint::getDamping)
+         .def("getReactionForce", (ofVec2f(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dDistanceJoint::*)(float)) &ofxBox2dDistanceJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dGearJoint
+         class_<ofxBox2dGearJoint>("ofxBox2dGearJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dGearJoint::*)(b2World*)) &ofxBox2dGearJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dGearJoint::*)(void)) &ofxBox2dGearJoint::isAlive)
+         .def("destroy", (void(ofxBox2dGearJoint::*)(void)) &ofxBox2dGearJoint::destroy)
+         
+         .def("setup", (void(ofxBox2dGearJoint::*)(b2World*,ofxBox2dRevoluteJoint*,ofxBox2dPrismaticJoint*,float,bool)) &ofxBox2dGearJoint::setup)
+         .def("setRatio", (void(ofxBox2dGearJoint::*)(float)) &ofxBox2dGearJoint::setRatio)
+         .def("getRatio", (float(ofxBox2dGearJoint::*)(void)) &ofxBox2dGearJoint::getRatio)
+         .def("getReactionForce", (ofVec2f(ofxBox2dGearJoint::*)(float)) &ofxBox2dGearJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dGearJoint::*)(float)) &ofxBox2dGearJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dGearJoint::*)(float)) &ofxBox2dGearJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dPrismaticJoint
+         class_<ofxBox2dPrismaticJoint>("ofxBox2dPrismaticJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dPrismaticJoint::*)(b2World*)) &ofxBox2dPrismaticJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::isAlive)
+         .def("destroy", (void(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::destroy)
+         
+         //.def("setup", (void(ofxBox2dPrismaticJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,b2Vec2,float,float,float,bool,float,float,bool,bool)) &ofxBox2dPrismaticJoint::setup)
+         .def("getJoint", (b2PrismaticJoint*(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::getJoint)
+         .def("getLowerLimit", (float(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::getLowerLimit)
+         .def("getUpperLimit", (float(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::getUpperLimit)
+         .def("setLimits", (void(ofxBox2dPrismaticJoint::*)(float,float)) &ofxBox2dPrismaticJoint::setLimits)
+         .def("setEnableLimit", (void(ofxBox2dPrismaticJoint::*)(bool)) &ofxBox2dPrismaticJoint::setEnableLimit)
+         .def("isLimitEnabled", (bool(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::isLimitEnabled)
+         .def("isMotorEnabled", (bool(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::isMotorEnabled)
+         .def("setEnableMotor", (void(ofxBox2dPrismaticJoint::*)(bool)) &ofxBox2dPrismaticJoint::setEnableMotor)
+         .def("setMotorSpeed", (void(ofxBox2dPrismaticJoint::*)(float)) &ofxBox2dPrismaticJoint::setMotorSpeed)
+         .def("getMotorSpeed", (float(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::getMotorSpeed)
+         .def("setMaxMotorForce", (void(ofxBox2dPrismaticJoint::*)(float)) &ofxBox2dPrismaticJoint::setMaxMotorForce)
+         .def("getMotorForce", (float(ofxBox2dPrismaticJoint::*)(void)) &ofxBox2dPrismaticJoint::getMotorForce)
+         .def("getReactionForce", (ofVec2f(ofxBox2dPrismaticJoint::*)(float)) &ofxBox2dPrismaticJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dPrismaticJoint::*)(float)) &ofxBox2dPrismaticJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dPrismaticJoint::*)(float)) &ofxBox2dPrismaticJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dPulleyJoint
+         class_<ofxBox2dPulleyJoint>("ofxBox2dPulleyJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dPulleyJoint::*)(b2World*)) &ofxBox2dPulleyJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dPulleyJoint::*)(void)) &ofxBox2dPulleyJoint::isAlive)
+         .def("destroy", (void(ofxBox2dPulleyJoint::*)(void)) &ofxBox2dPulleyJoint::destroy)
+         
+         .def("setup", (void(ofxBox2dPulleyJoint::*)(b2World*,b2Body*,b2Body*,const b2Vec2&,const b2Vec2&,const b2Vec2&,const b2Vec2&,float,bool)) &ofxBox2dPulleyJoint::setup)
+         .def("getLength1", (float(ofxBox2dPulleyJoint::*)(void)) &ofxBox2dPulleyJoint::getLength1)
+         .def("getLength2", (float(ofxBox2dPulleyJoint::*)(void)) &ofxBox2dPulleyJoint::getLength2)
+         .def("getRatio", (float(ofxBox2dPulleyJoint::*)(void)) &ofxBox2dPulleyJoint::getRatio)
+         .def("getReactionForce", (ofVec2f(ofxBox2dPulleyJoint::*)(float)) &ofxBox2dPulleyJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dPulleyJoint::*)(float)) &ofxBox2dPulleyJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dPulleyJoint::*)(float)) &ofxBox2dPulleyJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dRevoluteJoint
+         class_<ofxBox2dRevoluteJoint>("ofxBox2dRevoluteJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dRevoluteJoint::*)(b2World*)) &ofxBox2dRevoluteJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::isAlive)
+         .def("destroy", (void(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::destroy)
+         
+         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
+         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
+         .def("getJoint", (b2RevoluteJoint*(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getJoint)
+         .def("getLowerLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getLowerLimit)
+         .def("getUpperLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getUpperLimit)
+         .def("getAngle", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getAngle)
+         .def("setLimits", (void(ofxBox2dRevoluteJoint::*)(float,float)) &ofxBox2dRevoluteJoint::setLimits)
+         .def("setEnableLimit", (void(ofxBox2dRevoluteJoint::*)(bool)) &ofxBox2dRevoluteJoint::setEnableLimit)
+         .def("isLimitEnabled", (bool(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::isLimitEnabled)
+         .def("isMotorEnabled", (bool(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::isMotorEnabled)
+         .def("setEnableMotor", (void(ofxBox2dRevoluteJoint::*)(bool)) &ofxBox2dRevoluteJoint::setEnableMotor)
+         .def("setMotorSpeed", (void(ofxBox2dRevoluteJoint::*)(float)) &ofxBox2dRevoluteJoint::setMotorSpeed)
+         .def("getMotorSpeed", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getMotorSpeed)
+         .def("setMaxMotorTorque", (void(ofxBox2dRevoluteJoint::*)(float)) &ofxBox2dRevoluteJoint::setMaxMotorTorque)
+         .def("getMotorTorque", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getMotorTorque)
+         .def("getReactionForce", (ofVec2f(ofxBox2dRevoluteJoint::*)(float)) &ofxBox2dRevoluteJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dRevoluteJoint::*)(float)) &ofxBox2dRevoluteJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dRevoluteJoint::*)(float)) &ofxBox2dRevoluteJoint::getReactionTorque),
+         
+         ///////////////////////////////
+         // ofxBox2dWeldJoint
+         class_<ofxBox2dWeldJoint>("ofxBox2dWeldJoint")
+         .def(constructor<>())
+         .def("setWorld", (void(ofxBox2dWeldJoint::*)(b2World*)) &ofxBox2dWeldJoint::setWorld)
+         .def("isAlive", (bool(ofxBox2dWeldJoint::*)(void)) &ofxBox2dWeldJoint::isAlive)
+         .def("destroy", (void(ofxBox2dWeldJoint::*)(void)) &ofxBox2dWeldJoint::destroy)
+         
+         .def("setup", (void(ofxBox2dWeldJoint::*)(b2World*,b2Body*,b2Body*,const b2Vec2&,float,bool)) &ofxBox2dWeldJoint::setup)
+         .def("setup", (void(ofxBox2dWeldJoint::*)(b2World*,b2Body*,b2Body*,const b2Vec2&,bool)) &ofxBox2dWeldJoint::setup)
+         .def("getReactionForce", (ofVec2f(ofxBox2dWeldJoint::*)(float)) &ofxBox2dWeldJoint::getReactionForce)
+         .def("getReactionForceB2D", (b2Vec2(ofxBox2dWeldJoint::*)(float)) &ofxBox2dWeldJoint::getReactionForceB2D)
+         .def("getReactionTorque", (float(ofxBox2dWeldJoint::*)(float)) &ofxBox2dWeldJoint::getReactionTorque),
+         
+         ///////////////////////////////
          // ofxBox2dPolygon
          class_<ofxBox2dPolygon>("ofxBox2dPolygon")
          .def(constructor<>())
