@@ -39,16 +39,6 @@ void gamuzaMain::setupFBO(){
         shaderColorCorrection.setUniform1f("tex_w",projectionScreenW);
         shaderColorCorrection.setUniform1f("tex_h",projectionScreenH);
     shaderColorCorrection.end();
-    
-    fbo_gammaCorrection = 1.0;
-    fbo_brightness = 1.0;
-    fbo_saturation = 1.0;
-    fbo_contrast = 1.0;
-    fbo_filmBleach = 0.0;
-    fbo_techniColor = 0.0;
-    fbo_whiteDiffusion = 0.0;
-    fbo_exposure = 0.0;
-    fbo_diffusion = 0.0;
     ///////////////////////////
 }
 

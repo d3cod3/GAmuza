@@ -30,5 +30,15 @@
     <host_ip>127.0.0.1</host_ip>
     <host_port>9666</host_port>
     <server_port>8997</server_port>
+    <!-- COLOR CORRECTION -->
+    <gamma_correction>1</gamma_correction>
+    <brightness>1</brightness>
+    <saturation>1</saturation>
+    <contrast>1</contrast>
+    <film_bleach>0.849198</film_bleach>
+    <technicolor>0</technicolor>
+    <force_bw>0</force_bw>
+    <white_exposure>0</white_exposure>
+    <white_diffusion>0</white_diffusion>
     <!-- -->
 </GAmuzaSettings>

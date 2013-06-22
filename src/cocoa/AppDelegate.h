@@ -91,6 +91,7 @@
 - (void) sendDataToPreferences;
 
 - (NSString *) runCommand:(NSString *)commandToRun;
+- (NSXMLNode *)childNamed:(NSString *)name fromNode:(NSXMLNode *)fNode;
 
 - (void)sendGALog:(NSString *)msg;
 
@@ -98,13 +99,7 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
-- (IBAction) resetColorCorrection:(id)sender;
-
-- (IBAction) applyColorCorrection:(id)sender;
-
 - (IBAction) applyPreferences:(id)sender;
-
-- (IBAction) toggleTimelinePanel:(id)sender;
 
 - (IBAction) togglePreviewWindow:(id)sender;
 
@@ -132,6 +127,12 @@
 
 - (IBAction) toggleGAmuzaFullscreen:(id)sender;
 
+// COLOR CORRECTION
+- (IBAction) getColorCorrection:(id)sender;
+- (IBAction) saveColorCorrection:(id)sender;
+- (IBAction) resetColorCorrection:(id)sender;
+- (IBAction) applyColorCorrection:(id)sender;
+
 // MAPPING
 - (IBAction) resetMapping:(id)sender;
 - (IBAction) loadMapping:(id)sender;
@@ -146,6 +147,7 @@
 - (IBAction) goToWestMappingPoint:(id)sender;
 
 // TIMELINE
+- (IBAction) toggleTimelinePanel:(id)sender;
 - (IBAction) undoOnTimeline:(id)sender;
 - (IBAction) redoOnTimeline:(id)sender;
 - (IBAction) copyOnTimeline:(id)sender;

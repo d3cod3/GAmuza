@@ -494,6 +494,18 @@
 }
 
 //------------------------------------------------------------------------------
+- (NSXMLNode *)childNamed:(NSString *)name fromNode:(NSXMLNode *)fNode{
+    NSEnumerator *e = [[fNode children] objectEnumerator];
+    
+    NSXMLNode *node;
+    while (node = [e nextObject])
+        if ([[node name] isEqualToString:name])
+            return node;
+    
+    return NULL;
+}
+
+//------------------------------------------------------------------------------
 - (void)sendGALog:(NSString *)msg{
     
     NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:[NSColor colorWithDeviceRed:1 green:1 blue:1 alpha:1.0], NSForegroundColorAttributeName, [NSFont userFixedPitchFontOfSize:10], NSFontAttributeName, NULL];
@@ -528,6 +540,142 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) getColorCorrection:(id)sender{
+    NSXMLDocument *xmlDoc;
+    NSArray* itemArray;
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/settings/gamuzaSettings.xml"];
+    NSURL *furl = [NSURL fileURLWithPath:path];
+    if (!furl) {
+        NSLog(@"Can't create an URL from file gamuzaSettings.xml.");
+        return;
+    }
+    xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                  options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
+                                                    error:NULL];
+    if (xmlDoc == NULL) {
+        xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                      options:NSXMLDocumentTidyXML
+                                                        error:NULL];
+    }
+    
+    NSXMLElement* root  = [xmlDoc rootElement];
+    
+    itemArray = [root nodesForXPath:@"//gamma_correction" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [gammaS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//brightness" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [brightS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//saturation" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [satS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//contrast" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [contrS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//film_bleach" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [filmBS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//technicolor" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [techS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//force_bw" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [whiteDS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//white_exposure" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [exposS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    itemArray = [root nodesForXPath:@"//white_diffusion" error:NULL];
+    for(NSXMLElement* xmlElement in itemArray){
+        [diffS setFloatValue:[[xmlElement stringValue] floatValue]];
+    }
+    
+    [xmlDoc release];
+    
+    [colorCorrectionPanel makeKeyAndOrderFront:NULL];
+    
+    [self applyColorCorrection:NULL];
+    
+}
+
+- (IBAction) saveColorCorrection:(id)sender{
+    NSXMLDocument   *xmlDoc;
+    NSData          *data;
+    NSArray         *itemArray;
+    NSXMLNode       *node;
+    
+    NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/settings/gamuzaSettings.xml"];
+    NSURL *furl = [NSURL fileURLWithPath:path];
+    
+    if (!furl) {
+        NSLog(@"Can't create an URL from file gamuzaSettings.xml.");
+        return;
+    }
+    xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                  options:(NSXMLNodePreserveWhitespace|NSXMLNodePreserveCDATA)
+                                                    error:NULL];
+    if (xmlDoc == NULL) {
+        xmlDoc = [[NSXMLDocument alloc] initWithContentsOfURL:furl
+                                                      options:NSXMLDocumentTidyXML
+                                                        error:NULL];
+    }
+    
+    NSXMLNode *rootNode = [xmlDoc rootElement];
+	
+    //////////////////////////////////////////////////////////////////////
+    // SAVE DATA
+    node = [self childNamed:@"gamma_correction" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[gammaS stringValue]]];
+    
+    node = [self childNamed:@"brightness" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[brightS stringValue]]];
+    
+    node = [self childNamed:@"saturation" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[satS stringValue]]];
+    
+    node = [self childNamed:@"contrast" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[contrS stringValue]]];
+    
+    node = [self childNamed:@"film_bleach" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[filmBS stringValue]]];
+    
+    node = [self childNamed:@"technicolor" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[techS stringValue]]];
+    
+    node = [self childNamed:@"force_bw" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[whiteDS stringValue]]];
+    
+    node = [self childNamed:@"white_exposure" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[exposS stringValue]]];
+    
+    node = [self childNamed:@"white_diffusion" fromNode:rootNode];
+    [node setStringValue:[NSString stringWithString:[diffS stringValue]]];
+    
+    
+    // WRITE TO XML
+    data = [xmlDoc XMLData];
+    [data writeToURL:furl atomically:YES];
+    
+    [xmlDoc release];
+    
+    [colorCorrectionPanel orderOut:NULL];
+}
+
 - (IBAction) resetColorCorrection:(id)sender{
     [gammaS setFloatValue:1.0];
     [brightS setFloatValue:1.0];

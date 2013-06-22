@@ -175,6 +175,19 @@ void gamuzaMain::loadGamuzaSettings(){
     server_port             = setting_data.getValue("GAmuzaSettings:server_port"," ",0);
 	//////////////////////////////////////////////
     
+    //////////////////////////////////////////////
+	// get COLOR CORRECTION settings
+    fbo_gammaCorrection     = setting_data.getValue("GAmuzaSettings:gamma_correction",0,0);
+    fbo_brightness          = setting_data.getValue("GAmuzaSettings:brightness",0,0);
+    fbo_saturation          = setting_data.getValue("GAmuzaSettings:saturation",0,0);
+    fbo_contrast            = setting_data.getValue("GAmuzaSettings:contrast",0,0);
+    fbo_filmBleach          = setting_data.getValue("GAmuzaSettings:film_bleach",0,0);
+    fbo_techniColor         = setting_data.getValue("GAmuzaSettings:technicolor",0,0);
+    fbo_whiteDiffusion      = setting_data.getValue("GAmuzaSettings:force_bw",0,0);
+    fbo_exposure            = setting_data.getValue("GAmuzaSettings:white_exposure",0,0);
+    fbo_diffusion           = setting_data.getValue("GAmuzaSettings:white_diffusion",0,0);
+    //////////////////////////////////////////////
+    
 }
 
 //--------------------------------------------------------------
