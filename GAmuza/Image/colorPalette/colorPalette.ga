@@ -11,42 +11,42 @@
  
 */
 
-paleta = of.image()
-pixels = of.pixels()
+paleta = ofImage()
+pixels = ofPixels()
 colores = {}
 counter = 0
 
 function setup()
-	of.setCircleResolution(50)
+	ofSetCircleResolution(50)
 
-    paleta:loadImage(ga.importFile("duchamp.gif"))
+    paleta:loadImage(gaImportFile("duchamp.gif"))
     pixels = paleta:getPixelsRef()
 
     creaPaleta()
 end
 
 function draw()
-    	ga.background(0.0,0.03)
+    	gaBackground(0.0,0.03)
 
-    	of.setColor(255,255,255)
-    	of.noFill()
+    	ofSetColor(255,255,255)
+    	ofNoFill()
     	paleta:draw(0,0)
     	
-    	of.drawBitmapString(string.format("Colors extracted: %i",counter),200,200)
+    	ofDrawBitmapString(string.format("Colors extracted: %i",counter),200,200)
 
     	for p=0,counter-1 do
-        	of.setColor(colores[p].r,colores[p].g,colores[p].b)
+        	ofSetColor(colores[p].r,colores[p].g,colores[p].b)
         	radio = OUTPUT_W/counter/2
         	x = radio + (OUTPUT_W/counter)*p
         	y = OUTPUT_H/2
-        	of.circle(x,y,radio)
+        	ofCircle(x,y,radio)
     	end
 end
 
 function creaPaleta()
 	for x=0,paleta:getWidth()-1 do
 		for y=0,paleta:getHeight()-1 do
-			color = of.color()
+			color = ofColor()
             	color = pixels:getColor(x,y)
             	existe = false
 
@@ -60,7 +60,7 @@ function creaPaleta()
             	end
             
             	if existe == false then
-                	colores[counter] = of.color()
+                	colores[counter] = ofColor()
                 	colores[counter] = color
                 	counter = counter + 1
             	end 

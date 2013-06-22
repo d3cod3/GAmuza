@@ -11,14 +11,14 @@
  
 */
 
-img = of.image()
+img = ofImage()
 
 function setup()
-    img:loadImage(ga.importFile("highlands.jpg"))
+    img:loadImage(gaImportFile("highlands.jpg"))
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
     // center & scale to fit OUTPUT
     w = OUTPUT_W
@@ -26,6 +26,6 @@ function draw()
     posX = 0
     posY = (OUTPUT_H-h)/2
     // draw the image
-    of.setColor(255)
+    ofSetColor(255)
     img:draw(posX,posY,w,h)
 end

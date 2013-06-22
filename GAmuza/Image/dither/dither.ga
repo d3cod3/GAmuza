@@ -14,13 +14,13 @@
  
 */
 
-dither = ofx.dither()
-imageIn = of.image()
-imageOut = of.image()
+dither = ofxDither()
+imageIn = ofImage()
+imageOut = ofImage()
 tipo = 1
 
 function setup()
-    imageIn:loadImage(ga.importFile("laura.jpg"))
+    imageIn:loadImage(gaImportFile("laura.jpg"))
     applyDither()
 end
 
@@ -29,19 +29,19 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
 
-    of.setColor(255)    
+    ofSetColor(255)    
     imageIn:draw(0,(OUTPUT_H-imageIn:getHeight())/2)
     imageOut:draw(imageIn:getWidth(),(OUTPUT_H-imageIn:getHeight())/2)
 end
 
 function keyReleased()
-	if ga.key() == string.byte('0') then
+	if gaKey() == string.byte('0') then
 		tipo = 0
-	elseif ga.key() == string.byte('1') then
+	elseif gaKey() == string.byte('1') then
 		tipo = 1
-	elseif ga.key() == string.byte('2') then
+	elseif gaKey() == string.byte('2') then
 		tipo = 2
 	end
 	applyDither()
