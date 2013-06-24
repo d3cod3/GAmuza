@@ -5,10 +5,12 @@ ofxAUPlugins
 ofxBox2d
 ofxChromaKey
 ofxCLD
+ofxControlPanel
 ofxCrypto
 ofxDelaunay
 ofxDither
 ofxDmx
+ofxDOF
 ofxFastFboReader
 ofxFft
 ofxFX
@@ -45,5 +47,4 @@ ofxTimeline
 ofxTrueTypeFontUC
 ofxTween
 ofxTwitter
-ofxUI
 ofxVectorField

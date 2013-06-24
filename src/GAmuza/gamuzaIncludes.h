@@ -35,7 +35,7 @@
 #include "ofxLua.h"
 
 // GUI
-#include "ofxUI.h"
+#include "ofxControlPanel.h"
 #include "ofxSimpleGuiToo.h"        // secondary gui library used here for live coding
 
 // GPU
@@ -102,6 +102,9 @@
 #include "ofxGenerative.h"
 #include "ofxDelaunay.h"
 #include "ofxSlitScan.h"            // simple utility for creating slit scan effects and video time delays
+
+// 3D
+#include "ofxDOF.h"
 
 // NET
 #include "ofxTwitter.h"

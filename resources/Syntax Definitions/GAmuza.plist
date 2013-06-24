@@ -1288,6 +1288,25 @@
 				<string>setLevel</string>
 				<string>getLevel</string>
 				<string>setChannels</string>
+				<string>ofxDOF</string>
+				<string>setup</string>
+				<string>setShaderPath</string>
+				<string>reloadShader</string>
+				<string>setBlurAmount</string>
+				<string>getBlurAmount</string>
+				<string>setFocalRange</string>
+				<string>getFocalRange</string>
+				<string>setFocalDistance</string>
+				<string>getFocalDistance</string>
+				<string>getWidth</string>
+				<string>getHeight</string>
+				<string>getDimensions</string>
+				<string>beginDOF</string>
+				<string>endDOF</string>
+				<string>getFbo</string>
+				<string>drawFocusAssist</string>
+				<string>drawFocusAssist</string>
+				<string>drawFocusAssist</string>
 				<string>ofxAbsDiff</string>
 				<string>setCode</string>
 				<string>compileCode</string>

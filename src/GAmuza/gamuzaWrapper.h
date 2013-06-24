@@ -3053,6 +3053,30 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // ofxDOF
+         class_<ofxDOF>("ofxDOF")
+         .def(constructor<>())
+         .def("setup", (void(ofxDOF::*)(int,int)) &ofxDOF::setup)
+         .def("setShaderPath", (void(ofxDOF::*)(string)) &ofxDOF::setShaderPath)
+         .def("reloadShader", (void(ofxDOF::*)(void)) &ofxDOF::reloadShader)
+         .def("setBlurAmount", (void(ofxDOF::*)(float)) &ofxDOF::setBlurAmount)
+         .def("getBlurAmount", (float(ofxDOF::*)(void)) &ofxDOF::getBlurAmount)
+         .def("setFocalRange", (void(ofxDOF::*)(float)) &ofxDOF::setFocalRange)
+         .def("getFocalRange", (float(ofxDOF::*)(void)) &ofxDOF::getFocalRange)
+         .def("setFocalDistance", (void(ofxDOF::*)(float)) &ofxDOF::setFocalDistance)
+         .def("getFocalDistance", (float(ofxDOF::*)(void)) &ofxDOF::getFocalDistance)
+         .def("getWidth", (int(ofxDOF::*)(void)) &ofxDOF::getWidth)
+         .def("getHeight", (int(ofxDOF::*)(void)) &ofxDOF::getHeight)
+         .def("getDimensions", (ofRectangle(ofxDOF::*)(void)) &ofxDOF::getDimensions)
+         .def("beginDOF", (void(ofxDOF::*)(void)) &ofxDOF::begin)
+         .def("endDOF", (void(ofxDOF::*)(void)) &ofxDOF::end)
+         .def("getFbo", (ofFbo&(ofxDOF::*)(void)) &ofxDOF::getFbo)
+         .def("drawFocusAssist", (void(ofxDOF::*)(int,int)) &ofxDOF::drawFocusAssist)
+         .def("drawFocusAssist", (void(ofxDOF::*)(int,int,int,int)) &ofxDOF::drawFocusAssist)
+         .def("drawFocusAssist", (void(ofxDOF::*)(ofRectangle)) &ofxDOF::drawFocusAssist),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXFX
          class_<ofxAbsDiff>("ofxAbsDiff")
          .def(constructor<>())

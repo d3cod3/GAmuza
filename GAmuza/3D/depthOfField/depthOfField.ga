@@ -1,0 +1,61 @@
+
+/* 
+   
+ GAmuza 0426 examples 
+ ---------------------
+ 3D/depthOfField.ga
+ 
+ The depth of field eaxmple from ofxDOF addon.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+boxPositions = {}
+boxSizes = {}
+boxColors = {}
+
+depthOfField = ofxDOF()
+camera = ofEasyCam()
+
+function setup()
+	depthOfField:setup(OUTPUT_W,OUTPUT_H)
+	depthOfField:setShaderPath(gaDataPath("dof/"))
+	
+	for i=0,100 do
+		boxPositions[i] = ofVec3f(ofRandom(-300,300),ofRandom(-300,300),ofRandom(-300,300))
+		boxSizes[i] = ofRandom(30,100)
+		temVal = 128 - ofRandom(110,128)
+		if ofRandomuf() > 0.8 then
+			temVal  = ofRandom(120,130)
+		end
+		c = ofColor()
+		c:setHsb(temVal,ofRandom(255),ofRandom(255))
+		boxColors[i] = ofColor(c.r,c.g,c.b,255)
+	end
+end
+
+function update()
+    	depthOfField:setFocalDistance(ofMap(math.sin(ofGetElapsedTimef()/2),-1,1, 20, 150,true))
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+     depthOfField:beginDOF()
+    	camera:beginCamera(depthOfField:getDimensions())
+    	
+    	ofPushStyle()
+	for i=0,100 do
+		ofSetColor(boxColors[i])
+		ofBox(boxPositions[i], boxSizes[i])
+	end
+	ofPopStyle()
+	
+	camera:endCamera()
+	depthOfField:endDOF()
+	
+	ofSetColor(255)
+	depthOfField:getFbo():draw(0,0)
+    	
+end
