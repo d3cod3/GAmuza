@@ -111,15 +111,15 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 		ofEnableAlphaBlending();
 		
 		// background
-		ofFill();
-		glColor4f(0.941,0.941,0.941,0.05);
-		ofRect(0,y,w,h*4);
+		//ofFill();
+		//glColor4f(0.941,0.941,0.941,0.05);
+		//ofRect(0,y,w,h*4);
 	
 		glColor4f(0.941,0.941,0.941,0.2);
 		signalBackground.draw(0,y);
-		signalBackground.draw(0,y+h);
-		signalBackground.draw(0,y+h*2);
-		signalBackground.draw(0,y+h*3);
+		//signalBackground.draw(0,y+h);
+		//signalBackground.draw(0,y+h*2);
+		//signalBackground.draw(0,y+h*3);
 		
 		
 		if(bufferSize > 0){
@@ -132,21 +132,21 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 			glPushMatrix();	
 				glTranslatef(0, y+zeroOffset, 0.0f);
 				glColor4f(0.941,0.941,0.941,0.9);
-				sprintf(temp,"TIME DOMAIN");
-				font.drawString(temp, 0, -10-zeroOffset);
+				//sprintf(temp,"TIME DOMAIN");
+				//font.drawString(temp, 0, -10-zeroOffset);
 				glColor4f(1.0,0.906,0.463,0.9);
 				sprintf(temp,"RAW SIGNAL");
 				font.drawString(temp, 2, 8-zeroOffset);
 				ofBeginShape();
 				for (int i = 0; i < bufferSize - 1; i++){
 					ofVertex(i * stretch, hardClip(chRaw[i]) * zeroOffset);
-					ofVertex((i + 1) * stretch, hardClip(chRaw[i + 1]) * zeroOffset);
+					//ofVertex((i + 1) * stretch, hardClip(chRaw[i + 1]) * zeroOffset);
 				}
 				ofEndShape(false);
 			glPopMatrix();
 			
 			// scope AUTOCORRELATION
-			glColor4f(0.941,0.941,0.941,0.7);
+			/*glColor4f(0.941,0.941,0.941,0.7);
 			ofNoFill();
 			
 			glPushMatrix();	
@@ -159,10 +159,10 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 					ofVertex((i + 1) * stretch, hardClip(autoCorrelation[i + 1]) * zeroOffset);
 				}
 				ofEndShape(false);
-			glPopMatrix();
+			glPopMatrix();*/
 			
 			// scope AUTOCORRELATION NORMALIZED
-			glColor4f(0.941,0.941,0.941,0.7);
+			/*glColor4f(0.941,0.941,0.941,0.7);
 			ofNoFill();
 			
 			glPushMatrix();	
@@ -175,10 +175,10 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 					ofVertex((i + 1) * stretch, hardClip(autoCorrelationNorm[i + 1]) * zeroOffset);
 				}
 				ofEndShape(false);
-			glPopMatrix();
+			glPopMatrix();*/
 			
 			// scope AUTOCORRELATION NOISE FILTERED
-			glColor4f(1.0,0.906,0.463,0.7);
+			/*glColor4f(1.0,0.906,0.463,0.7);
 			ofNoFill();
 			
 			glPushMatrix();	
@@ -188,34 +188,35 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 			ofBeginShape();
 			for (unsigned int i = 0; i < bufferSize - 1; i++){
 				ofVertex(i * stretch, hardClip(chClean[i]) * zeroOffset);
-				ofVertex((i + 1) * stretch, hardClip(chClean[i + 1]) * zeroOffset);
+				//ofVertex((i + 1) * stretch, hardClip(chClean[i + 1]) * zeroOffset);
 			}
 			ofEndShape(false);
-			glPopMatrix();
+			glPopMatrix();*/
 			
 			
 			// FFT SPECTRUM
 			glPushMatrix();
-				glTranslatef(w+18, y, 0.0f);
+				glTranslatef(0, y, 0.0f);
 			
 				glColor4f(0.941,0.941,0.941,0.2);
-				eqBackground.draw(0,0);
 				eqBackground.draw(0,h);
 				eqBackground.draw(0,h*2);
-				eqBackground.draw(0,h*3);
+                eqBackground.draw(0,h*3);
+				//eqBackground.draw(0,h*2);
+				
 			
 				glColor4f(0.941,0.941,0.941,0.9);
-				sprintf(temp,"FREQUENCY DOMAIN");
-				font.drawString(temp, 0, - 10);
+				//sprintf(temp,"FREQUENCY DOMAIN");
+				//font.drawString(temp, 0, - 10 + h);
 				//glColor4f(0.847,0.25,0.25,0.9);
                 ofSetColor(9,147,211,240);
 				sprintf(temp,"NOISE FILTER");
-				font.drawString(temp, 2, 8);
-				sprintf(temp,"PARAMETRIC EQ [NORMALIZED RADIAL BASIS FUNCTION NETWORK]");
 				font.drawString(temp, 2, 8+h);
-				glColor4f(1.0,0.906,0.463,0.9);
-				sprintf(temp,"FILTERED FFT BINS [%i]",fft->getBinSize());
+				sprintf(temp,"3 BAND PARAMETRIC EQUALIZER");
 				font.drawString(temp, 2, 8+(h*2));
+				glColor4f(1.0,0.906,0.463,0.9);
+				//sprintf(temp,"FILTERED FFT BINS [%i]",fft->getBinSize());
+				//font.drawString(temp, 2, 8+(h*2));
 				sprintf(temp,"BARK SCALE BINS [%i]",BARK_SCALE_CRITICAL_BANDS);
 				font.drawString(temp, 2, 8+(h*3));
 			
@@ -228,8 +229,8 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				ofSetLineWidth(2);
 				ofBeginShape();
 				for(unsigned int i = 1; i < fft->getBinSize()-1; i++){
-					ofVertex(i, (hardClip(noiseFilter[i]*reduxFactor) * zeroOffset) + zeroOffset);
-					ofVertex(i+1, (hardClip(noiseFilter[i+1]*reduxFactor) * zeroOffset) + zeroOffset);
+					ofVertex(i, (hardClip(noiseFilter[i]*reduxFactor) * zeroOffset) + zeroOffset + h);
+					//ofVertex(i+1, (hardClip(noiseFilter[i+1]*reduxFactor) * zeroOffset) + zeroOffset);
 				}
 				ofEndShape(false);
 				
@@ -239,13 +240,14 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
                 ofSetLineWidth(2);
 				ofBeginShape();
 				for(unsigned int i = 0; i < fft->getBinSize()-1; i++){
-					ofVertex(i, (hardClip(gaussianFilter[i]) * -zeroOffset) + zeroOffset + h);
-					ofVertex(i+1, (hardClip(gaussianFilter[i+1]) * -zeroOffset) + zeroOffset + h);
+					ofVertex(i, (hardClip(gaussianFilter[i]) * -zeroOffset) + zeroOffset + (h*2));
+					//ofVertex(i+1, (hardClip(gaussianFilter[i+1]) * -zeroOffset) + zeroOffset + h);
 				}
 				ofEndShape(false);
 			
+                ofSetLineWidth(1);
 				// filtered fft BINS
-				ofSetLineWidth(1);
+				/*ofSetLineWidth(1);
 				for(unsigned int i = 2; i < fft->getBinSize(); i++){
 					if(i == fft_pitchBin){
 						//glColor4f(0.847,0.25,0.25,0.9);
@@ -255,7 +257,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 						glColor4f(1.0,0.906,0.463,0.9);
 					}
 					ofLine(i,h*3 - 1,i,(hardClip(binsFiltered[i]) * -h) + h*3 - 1);
-				}
+				}*/
 			
 				// BARK SCALE BINS
 				glColor4f(1.0,0.906,0.463,0.9);
@@ -265,17 +267,19 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				}
 			
 				// background
-				ofFill();
-				glColor4f(0.941,0.941,0.941,0.05);
-				ofRect(0,0,fft->getBinSize(),h*4);
+				//ofFill();
+				//glColor4f(0.941,0.941,0.941,0.05);
+				//ofRect(0,0,fft->getBinSize(),h*4);
 				
 				// frame
 				ofNoFill();
 				glColor4f(0.941,0.941,0.941,0.4);
-				ofRect(0,0,fft->getBinSize(),h);
 				ofRect(0,h,fft->getBinSize(),h);
 				ofRect(0,h*2,fft->getBinSize(),h);
+				//ofRect(0,h*2,fft->getBinSize(),h);
 				ofRect(0,h*3,fft->getBinSize(),h);
+            
+                
 				
 			glPopMatrix();
 			
@@ -284,13 +288,13 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 		// frames
 		glColor4f(0.941,0.941,0.941,0.4);
 		ofRect(0,y,w,h);
-		ofRect(0,y+h,w,h);
-		ofRect(0,y+(h*2),w,h);
-		ofRect(0,y+(h*3),w,h);
-		
-		// graphics gui
-		glColor4f(0.941,0.941,0.941,0.8);
-		timeFreq.draw(0,y+(h*4));
+		//ofRect(0,y+h,w,h);
+		//ofRect(0,y+(h*2),w,h);
+		//ofRect(0,y+(h*3),w,h);
+    
+        // graphics gui
+        glColor4f(0.941,0.941,0.941,0.8);
+        timeFreq.draw(-w-18,y+(h*4));
 	
 		ofDisableAlphaBlending();
 	glPopMatrix();
@@ -371,7 +375,6 @@ void audioInputChannel::captureChannel(float *input){
 	/////////////////////
 	
 	//////////////////////////////////////////////
-	// apply kalman filter (if selected) to every output value
 	// smoothing & normalize numerical variable
 	// (prepare it for sending via OSC)
 	smoothingValues();
@@ -529,7 +532,11 @@ void audioInputChannel::saveNoiseFilter(){
 	
 	for(unsigned int i = 0; i < fft->getBinSize(); i++){
 		sprintf(temp,"bin%i",i);
-		noiseReduxXml.setValue(temp,noiseFilter[i]);
+        if(noiseFilter[i] <= 1.0){
+            noiseReduxXml.setValue(temp,noiseFilter[i]);
+        }else{
+            noiseReduxXml.setValue(temp,1.0);
+        }
 	}
 	
 	sprintf(temp,"settings/audioInput/noiseReduxCh%i.xml",chID);

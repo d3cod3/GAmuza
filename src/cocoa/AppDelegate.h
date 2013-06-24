@@ -3,6 +3,7 @@
 
 #include "gaVideoPreview.h"
 #include "gaTimeline.h"
+#include "gaAudioModule.h"
 
 
 #include "ofxNSWindower.h"
@@ -49,6 +50,7 @@
     
     bool                        isPreviewON;
     bool                        isTimelineON;
+    bool                        isAudioModuleON;
     
     NSMutableArray              *screensINFO;
     
@@ -154,18 +156,22 @@
 - (IBAction) cutOnTimeline:(id)sender;
 - (IBAction) pasteOnTimeline:(id)sender;
 
-
+// AUDIO MODULE
+- (IBAction) toggleAudioModule:(id)sender;
 
 // GAmuza render window reference
-gamuzaMain      *gapp;
-ofPtr<ofxNSWindow> gappWindow;
+gamuzaMain          *gapp;
+ofPtr<ofxNSWindow>  gappWindow;
 // GAmuza video preview
-gaVideoPreview  *gaVP;
-ofPtr<ofxNSWindow> gaVPWindow;
+gaVideoPreview      *gaVP;
+ofPtr<ofxNSWindow>  gaVPWindow;
 
 //////////////////////////////// GAmuza GUI PANELS
-gaTimeline      *gaTL;
-ofPtr<ofxNSWindow> gaTLWindow;
+gaTimeline          *gaTL;
+ofPtr<ofxNSWindow>  gaTLWindow;
+
+gaAudioModule       *gaAM;
+ofPtr<ofxNSWindow>  gaAMWindow;
 
 
 @end

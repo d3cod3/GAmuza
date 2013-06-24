@@ -20,6 +20,8 @@
     [_splash orderOut:self];
     
     isPreviewON = false;
+    isTimelineON = false;
+    isAudioModuleON = false;
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(prefPanel._autoFullscreen == 1){
@@ -82,6 +84,13 @@
     [self sendScreenResToGA];
     gapp->sendHardwareInfo(aInD,aInDID,aOutD,aOutDID,mD,sD,aInputCH,aOutputCH);
     [self sendDataToPreferences];
+    
+    // START GAmuza Audio Analysis Module
+    gaAM = new gaAudioModule(810,540);
+    ofxNSWindower::instance()->addWindow(gaAM,"GA Audio Analysis", NSTitledWindowMask, 0);
+    gaAMWindow = ofxNSWindower::instance()->getWindowPtr("GA Audio Analysis");
+    gaAMWindow->setWindowTitle("GA Audio Analysis");
+    [gaAMWindow->getWindow() orderOut:self];
     
     // Splash window
     [_splash makeKeyAndOrderFront:self];
@@ -702,6 +711,18 @@
     [prefPanel.mainPanel orderOut:NULL];
 }
 
+- (IBAction) toggleAudioModule:(id)sender{
+    if(isAudioModuleON){
+        isAudioModuleON = false;
+        [gaAMWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isAudioModuleON = true;
+        [gaAMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
 -(IBAction) toggleTimelinePanel:(id)sender{
     if(isTimelineON){
         isTimelineON = false;
@@ -865,6 +886,7 @@
 
 -(IBAction) restartGAmuzaWindow: (id)sender{
     gapp->resetApp();
+    gaAM->restart();
     gappWindow->setWindowTitle(gapp->_windowTitle);
 }
 
