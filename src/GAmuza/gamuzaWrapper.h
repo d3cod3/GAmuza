@@ -3078,6 +3078,37 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXFX
+         
+         // ofxFXObject
+         class_<ofxFXObject>("ofxFXObject")
+         .def(constructor<>())
+         .def("allocate", (void(ofxFXObject::*)(int,int,int)) &ofxFXObject::allocate)
+         .def("allocate", (void(ofxFXObject::*)(int,int)) &ofxFXObject::allocate)
+         .def("set", (void(ofxFXObject::*)(ofRectangle const&)) &ofxFXObject::set)
+         .def("setCode", (bool(ofxFXObject::*)(string)) &ofxFXObject::setCode)
+         .def("load", (bool(ofxFXObject::*)(string)) &ofxFXObject::load)
+         .def("compileCode", (bool(ofxFXObject::*)(void)) &ofxFXObject::compileCode)
+         .def("setPasses", (void(ofxFXObject::*)(int)) &ofxFXObject::setPasses)
+         .def("setInternalFormat", (void(ofxFXObject::*)(int)) &ofxFXObject::setInternalFormat)
+         .def("setTexture", (void(ofxFXObject::*)(ofTexture&,int)) &ofxFXObject::setTexture)
+         .def("beginFx", (void(ofxFXObject::*)(int)) &ofxFXObject::begin)
+         .def("endFx", (void(ofxFXObject::*)(int)) &ofxFXObject::end)
+         .def("compiled", (bool(ofxFXObject::*)(void)) &ofxFXObject::compiled)
+         .def("getCode", (string(ofxFXObject::*)(void)) &ofxFXObject::getCode)
+         .def("getWidth", (float(ofxFXObject::*)(void)) &ofxFXObject::getWidth)
+         .def("getHeight", (float(ofxFXObject::*)(void)) &ofxFXObject::getHeight)
+         .def("getPasses", (int(ofxFXObject::*)(void)) &ofxFXObject::getPasses)
+         .def("getResolution", (ofVec2f(ofxFXObject::*)(void)) &ofxFXObject::getResolution)
+         .def("getInternalFormat", (int(ofxFXObject::*)(void)) &ofxFXObject::getInternalFormat)
+         .def("getNumberOfCalledTextures", (int(ofxFXObject::*)(void)) &ofxFXObject::getNumberOfCalledTextures)
+         .def("getBackBuffer", (ofFbo*(ofxFXObject::*)(void)) &ofxFXObject::getBackBuffer)
+         .def("getTextureReference", (ofTexture&(ofxFXObject::*)(void)) &ofxFXObject::getTextureReference)
+         .def("clear", (void(ofxFXObject::*)(int)) &ofxFXObject::clear)
+         .def("update", (void(ofxFXObject::*)(void)) &ofxFXObject::update)
+         .def("draw", (void(ofxFXObject::*)(ofRectangle&)) &ofxFXObject::draw)
+         .def("draw", (void(ofxFXObject::*)(int,int,float,float)) &ofxFXObject::draw),
+         
+         // ofxAbsDiff
          class_<ofxAbsDiff>("ofxAbsDiff")
          .def(constructor<>())
          .def("allocate", (void(ofxAbsDiff::*)(int,int,int)) &ofxAbsDiff::allocate)
@@ -3106,6 +3137,7 @@ class ofGamuzaWrapper{
          .def("draw", (void(ofxAbsDiff::*)(ofRectangle&)) &ofxAbsDiff::draw)
          .def("draw", (void(ofxAbsDiff::*)(int,int,float,float)) &ofxAbsDiff::draw),
          
+         // ofxBlend
          class_<ofxBlend>("ofxBlend")
          .def(constructor<>())
          .def("allocate", (void(ofxBlend::*)(int,int,int)) &ofxBlend::allocate)
@@ -4024,6 +4056,67 @@ class ofGamuzaWrapper{
          .def("setTotalFaces", (void(ofxKaleidoscope::*)(float)) &ofxKaleidoscope::setTotalFaces)
          .def_readwrite("angle", &ofxKaleidoscope::angle)
          .def_readwrite("offset", &ofxKaleidoscope::offset),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXGAMECAMERA
+         class_<ofxGameCamera>("ofxGameCamera")
+         .def(constructor<>())
+         .def("setFov", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setFov)
+         .def("setNearClip", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setNearClip)
+		 .def("setFarClip", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setFarClip)
+         .def("setLensOffset", (void(ofxGameCamera::*)(const ofVec2f&)) &ofxGameCamera::setLensOffset)
+         .def("setAspectRatio", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setAspectRatio)
+         .def("setForceAspectRatio", (void(ofxGameCamera::*)(bool)) &ofxGameCamera::setForceAspectRatio)
+         .def("getFov", (const float(ofxGameCamera::*)(void)) &ofxGameCamera::getFov)
+         .def("getNearClip", (const float(ofxGameCamera::*)(void)) &ofxGameCamera::getNearClip)
+		 .def("getFarClip", (const float(ofxGameCamera::*)(void)) &ofxGameCamera::getFarClip)
+         .def("getLensOffset", (const ofVec2f(ofxGameCamera::*)(void)) &ofxGameCamera::getLensOffset)
+         .def("getForceAspectRatio", (const bool(ofxGameCamera::*)(void)) &ofxGameCamera::getForceAspectRatio)
+         .def("getAspectRatio", (const float(ofxGameCamera::*)(void)) &ofxGameCamera::getAspectRatio)
+         .def("setupPerspective", (void(ofxGameCamera::*)(bool,float,float,float,const ofVec2f&)) &ofxGameCamera::setupPerspective)
+         .def("setupOffAxisViewPortal", (void(ofxGameCamera::*)(const ofVec3f&,const ofVec3f&,const ofVec3f&)) &ofxGameCamera::setupOffAxisViewPortal)
+         .def("enableOrtho", (void(ofxGameCamera::*)(void)) &ofxGameCamera::enableOrtho)
+         .def("disableOrtho", (void(ofxGameCamera::*)(void)) &ofxGameCamera::disableOrtho)
+         .def("getOrtho", (bool(ofxGameCamera::*)(void)) &ofxGameCamera::getOrtho)
+         .def("getModelViewMatrix", (ofMatrix4x4(ofxGameCamera::*)(void)) &ofxGameCamera::getModelViewMatrix)
+         .def("setPosition", (void(ofxGameCamera::*)(float,float,float)) &ofxGameCamera::setPosition)
+         .def("setPosition", (void(ofxGameCamera::*)(const ofVec3f&)) &ofxGameCamera::setPosition)
+         .def("setScale", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setScale)
+         .def("setScale", (void(ofxGameCamera::*)(float,float,float)) &ofxGameCamera::setScale)
+         .def("setScale", (void(ofxGameCamera::*)(const ofVec3f&)) &ofxGameCamera::setScale)
+         .def("move", (void(ofxGameCamera::*)(float,float,float)) &ofxGameCamera::move)
+         .def("move", (void(ofxGameCamera::*)(const ofVec3f&)) &ofxGameCamera::move)
+         .def("truck", (void(ofxGameCamera::*)(float)) &ofxGameCamera::truck)
+         .def("boom", (void(ofxGameCamera::*)(float)) &ofxGameCamera::boom)
+         .def("dolly", (void(ofxGameCamera::*)(float)) &ofxGameCamera::dolly)
+         .def("tilt", (void(ofxGameCamera::*)(float)) &ofxGameCamera::tilt)
+         .def("pan", (void(ofxGameCamera::*)(float)) &ofxGameCamera::pan)
+         .def("roll", (void(ofxGameCamera::*)(float)) &ofxGameCamera::roll)
+         .def("rotate", (void(ofxGameCamera::*)(float,const ofVec3f&)) &ofxGameCamera::rotate)
+         .def("rotate", (void(ofxGameCamera::*)(float,float,float,float)) &ofxGameCamera::rotate)
+         .def("lookAt", (void(ofxGameCamera::*)(const ofVec3f&,ofVec3f)) &ofxGameCamera::lookAt)
+         .def("orbit", (void(ofxGameCamera::*)(float,float,float,const ofVec3f&)) &ofxGameCamera::orbit)
+         .def("transformGL", (void(ofxGameCamera::*)(void)) &ofxGameCamera::transformGL)
+         .def("restoreTransformGL", (void(ofxGameCamera::*)(void)) &ofxGameCamera::restoreTransformGL)
+         .def("resetTransform", (void(ofxGameCamera::*)(void)) &ofxGameCamera::resetTransform)
+         .def("draw", (void(ofxGameCamera::*)(void)) &ofxGameCamera::draw)
+         .def("getImagePlaneDistance", (float(ofxGameCamera::*)(ofRectangle)) &ofxGameCamera::getImagePlaneDistance)
+         .def("getProjectionMatrix", (ofMatrix4x4(ofxGameCamera::*)(ofRectangle)) &ofxGameCamera::getProjectionMatrix)
+         .def("getModelViewProjectionMatrix", (ofMatrix4x4(ofxGameCamera::*)(ofRectangle)) &ofxGameCamera::getModelViewProjectionMatrix)
+         .def("worldToScreen", (ofVec3f(ofxGameCamera::*)(ofVec3f,ofRectangle)) &ofxGameCamera::worldToScreen)
+         .def("screenToWorld", (ofVec3f(ofxGameCamera::*)(ofVec3f,ofRectangle)) &ofxGameCamera::screenToWorld)
+         .def("worldToCamera", (ofVec3f(ofxGameCamera::*)(ofVec3f,ofRectangle)) &ofxGameCamera::worldToCamera)
+         .def("cameraToWorld", (ofVec3f(ofxGameCamera::*)(ofVec3f,ofRectangle)) &ofxGameCamera::cameraToWorld)
+         .def("beginCamera", (void(ofxGameCamera::*)(ofRectangle)) &ofxGameCamera::begin)
+         .def("endCamera", (void(ofxGameCamera::*)(void)) &ofxGameCamera::end)
+         
+         .def("setup", (void(ofxGameCamera::*)(void)) &ofxGameCamera::setup)
+         .def("updateRotation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::updateRotation)
+         .def("saveCameraPosition", (void(ofxGameCamera::*)(void)) &ofxGameCamera::saveCameraPosition)
+         .def("loadCameraPosition", (void(ofxGameCamera::*)(void)) &ofxGameCamera::loadCameraPosition)
+         .def("setAnglesFromOrientation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::setAnglesFromOrientation)
+         .def("reset", (void(ofxGameCamera::*)(void)) &ofxGameCamera::reset),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5142,7 +5235,6 @@ class ofGamuzaWrapper{
          ///////////////////////////////
 		 // string section
          def("gaStringReplace", (int(*)(string&,string,string)) &gaStringReplace),
-         def("gaDrawString", (void(*)(string,int,float,float)) &gaDrawString),
          
 		 ///////////////////////////////
 		 // graphics section

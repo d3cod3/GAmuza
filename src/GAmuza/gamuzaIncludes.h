@@ -105,6 +105,7 @@
 
 // 3D
 #include "ofxDOF.h"
+#include "ofxGameCamera.h"
 
 // NET
 #include "ofxTwitter.h"

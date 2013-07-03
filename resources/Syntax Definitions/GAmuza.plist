@@ -1307,6 +1307,7 @@
 				<string>drawFocusAssist</string>
 				<string>drawFocusAssist</string>
 				<string>drawFocusAssist</string>
+				<string>ofxFXObject</string>
 				<string>ofxAbsDiff</string>
 				<string>setCode</string>
 				<string>compileCode</string>
@@ -1374,6 +1375,11 @@
 				<string>ofxKaleidoscope</string>
 				<string>setFacesRotation</string>
 				<string>setTotalFaces</string>
+				<string>ofxGameCamera</string>
+				<string>updateRotation</string>
+				<string>saveCameraPosition</string>
+				<string>loadCameraPosition</string>
+				<string>setAnglesFromOrientation</string>
 				<string>ofxGaussian</string>
 				<string>ofx1DExtruder</string>
 				<string>setAccLimit</string>
@@ -1722,7 +1728,6 @@
 				<string>gaGuiAddToggle</string>
 				<string>gaGuiAddButton</string>
 				<string>gaStringReplace</string>
-				<string>gaDrawString</string>
 				<string>gaBackground</string>
 				<string>gaCameraTexture</string>
 				<string>gaCameraPixels</string>
@@ -2298,6 +2303,38 @@
 				<string>OF_BITMAPMODE_VIEWPORT</string>
 				<string>OF_BITMAPMODE_MODEL</string>
 				<string>OF_BITMAPMODE_MODEL_BILLBOARD</string>
+				<string>BLEND_NORMAL</string>
+				<string>BLEND_MULTIPLY</string>
+				<string>BLEND_AVERAGE</string>
+				<string>BLEND_ADD</string>
+				<string>BLEND_SUBSTRACT</string>
+				<string>BLEND_DIFFERENCE</string>
+				<string>BLEND_NEGATION</string>
+				<string>BLEND_EXCLUSION</string>
+				<string>BLEND_SCREEN</string>
+				<string>BLEND_OVERLAY</string>
+				<string>BLEND_SOFTLIGHT</string>
+				<string>BLEND_HARDLIGHT</string>
+				<string>BLEND_COLORDODGE</string>
+				<string>BLEND_COLORBURN</string>
+				<string>BLEND_LINEARLIGHT</string>
+				<string>BLEND_VIVIDLIGHT</string>
+				<string>BLEND_PINLIGHT</string>
+				<string>BLEND_HARDMIX</string>
+				<string>BLEND_REGLECT</string>
+				<string>BLEND_GLOW</string>
+				<string>BLEND_PHOENIX</string>
+				<string>BLEND_HUE</string>
+				<string>BLEND_SATURATION</string>
+				<string>BLEND_COLOR</string>
+				<string>BLEND_LUMINOSITY</string>
+				<string>LED_DEFAULT</string>
+				<string>LED_OFF</string>
+				<string>LED_GREEN</string>
+				<string>LED_RED</string>
+				<string>LED_YELLOW</string>
+				<string>LED_BLINK_GREEN</string>
+				<string>LED_BLINK_YELLOW_RED</string>
 				<string>OUTPUT_W</string>
 				<string>OUTPUT_H</string>
 				<string>CAPTURE_W</string>
