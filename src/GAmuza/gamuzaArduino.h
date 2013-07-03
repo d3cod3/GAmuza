@@ -8,6 +8,15 @@ void gamuzaMain::setupArduino(){
 	
 	// connect arduino board via serial port
 	arduino.connect(serialDevice, baudRate);
+    // wait for firmware respose and verify we have an arduino connected
+    isArduinoConnected = arduino.isArduinoReady();
+    if(isArduinoConnected){
+        sendGALog(" ARDUINO connection established");
+        sendGALog(" ");
+    }else{
+        sendGALog(" ARDUINO NOT CONNECTED");
+        sendGALog(" ");
+    }
 	
 	// pins status/values arrays setup
 	digitalPinModes					= new int[12];
@@ -34,7 +43,7 @@ void gamuzaMain::setupArduino(){
 //--------------------------------------------------------------
 void gamuzaMain::updateArduino(){
 	
-	if(arduino.isArduinoReady()){
+	if(isArduinoConnected){
 		// first pins setup
 		if(!bSetupArduino){
 			// init pins
@@ -42,6 +51,8 @@ void gamuzaMain::updateArduino(){
 				arduino.sendDigitalPinMode(i, digitalPinModes[i-2]);
 				if(digitalPinModes[i-2] == ARD_PWM){
 					arduino.sendPwm(i, digitalPinValuesOutput[i-2]);
+				}else if(digitalPinModes[i-2] == ARD_SERVO){
+					arduino.sendServo(i, digitalPinValuesOutput[i-2]);
 				}else if(digitalPinModes[i-2] == ARD_OUTPUT){
 					arduino.sendDigital(i, digitalPinValuesOutput[i-2]);
 				}
@@ -61,6 +72,8 @@ void gamuzaMain::updateArduino(){
 					digitalPinValuesInput[i-2] = arduino.getDigital(i);
 				}else if(digitalPinModes[i-2] == ARD_PWM){
 					digitalPinValuesInput[i-2] = arduino.getPwm(i);
+				}else if(digitalPinModes[i-2] == ARD_SERVO){
+					digitalPinValuesInput[i-2] = arduino.getServo(i);
 				}else if(digitalPinModes[i-2] == ARD_OUTPUT){
 					digitalPinValuesInput[i-2] = digitalPinValuesOutput[i-2];
 				}
@@ -144,62 +157,6 @@ void gamuzaMain::saveArduinoSetting(){
 	
     sendGALog("ARDUINO Pins Mode SAVED");
 	
-}
-
-//--------------------------------------------------------------
-void gamuzaMain::changeAnalogPinMode(int mode){
-	for(unsigned int i=0;i<6;i++){
-        if(mode == 0){
-            analogPinModes[i] = ARD_ON;
-        }else if(mode == 1){
-            analogPinModes[i] = ARD_OFF;
-        }
-        arduino.sendAnalogPinReporting(i, analogPinModes[i]);
-	}
-}
-
-//--------------------------------------------------------------
-void gamuzaMain::changeDigitalPinMode(int mode){
-	for(unsigned int i=2;i<14;i++){
-        if(i == 3 || i == 5 || i == 6 || i == 9 || i == 10 || i == 11){
-            if(mode == 0){
-                digitalPinModes[i-2] = ARD_INPUT;
-            }else if(mode == 1){
-                digitalPinModes[i-2] = ARD_OUTPUT;
-            }else if(mode == 2){
-                digitalPinModes[i-2] = ARD_PWM;
-            }
-        }else{
-            if(mode == 0){
-                digitalPinModes[i-2] = ARD_INPUT;
-            }else if(mode == 1){
-                digitalPinModes[i-2] = ARD_OUTPUT;
-            }
-        }
-        arduino.sendDigitalPinMode(i, digitalPinModes[i-2]);
-	}
-}
-
-//--------------------------------------------------------------
-void gamuzaMain::sendDigitalValue(int value){
-	for(unsigned int i=2;i<14;i++){
-        if(digitalPinModes[i-2] == ARD_OUTPUT){
-            if(i == 3 || i == 5 || i == 6 || i == 9 || i == 10 || i == 11){
-                if(value == 0){
-                    digitalPinValuesOutput[i-2] = value;
-                }else{
-                    digitalPinValuesOutput[i-2] = 1;
-                }
-                arduino.sendDigital(i, digitalPinValuesOutput[i-2]);
-            }else{
-                digitalPinValuesOutput[i-2] = value;
-                arduino.sendDigital(i, digitalPinValuesOutput[i-2]);
-            }
-        }else if(digitalPinModes[i-2] == ARD_PWM){
-            digitalPinValuesOutput[i-2] = value;
-            arduino.sendPwm(i, digitalPinValuesOutput[i-2]);
-        }
-	}
 }
 
 
