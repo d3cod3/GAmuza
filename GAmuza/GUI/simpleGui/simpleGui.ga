@@ -11,6 +11,7 @@
  
 */
 
+
 function setup()
 	gaGuiAddPage("PAGE TEST",gaImportFile("simpleGui.xml"))
 	gaGuiAddSliderFloat("float slider",0.0,10.0,0.0)

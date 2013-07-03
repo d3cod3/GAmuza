@@ -31,13 +31,14 @@ function update()
 end
 
 function draw()
-	gaBackground(0.0,1.0)
+	gaBackground(0.92,1.0)
 	
 	ofEnableAlphaBlending()
 	ofNoFill()
 	for i = 0, numObjects do
 		ofSetColor(255,0,0,myTable[i].a)
 		ofCircle(myTable[i].x, myTable[i].y, myTable[i].diam)
+		ofCircle(myTable[i].x, myTable[i].y, myTable[i].diam+1.3)
 	end
 	ofDisableAlphaBlending()
 end

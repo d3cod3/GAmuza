@@ -53,6 +53,6 @@ function draw()
 	ofCircle(circleX, circleY,gaTimelineGetValue("lfo")*300)
 	
 	ofSetColor(255)
-	gaDrawString(tostring(gaTimelineGetBang()),30,200,200)
+	ofDrawBitmapString(tostring(gaTimelineGetBang()),200,200)
 end
 

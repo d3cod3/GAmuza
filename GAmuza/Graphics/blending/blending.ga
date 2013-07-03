@@ -15,18 +15,18 @@
 */
 
 blendMode = OF_BLENDMODE_ALPHA
-rainbow = of.image()
+rainbow = ofImage()
 alpha = 0.0
 counter = 0.0
-font = of.trueTypeFont()
+font = ofTrueTypeFont()
 eventString = "Alpha"
 timeString = ""
 
 function setup()
-    font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),22,true,false)
+    font:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),22,true,false)
 
     rainbow:allocate(256,256,OF_IMAGE_COLOR_ALPHA)
-    rainbow:loadImage(ga.importFile("rainbow.tiff"))
+    rainbow:loadImage(gaImportFile("rainbow.tiff"))
 end
 
 function update()
@@ -34,42 +34,42 @@ function update()
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
 
     	timeString = "Press 1 - 5 to switch blend modes"
 
-    	of.enableBlendMode(OF_BLENDMODE_ALPHA)
+    	ofEnableBlendMode(OF_BLENDMODE_ALPHA)
     	
-    	of.setColor(255)
+    	ofSetColor(255)
     	font:drawString(eventString, 98,198)
-    	of.setColor(255,122,220)
+    	ofSetColor(255,122,220)
     	font:drawString(eventString,100,200)
 
-    	of.setColor(255)
+    	ofSetColor(255)
     	font:drawString(timeString,98,98)
-    	of.setColor(255,122,220)
+    	ofSetColor(255,122,220)
     	font:drawString(timeString,100,100)
 
-    	of.setColor(255)
-    	of.enableBlendMode(blendMode)
-    		rainbow:draw(ga.mouseX() - rainbow:getWidth()/2,ga.mouseY() - rainbow:getHeight()/2)
-    	of.disableBlendMode()
+    	ofSetColor(255)
+    	ofEnableBlendMode(blendMode)
+    		rainbow:draw(gaMouseX() - rainbow:getWidth()/2,gaMouseY() - rainbow:getHeight()/2)
+    	ofDisableBlendMode()
 end
 
 function keyReleased()
-    if ga.key() == string.byte('1') then
+    if gaKey() == string.byte('1') then
         blendMode = OF_BLENDMODE_ALPHA
         eventString = "Alpha"
-    elseif ga.key() == string.byte('2') then
+    elseif gaKey() == string.byte('2') then
         blendMode = OF_BLENDMODE_ADD
         eventString = "Add"
-    elseif ga.key() == string.byte('3') then
+    elseif gaKey() == string.byte('3') then
         blendMode = OF_BLENDMODE_MULTIPLY
         eventString = "Multiply"
-    elseif ga.key() == string.byte('4') then
+    elseif gaKey() == string.byte('4') then
         blendMode = OF_BLENDMODE_SUBTRACT
         eventString = "Subtract"
-    elseif ga.key() == string.byte('5') then
+    elseif gaKey() == string.byte('5') then
         blendMode = OF_BLENDMODE_SCREEN
         eventString = "Screen"
     end 

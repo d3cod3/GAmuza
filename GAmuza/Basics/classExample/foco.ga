@@ -1,0 +1,32 @@
+
+// ---------------------------------------------------
+// ------- class foco
+
+class 'foco'
+
+// constructor
+function foco:__init(x, d, s, g) 
+	self.posX = x		// posición X
+	self.diam = d		// diametro
+	self.speed = s	// velocidad
+	self.grav = g		// gravedad
+
+end
+
+function foco:update()
+	self.posX = self.posX + self.speed
+	self.speed = self.speed + (self.grav*self.diam)
+
+	if self.posX > OUTPUT_W - self.diam/2  then
+		self.speed = self.speed * -0.999722
+	end
+	if self.posX < 0 + self.diam/2 then
+		self.speed = self.speed * -0.999722
+	end
+end
+
+function foco:draw()
+    ofCircle(self.posX,OUTPUT_H/2, self.diam)
+end
+
+// ---------------------------------------------------

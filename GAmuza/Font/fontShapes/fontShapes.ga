@@ -12,14 +12,14 @@
  
 */
 
-font1 = of.trueTypeFont()
-font2 = of.trueTypeFont()
-character = of.path()
+font1 = ofTrueTypeFont()
+font2 = ofTrueTypeFont()
+character = ofPath()
 letter = string.byte('&')
 
 function setup()
-    font1:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),160,true,true,true)
-    font2:loadFont(ga.importFile("D3Litebitmapism.ttf"),52,true,true,true)
+    font1:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),160,true,true,true)
+    font2:loadFont(gaImportFile("D3Litebitmapism.ttf"),52,true,true,true)
     character = font1:getCharacterAsPoints(letter)
 end
 
@@ -28,10 +28,10 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
     // draw text as bitmap
-    of.setColor(0,90,60)
+    ofSetColor(0,90,60)
     font2:drawString("hello - I am a bitmap",50,400)
     
     // draw character as bitmap
@@ -45,9 +45,9 @@ function draw()
     character:clear()
 
 	// draw text as shapes
-	of.fill()
+	ofFill()
 	font2:drawStringAsShapes("Hello - I am a vector",50,480)
-	of.noFill()
+	ofNoFill()
 	font2:drawStringAsShapes("Hello - I am a vector",50,550)
     
 end

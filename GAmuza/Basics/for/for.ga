@@ -28,4 +28,4 @@ function draw()
 	for i = 0, OUTPUT_W, 50 do
 		ofLine(i, 0, OUTPUT_W-i, OUTPUT_W-i)
 	end
-end 
+end

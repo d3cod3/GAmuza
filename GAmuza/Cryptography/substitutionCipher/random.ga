@@ -20,7 +20,7 @@ function gaUniqueRandom(dim)
 	local magnitude = math.ceil(dim-1)
 	local rr = -1
 	while rr > magnitude or rr < 0 do
-		rr = math.ceil(math.abs(ofx.gaussian())*magnitude)
+		rr = math.ceil(math.abs(ofxGaussian())*magnitude)
 	end
 	
 	for i=0, dim-1 do
@@ -29,7 +29,7 @@ function gaUniqueRandom(dim)
 	end
 	
 	for i=0, dim-1 do
-		local pos = math.ceil(of.random(0,magnitude))
+		local pos = math.ceil(ofRandom(0,magnitude))
 		keys[i] = world[pos]
 		world[pos] = world[magnitude]
 		magnitude = magnitude - 1
@@ -39,7 +39,7 @@ function gaUniqueRandom(dim)
 	keys[0] = keys[rr]
 	keys[rr] = buffer
 
-	local lastPos = math.ceil(of.random(1,dim-1))
+	local lastPos = math.ceil(ofRandom(1,dim-1))
 	local buffer2 = keys[lastPos]
 	keys[lastPos] = keys[dim-1]
 	keys[dim-1] = buffer2
@@ -49,7 +49,7 @@ function gaUniqueRandom(dim)
 end
 
 function generateKey(s)
-	of.seedRandom(s)
+	ofSeedRandom(s)
 	uniqueRand = gaUniqueRandom(numLetters)
 
 	for i=0, numLetters-1 do

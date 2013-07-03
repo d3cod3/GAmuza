@@ -12,7 +12,7 @@
 */
 
 function setup()
-    ga.wave(GA_TRI,120)    
+    gaWave(GA_TRI,120)    
 end
 
 function update()
@@ -20,10 +20,10 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
 end
 
 function keyReleased()
-    ga.waveFrequency(0,(ga.key()/3)*ga.nToF(RE_0))
-    ga.waveVolume(0,of.randomuf()/4)
+    gaWaveFrequency(0,(gaKey()/3)*gaNToF(RE_0))
+    gaWaveVolume(0,ofRandomuf()/4)
 end

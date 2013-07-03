@@ -16,10 +16,10 @@ radio = 100
 radioInc = 40
 lineWidth = 10
 
-c = of.color()
+c = ofColor()
 
 function setup()
-	of.enableSmoothing()
+	ofEnableSmoothing()
 end
 
 function update()
@@ -27,25 +27,25 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
     
-	of.noFill()
-	of.setLineWidth(lineWidth)   
+	ofNoFill()
+	ofSetLineWidth(lineWidth)   
 	j = 0
 	lados = 3
 	for i=0, 6 do
-		of.setCircleResolution(lados)
+		ofSetCircleResolution(lados)
     		c:setHsb((j/8)*255,255,255)
-    		of.setColor(c.r,c.g,c.b)
-      	of.circle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc))
+    		ofSetColor(c.r,c.g,c.b)
+      	ofCircle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc))
       	j = j+1
       	c:setHsb((j/8)*255,255,255)
-    		of.setColor(c.r,c.g,c.b)
-    		of.circle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc) + lineWidth)         
+    		ofSetColor(c.r,c.g,c.b)
+    		ofCircle(OUTPUT_W/2,OUTPUT_H/2, radio+(i*radioInc) + lineWidth)         
 	    lados = lados + 1
 	end
 end
 
 function mouseReleased()
-	ga.saveFrame(ga.importFile("test.png"))
+	gaSaveFrame(gaDataPath("test.png"))
 end

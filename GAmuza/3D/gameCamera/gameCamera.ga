@@ -1,0 +1,45 @@
+
+/*
+   
+ GAmuza 0426 examples 
+ ---------------------
+ 3D/gameCamera.ga
+ 
+ This example show how create a camera from ofxGameCamera addon and
+ use it in a 3D environment.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+cam = ofxGameCamera()
+nodes = {}
+
+function setup()
+	
+	for i=0,100 do
+		pos = ofVec3f(ofRandom(-OUTPUT_W,OUTPUT_W), ofRandom(-OUTPUT_H, OUTPUT_H), ofRandom(-1000, 1000))
+		nodes[i] = ofNode()
+		nodes[i]:setPosition(pos)
+	end
+	
+	cam:setup()
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+
+	cam:beginCamera(ofGetCurrentViewport())
+
+	ofSetColor(255)
+	for i=0,100 do
+		nodes[i]:draw()
+	end
+
+	cam:endCamera()
+	
+	ofSetColor(255)
+	ofDrawBitmapString("Use mouse drag to rotate",20,200)
+ 
+end

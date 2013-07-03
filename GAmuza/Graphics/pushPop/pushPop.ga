@@ -11,22 +11,22 @@
  
 */
 
-ambient = of.floatColor(1.0,1.0,1.0,1.0)
-light = of.light()
+ambient = ofFloatColor(1.0,1.0,1.0,1.0)
+light = ofLight()
  
 pos = {}
 numTriangles = 60
  
 function setup()
-	of.setCircleResolution(3)
+	ofSetCircleResolution(3)
 	for i=0, numTriangles do
 		pos[i] = {}
-		pos[i].x = of.random(0,OUTPUT_W)    
-		pos[i].y = of.random(0,OUTPUT_H)
-		pos[i].z = of.random(-200,200)
-		pos[i].rotX = of.random(0,360)
-		pos[i].velX = of.randomuf()
-		pos[i].t = of.random(20,120)
+		pos[i].x = ofRandom(0,OUTPUT_W)    
+		pos[i].y = ofRandom(0,OUTPUT_H)
+		pos[i].z = ofRandom(-200,200)
+		pos[i].rotX = ofRandom(0,360)
+		pos[i].velX = ofRandomuf()
+		pos[i].t = ofRandom(20,120)
 	end
 end
  
@@ -37,10 +37,10 @@ function update()
 end
  
 function draw()
-	ga.background(0.0,0.1)
+	gaBackground(0.0,0.1)
  
  	light:enable()
-	light:setSpotlight(of.map(ga.mouseX(),0,OUTPUT_H,0,of.radToDeg(HALF_PI),true),0.1)
+	light:setSpotlight(ofMap(gaMouseX(),0,OUTPUT_H,0,ofRadToDeg(HALF_PI),true),0.1)
 	light:setAmbientColor(ambient)
 	
 	for i=0, numTriangles do
@@ -54,19 +54,19 @@ end
 ///////////////////////////////////////////////
 // Custom function 
 function tri(x,y,z,r,t)
-    of.pushMatrix()
+    ofPushMatrix()
  
-    of.translate(x,y,z)
-    of.rotateX(r)
-    of.rotateY(ga.mouseX()/OUTPUT_W * 360)
-    of.rotateZ(of.getElapsedTimef())
+    ofTranslate(x,y,z)
+    ofRotateX(r)
+    ofRotateY(gaMouseX()/OUTPUT_W * 360)
+    ofRotateZ(ofGetElapsedTimef())
  
-    of.setColor(255)
-    of.noFill()
-    of.setLineWidth(3)
-    of.circle(0,0,t)
+    ofSetColor(255)
+    ofNoFill()
+    ofSetLineWidth(3)
+    ofCircle(0,0,t)
  
-    of.drawAxis(60)
+    ofDrawAxis(60)
  
-    of.popMatrix()
+    ofPopMatrix()
 end

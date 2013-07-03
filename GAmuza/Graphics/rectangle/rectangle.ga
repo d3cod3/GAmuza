@@ -11,8 +11,8 @@
  
 */
 
-rect1 = of.rectangle()
-rect2 = of.rectangle()
+rect1 = ofRectangle()
+rect2 = ofRectangle()
 
 function setup()
 	rect1:set(400,400,200,200)
@@ -24,15 +24,15 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 
 	// draw rect1
-	of.setColor(255,255,0)
-    	of.fill()
-    	of.rect(rect1.x,rect1.y,rect1.width,rect1.height)
+	ofSetColor(255,255,0)
+    	ofFill()
+    	ofRect(rect1.position.x,rect1.position.y,rect1.width,rect1.height)
 	// draw rect2
-    	of.setColor(255,0,0)
-    	of.noFill()
-    	of.setLineWidth(3)
-    	of.rect(rect2.x,rect2.y,rect2.width,rect2.height)
+    	ofSetColor(255,0,0)
+    	ofNoFill()
+    	ofSetLineWidth(3)
+    	ofRect(rect2.position.x,rect2.position.y,rect2.width,rect2.height)
 end

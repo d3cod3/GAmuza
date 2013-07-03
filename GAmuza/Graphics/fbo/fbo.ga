@@ -10,43 +10,41 @@
  
 */
 
-fboTex = of.fbo()
+fboTex = ofFbo()
 
 function setup()
-    of.setCircleResolution(50)
-    // allocate(width,height,color range,samples)
-    fboTex:allocate(OUTPUT_W-200,OUTPUT_H-200,GL_RGB,0)    
+    	ofSetCircleResolution(50)
+    	// allocate(width,height,color range,samples)
+    	fboTex:allocate(OUTPUT_W-200,OUTPUT_H-200,GL_RGB,0)    
 end
 
 function update()
-    
+    	
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     
-    // draw INSIDE the FBO texture
-    of.enableAlphaBlending()
-    fboTex:beginFbo()
-        of.clear(255,255,255,255)
-        of.setColor(0)
-        of.fill()
-        of.circle(fboTex:getWidth()/2,fboTex:getHeight()/2,140)
-    fboTex:endFbo()
-    of.disableAlphaBlending()
+    	// draw INSIDE the FBO texture
+    	ofEnableAlphaBlending()
+    	fboTex:beginFbo()
+        	ofClear(255,255,255,255)
+        	ofSetColor(0)
+       	ofFill()
+        	ofCircle(fboTex:getWidth()/2,fboTex:getHeight()/2,140)
+    	fboTex:endFbo()
+    	ofDisableAlphaBlending()
 
-	// draw the FBO texture
-    of.setColor(255)
-    of.pushMatrix()
-    of.translate((OUTPUT_W-fboTex:getWidth())/2,(OUTPUT_H-fboTex:getHeight())/2,0)
+		// draw the FBO texture
+    	ofSetColor(255)
+    	ofPushMatrix()
+    	ofTranslate((OUTPUT_W-fboTex:getWidth())/2,(OUTPUT_H-fboTex:getHeight())/2,0)
     
-    fboTex:draw(0,0)
-    of.popMatrix()
+    	fboTex:draw(0,0)
+    	ofPopMatrix()
     
-    // draw something OUTSIDE the FBO texture
-    of.setColor(255,0,0)
-    of.circle(ga.mouseX(),ga.mouseY(),140)
-    
-    
+    	// draw something OUTSIDE the FBO texture
+    	ofSetColor(255,0,0)
+    	ofCircle(gaMouseX(),gaMouseY(),140)
     
 end

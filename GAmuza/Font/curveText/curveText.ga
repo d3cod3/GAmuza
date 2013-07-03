@@ -14,13 +14,13 @@
  
 */
 
-font = ofx.arcText()
+font = ofxArcText()
 text = "GAmuza - Hybrid Live Coding"
 
 function setup()
-    of.setCircleResolution(50)
-    font:loadFont(ga.importFile("D3Litebitmapism.ttf"),58)
-    font:setLetterSpacing(1.3)
+    	ofSetCircleResolution(50)
+    	font:loadFont(gaImportFile("D3Litebitmapism.ttf"),58)
+    	font:setLetterSpacing(1.3)
 end
 
 function update()
@@ -28,14 +28,14 @@ function update()
 end
 
 function draw()
-    ga.background(0.9,1.0)
+    	gaBackground(0.9,1.0)
 
-    of.setColor(0)
-    of.pushMatrix()
-    of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
-    of.rotateZ(of.getElapsedTimef())
-    font:drawString(text,0,0,OUTPUT_H/2)
-    of.popMatrix()
+    	ofSetColor(0)
+    	ofPushMatrix()
+    		ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    		ofRotateZ(ofGetElapsedTimef())
+    		font:drawString(text,0,0,OUTPUT_H/2)
+    	ofPopMatrix()
     
-    of.drawBitmapString(string.format("%f",of.getElapsedTimef()),500,200)
+    	ofDrawBitmapString(string.format("%f",ofGetElapsedTimef()),500,200)
 end

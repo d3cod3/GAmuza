@@ -15,20 +15,20 @@
  
 */
 
-dir = of.directory()
+dir = ofDirectory()
 images = {}
 currentImage = 0
 numImages = 0
 
 function setup()
 	dir:allowExt("jpg")
-    	dir:listDir(ga.importFile("images/"))
+    	dir:listDir(gaDataPath("images/"))
     	dir:sort()
     	numImages = dir:numFiles()-1
     
     if dir:size() > 0 then
         for i=0,numImages do
-            images[i] = of.image()
+            images[i] = ofImage()
             images[i]:loadImage(dir:getPath(i))
         end 
     end
@@ -41,27 +41,27 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
 
     if dir:size() > 0 then
-        of.setColor(255)
+        ofSetColor(255)
         images[currentImage]:draw(50,50)
 
-        of.setColor(245)
+        ofSetColor(245)
         _name = dir:getName(currentImage)
         _path = dir:getPath(currentImage)
         text = string.format("%s %s \n\n Click to next image",_name,_path)
-        of.drawBitmapString(text,50,images[currentImage].height + 60)
+        ofDrawBitmapString(text,50,images[currentImage].height + 60)
     end
 
     for i=0,numImages do
         if i==currentImage then
-            of.setColor(55,246,90)
+            ofSetColor(55,246,90)
         else
-            of.setColor(217,246,223)
+            ofSetColor(217,246,223)
         end
         info = string.format("file %i = %s",i,dir:getName(i))
-        of.drawBitmapString(info,800,60 + i*20)
+        ofDrawBitmapString(info,800,60 + i*20)
     end
 end
 

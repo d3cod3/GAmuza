@@ -1,10 +1,10 @@
 <controls>
     <SliderFloat_float_slider>
         <name>float slider</name>
-        <value>5.9466</value>
+        <value>0.000000000</value>
     </SliderFloat_float_slider>
     <SliderInt_int_slider>
         <name>int slider</name>
-        <value>7</value>
+        <value>16316012</value>
     </SliderInt_int_slider>
 </controls>

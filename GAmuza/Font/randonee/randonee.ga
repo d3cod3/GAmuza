@@ -6,8 +6,8 @@
  */
 
 
-font = ofx.trueTypeFontUC()
-tx = "Randonée"
+font = ofxTrueTypeFontUC()
+tx = "Randon√©e"
 posx = 0
 t = 30
 
@@ -17,15 +17,15 @@ function setup()
 end
 
 function update()
-	t = of.random(30, 60)
-	posx= math.ceil(of.random(-100, OUTPUT_W-100))
+	t = ofRandom(30, 60)
+	posx= math.ceil(ofRandom(-100, OUTPUT_W-100))
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     	
-    	of.setColor(255)
-	font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"), t, true, true)
+    	ofSetColor(255)
+	font:loadFont(gaImportFile("Anonymous_Pro_B.ttf"), t, true, true)
    	font:setLetterSpacing (t/30)
-    	font:drawString("Randonée", posx, OUTPUT_H/2)
+    	font:drawString("Randon√©e", posx, OUTPUT_H/2)
 end

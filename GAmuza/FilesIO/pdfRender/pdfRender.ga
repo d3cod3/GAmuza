@@ -14,98 +14,98 @@
  
 */
 
-font = of.trueTypeFont()
+font = ofTrueTypeFont()
 frames = {}
-image = of.image()
+image = ofImage()
 boxTrail = {}
 
 oneShot = false
 pdfRendering = false
 _angle = 0
-exportFolder = ga.importFile("export/")
+exportFolder = gaDataPath("export/")
 
 function setup()
-	font:loadFont(ga.importFile("Anonymous_Pro_B.ttf"),24,true,false,true)
+	font:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),24,true,false,true)
 end
 
 function update()
-	image:setFromPixels(ga.cameraPixelsRef(0))
+	//image:setFromPixels(gaCameraPixelsRef(0))
 	_angle = _angle + 1    
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     	
     	if oneShot then
-    		of.beginSaveScreenAsPDF(string.format("%s_screenshot-%s.pdf", exportFolder,of.getTimestampString()),true,false,of.getCurrentViewport())
+    		ofBeginSaveScreenAsPDF(string.format("%s_screenshot-%s.pdf", exportFolder,ofGetTimestampString()),true,false,ofGetCurrentViewport())
     	end
     	
-    	of.setColor(255)
-    	of.rect(0,0,OUTPUT_W,OUTPUT_H)
+    	ofSetColor(255)
+    	ofRect(0,0,OUTPUT_W,OUTPUT_H)
     	
-    	of.setColor(54)
-    	of.drawBitmapString("PDF RENDER EXAMPLE", 32, 32)
+    	ofSetColor(54)
+    	ofDrawBitmapString("PDF RENDER EXAMPLE", 32, 32)
     	if pdfRendering then
-    		of.drawBitmapString("press 'r' to stop pdf multipage rendering", 32, 92)
+    		ofDrawBitmapString("press 'r' to stop pdf multipage rendering", 32, 92)
     	else
-    		of.drawBitmapString("press r to start pdf multipage rendering\npress s to save a single screenshot as pdf to disk", 32, 92)
+    		ofDrawBitmapString("press r to start pdf multipage rendering\npress s to save a single screenshot as pdf to disk", 32, 92)
     	end
     	
-    	of.fill()
-    	of.setColor(54)
-    	of.drawBitmapString("TTF Font embedded into pdf as vector shapes", 32, 460)
+    	ofFill()
+    	ofSetColor(54)
+    	ofDrawBitmapString("TTF Font embedded into pdf as vector shapes", 32, 460)
     	
     	if oneShot or pdfRendering then
-    		of.setColor(54)
+    		ofSetColor(54)
     		font:drawStringAsShapes("Elapsed Ms: ",32,500)
-    		of.setColor(245,58,135)
-    		font:drawStringAsShapes(tostring(of.getElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
+    		ofSetColor(245,58,135)
+    		font:drawStringAsShapes(tostring(ofGetElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
     	else
-    		of.setColor(54)
+    		ofSetColor(54)
     		font:drawString("Elapsed Ms: ",32,500)
-    		of.setColor(245,58,135)
-    		font:drawString(tostring(of.getElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
+    		ofSetColor(245,58,135)
+    		font:drawString(tostring(ofGetElapsedTimeMillis()), 32 + font:getStringBoundingBox("Current Frame: ", 0, 0).width + 9, 500)
     	end
     	
-    	of.setColor(54)
-	of.drawBitmapString("Images can also be embedded into pdf", OUTPUT_W-340, 280)
-    	of.setColor(255)
+    	ofSetColor(54)
+	ofDrawBitmapString("Images can also be embedded into pdf", OUTPUT_W-340, 280)
+    	ofSetColor(255)
     	image:draw(OUTPUT_W-340,20)
     	
     	// lets draw a box
-    	of.setColor(245,58,135)
-    	boxBounds = of.rectangle(32, 500, OUTPUT_W-32, 250)
-    	noiseX = of.noise(of.getElapsedTimef()/600,200)
-    	noiseY = of.noise(of.getElapsedTimef()/800,-900)
+    	ofSetColor(245,58,135)
+    	boxBounds = ofRectangle(32, 500, OUTPUT_W-32, 250)
+    	noiseX = ofNoise(ofGetElapsedTimef()/600,200)
+    	noiseY = ofNoise(ofGetElapsedTimef()/800,-900)
     	
-    	of.fill()
+    	ofFill()
     	
-    	of.pushMatrix()
-    		xx = of.map(noiseX, 0, 1, boxBounds.x, boxBounds.x + boxBounds.width, true)
-    		yy = of.map(noiseY, 0, 1, boxBounds.y, boxBounds.y + boxBounds.height, true)
+    	ofPushMatrix()
+    		xx = ofMap(noiseX, 0, 1, 32, 32 + boxBounds.width, true)
+    		yy = ofMap(noiseY, 0, 1, 500, 500 + boxBounds.height, true)
     		
-    		of.translate(xx,yy,0)
-    		of.rotate(_angle)
-    		of.rect(0,0,30,30)
-    	of.popMatrix()
+    		ofTranslate(xx,yy,0)
+    		ofRotate(_angle)
+    		ofRect(0,0,30,30)
+    	ofPopMatrix()
     	
     	if oneShot then
-    		of.endSaveScreenAsPDF()
+    		ofEndSaveScreenAsPDF()
     		oneShot = false
     	end
 end
 
 function keyReleased()
-	if ga.key() == string.byte('r') then
+	if gaKey() == string.byte('r') then
 		pdfRendering = not pdfRendering
 		if pdfRendering then
-			of.beginSaveScreenAsPDF(string.format("%s_recording-%s.pdf", exportFolder,of.getTimestampString()),true,false,of.getCurrentViewport())
+			ofBeginSaveScreenAsPDF(string.format("%s_recording-%s.pdf", exportFolder,ofGetTimestampString()),true,false,ofGetCurrentViewport())
 		else
-			of.endSaveScreenAsPDF()
+			ofEndSaveScreenAsPDF()
 		end
 	end
 	
-	if not pdfRendering and ga.key() == string.byte('s') then
+	if not pdfRendering and gaKey() == string.byte('s') then
 		oneShot = true
 	end
 end

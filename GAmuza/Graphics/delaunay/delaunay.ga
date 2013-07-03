@@ -16,7 +16,7 @@
 
 r = {}
 numTri = 20
-delaunay = ofx.delaunay()
+delaunay = ofxDelaunay()
 
 function setup()
 	reset()
@@ -27,28 +27,28 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
-    of.setLineWidth(3)
-    of.pushMatrix()
-    of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
-    of.rotateX(ga.mouseY())
-    of.rotateY(ga.mouseX())
-    of.enableAlphaBlending()
-    of.setColor(255,40)
+    ofSetLineWidth(3)
+    ofPushMatrix()
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    ofRotateX(gaMouseY())
+    ofRotateY(gaMouseX())
+    ofEnableAlphaBlending()
+    ofSetColor(255,40)
     for i=0,numTri do
         if r[i] < 0.7 then
-            of.fill()
+            ofFill()
         else
-            of.noFill()
+            ofNoFill()
         end
         delaunay:drawTriangle(i)
     end
-    of.disableAlphaBlending()
-    of.noFill()
-    of.setColor(255)
+    ofDisableAlphaBlending()
+    ofNoFill()
+    ofSetColor(255)
     delaunay:draw()
-    of.popMatrix()
+    ofPopMatrix()
 end
 
 function mouseReleased()
@@ -58,9 +58,9 @@ end
 function reset()
 	delaunay:reset()
 	for i=0,numTri do
-		x = of.random(-OUTPUT_W+200,OUTPUT_W+200)
-		y = of.random(-OUTPUT_H+100,OUTPUT_H+100)
+		x = ofRandom(-OUTPUT_W+200,OUTPUT_W+200)
+		y = ofRandom(-OUTPUT_H+100,OUTPUT_H+100)
         	delaunay:addPoint(x,y,0)
-        	r[i] = of.randomuf()
+        	r[i] = ofRandomuf()
     	end
 end

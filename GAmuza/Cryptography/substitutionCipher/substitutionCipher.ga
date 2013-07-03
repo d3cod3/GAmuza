@@ -11,12 +11,11 @@
  
 */
 
-dofile(ga.importFile("include/random.ga"))
-
-textBlock = ofx.textBlock()
-textFile = of.file()
-buffer = of.buffer()
-chiperBuffer = of.buffer()
+textBlock = ofxTextBlock()
+cipherBlock = ofxTextBlock()
+textFile = ofFile()
+buffer = ofBuffer()
+chiperBuffer = ofBuffer()
 text = ""
 textCipher = ""
 numLetters = 27
@@ -25,19 +24,24 @@ key = {}
 
 function setup()
 
-	generateKey(of.getElapsedTimeMillis())
+	generateKey(ofGetElapsedTimeMillis())
 
-	textBlock:init(ga.importFile("Anonymous_Pro_B.ttf"),60)
-    	textFile:open(ga.importFile("plaintext.txt"))
+	textBlock:init(gaImportFile("Anonymous_Pro_B.ttf"),60)
+    	textFile:open(gaImportFile("plaintext.txt"))
     	buffer = textFile:readToBuffer()
     	text = buffer:getText()
     	
-    	textBlock:setText(text)
-    	textBlock:wrapTextArea(OUTPUT_W/2 - 40,OUTPUT_H)
+	textBlock:setText(text)
+	textBlock:wrapTextArea(OUTPUT_W/2 - 40,OUTPUT_H)
     	
     	// Encrypt text file
     	Encrypt(key,buffer)
-    	of.bufferToFile(ga.importFile("ciphertext.txt"), chiperBuffer,true)
+    	ofBufferToFile(gaDataPath("ciphertext.txt"), chiperBuffer,true)
+    	
+    	// Get the Cipher text
+    	cipherBlock:init(gaImportFile("Anonymous_Pro_B.ttf"),80)
+    	cipherBlock:setText(textCipher)
+    	cipherBlock:wrapTextArea(OUTPUT_W/2 - 40,OUTPUT_H)
     	
 end
 
@@ -46,20 +50,23 @@ function update()
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     	
-    	of.setColor(200)
-    	of.line(OUTPUT_W/2 + 4,0,OUTPUT_W/2 + 4,OUTPUT_H)
+    	ofSetColor(200)
+    	ofLine(OUTPUT_W/2 + 4,0,OUTPUT_W/2 + 4,OUTPUT_H)
     
-    	of.setColor(255)
+    	ofSetColor(255)
     	textBlock:drawJustified(10,0,textBlock:getWidth())
     	
     	for i=0, numLetters-1 do
-    		of.setColor(255)
-    		of.drawBitmapString(tostring(letters[i+1]),OUTPUT_W/2 - 10,20 + (i*14))
-    		of.setColor(255,0,0)
-    		of.drawBitmapString(tostring(key[i]),OUTPUT_W/2 + 10,20 + (i*14))
+    		ofSetColor(255)
+    		ofDrawBitmapString(tostring(letters[i+1]),OUTPUT_W/2 - 10,20 + (i*14))
+    		ofSetColor(255,0,0)
+    		ofDrawBitmapString(tostring(key[i]),OUTPUT_W/2 + 10,20 + (i*14))
     	end
+    	
+    	ofSetColor(255)
+    	cipherBlock:drawCenter(OUTPUT_W/4 * 3,0)
     
 end
 

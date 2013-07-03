@@ -11,17 +11,17 @@
  
 */
 
-lazo = of.polyline()
-smoothed = of.polyline()
+lazo = ofPolyline()
+smoothed = ofPolyline()
 
-box = of.rectangle()
+box = ofRectangle()
 
 function setup()
-	for i=0,10 do
-		lazo:addVertex(math.sin(of.degToRad(i))*OUTPUT_W*6,math.cos(i)*OUTPUT_H/4,0)
+	for i=0,90 do
+		lazo:addVertex(math.sin(ofDegToRad(i))*OUTPUT_W,math.cos(i)*OUTPUT_H/4,0)
 	end
 
-	smoothed = lazo:getSmoothed(3,0.8)
+	smoothed = lazo:getSmoothed(9,0.3)
 	box = lazo:getBoundingBox()
 end
 
@@ -30,25 +30,25 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     
-    of.pushMatrix()
-    of.translate(0,OUTPUT_H/2,0)
+    	ofPushMatrix()
+    	ofTranslate(0,OUTPUT_H/2,0)
     
-    // polyline
-    of.setColor(255)
-    of.setLineWidth(1)
-    lazo:draw()
+    	// polyline
+    	ofSetColor(255)
+    	ofSetLineWidth(1)
+    	lazo:draw()
     
-    // smoothed polyline
-    of.setColor(18,159,211)
-    of.setLineWidth(2)
-    smoothed:draw()
+    	// smoothed polyline
+    	ofSetColor(18,159,211)
+    	ofSetLineWidth(2)
+    	smoothed:draw()
 
 	// bounding box
-	of.setColor(255)
-	of.noFill()
-	of.rect(box.x,box.y,box.width,box.height)
+	ofSetColor(255)
+	ofNoFill()
+	ofRect(box.position.x,box.position.y,box.width,box.height)
 
-    of.popMatrix()
+    	ofPopMatrix()
 end

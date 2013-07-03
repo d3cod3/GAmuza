@@ -16,8 +16,8 @@
 */
 
 font = ofxTrueTypeFontUC()
-text = "Zénon, Cruel Zénon! Zénon de'Elée!"
-author = "Paul Valèry"
+text = "Z√©non, Cruel Z√©non! Z√©non de'El√©e!"
+author = "Paul Val√®ry"
 
 function setup()
     // font name, size, anti-aliased, full character set
