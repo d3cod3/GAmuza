@@ -4,7 +4,9 @@
 #include "gaVideoPreview.h"
 #include "gaTimeline.h"
 #include "gaAudioModule.h"
-
+#include "gaArduinoModule.h"
+#include "gaCVModule.h"
+#include "gaOSCModule.h"
 
 #include "ofxNSWindower.h"
 
@@ -51,6 +53,9 @@
     bool                        isPreviewON;
     bool                        isTimelineON;
     bool                        isAudioModuleON;
+    bool                        isArduinoModuleON;
+    bool                        isCVModuleON;
+    bool                        isOSCModuleON;
     
     NSMutableArray              *screensINFO;
     
@@ -101,6 +106,8 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+- (IBAction) hideAllModules:(id)sender;
+
 - (IBAction) applyPreferences:(id)sender;
 
 - (IBAction) togglePreviewWindow:(id)sender;
@@ -121,7 +128,7 @@
 
 - (IBAction) openItemFromSketchbookFolder:(id)sender;
 
-- (IBAction) restartGAmuzaWindow: (id)sender;
+- (IBAction) openGAMUZADocument:(id)sender;
 
 - (IBAction) sendScriptToGAmuza:(id)sender;
 
@@ -159,6 +166,15 @@
 // AUDIO MODULE
 - (IBAction) toggleAudioModule:(id)sender;
 
+// ARDUINO MODULE
+- (IBAction) toggleArduinoModule:(id)sender;
+
+// COMPUTER VISION MODULE
+- (IBAction) toggleCVModule:(id)sender;
+
+// OSC MODULE
+- (IBAction) toggleOSCModule:(id)sender;
+
 // GAmuza render window reference
 gamuzaMain          *gapp;
 ofPtr<ofxNSWindow>  gappWindow;
@@ -167,11 +183,20 @@ gaVideoPreview      *gaVP;
 ofPtr<ofxNSWindow>  gaVPWindow;
 
 //////////////////////////////// GAmuza GUI PANELS
+// Timelne
 gaTimeline          *gaTL;
 ofPtr<ofxNSWindow>  gaTLWindow;
-
+// Audio Module
 gaAudioModule       *gaAM;
 ofPtr<ofxNSWindow>  gaAMWindow;
-
+// Arduino Module
+gaArduinoModule     *gaARM;
+ofPtr<ofxNSWindow>  gaARMWindow;
+// Computer Vision Module
+gaCVModule          *gaCVM;
+ofPtr<ofxNSWindow>  gaCVMWindow;
+// OSC Module
+gaOSCModule         *gaOSCM;
+ofPtr<ofxNSWindow>  gaOSCMWindow;
 
 @end

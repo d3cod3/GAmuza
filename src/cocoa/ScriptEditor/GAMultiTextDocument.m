@@ -435,7 +435,8 @@
     [sPan setAllowsOtherFileTypes:NO];
     [sPan setCanCreateDirectories:YES];
     
-    long tvar = [sPan runModalForDirectory:[[[self fileURL] absoluteString] lastPathComponent] file:[[[self fileURL] absoluteString] lastPathComponent]];
+    long tvar = [sPan runModalForDirectory:[[[[self fileURL] absoluteString] lastPathComponent] stringByDeletingPathExtension]
+                                      file:[[[[self fileURL] absoluteString] lastPathComponent] stringByDeletingPathExtension]];
     
     if(tvar == NSOKButton){
         NSFileManager               *filemgr;

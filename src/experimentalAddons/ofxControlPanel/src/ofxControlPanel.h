@@ -180,7 +180,7 @@ class ofxControlPanel: public guiBaseObject{
 
         void updateBoundingBox();
         void update();
-        void draw();
+        void draw(int numPanels);
 
         ofTrueTypeFont guiTTFFont;
 

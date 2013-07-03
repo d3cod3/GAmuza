@@ -91,13 +91,14 @@ void audioInputChannel::setupChannel(int _id,int _sampleRate,int _bufferSize,int
 	timeFreq.loadImage("img/timeFreq.png");
 	
 	// osc data vars setup
-	_kalman_barkBins		= new float[BARK_SCALE_CRITICAL_BANDS];
 	_s_barkBins				= new float[BARK_SCALE_CRITICAL_BANDS];
 	_osc_barkBins			= new float[BARK_SCALE_CRITICAL_BANDS];
 	
 	sendOsc_VD			= false;
 	sendOsc_PD			= false;
 	sendOsc_BK			= false;
+    
+    _smoothingFactor = 0.5;
 	
 }
 
@@ -201,7 +202,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				glColor4f(0.941,0.941,0.941,0.2);
 				eqBackground.draw(0,h);
 				eqBackground.draw(0,h*2);
-                eqBackground.draw(0,h*3);
+                //eqBackground.draw(0,h*3);
 				//eqBackground.draw(0,h*2);
 				
 			
@@ -210,20 +211,20 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				//font.drawString(temp, 0, - 10 + h);
 				//glColor4f(0.847,0.25,0.25,0.9);
                 ofSetColor(9,147,211,240);
-				sprintf(temp,"NOISE FILTER");
-				font.drawString(temp, 2, 8+h);
+				//sprintf(temp,"NOISE FILTER");
+				//font.drawString(temp, 2, 8+h);
 				sprintf(temp,"3 BAND PARAMETRIC EQUALIZER");
-				font.drawString(temp, 2, 8+(h*2));
+				font.drawString(temp, 2, 8+h);
 				glColor4f(1.0,0.906,0.463,0.9);
 				//sprintf(temp,"FILTERED FFT BINS [%i]",fft->getBinSize());
 				//font.drawString(temp, 2, 8+(h*2));
-				sprintf(temp,"BARK SCALE BINS [%i]",BARK_SCALE_CRITICAL_BANDS);
-				font.drawString(temp, 2, 8+(h*3));
+				sprintf(temp,"FFT[%i BINS] WITH BARK SCALED BANDS[%i]",fft->getBinSize(),BARK_SCALE_CRITICAL_BANDS);
+				font.drawString(temp, 2, 8+(h*2));
 			
 				glScalef(((float)w/fft->getBinSize()), 1.0f, 1.0f);
 				
 				// noise filter
-                ofSetColor(9,147,211,255);
+                /*ofSetColor(9,147,211,255);
 				//glColor4f(0.847,0.25,0.25,1.0); // 216, 64, 64
 				
 				ofSetLineWidth(2);
@@ -232,7 +233,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 					ofVertex(i, (hardClip(noiseFilter[i]*reduxFactor) * zeroOffset) + zeroOffset + h);
 					//ofVertex(i+1, (hardClip(noiseFilter[i+1]*reduxFactor) * zeroOffset) + zeroOffset);
 				}
-				ofEndShape(false);
+				ofEndShape(false);*/
 				
 				// gaussian filter
 				//glColor4f(0.847,0.25,0.25,1.0);
@@ -240,7 +241,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
                 ofSetLineWidth(2);
 				ofBeginShape();
 				for(unsigned int i = 0; i < fft->getBinSize()-1; i++){
-					ofVertex(i, (hardClip(gaussianFilter[i]) * -zeroOffset) + zeroOffset + (h*2));
+					ofVertex(i, (hardClip(gaussianFilter[i]) * -zeroOffset) + zeroOffset + h);
 					//ofVertex(i+1, (hardClip(gaussianFilter[i+1]) * -zeroOffset) + zeroOffset + h);
 				}
 				ofEndShape(false);
@@ -260,10 +261,20 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				}*/
 			
 				// BARK SCALE BINS
+                for(unsigned int i = 2; i < fft->getBinSize(); i++){
+                    if(i == fft_pitchBin){
+                        //glColor4f(0.847,0.25,0.25,0.9);
+                        ofSetColor(9,147,211,155);
+                        ofLine(i,h*3 - 1,i,h*3 - h + 1);
+                    }else{
+                        glColor4f(1.0,0.906,0.463,0.2);
+                    }
+                    ofLine(i,h*3 - 1,i,(hardClip(binsFiltered[i]) * -h) + h*3 - 1);
+                }
 				glColor4f(1.0,0.906,0.463,0.9);
 				float temp = (fft->getBinSize()*1.0f)/BARK_SCALE_CRITICAL_BANDS;
 				for(unsigned int i=0;i<BARK_SCALE_CRITICAL_BANDS;i++){
-					ofRect(i*temp, h*4 - 1, temp, hardClip(_osc_barkBins[i] / barkGrouped[i]) * -h);
+					ofRect(i*temp, h*3 - 1, temp, hardClip(_osc_barkBins[i] / barkGrouped[i]) * -h);
 				}
 			
 				// background
@@ -277,7 +288,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
 				ofRect(0,h,fft->getBinSize(),h);
 				ofRect(0,h*2,fft->getBinSize(),h);
 				//ofRect(0,h*2,fft->getBinSize(),h);
-				ofRect(0,h*3,fft->getBinSize(),h);
+				//ofRect(0,h*3,fft->getBinSize(),h);
             
                 
 				
@@ -294,7 +305,7 @@ void audioInputChannel::drawChannel(int x, int y, int w, int h){
     
         // graphics gui
         glColor4f(0.941,0.941,0.941,0.8);
-        timeFreq.draw(-w-18,y+(h*4));
+        timeFreq.draw(-w-18,y+(h*3));
 	
 		ofDisableAlphaBlending();
 	glPopMatrix();
@@ -334,7 +345,7 @@ void audioInputChannel::captureChannel(float *input){
 	
 	/////////////////////
 	// FFT analysis
-	fft_mutex.lock();
+	//fft_mutex.lock();
 	if(noiseRec){
 		fft->setSignal(autoCorrelationNorm);
 		memcpy(fftBins, fft->getAmplitude(), sizeof(float) * fft->getBinSize());
@@ -356,7 +367,8 @@ void audioInputChannel::captureChannel(float *input){
 		
 		for(unsigned int i = 0; i < fft->getBinSize(); i++){
 			// apply noise and parametric eq to fft bins
-			binsFiltered[i] = fftBins[i] * (1.0 - (noiseFilter[i]*reduxFactor));
+			//binsFiltered[i] = fftBins[i] * ((noiseFilter[i] + 1.0)*reduxFactor);
+            binsFiltered[i] = fftBins[i];
 			binsFiltered[i] *= (gaussianFilter[i] + 1.0f);
 			// storing strongest bin for pitch detection
 			if(binsFiltered[i] > fft_StrongestBinValue){
@@ -371,7 +383,7 @@ void audioInputChannel::captureChannel(float *input){
 	fft->setPolar(binsFiltered, fft->getPhase());
 	fft->clampSignal();
 	memcpy(chClean, fft->getSignal(), sizeof(float) * fft->getSignalSize());
-	fft_mutex.unlock();
+	//fft_mutex.unlock();
 	/////////////////////
 	
 	//////////////////////////////////////////////
@@ -496,6 +508,20 @@ void audioInputChannel::updateBarkScale(int i){
 ///////////////////////////////////////////////////////////////////////////
 
 //---------------------------------------------------------------
+void audioInputChannel::resetNoiseFilter(){
+    char temp[256];
+	
+	for(unsigned int i = 0; i < fft->getBinSize(); i++){
+		sprintf(temp,"bin%i",i);
+        noiseFilter[i] = 0.0;
+        noiseReduxXml.setValue(temp,noiseFilter[i]);
+	}
+	
+	sprintf(temp,"settings/audioInput/noiseReduxCh%i.xml",chID);
+	noiseReduxXml.saveFile(temp);
+}
+
+//---------------------------------------------------------------
 void audioInputChannel::recNoiseFilter(){
 	
 	noiseRec = !noiseRec;
@@ -532,7 +558,7 @@ void audioInputChannel::saveNoiseFilter(){
 	
 	for(unsigned int i = 0; i < fft->getBinSize(); i++){
 		sprintf(temp,"bin%i",i);
-        if(noiseFilter[i] <= 1.0){
+        if(noiseFilter[i] <= 1.0 && noiseFilter[i] >= -1.0){
             noiseReduxXml.setValue(temp,noiseFilter[i]);
         }else{
             noiseReduxXml.setValue(temp,1.0);

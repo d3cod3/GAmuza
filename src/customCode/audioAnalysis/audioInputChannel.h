@@ -35,6 +35,7 @@ class audioInputChannel{
 		
 		// noise filter functions
 		void recNoiseFilter();
+        void resetNoiseFilter();
 		void loadNoiseFilter();
 		void saveNoiseFilter();
 		
@@ -106,10 +107,6 @@ class audioInputChannel{
 		/////////////////////////////////////
 		// osc vars
 		float				_smoothingFactor;
-		
-		float				_kalman_chVolume;
-		float				_kalman_chPitch;
-		float				*_kalman_barkBins;
 		
 		float				_s_chVolume;
 		float				_s_chPitch;

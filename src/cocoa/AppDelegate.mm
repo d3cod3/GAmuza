@@ -19,9 +19,12 @@
 - (void)terminateSplashWindow:(NSTimer *)timer {
     [_splash orderOut:self];
     
-    isPreviewON = false;
-    isTimelineON = false;
-    isAudioModuleON = false;
+    isPreviewON         = false;
+    isTimelineON        = false;
+    isAudioModuleON     = false;
+    isArduinoModuleON   = false;
+    isCVModuleON        = false;
+    isOSCModuleON       = false;
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(prefPanel._autoFullscreen == 1){
@@ -69,7 +72,6 @@
     gaTLWindow->setWindowTitle("Timeline");
     gaTLWindow->setWindowShape(screenW,screenH-30);
     gaTLWindow->setWindowPosition(0,0);
-    //[gaTLWindow->getWindow() setContentSize:NSMakeSize(800,400)];
     [gaTLWindow->getWindow() orderOut:self];
     
     
@@ -86,11 +88,32 @@
     [self sendDataToPreferences];
     
     // START GAmuza Audio Analysis Module
-    gaAM = new gaAudioModule(810,540);
+    gaAM = new gaAudioModule(810,470);
     ofxNSWindower::instance()->addWindow(gaAM,"GA Audio Analysis", NSTitledWindowMask, 0);
     gaAMWindow = ofxNSWindower::instance()->getWindowPtr("GA Audio Analysis");
     gaAMWindow->setWindowTitle("GA Audio Analysis");
     [gaAMWindow->getWindow() orderOut:self];
+    
+    // START GAmuza Arduino Module
+    gaARM = new gaArduinoModule(1260,720);
+    ofxNSWindower::instance()->addWindow(gaARM,"GA Arduino", NSTitledWindowMask, 0);
+    gaARMWindow = ofxNSWindower::instance()->getWindowPtr("GA Arduino");
+    gaARMWindow->setWindowTitle("GA Arduino");
+    [gaARMWindow->getWindow() orderOut:self];
+    
+    // START GAmuza Computer Vision Module
+    gaCVM = new gaCVModule(1260,720);
+    ofxNSWindower::instance()->addWindow(gaCVM,"GA Computer Vision", NSTitledWindowMask, 0);
+    gaCVMWindow = ofxNSWindower::instance()->getWindowPtr("GA Computer Vision");
+    gaCVMWindow->setWindowTitle("GA Computer Vision");
+    [gaCVMWindow->getWindow() orderOut:self];
+    
+    // START GAmuza OSC Module
+    gaOSCM = new gaOSCModule(800,450);
+    ofxNSWindower::instance()->addWindow(gaOSCM,"GA OSC", NSTitledWindowMask, 0);
+    gaOSCMWindow = ofxNSWindower::instance()->getWindowPtr("GA OSC");
+    gaOSCMWindow->setWindowTitle("GA OSC");
+    [gaOSCMWindow->getWindow() orderOut:self];
     
     // Splash window
     [_splash makeKeyAndOrderFront:self];
@@ -549,7 +572,7 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
-- (IBAction) getColorCorrection:(id)sender{
+-(IBAction) getColorCorrection:(id)sender{
     NSXMLDocument *xmlDoc;
     NSArray* itemArray;
     NSString *path = [[[NSBundle mainBundle] resourcePath] stringByAppendingString:@"/settings/gamuzaSettings.xml"];
@@ -622,7 +645,7 @@
     
 }
 
-- (IBAction) saveColorCorrection:(id)sender{
+-(IBAction) saveColorCorrection:(id)sender{
     NSXMLDocument   *xmlDoc;
     NSData          *data;
     NSArray         *itemArray;
@@ -685,7 +708,7 @@
     [colorCorrectionPanel orderOut:NULL];
 }
 
-- (IBAction) resetColorCorrection:(id)sender{
+-(IBAction) resetColorCorrection:(id)sender{
     [gammaS setFloatValue:1.0];
     [brightS setFloatValue:1.0];
     [satS setFloatValue:1.0];
@@ -699,19 +722,88 @@
     gapp->setColorCorrection([gammaS floatValue],[brightS floatValue],[satS floatValue],[contrS floatValue],[filmBS floatValue],[techS floatValue],[whiteDS floatValue],[exposS floatValue],[diffS floatValue]);
 }
 
-- (IBAction) applyColorCorrection:(id)sender{
+-(IBAction) applyColorCorrection:(id)sender{
     gapp->setColorCorrection([gammaS floatValue],[brightS floatValue],[satS floatValue],[contrS floatValue],[filmBS floatValue],[techS floatValue],[whiteDS floatValue],[exposS floatValue],[diffS floatValue]);
 }
 
-- (IBAction) applyPreferences:(id)sender{
+-(IBAction) applyPreferences:(id)sender{
     [prefPanel saveDataToXml];
+    
+    gapp->cleanMemory();
     gapp->resetApp();
     gappWindow->setWindowTitle(gapp->_windowTitle);
+    
+    gaAM->restart();
+    gaARM->restart();
+    
     gaVP->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
     [prefPanel.mainPanel orderOut:NULL];
 }
 
-- (IBAction) toggleAudioModule:(id)sender{
+-(IBAction) hideAllModules:(id)sender{
+    if(isOSCModuleON){
+        isOSCModuleON = false;
+        [gaOSCMWindow->getWindow() orderOut:self];
+    }
+    if(isCVModuleON){
+        isCVModuleON = false;
+        [gaCVMWindow->getWindow() orderOut:self];
+    }
+    if(isArduinoModuleON){
+        isArduinoModuleON = false;
+        [gaARMWindow->getWindow() orderOut:self];
+    }
+    if(isAudioModuleON){
+        isAudioModuleON = false;
+        [gaAMWindow->getWindow() orderOut:self];
+    }
+    if(isTimelineON){
+        isTimelineON = false;
+        [gaTLWindow->getWindow() orderOut:self];
+    }
+    if(isPreviewON){
+        isPreviewON = false;
+        [gaVPWindow->getWindow() orderOut:self];
+    }
+}
+
+-(IBAction) toggleOSCModule:(id)sender{
+    if(isOSCModuleON){
+        isOSCModuleON = false;
+        [gaOSCMWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isOSCModuleON = true;
+        [gaOSCMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
+-(IBAction) toggleCVModule:(id)sender{
+    if(isCVModuleON){
+        isCVModuleON = false;
+        [gaCVMWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isCVModuleON = true;
+        [gaCVMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
+-(IBAction) toggleArduinoModule:(id)sender{
+    if(isArduinoModuleON){
+        isArduinoModuleON = false;
+        [gaARMWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isArduinoModuleON = true;
+        [gaARMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
+-(IBAction) toggleAudioModule:(id)sender{
     if(isAudioModuleON){
         isAudioModuleON = false;
         [gaAMWindow->getWindow() orderOut:self];
@@ -884,10 +976,53 @@
     }
 }
 
--(IBAction) restartGAmuzaWindow: (id)sender{
-    gapp->resetApp();
-    gaAM->restart();
-    gappWindow->setWindowTitle(gapp->_windowTitle);
+-(IBAction) openGAMUZADocument:(id)sender{
+    NSString        *sketchbookLocation = [@"~/Documents/GAmuza" stringByExpandingTildeInPath];
+    
+    // Custom Open Panel
+    NSOpenPanel                 *oPan;
+    oPan = [NSOpenPanel openPanel];
+    [oPan setTitle:@"Open a GAmuza Sketch"];
+    [oPan setDirectoryURL:[NSURL fileURLWithPath:sketchbookLocation]];
+    [oPan setAllowsOtherFileTypes:NO];
+    [oPan setCanCreateDirectories:NO];
+    
+    NSInteger tvarNSInteger	= [oPan runModalForTypes:NULL];
+    
+    if(tvarNSInteger == NSOKButton){
+        NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", [oPan filename]];
+        NSURL *url = [NSURL URLWithString:tvarFilename];
+        
+        // add GAmuza document
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+        
+        NSString* directoryName = [[oPan directory] lastPathComponent];
+        if ([ [[[oPan filename] lastPathComponent] stringByDeletingPathExtension] isEqualToString:directoryName]) {
+            // add sketch files (if we have)
+            NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[oPan directory] error:NULL];
+            NSEnumerator            *enm = [contents objectEnumerator];
+            NSString                *importFile;
+            NSString                *mainFile = [[oPan filename] lastPathComponent];
+            
+            while ((importFile = [enm nextObject])){
+                // eliminate from listing hidden files and .DS_Store files
+                if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
+                    continue;
+                }
+                if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
+                    NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", [oPan directory], importFile];
+                    NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
+                    if (fileContent != NULL) {
+                        GASketchFile* doc = [[GASketchFile alloc] init];
+                        [[[NSDocumentController sharedDocumentController] currentDocument] addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+                    }
+                }
+            }
+        }
+        
+    }else{
+        return;
+    }
 }
 
 -(IBAction) sendScriptToGAmuza: (id)sender{

@@ -7,7 +7,6 @@
 // SETTINGS
 #define	GAMUZA_LIVECODING_FONT          "fonts/Anonymous_Pro_B.ttf"
 #define	GAMUZA_SETTINGS					"settings/gamuzaSettings.xml"
-#define	GAMUZAGUI_SETTINGS				"settings/guiSettings.xml"
 #define	GAMUZA_SPLASH					"img/gamuza04_splash.png"
 #define GAMUZA_VIDEOTEST				"videos/video.mov"
 #define GAMUZA_MAPPING_FILE				"settings/projection/mapping.xml"
@@ -20,10 +19,6 @@
 
 // OSC
 #define GA_OSC_MAX_SENDING_VARIABLES    1000
-
-// OPENNI SensorKinect
-#define USE_IR
-#define NUM_KINECT_USERS				2
 
 // MOTION TRIGGER AREAS
 #define	TRIGGER_AREAS_NUM				9
@@ -64,6 +59,7 @@
 
 // AUDIO INPUT
 #define		BARK_SCALE_CRITICAL_BANDS	24
+#define     MAX_INPUT_CHANNELS          16
 
 // AUDIO SYNTH
 #define		DENORMAL_BUFFER				1e-15f

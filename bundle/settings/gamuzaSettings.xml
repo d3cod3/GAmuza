@@ -13,12 +13,12 @@
     <script_file>scripts/emptyExample.ga</script_file>
     <mapping_file>settings/projection/mapping.xml</mapping_file>
     <!-- AUDIO STREAMING -->
-    <audioIn_Dev_ID>3</audioIn_Dev_ID>
-    <audioOut_Dev_ID>3</audioOut_Dev_ID>
-    <output_ch>2</output_ch>
-    <input_ch>0</input_ch>
-    <sampling_rate>44100</sampling_rate>
-    <buffer_size>1024</buffer_size>
+    <audioIn_Dev_ID>0</audioIn_Dev_ID>
+    <audioOut_Dev_ID>0</audioOut_Dev_ID>
+    <output_ch>4</output_ch>
+    <input_ch>4</input_ch>
+    <sampling_rate>192000</sampling_rate>
+    <buffer_size>512</buffer_size>
     <num_buffers>4</num_buffers>
     <fft_window>3</fft_window>
     <!-- MIDI -->

@@ -34,7 +34,7 @@ void gamuzaMain::setupAudio(){
     pd.init(audioOutputChannels,audioInputChannels,audioSamplingRate,ticksPerBuffer);
 	
     if(audioInputChannels > 0){
-        inputAudioCH = new audioInputChannel[audioInputChannels];
+        inputAudioCH = new audioInputChannel[MAX_INPUT_CHANNELS];
         for(int i=0; i<audioInputChannels; i++){
             inputAudioCH[i].setupChannel(i,audioSamplingRate,audioBufferSize,audioInputChannels,fftWindowUse);
         }
@@ -205,6 +205,14 @@ void gamuzaMain::resetAudioOutput(){
     inputRecordingsNum = 0;
     
 	gamuzaDSP.resetOsc();
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::resetSoundStream(){
+    soundStream.stop();
+    soundStream.close();
+    delete[] inputAudioCH;
+    inputAudioCH = NULL;
 }
 
 #endif

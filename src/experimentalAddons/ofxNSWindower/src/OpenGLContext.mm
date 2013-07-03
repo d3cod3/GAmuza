@@ -20,7 +20,7 @@
 		pixelFormat = nil;
 		context = nil;
 		
-		GLuint attrs[] = 
+		GLuint attrs[] =
 		{
 			NSOpenGLPFAWindow,
 			NSOpenGLPFAAccelerated,
@@ -32,8 +32,7 @@
 			0
 		};
 		
-		pixelFormat = [[NSOpenGLPixelFormat alloc] 
-									 initWithAttributes:(NSOpenGLPixelFormatAttribute*) attrs];
+		pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:(NSOpenGLPixelFormatAttribute*) attrs];
 		
 		if (pixelFormat == nil) {
 			NSLog(@"non valid pixel format");

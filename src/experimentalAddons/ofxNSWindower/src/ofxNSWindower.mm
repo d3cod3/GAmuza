@@ -71,8 +71,8 @@ void ofxNSWindower::deleteWindow(ofxNSWindowApp *app) {
 	//this is just a quick fix without changing ofxNSWindowApp...
 	for (map<string, ofPtr<ofxNSWindow> >::iterator it = windows.begin(); it != windows.end(); it++) {
 		if (it->second->getApp() == app) {
+			//delete app;
             windows.erase(it);
-			delete app;
 			break;
 		}
 	}

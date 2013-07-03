@@ -29,15 +29,13 @@ public:
 	void mouseReleased(int x, int y, int button);
 	void mouseScrolled(float x, float y);
     
-    void recordNoise(guiCallbackData & data);
-    
     void setupGui();
     void updateGui();
     void drawGui();
     
     void restart();
     
-    ofxControlPanel             gui;
+    ofxControlPanel             *gui;
     simpleColor					gamuzaMainColor;
     simpleColor					gamuzaWhiteColor;
     simpleColor					gamuzaMarkColor;
@@ -47,5 +45,8 @@ public:
     int                         winW, winH;
     
     int                         audioInputChannels;
+    bool                        moduleStarted;
+    float                       *thisVolumes;
+    float                       *thisPitches;
 	
 };

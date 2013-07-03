@@ -9,7 +9,7 @@ void gamuzaMain::setupFBO(){
 	// FBO setup
     drawingFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB);
     gamuzaFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB);
-    gamuzaPixels.allocate(projectionScreenW,projectionScreenH,OF_IMAGE_COLOR_ALPHA);
+    gamuzaPixels.allocate(projectionScreenW,projectionScreenH,OF_PIXELS_RGBA);
     
     drawingFbo.begin();
     ofClear(255,255,255, 0);

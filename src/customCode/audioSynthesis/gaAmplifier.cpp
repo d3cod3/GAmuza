@@ -68,7 +68,7 @@ void gaAmplifier::addToSoundBuffer(float * _buffer, int _bufferSize, float _leve
 	
 	while(_bufferSize--){
 		
-		if(!adsrSet){
+		if(!adsrSet){ // WITHOUT ADSR
 			l_level	   += levelDelta;
 			
 			if(ampType == AMP_TYPE_MULTI){
@@ -88,7 +88,50 @@ void gaAmplifier::addToSoundBuffer(float * _buffer, int _bufferSize, float _leve
 				}
 			}
 			
-		}
+		}else{ // WITH ADSR
+            l_level	   += levelDelta;
+            if(ampType == AMP_TYPE_MULTI){
+				for(int c=0;c<numChannels;c++){
+                    if(offset<a){ // attack
+                        output[c] = ((float)offset)*inv_a;
+                        offset++;
+                    }else if (offset>a&&offset<a+d) { // decay
+                        output[c] = ofLerp(1.0, s, ((float)offset-a)*inv_d);
+                        offset++;
+                    }else if(noteOn){ // sustain
+                        output[c] = s;
+                    }else if(offset<a+d+r){ // release
+                        output[c] = ofLerp(s, 0.0, (float)(offset-a-d)*inv_r);
+                        offset++;
+                    }else {
+                        output[c] = 0;
+                    }
+				}
+			}else if(ampType == AMP_TYPE_MONO){
+				for(int c=0;c<numChannels;c++){
+					if(c == monoChannel){
+						if(offset<a){ // attack
+                            output[c] = ((float)offset)*inv_a;
+                            offset++;
+                        }else if (offset>a&&offset<a+d) { // decay
+                            output[c] = ofLerp(1.0, s, ((float)offset-a)*inv_d);
+                            offset++;
+                        }else if(noteOn){ // sustain
+                            output[c] = s;
+                        }else if(offset<a+d+r){ // release
+                            output[c] = ofLerp(s, 0.0, (float)(offset-a-d)*inv_r);
+                            offset++;
+                        }else {
+                            output[c] = 0;
+                        }
+					}else {
+						output[c] = _buffer[c];
+					}
+					
+				}
+			}
+            
+        }
 		
 		//////////////////////////////////
 		// assign values to buffer

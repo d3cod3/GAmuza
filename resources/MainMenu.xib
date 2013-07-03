@@ -515,14 +515,14 @@
 					</object>
 					<object class="NSMenuItem" id="68375293">
 						<reference key="NSMenu" ref="649796088"/>
-						<string key="NSTitle">Panels</string>
+						<string key="NSTitle">Modules</string>
 						<string key="NSKeyEquiv"/>
 						<int key="NSMnemonicLoc">2147483647</int>
 						<reference key="NSOnImage" ref="756751024"/>
 						<reference key="NSMixedImage" ref="908425081"/>
 						<string key="NSAction">submenuAction:</string>
 						<object class="NSMenu" key="NSSubmenu" id="624513634">
-							<string key="NSTitle">Panels</string>
+							<string key="NSTitle">Modules</string>
 							<array class="NSMutableArray" key="NSMenuItems">
 								<object class="NSMenuItem" id="889223974">
 									<reference key="NSMenu" ref="624513634"/>
@@ -554,7 +554,7 @@
 								<object class="NSMenuItem" id="989449739">
 									<reference key="NSMenu" ref="624513634"/>
 									<string key="NSTitle">Computer Vision</string>
-									<string key="NSKeyEquiv">4</string>
+									<string key="NSKeyEquiv">5</string>
 									<int key="NSKeyEquivModMask">1179648</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="756751024"/>
@@ -563,7 +563,16 @@
 								<object class="NSMenuItem" id="991879395">
 									<reference key="NSMenu" ref="624513634"/>
 									<string key="NSTitle">Arduino</string>
-									<string key="NSKeyEquiv">5</string>
+									<string key="NSKeyEquiv">6</string>
+									<int key="NSKeyEquivModMask">1179648</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
+								<object class="NSMenuItem" id="285000542">
+									<reference key="NSMenu" ref="624513634"/>
+									<string key="NSTitle">OSC</string>
+									<string key="NSKeyEquiv">7</string>
 									<int key="NSKeyEquivModMask">1179648</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="756751024"/>
@@ -581,7 +590,7 @@
 								</object>
 								<object class="NSMenuItem" id="135289121">
 									<reference key="NSMenu" ref="624513634"/>
-									<string key="NSTitle">Hide all panels</string>
+									<string key="NSTitle">Hide all modules</string>
 									<string key="NSKeyEquiv">H</string>
 									<int key="NSKeyEquivModMask">1048576</int>
 									<int key="NSMnemonicLoc">2147483647</int>
@@ -929,24 +938,6 @@
 						<object class="NSMenu" key="NSSubmenu" id="814334112">
 							<string key="NSTitle">Window</string>
 							<array class="NSMutableArray" key="NSMenuItems">
-								<object class="NSMenuItem" id="925441275">
-									<reference key="NSMenu" ref="814334112"/>
-									<string key="NSTitle">Reset Render Window</string>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="756751024"/>
-									<reference key="NSMixedImage" ref="908425081"/>
-								</object>
-								<object class="NSMenuItem" id="95931780">
-									<reference key="NSMenu" ref="814334112"/>
-									<bool key="NSIsDisabled">YES</bool>
-									<bool key="NSIsSeparator">YES</bool>
-									<string key="NSTitle"/>
-									<string key="NSKeyEquiv"/>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="756751024"/>
-									<reference key="NSMixedImage" ref="908425081"/>
-								</object>
 								<object class="NSMenuItem" id="540072604">
 									<reference key="NSMenu" ref="814334112"/>
 									<string key="NSTitle">Bring All to Front</string>
@@ -1918,7 +1909,7 @@ wGw</bytes>
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="42391951">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSTabView" id="23868558">
@@ -1926,7 +1917,6 @@ wGw</bytes>
 							<int key="NSvFlags">18</int>
 							<string key="NSFrame">{{-8, 0}, {752, 269}}</string>
 							<reference key="NSSuperview" ref="42391951"/>
-							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<array class="NSMutableArray" key="NSTabViewItems">
 								<object class="NSTabViewItem" id="541946875">
@@ -3163,7 +3153,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{222, 225}, {428, 26}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="872007001"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3210,7 +3199,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{101, 231}, {83, 17}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="35624460"/>
 												<string key="NSReuseIdentifierKey">_NS:1535</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3230,7 +3218,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{222, 188}, {428, 26}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="93684472"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3277,7 +3264,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{101, 194}, {94, 17}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="246342376"/>
 												<string key="NSReuseIdentifierKey">_NS:1535</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3297,7 +3283,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{222, 148}, {164, 26}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="307592765"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3389,7 +3374,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{101, 154}, {94, 17}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="617674071"/>
 												<string key="NSReuseIdentifierKey">_NS:1535</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3409,7 +3393,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{222, 108}, {164, 26}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="682936613"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3534,7 +3517,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{101, 114}, {71, 17}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="86112251"/>
 												<string key="NSReuseIdentifierKey">_NS:1535</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3554,7 +3536,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{222, 68}, {164, 26}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="23868558"/>
 												<string key="NSReuseIdentifierKey">_NS:9</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3646,7 +3627,6 @@ wGw</bytes>
 												<int key="NSvFlags">268</int>
 												<string key="NSFrame">{{101, 74}, {100, 17}}</string>
 												<reference key="NSSuperview" ref="970670217"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="125839596"/>
 												<string key="NSReuseIdentifierKey">_NS:1535</string>
 												<bool key="NSEnabled">YES</bool>
@@ -3664,7 +3644,6 @@ wGw</bytes>
 										</array>
 										<string key="NSFrameSize">{752, 269}</string>
 										<reference key="NSSuperview" ref="23868558"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="851293104"/>
 									</object>
 									<string key="NSLabel">Audio Streaming</string>
@@ -4207,7 +4186,6 @@ wGw</bytes>
 							<int key="NSvFlags">266</int>
 							<string key="NSFrame">{{0, 269}, {736, 33}}</string>
 							<reference key="NSSuperview" ref="42391951"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="23868558"/>
 							<string key="NSClassName">PSMTabBarControl</string>
 							<string key="NSExtension">NSControl</string>
@@ -4217,7 +4195,6 @@ wGw</bytes>
 							<int key="NSvFlags">12</int>
 							<string key="NSFrame">{{-1, 51}, {736, 5}}</string>
 							<reference key="NSSuperview" ref="42391951"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="706823914"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSOffsets">{0, 0}</string>
@@ -4242,7 +4219,6 @@ wGw</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{643, 10}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="42391951"/>
-							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="610998740">
@@ -4265,7 +4241,6 @@ wGw</bytes>
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{553, 10}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="42391951"/>
-							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="438100485">
@@ -4285,8 +4260,6 @@ wGw</bytes>
 						</object>
 					</array>
 					<string key="NSFrameSize">{736, 302}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="926780236"/>
 					<string key="NSReuseIdentifierKey">_NS:21</string>
 				</object>
@@ -5068,14 +5041,6 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">openGADocument:</string>
-						<reference key="source" ref="1014"/>
-						<reference key="destination" ref="722745758"/>
-					</object>
-					<int key="connectionID">991</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">saveGAAll:</string>
 						<reference key="source" ref="1014"/>
 						<reference key="destination" ref="1023925487"/>
@@ -5185,14 +5150,6 @@ wGw</bytes>
 						<reference key="destination" ref="99065091"/>
 					</object>
 					<int key="connectionID">1024</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">restartGAmuzaWindow:</string>
-						<reference key="source" ref="486508904"/>
-						<reference key="destination" ref="925441275"/>
-					</object>
-					<int key="connectionID">1043</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -5553,6 +5510,38 @@ wGw</bytes>
 						<reference key="destination" ref="148146389"/>
 					</object>
 					<int key="connectionID">1650</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleArduinoModule:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="991879395"/>
+					</object>
+					<int key="connectionID">1651</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">openGAMUZADocument:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="722745758"/>
+					</object>
+					<int key="connectionID">1652</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleCVModule:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="989449739"/>
+					</object>
+					<int key="connectionID">1653</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleOSCModule:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="285000542"/>
+					</object>
+					<int key="connectionID">1655</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -7040,24 +7029,12 @@ wGw</bytes>
 						<reference key="object" ref="814334112"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="540072604"/>
-							<reference ref="95931780"/>
-							<reference ref="925441275"/>
 						</array>
 						<reference key="parent" ref="711654562"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">1036</int>
 						<reference key="object" ref="540072604"/>
-						<reference key="parent" ref="814334112"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1040</int>
-						<reference key="object" ref="925441275"/>
-						<reference key="parent" ref="814334112"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">1041</int>
-						<reference key="object" ref="95931780"/>
 						<reference key="parent" ref="814334112"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -7206,6 +7183,7 @@ wGw</bytes>
 							<reference ref="148146389"/>
 							<reference ref="989449739"/>
 							<reference ref="991879395"/>
+							<reference ref="285000542"/>
 						</array>
 						<reference key="parent" ref="68375293"/>
 					</object>
@@ -9192,6 +9170,11 @@ wGw</bytes>
 						<reference key="object" ref="641047940"/>
 						<reference key="parent" ref="579841175"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1654</int>
+						<reference key="object" ref="285000542"/>
+						<reference key="parent" ref="624513634"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9213,8 +9196,6 @@ wGw</bytes>
 				<string key="1031.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1032.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1036.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1040.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1041.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1045.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1046.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1047.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9563,6 +9544,7 @@ wGw</bytes>
 				<string key="1624.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1645.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1646.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1654.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9674,7 +9656,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1650</int>
+			<int key="maxID">1655</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9694,9 +9676,11 @@ wGw</bytes>
 						<string key="goToSouthMappingPoint:">id</string>
 						<string key="goToWestMappingPoint:">id</string>
 						<string key="gotoGAWeb:">id</string>
+						<string key="hideAllModules:">id</string>
 						<string key="loadMapping:">id</string>
 						<string key="mappingManualEditOFF:">id</string>
 						<string key="mappingManualEditON:">id</string>
+						<string key="openGAMUZADocument:">id</string>
 						<string key="openItemFromGAmuzaFolder:">id</string>
 						<string key="openItemFromSketchbookFolder:">id</string>
 						<string key="openOFReference:">id</string>
@@ -9706,15 +9690,17 @@ wGw</bytes>
 						<string key="redoOnTimeline:">id</string>
 						<string key="resetColorCorrection:">id</string>
 						<string key="resetMapping:">id</string>
-						<string key="restartGAmuzaWindow:">id</string>
 						<string key="saveColorCorrection:">id</string>
 						<string key="saveMapping:">id</string>
 						<string key="sendScriptToGAmuza:">id</string>
 						<string key="setPreviewDimensions:">id</string>
 						<string key="showGettingStartedPage:">id</string>
 						<string key="switchMouseKeyControl:">id</string>
+						<string key="toggleArduinoModule:">id</string>
 						<string key="toggleAudioModule:">id</string>
+						<string key="toggleCVModule:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
+						<string key="toggleOSCModule:">id</string>
 						<string key="togglePreviewWindow:">id</string>
 						<string key="toggleTimelinePanel:">id</string>
 						<string key="undoOnTimeline:">id</string>
@@ -9768,6 +9754,10 @@ wGw</bytes>
 							<string key="name">gotoGAWeb:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="hideAllModules:">
+							<string key="name">hideAllModules:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="loadMapping:">
 							<string key="name">loadMapping:</string>
 							<string key="candidateClassName">id</string>
@@ -9778,6 +9768,10 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="mappingManualEditON:">
 							<string key="name">mappingManualEditON:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openGAMUZADocument:">
+							<string key="name">openGAMUZADocument:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openItemFromGAmuzaFolder:">
@@ -9816,10 +9810,6 @@ wGw</bytes>
 							<string key="name">resetMapping:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="restartGAmuzaWindow:">
-							<string key="name">restartGAmuzaWindow:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="saveColorCorrection:">
 							<string key="name">saveColorCorrection:</string>
 							<string key="candidateClassName">id</string>
@@ -9844,12 +9834,24 @@ wGw</bytes>
 							<string key="name">switchMouseKeyControl:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="toggleArduinoModule:">
+							<string key="name">toggleArduinoModule:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toggleAudioModule:">
 							<string key="name">toggleAudioModule:</string>
 							<string key="candidateClassName">id</string>
 						</object>
+						<object class="IBActionInfo" key="toggleCVModule:">
+							<string key="name">toggleCVModule:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="toggleGAmuzaFullscreen:">
 							<string key="name">toggleGAmuzaFullscreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleOSCModule:">
+							<string key="name">toggleOSCModule:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="togglePreviewWindow:">

@@ -41,6 +41,7 @@ ofxControlPanel::~ofxControlPanel(){
 		}
     }
 	guiObjects.clear();
+    
 	
 	for(int i = 0; i < ofxControlPanel::globalPanelList.size(); i++){
 		if( ofxControlPanel::globalPanelList[i] != NULL && ofxControlPanel::globalPanelList[i]->name == name ){			
@@ -60,20 +61,16 @@ ofxControlPanel::~ofxControlPanel(){
 }
 
 void ofxControlPanel::reset(){
-    for(unsigned int i = 0; i < guiObjects.size(); i++){
+    
+	for(unsigned int i = 0; i < guiObjects.size(); i++){
         if( guiObjects[i] != NULL ){
 			delete guiObjects[i];
 			guiObjects[i] = NULL;
 		}
     }
 	guiObjects.clear();
-	
-	for(int i = 0; i < ofxControlPanel::globalPanelList.size(); i++){
-		if( ofxControlPanel::globalPanelList[i] != NULL && ofxControlPanel::globalPanelList[i]->name == name ){
-			ofxControlPanel::globalPanelList.erase( ofxControlPanel::globalPanelList.begin()+i, ofxControlPanel::globalPanelList.begin()+i+1);
-			break;
-		}
-	}
+    panels.clear();
+    panelTabs.clear();
 	
 	for(int i = 0; i < customEvents.size(); i++){
 		if( customEvents[i] != NULL ){
@@ -1226,8 +1223,9 @@ bool ofxControlPanel::mousePressed(float x, float y, int button){
         ofFileDialogResult res = ofSystemSaveDialog(folderURL,"Save File");
         folderURL = res.getPath();
         
-        saveSettings(folderURL,true);*/
-        saveSettings("settings/guiSettings.xml",true);
+        saveSettings(folderURL,true);*/ 
+        //saveSettings("settings/guiSettings.xml",true);
+        saveSettings(currentXmlFile,true);
         
         saveDown = true;
 		//printf("saving settings!\n");
@@ -1238,7 +1236,8 @@ bool ofxControlPanel::mousePressed(float x, float y, int button){
         ofFileDialogResult res = ofSystemLoadDialog("Open File", false);
         URL = res.getPath();
         loadSettingsClean(URL);
-        saveSettings("settings/guiSettings.xml",true);
+        saveSettings(currentXmlFile,true);
+        //saveSettings("settings/guiSettings.xml",true);
         
         restoreDown = true;
     }else if( isInsideRect(x, y, topBar) && bDraggable){
@@ -1403,7 +1402,7 @@ void ofxControlPanel::updateBoundingBox(){
 // ############################################################## //
 
 //-------------------------------
-void ofxControlPanel::draw(){
+void ofxControlPanel::draw(int numPanels){
     if( hidden ) return;
 
     ofPushStyle();
@@ -1484,10 +1483,10 @@ void ofxControlPanel::draw(){
         if( !minimize ){
 
             //don't let gui elements go out of their panels
-            glEnable(GL_SCISSOR_TEST);
-            glScissor(boundingBox.x, ofGetHeight() - ( boundingBox.y + boundingBox.height - (-2 + topSpacing) ), boundingBox.width - borderWidth , boundingBox.height);
+            //glEnable(GL_SCISSOR_TEST);
+            //glScissor(boundingBox.x, boundingBox.height - ( boundingBox.y + boundingBox.height - (-2 + topSpacing) ), boundingBox.width - borderWidth , boundingBox.height);
 
-                for(int i = 0; i < (int) panelTabs.size(); i++){
+                for(int i = 0; i < (int) numPanels; i++){
                     if( i == selectedPanel){
                         ofPushStyle();
                             ofFill();
@@ -1508,7 +1507,7 @@ void ofxControlPanel::draw(){
                     }
                 glPopMatrix();
 
-            glDisable(GL_SCISSOR_TEST);
+            //glDisable(GL_SCISSOR_TEST);
         }
 
     ofPopStyle();

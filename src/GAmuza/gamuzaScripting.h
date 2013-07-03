@@ -8,15 +8,6 @@
 //--------------------------------------------------------------
 void gamuzaMain::setupScripting(){
     
-    ///////////////////////////////////////////////
-	// load livecoding fonts
-    for(int i=1;i<141;i++){
-        ofTrueTypeFont	tempF;
-        tempF.loadFont(GAMUZA_LIVECODING_FONT, i, true, true);
-        liveCodingFont.push_back(tempF);
-    }
-	///////////////////////////////////////////////
-    
     // adding lua language to live coding
     ofAddListener(doCompileEvent, this, &gamuzaMain::renderScript);
     

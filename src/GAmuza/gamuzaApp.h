@@ -9,6 +9,28 @@ void gamuzaMain::close() {
 }
 
 //--------------------------------------------------------------
+void gamuzaMain::cleanMemory(){
+    
+    // clean general memory
+    
+    // clean arduino memory
+    
+    // clean gui memory
+    
+    // clean audio memory
+    resetSoundStream();
+    
+    // clean osc memory
+    
+    // clean mapping memory
+    
+    // clean fbo memory
+    
+    // clean midi memory
+    
+}
+
+//--------------------------------------------------------------
 void gamuzaMain::resetApp(){
     //////////////////////////////////////////////
     // APP - load settings from xml
@@ -16,13 +38,18 @@ void gamuzaMain::resetApp(){
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
-	// AUDIO
-    setupAudio();
+	// ARDUINO
+    setupArduino();
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
-	// GUI - include hardware setup
+	// GUI
     setupGui();
+    //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+	// AUDIO
+    setupAudio();
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
@@ -108,9 +135,9 @@ void gamuzaMain::dataInsideBundle(){
     CFRelease(resourcePath);
     CFRelease(resourceUrl);
     
-    string newPath = appPathStr + "/" + resourcePathStr + "/"; // the absolute path to the resources folder
+    _bundleDataPath = appPathStr + "/" + resourcePathStr + "/"; // the absolute path to the resources folder
     
-    ofSetDataPathRoot(newPath); // tell OF to look for resources here
+    ofSetDataPathRoot(_bundleDataPath); // tell OF to look for resources here
     
 }
 

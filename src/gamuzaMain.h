@@ -80,6 +80,7 @@ public:
     /////////////////////////////////////////////////////////////////////
 	
 	// APP ///////////////////////////// --> gamuzaApp.h
+    void cleanMemory();
     void resetApp();
     void sendHardwareInfo(vector<string> &aInD,vector<int> &aInDID,
                           vector<string> &aOutD,vector<int> &aOutDID,
@@ -102,9 +103,6 @@ public:
     void prepareArduinoOscData();
     void loadArduinoSetting();
     void saveArduinoSetting();
-    void changeAnalogPinMode(int mode);
-    void changeDigitalPinMode(int mode);
-    void sendDigitalValue(int value);
     
     // AUDIO /////////////////////////// --> gamuzaAudio.h
     void setupAudio();
@@ -113,6 +111,7 @@ public:
     void addAudioSample(string _file);
     void addInputRecording();
     void resetAudioOutput();
+    void resetSoundStream();
     
     // CONSOLE /////////////////////////// --> gamuzaConsole.h
     void sendGALog(string _message);
@@ -203,6 +202,7 @@ public:
     vector<string>				_outputCH;
     int                         _fboMaxSamples;
     char                        _windowTitle[256];
+    string                      _bundleDataPath;
     
     ////////////////////////////////////////////// //////////////////////////////////////////////
     ////////////////////////////////////////////// //////////////////////////////////////////////
@@ -262,6 +262,7 @@ public:
     // ARDUINO --> gamuzaArduino.h
     ofArduino				arduino;
     bool					useArduino;
+    bool                    isArduinoConnected;
     int						*digitalPinModes;
     int						*analogPinModes;
     int						*digitalPinValuesInput;
@@ -414,7 +415,6 @@ public:
     //////////////////////////////////////////////
     // SCRIPTING --> gamuzaScripting.h
     ofxLua                      lua;
-    vector<ofTrueTypeFont>      liveCodingFont;
     vector<float>               guiVectorFloat;
     vector<int>                 guiVectorInt;
     vector<bool>                guiVectorBool;
