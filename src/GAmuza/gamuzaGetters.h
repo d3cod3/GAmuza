@@ -4,7 +4,6 @@
 // constants
 #include "gamuzaConstants.h"
 #include "gamuzaMain.h"
-#include "ofxSimpleGuiToo.h"
 
 extern gamuzaMain   *gapp; // external reference to gamuza app, declared in AppDelegate.h
 extern gaTimeline   *gaTL; // external reference to TIMELINE GUI Panel, declared in AppDelegate.h
@@ -50,73 +49,6 @@ string gaGetLocalDataPath(string _file){
     finalPath = correctedPath+"/data/"+_file;
     
     return finalPath;
-}
-
-//--------------------------------------------------------------
-// GUI SECTION
-//--------------------------------------------------------------
-void gaLoadXmlGUI(){
-    liveCodingGui.loadFromXML();
-}
-
-void gaAddTitleGUI(string _title){
-    liveCodingGui.addTitle(_title);
-}
-
-void gaAddPageGUI(string _pageName, string _file){
-    liveCodingGui.addPage(_pageName).setXMLName(_file);
-}
-
-void gaAddSliderIntGUI(string _name, int _min, int _max){
-    int _value;
-    gapp->guiVectorInt.push_back(_value);
-    int _index = gapp->guiVectorInt.size() - 1;
-    liveCodingGui.addSlider(_name, gapp->guiVectorInt[_index], _min, _max);
-}
-
-void gaAddSliderFloatGUI(string _name, float _min, float _max, float _smooth){
-    float _value;
-    gapp->guiVectorFloat.push_back(_value);
-    int _index = gapp->guiVectorFloat.size() - 1;
-    liveCodingGui.addSlider(_name, gapp->guiVectorFloat[_index], _min, _max, _smooth);
-}
-
-void gaAddToggleGUI(string _name){
-    bool _value;
-    gapp->guiVectorBool.push_back(_value);
-    int _index = gapp->guiVectorBool.size() - 1;
-    //liveCodingGui.addToggle(_name, gapp->guiVectorBool[_index]);
-}
-
-void gaAddButtonGUI(string _name){
-    bool _value;
-    gapp->guiVectorBool.push_back(_value);
-    int _index = gapp->guiVectorBool.size() - 1;
-    //liveCodingGui.addButton(_name, gapp->guiVectorBool[_index]);
-}
-
-void gaFPSCpunterGUI(){
-    liveCodingGui.addFPSCounter();
-}
-
-void gaToggleGUI(){
-    liveCodingGui.toggleDraw();
-}
-
-void gaSetPageGUI(int _page){
-    liveCodingGui.setPage(_page);
-}
-
-void gaPrevPageGUI(){
-    liveCodingGui.prevPage();
-}
-
-void gaNextPageGUI(){
-    liveCodingGui.nextPage();
-}
-
-void gaDrawGUI(){
-    liveCodingGui.draw();
 }
 
 //--------------------------------------------------------------

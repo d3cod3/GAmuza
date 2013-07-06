@@ -1109,6 +1109,7 @@
 				<string>ofxCvShortImage</string>
 				<string>getShortPixelsRef</string>
 				<string>getRoiShortPixelsRef</string>
+				<string>getCvImage</string>
 				<string>ofxSVG</string>
 				<string>getNumPath</string>
 				<string>getPathAt</string>
@@ -1268,6 +1269,19 @@
 				<string>getThreshold</string>
 				<string>ofxCLD</string>
 				<string>getCLDTextureRef</string>
+				<string>ofxControlPanel</string>
+				<string>loadFont</string>
+				<string>setWhichPanel</string>
+				<string>setWhichColumn</string>
+				<string>addPanel</string>
+				<string>addLabel</string>
+				<string>addToggle</string>
+				<string>addSlider</string>
+				<string>getValueB</string>
+				<string>getValueF</string>
+				<string>getValueI</string>
+				<string>loadSettings</string>
+				<string>saveSettings</string>
 				<string>ofxCrypto</string>
 				<string>md5</string>
 				<string>sha1</string>
@@ -1714,19 +1728,6 @@
 				<string>gaDataPath</string>
 				<string>gaSendingOscTo</string>
 				<string>gaGetFrameNum</string>
-				<string>gaGuiLoadXML</string>
-				<string>gaGuiToggle</string>
-				<string>gaGuiPrevPage</string>
-				<string>gaGuiNextPage</string>
-				<string>gaGuiDraw</string>
-				<string>gaGuiSetPage</string>
-				<string>gaGuiAddFPS</string>
-				<string>gaGuiAddTitle</string>
-				<string>gaGuiAddPage</string>
-				<string>gaGuiAddSliderInt</string>
-				<string>gaGuiAddSliderFloat</string>
-				<string>gaGuiAddToggle</string>
-				<string>gaGuiAddButton</string>
 				<string>gaStringReplace</string>
 				<string>gaBackground</string>
 				<string>gaCameraTexture</string>

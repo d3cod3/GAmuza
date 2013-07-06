@@ -40,6 +40,7 @@ void gamuzaMain::gamuzaFullscreen(){
 	
 	if(isFullscreen){
 		isFullscreen = false;
+        externIsFullscreen = false;
         if(projectionScreenW > MAIN_WINDOW_W){
 			fboDrawingW         = (projectionScreenW*MAIN_WINDOW_H)/projectionScreenH;
 			fboDrawingH         = MAIN_WINDOW_H;
@@ -53,6 +54,7 @@ void gamuzaMain::gamuzaFullscreen(){
 		}
 	}else{
 		isFullscreen = true;
+        externIsFullscreen = true;
         if(projectionScreenW < _mainScreenW){
 			fboDrawingW         = (projectionScreenW*_mainScreenH)/projectionScreenH;
 			fboDrawingH         = _mainScreenH;

@@ -1,0 +1,102 @@
+
+/* 
+   
+ GAmuza 0426 examples 
+ ---------------------
+ SensorKinect/simpleKinect.ga
+ 
+ The empty GAmuza script (you can start from here).
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+kinect = ofxKinect()
+
+gui = ofxControlPanel()
+viewGui = true
+
+grayImage = ofxCvGrayscaleImage()
+contourFinder = ofxCvContourFinder()
+easyCam = ofEasyCam()
+
+bDrawPointCloud = false
+nearThreshold = 0
+farThreshold = 0
+_angle = 0
+
+function setup()
+	kinect:setRegistration(true)
+	kinect:init(false,true,true)
+	kinect:open(0)
+	kinect:setCameraTiltAngle(_angle)
+	
+	grayImage:allocate(kinect:getWidth(), kinect:getHeight())
+	
+	gui:setup(0,10,260,OUTPUT_H)
+	gui:addPanel(1)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("KINECT CONTROL")
+	gui:addToggle("DRAW_POINT_CLOUD",false)
+	gui:addSlider("FAR_THRESHOLD",farThreshold,500,4000,true)
+	gui:addSlider("NEAR_THRESHOLD",nearThreshold,500,4000,true)
+	
+	gui:loadSettings(gaImportFile("guiSettings.xml"))
+
+end
+
+function update()
+	gui:update()
+    	kinect:update()
+    	
+    	nearThreshold = gui:getValueI("NEAR_THRESHOLD")
+    	farThreshold = gui:getValueI("FAR_THRESHOLD")
+    	kinect:setDepthClipping(nearThreshold, farThreshold)
+    	/// default is 50cm - 4m
+    	
+    	
+    	if kinect:isFrameNew() then
+    		grayImage:setFromPixels(kinect:getDepthPixelsRef())
+		contourFinder:findContours(grayImage, 10, (kinect:getWidth()*kinect:getHeight())/2, 20, false)
+    	end
+end
+
+function draw()
+    	gaBackground(0.1,1.0)
+    
+    	ofSetColor(255)
+    	kinect:drawDepth(10, 10, 400, 300)
+	kinect:draw(420, 10, 400, 300)
+		
+	grayImage:draw(10, 320, 400, 300)
+	contourFinder:draw(10, 320, 400, 300)
+	
+	if viewGui then
+		gui:draw()
+	end
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		viewGui = not viewGui
+	elseif gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	end
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+end
+
+function mousePressed()
+	gui:mousePressed()
+end
+
+function mouseReleased()
+	gui:mouseReleased()
+end
+
+function exit()
+	kinect:close()
+end

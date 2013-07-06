@@ -36,7 +36,7 @@
 
 // GUI
 #include "ofxControlPanel.h"
-#include "ofxSimpleGuiToo.h"        // secondary gui library used here for live coding
+#include "ofxMSAInteractiveObject.h"
 
 // GPU
 #include "ofxPBO.h"

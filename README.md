@@ -174,9 +174,10 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
 ## Modules
 
- * ARDUINO					- NOT READY YET
- * AUDIO ANALYSIS 			- work in progress
- * COMPUTER VISION 			- NOT READY YET
+ * ARDUINO					- READY
+ * AUDIO ANALYSIS 			- READY
+ * COMPUTER VISION 			- working on it
+ * OSC 						- NOT READY YET
  * TIMELINE 				- READY
 
 
@@ -191,7 +192,7 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # NOW Working on:
 
-* The AUDIO ANALYSIS GUI Module
+* The COMPUTER VISION GUI Module
 
 # Version history
 

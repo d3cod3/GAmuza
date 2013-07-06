@@ -326,7 +326,6 @@ public:
     ofxFastFboReader        pixelsReader;
     ofPixels                gamuzaPixels;
     ofShader				shaderColorCorrection;
-    bool					useSecondaryScreen;
     ofImage                 tempFrame;
     
     float                   fboDrawingW;
@@ -415,9 +414,6 @@ public:
     //////////////////////////////////////////////
     // SCRIPTING --> gamuzaScripting.h
     ofxLua                      lua;
-    vector<float>               guiVectorFloat;
-    vector<int>                 guiVectorInt;
-    vector<bool>                guiVectorBool;
     int                         liveKey;
     string                      GAscriptFileName;
     

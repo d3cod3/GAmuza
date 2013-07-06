@@ -118,6 +118,7 @@ void gamuzaMain::drawIntoFBO(){
     glEnable(GL_MULTISAMPLE_ARB);
         lua.scriptDraw();
     glDisable(GL_MULTISAMPLE_ARB);
+    glDisable(GL_DEPTH_TEST);
     glPopAttrib();
     ofPopStyle();
     ofPopMatrix();

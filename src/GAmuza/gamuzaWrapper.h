@@ -2262,8 +2262,9 @@ class ofGamuzaWrapper{
          .def(constructor<>())
          .def(constructor<const ofxCvColorImage&>())
          
-         .def("allocate", (void(ofxCvColorImage::*)(int,int)) &ofxCvColorImage::allocate)
+         .def("allocate", &allocateCvColorImage)
          .def("clear", (void(ofxCvColorImage::*)(void)) &ofxCvColorImage::clear)
+         .def("getCvImage", (IplImage*(ofxCvColorImage::*)(void)) &ofxCvColorImage::getCvImage)
          .def("getWidth", (float(ofxCvColorImage::*)(void)) &ofxCvColorImage::getWidth)
          .def("getHeight", (float(ofxCvColorImage::*)(void)) &ofxCvColorImage::getHeight)
          .def("setUseTexture", (void(ofxCvColorImage::*)(bool)) &ofxCvColorImage::setUseTexture)
@@ -2337,8 +2338,9 @@ class ofGamuzaWrapper{
          .def(constructor<>())
          .def(constructor<const ofxCvFloatImage&>())
          
-         .def("allocate", (void(ofxCvFloatImage::*)(int,int)) &ofxCvFloatImage::allocate)
+         .def("allocate", &allocateCvFloatImage)
          .def("clear", (void(ofxCvFloatImage::*)(void)) &ofxCvFloatImage::clear)
+         .def("getCvImage", (IplImage*(ofxCvFloatImage::*)(void)) &ofxCvFloatImage::getCvImage)
          .def("getWidth", (float(ofxCvFloatImage::*)(void)) &ofxCvFloatImage::getWidth)
          .def("getHeight", (float(ofxCvFloatImage::*)(void)) &ofxCvFloatImage::getHeight)
          .def("setUseTexture", (void(ofxCvFloatImage::*)(bool)) &ofxCvFloatImage::setUseTexture)
@@ -2397,8 +2399,9 @@ class ofGamuzaWrapper{
          .def(constructor<>())
          .def(constructor<const ofxCvGrayscaleImage&>())
          
-         .def("allocate", (void(ofxCvGrayscaleImage::*)(int,int)) &ofxCvGrayscaleImage::allocate)
+         .def("allocate", &allocateCvGrayscaleImage)
          .def("clear", (void(ofxCvGrayscaleImage::*)(void)) &ofxCvGrayscaleImage::clear)
+         .def("getCvImage", (IplImage*(ofxCvGrayscaleImage::*)(void)) &ofxCvGrayscaleImage::getCvImage)
          .def("getWidth", (float(ofxCvGrayscaleImage::*)(void)) &ofxCvGrayscaleImage::getWidth)
          .def("getHeight", (float(ofxCvGrayscaleImage::*)(void)) &ofxCvGrayscaleImage::getHeight)
          .def("setUseTexture", (void(ofxCvGrayscaleImage::*)(bool)) &ofxCvGrayscaleImage::setUseTexture)
@@ -2477,8 +2480,9 @@ class ofGamuzaWrapper{
          .def(constructor<>())
          .def(constructor<const ofxCvShortImage&>())
          
-         .def("allocate", (void(ofxCvShortImage::*)(int,int)) &ofxCvShortImage::allocate)
+         .def("allocate", &allocateCvShortImage)
          .def("clear", (void(ofxCvShortImage::*)(void)) &ofxCvShortImage::clear)
+         .def("getCvImage", (IplImage*(ofxCvShortImage::*)(void)) &ofxCvShortImage::getCvImage)
          .def("getWidth", (float(ofxCvShortImage::*)(void)) &ofxCvShortImage::getWidth)
          .def("getHeight", (float(ofxCvShortImage::*)(void)) &ofxCvShortImage::getHeight)
          .def("setUseTexture", (void(ofxCvShortImage::*)(bool)) &ofxCvShortImage::setUseTexture)
@@ -2999,7 +3003,35 @@ class ofGamuzaWrapper{
          .def(constructor<>())
          .def("setup", (void(ofxCLD::*)(int,int)) &ofxCLD::setup)
          .def("getCLDTextureRef", (ofTexture&(ofxCLD::*)(ofPixels,int,float,float,float,float)) &ofxCLD::getCLDTextureRef),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXCONTROLPANEL
+         class_<guiTypePanel>("guiTypePanel"),
+         class_<guiTypeLabel>("guiTypeLabel"),
+         class_<guiTypeToggle>("guiTypeToggle"),
+         class_<guiTypeSlider>("guiTypeSlider"),
+         class_<guiType2DSlider>("guiType2DSlider"),
+         
+         class_<ofxControlPanel>("ofxControlPanel")
+         .def(constructor<>())
+         .def("setup", (void(ofxControlPanel::*)(float,float,float,float)) &ofxControlPanel::setup4GA)
+         .def("setWhichPanel", (void(ofxControlPanel::*)(int)) &ofxControlPanel::setWhichPanel)
+         .def("setWhichColumn", (void(ofxControlPanel::*)(int)) &ofxControlPanel::setWhichColumn)
+         .def("addPanel", (guiTypePanel*(ofxControlPanel::*)(int)) &ofxControlPanel::addPanel4GA)
+         .def("addLabel", (guiTypeLabel*(ofxControlPanel::*)(string)) &ofxControlPanel::addLabel)
+         .def("addToggle", (guiTypeToggle*(ofxControlPanel::*)(string,bool)) &ofxControlPanel::addToggle4GA)
+         .def("addSlider", (guiTypeSlider*(ofxControlPanel::*)(string,float,float,float,bool)) &ofxControlPanel::addSlider4GA)
+         .def("getValueB", (bool(ofxControlPanel::*)(string)) &ofxControlPanel::getValueB4GA)
+         .def("getValueF", (float(ofxControlPanel::*)(string)) &ofxControlPanel::getValueF4GA)
+         .def("getValueI", (int(ofxControlPanel::*)(string)) &ofxControlPanel::getValueI4GA)
+         .def("loadSettings", (void(ofxControlPanel::*)(string)) &ofxControlPanel::loadSettings)
+         .def("saveSettings", (void(ofxControlPanel::*)(string)) &ofxControlPanel::saveSettings4GA)
+         .def("mousePressed", (void(ofxControlPanel::*)(void)) &ofxControlPanel::mousePressed)
+         .def("mouseDragged", (void(ofxControlPanel::*)(void)) &ofxControlPanel::mouseDragged)
+         .def("mouseReleased", (void(ofxControlPanel::*)(void)) &ofxControlPanel::mouseReleased)
+         .def("update", (void(ofxControlPanel::*)(void)) &ofxControlPanel::update)
+         .def("draw", (void(ofxControlPanel::*)(void)) &ofxControlPanel::draw4GA),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5217,22 +5249,6 @@ class ofGamuzaWrapper{
          def("gaGetFrameNum", (int(*)(void)) &gaGetFrameNum),
          
          ///////////////////////////////
-		 // GUI section
-         def("gaGuiLoadXML", (void(*)(void)) &gaLoadXmlGUI),
-         def("gaGuiToggle", (void(*)(void)) &gaToggleGUI),
-         def("gaGuiPrevPage", (void(*)(void)) &gaPrevPageGUI),
-         def("gaGuiNextPage", (void(*)(void)) &gaNextPageGUI),
-         def("gaGuiDraw", (void(*)(void)) &gaDrawGUI),
-         def("gaGuiSetPage", (void(*)(int)) &gaSetPageGUI),
-         def("gaGuiAddFPS", (void(*)(void)) &gaFPSCpunterGUI),
-         def("gaGuiAddTitle", (void(*)(string)) &gaAddTitleGUI),
-         def("gaGuiAddPage", (void(*)(string,string)) &gaAddPageGUI),
-         def("gaGuiAddSliderInt", (void(*)(string,int,int)) &gaAddSliderIntGUI),
-         def("gaGuiAddSliderFloat", (void(*)(string,float,float,float)) &gaAddSliderFloatGUI),
-         def("gaGuiAddToggle", (void(*)(string)) &gaAddToggleGUI),
-         def("gaGuiAddButton", (void(*)(string)) &gaAddButtonGUI),
-         
-         ///////////////////////////////
 		 // string section
          def("gaStringReplace", (int(*)(string&,string,string)) &gaStringReplace),
          
@@ -5861,7 +5877,7 @@ class ofGamuzaWrapper{
         return gen->generate(_s,_i);
     }
     
-    /// ofxOpenCv
+    // ofxOpenCv
     static void gaFindContours(ofxCvContourFinder* src,ofxCvGrayscaleImage& input,int minArea, int maxArea,int nConsidered, bool bFindHoles){
         src->findContours(input,minArea,maxArea,nConsidered,bFindHoles,true);
     }
@@ -5880,6 +5896,22 @@ class ofGamuzaWrapper{
     
     static void scaleIntoMeColor(ofxCvColorImage* src, ofxCvImage& img){
         src->scaleIntoMe(img);
+    }
+    
+    static void allocateCvColorImage(ofxCvColorImage* src, int w, int h){
+        src->allocate(w,h);
+    }
+    
+    static void allocateCvGrayscaleImage(ofxCvGrayscaleImage* src, int w, int h){
+        src->allocate(w,h);
+    }
+    
+    static void allocateCvFloatImage(ofxCvFloatImage* src, int w, int h){
+        src->allocate(w,h);
+    }
+    
+    static void allocateCvShortImage(ofxCvShortImage* src, int w, int h){
+        src->allocate(w,h);
     }
     
     /// ofTexture

@@ -4,6 +4,7 @@
 
 float  externMouseX;
 float  externMouseY;
+bool   externIsFullscreen;
 
 int main(int argc, char *argv[]) {
 	

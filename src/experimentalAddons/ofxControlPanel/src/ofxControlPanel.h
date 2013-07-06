@@ -4,6 +4,9 @@
 #include "ofxXmlSettings.h"
 #include "guiIncludes.h"
 
+extern float externMouseX; // external reference to gamuza scaled mouse pos, declared in main.mm
+extern float externMouseY; // external reference to gamuza scaled mouse pos, declared in main.mm
+extern bool  externIsFullscreen; // external reference to gamuza fullscreen mode, declared in main.mm
 
 class xmlAssociation{
     public:
@@ -41,9 +44,14 @@ class ofxControlPanel: public guiBaseObject{
         void reset();
 
         void setup(string controlPanelName, float panelX, float panelY, float width, float height, bool doSaveRestore = true );
+    
+        void setup4GA(float panelX, float panelY, float width, float height);
+    
         void loadFont( string fontName, int fontsize );
 
         guiTypePanel * addPanel(string panelName, int numColumns, bool locked = false);
+    
+        guiTypePanel * addPanel4GA(int numColumns);
 		
 		int getSelectedPanel();
 		string getSelectedPanelName(){	
@@ -116,11 +124,16 @@ class ofxControlPanel: public guiBaseObject{
 		
 		// remove an object
 		void removeObject( string xmlName );
+    
+    
         guiTypeToggle * addToggle(string name, string xmlName, bool defaultValue);
+        guiTypeToggle * addToggle4GA(string name, bool defaultValue);
         guiTypeMultiToggle * addMultiToggle(string name, string xmlName, int defaultBox, vector <string> boxNames);
 		guiTypeKnob * addKnob(string knobName, string xmlName, float value , float min, float max, bool isInt);
         guiTypeSlider * addSlider(string sliderName, string xmlName, float value , float min, float max, bool isInt);
+        guiTypeSlider * addSlider4GA(string sliderName, float value , float min, float max, bool isInt);
         guiType2DSlider * addSlider2D(string sliderName, string xmlName, float valueX, float valueY, float minX, float maxX, float minY, float maxY, bool isInt);
+        guiType2DSlider * addSlider2D4GA(string sliderName, float valueX, float valueY, float minX, float maxX, float minY, float maxY, bool isInt);
         guiTypeDrawable * addDrawableRect(string name, ofBaseDraws * drawablePtr, int drawW, int drawH);
 		guiTypeVideo * addVideoRect(string name, ofVideoPlayer * drawablePtr, int drawW, int drawH);
         guiTypeCustom * addCustomRect(string name, guiCustomImpl * customPtr, int drawW, int drawH);
@@ -147,9 +160,14 @@ class ofxControlPanel: public guiBaseObject{
         void setValueB(string xmlName, bool value,  int whichParam = 0);
         void setValueI(string xmlName, int value,  int whichParam = 0);
         void setValueF(string xmlName, float value,  int whichParam = 0);
+    
         bool getValueB(string xmlName, int whichParam = 0);
         float getValueF(string xmlName, int whichParam = 0);
         int getValueI(string xmlName, int whichParam = 0);
+    
+        bool getValueB4GA(string xmlName);
+        float getValueF4GA(string xmlName);
+        int getValueI4GA(string xmlName);
 
 		bool hasValueChanged(string xmlName, int whichParam = 0);
 		bool hasValueChangedInPanel(string whichPanel);
@@ -163,6 +181,7 @@ class ofxControlPanel: public guiBaseObject{
         void loadSettingsClean(string xmlFile);
         void reloadSettings();
         void saveSettings(string xmlFile, bool bUpdateXmlFile = true);
+        void saveSettings4GA(string xmlFile);
         void saveSettings();
         void setXMLFilename(string xmlFile);
 
@@ -174,6 +193,8 @@ class ofxControlPanel: public guiBaseObject{
         void toggleView();
         bool mousePressed(float x, float y, int button);
         bool mouseDragged(float x, float y, int button);
+        void mousePressed();
+        void mouseDragged();
         void mouseReleased();
 		/// return true if we consume the keypress
 		bool keyPressed( int k );
@@ -181,6 +202,7 @@ class ofxControlPanel: public guiBaseObject{
         void updateBoundingBox();
         void update();
         void draw(int numPanels);
+        void draw4GA();
 
         ofTrueTypeFont guiTTFFont;
 
