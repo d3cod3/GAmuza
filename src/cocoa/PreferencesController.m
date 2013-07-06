@@ -209,6 +209,10 @@ NSString* screenNameForDisplay(CGDirectDisplayID displayID){
         [self getOutputRes:@"5040" height:@"1050"];
     }else if([[sender selectedItem] tag] == 59){
         [self getOutputRes:@"5760" height:@"1080"];
+    }else if([[sender selectedItem] tag] == 60){
+        [self getOutputRes:@"2560" height:@"1600"];
+    }else if([[sender selectedItem] tag] == 61){
+        [self getOutputRes:@"2880" height:@"1800"];
     }
 }
 
@@ -850,6 +854,14 @@ NSString* screenNameForDisplay(CGDirectDisplayID displayID){
         [videoTextureRes selectItemWithTag:59];
         [customWidth setStringValue:@"5760"];
         [customHeight setStringValue:@"1080"];
+    }else if([_w isEqualToString:@"2560"] && [_h isEqualToString:@"1600"]){
+        [videoTextureRes selectItemWithTag:60];
+        [customWidth setStringValue:@"2560"];
+        [customHeight setStringValue:@"1600"];
+    }else if([_w isEqualToString:@"2880"] && [_h isEqualToString:@"1800"]){
+        [videoTextureRes selectItemWithTag:61];
+        [customWidth setStringValue:@"2880"];
+        [customHeight setStringValue:@"1800"];
     }
     
     [self reduceToAspectRatio];
