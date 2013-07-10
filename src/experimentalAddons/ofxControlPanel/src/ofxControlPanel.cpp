@@ -1486,12 +1486,6 @@ void ofxControlPanel::mousePressed(){
         }
     }
     
-    if(externIsFullscreen){
-        mouseDisplacement = 10;
-    }else{
-        mouseDisplacement = 0;
-    }
-    
     if(tabButtonPressed == false && isInsideRect(externMouseX, externMouseY, boundingBox) ){
         for(int i = 0; i < (int) panels.size(); i++){
             if( i == selectedPanel ){
@@ -1556,12 +1550,6 @@ void ofxControlPanel::mouseDragged(){
 			isDragging = true;
 		}
 	}
-    
-    if(externIsFullscreen){
-        mouseDisplacement = 10;
-    }else{
-        mouseDisplacement = 0;
-    }
     
     if(dragging)setPosition( MAX(0, externMouseX - mouseDownPoint.x), MAX(0, externMouseY -mouseDownPoint.y));
     else if(!minimize){
@@ -1785,7 +1773,7 @@ void ofxControlPanel::draw(int numPanels){
 //-------------------------------
 void ofxControlPanel::draw4GA(){
     
-    int mouseDisplacement;
+    int mouseDisplacement = 0;
     
     ofPushStyle();
     ofEnableAlphaBlending();
@@ -1796,12 +1784,8 @@ void ofxControlPanel::draw4GA(){
         guiBaseObject::renderText();
     ofPopMatrix();
     
-    if(externIsFullscreen){
-        mouseDisplacement = 10;
-    }else{
-        mouseDisplacement = 0;
-    }
-    
+    glEnable(GL_SCISSOR_TEST);
+    glScissor(boundingBox.x, boundingBox.height - ( boundingBox.y + boundingBox.height - (-2 + topSpacing) ), boundingBox.width - borderWidth , boundingBox.height);
     for(int i = 0; i < (int) panels.size(); i++){
         if( i == selectedPanel){
             ofPushStyle();
@@ -1821,6 +1805,7 @@ void ofxControlPanel::draw4GA(){
         if( i == selectedPanel )panels[i]->render();
     }
     glPopMatrix();
+    glDisable(GL_SCISSOR_TEST);
     
     ofPopStyle();
 }

@@ -5,38 +5,33 @@
 
 //--------------------------------------------------------------
 void gamuzaMain::mouseMoved(int x, int y){
-    scaledMouseX = x;
-    scaledMouseY = y;
-    if(!isFullscreen){
-        scaledMouseX /= MAIN_WINDOW_W;
-        scaledMouseX *= projectionScreenW;
-        scaledMouseY /= MAIN_WINDOW_H;
-        scaledMouseY *= projectionScreenH;
+    if(x < fboDrawingPosX){
+        scaledMouseX = 0;
+    }else if(x > fboDrawingW + fboDrawingPosX){
+        scaledMouseX = projectionScreenW;
     }else{
+        scaledMouseX = x - fboDrawingPosX;
         scaledMouseX /= fboDrawingW;
         scaledMouseX *= projectionScreenW;
+    }
+    
+    if(y < fboDrawingPosY){
+        scaledMouseY = 0;
+    }else if(y > fboDrawingH + fboDrawingPosY){
+        scaledMouseY = projectionScreenH;
+    }else{
+        scaledMouseY = y - fboDrawingPosY;
         scaledMouseY /= fboDrawingH;
         scaledMouseY *= projectionScreenH;
     }
-    scaledMouseX = ceil(scaledMouseX);
-    scaledMouseY = ceil(scaledMouseY);
     
     // External mouse
-    if(!isFullscreen){
-        externMouseX = scaledMouseX;
-        externMouseY = scaledMouseY;
-    }else{
-        externMouseX = scaledMouseX-fboDrawingPosX;
-        externMouseY = scaledMouseY-fboDrawingPosY;
-    }
+    externMouseX = scaledMouseX;
+    externMouseY = scaledMouseY;
     
     // MAPPING
 	if(drawGrid){
-        if(!isFullscreen){
-            finalTextureMapping.mouseMoved(scaledMouseX, scaledMouseY);
-        }else{
-            finalTextureMapping.mouseMoved(externMouseX, externMouseY);
-        }
+        finalTextureMapping.mouseMoved(externMouseX, externMouseY);
 	}
     
     // Live Coding
@@ -45,38 +40,33 @@ void gamuzaMain::mouseMoved(int x, int y){
 
 //--------------------------------------------------------------
 void gamuzaMain::mouseDragged(int x, int y, int button){
-    scaledMouseX = x;
-    scaledMouseY = y;
-    if(!isFullscreen){
-        scaledMouseX /= MAIN_WINDOW_W;
-        scaledMouseX *= projectionScreenW;
-        scaledMouseY /= MAIN_WINDOW_H;
-        scaledMouseY *= projectionScreenH;
+    if(x < fboDrawingPosX){
+        scaledMouseX = 0;
+    }else if(x > fboDrawingW + fboDrawingPosX){
+        scaledMouseX = projectionScreenW;
     }else{
+        scaledMouseX = x - fboDrawingPosX;
         scaledMouseX /= fboDrawingW;
         scaledMouseX *= projectionScreenW;
+    }
+    
+    if(y < fboDrawingPosY){
+        scaledMouseY = 0;
+    }else if(y > fboDrawingH + fboDrawingPosY){
+        scaledMouseY = projectionScreenH;
+    }else{
+        scaledMouseY = y - fboDrawingPosY;
         scaledMouseY /= fboDrawingH;
         scaledMouseY *= projectionScreenH;
     }
-    scaledMouseX = ceil(scaledMouseX);
-    scaledMouseY = ceil(scaledMouseY);
     
     // External mouse
-    if(!isFullscreen){
-        externMouseX = scaledMouseX;
-        externMouseY = scaledMouseY;
-    }else{
-        externMouseX = scaledMouseX-fboDrawingPosX;
-        externMouseY = scaledMouseY-fboDrawingPosY;
-    }
+    externMouseX = scaledMouseX;
+    externMouseY = scaledMouseY;
     
     // MAPPING
 	if(drawGrid){
-        if(!isFullscreen){
-            finalTextureMapping.mouseDragged(scaledMouseX, scaledMouseY);
-        }else{
-            finalTextureMapping.mouseDragged(externMouseX, externMouseY);
-        }
+        finalTextureMapping.mouseDragged(externMouseX, externMouseY);
 	}
     
     // Live Coding
@@ -85,38 +75,33 @@ void gamuzaMain::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void gamuzaMain::mousePressed(int x, int y, int button){
-    scaledMouseX = x;
-    scaledMouseY = y;
-    if(!isFullscreen){
-        scaledMouseX /= MAIN_WINDOW_W;
-        scaledMouseX *= projectionScreenW;
-        scaledMouseY /= MAIN_WINDOW_H;
-        scaledMouseY *= projectionScreenH;
+    if(x < fboDrawingPosX){
+        scaledMouseX = 0;
+    }else if(x > fboDrawingW + fboDrawingPosX){
+        scaledMouseX = projectionScreenW;
     }else{
+        scaledMouseX = x - fboDrawingPosX;
         scaledMouseX /= fboDrawingW;
         scaledMouseX *= projectionScreenW;
+    }
+    
+    if(y < fboDrawingPosY){
+        scaledMouseY = 0;
+    }else if(y > fboDrawingH + fboDrawingPosY){
+        scaledMouseY = projectionScreenH;
+    }else{
+        scaledMouseY = y - fboDrawingPosY;
         scaledMouseY /= fboDrawingH;
         scaledMouseY *= projectionScreenH;
     }
-    scaledMouseX = ceil(scaledMouseX);
-    scaledMouseY = ceil(scaledMouseY);
     
     // External mouse
-    if(!isFullscreen){
-        externMouseX = scaledMouseX;
-        externMouseY = scaledMouseY;
-    }else{
-        externMouseX = scaledMouseX-fboDrawingPosX;
-        externMouseY = scaledMouseY-fboDrawingPosY;
-    }
+    externMouseX = scaledMouseX;
+    externMouseY = scaledMouseY;
     
 	// MAPPING
     if(drawGrid){
-        if(!isFullscreen){
-            finalTextureMapping.mousePressed(scaledMouseX, scaledMouseY);
-        }else{
-            finalTextureMapping.mousePressed(externMouseX, externMouseY);
-        }
+        finalTextureMapping.mousePressed(externMouseX, externMouseY);
 	}
     
     // Live Coding
@@ -131,38 +116,33 @@ void gamuzaMain::mouseReleased() {
 
 //--------------------------------------------------------------
 void gamuzaMain::mouseReleased(int x, int y, int button){
-	scaledMouseX = x;
-    scaledMouseY = y;
-    if(!isFullscreen){
-        scaledMouseX /= MAIN_WINDOW_W;
-        scaledMouseX *= projectionScreenW;
-        scaledMouseY /= MAIN_WINDOW_H;
-        scaledMouseY *= projectionScreenH;
+	if(x < fboDrawingPosX){
+        scaledMouseX = 0;
+    }else if(x > fboDrawingW + fboDrawingPosX){
+        scaledMouseX = projectionScreenW;
     }else{
+        scaledMouseX = x - fboDrawingPosX;
         scaledMouseX /= fboDrawingW;
         scaledMouseX *= projectionScreenW;
+    }
+    
+    if(y < fboDrawingPosY){
+        scaledMouseY = 0;
+    }else if(y > fboDrawingH + fboDrawingPosY){
+        scaledMouseY = projectionScreenH;
+    }else{
+        scaledMouseY = y - fboDrawingPosY;
         scaledMouseY /= fboDrawingH;
         scaledMouseY *= projectionScreenH;
     }
-    scaledMouseX = ceil(scaledMouseX);
-    scaledMouseY = ceil(scaledMouseY);
     
     // External mouse
-    if(!isFullscreen){
-        externMouseX = scaledMouseX;
-        externMouseY = scaledMouseY;
-    }else{
-        externMouseX = scaledMouseX-fboDrawingPosX;
-        externMouseY = scaledMouseY-fboDrawingPosY;
-    }
+    externMouseX = scaledMouseX;
+    externMouseY = scaledMouseY;
     
     // MAPPING
 	if(drawGrid){
-        if(!isFullscreen){
-            finalTextureMapping.mouseReleased(scaledMouseX, scaledMouseY);
-        }else{
-            finalTextureMapping.mouseReleased(externMouseX, externMouseY);
-        }
+        finalTextureMapping.mouseReleased(externMouseX, externMouseY);
 	}
     
     // Live Coding

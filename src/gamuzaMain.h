@@ -131,7 +131,7 @@ public:
     void updateGui();
     void drawGui();
     void gamuzaFullscreen();
-    void resetWarpingPoints(int actualPanel);
+    ofVec2f reduceToAspectRatio(int _w, int _h);
     
     // MAPPING ///////////////////////// --> gamuzaMapping.h
     void setupMapping();
@@ -348,6 +348,7 @@ public:
     //////////////////////////////////////////////
     // GUI --> gamuzaGui.h
     ofTexture				emptyTexture;
+    ofVec2f                 asRatio;
     ofImage                 _hueWheel;
     bool                    isFullscreen;
     
@@ -357,7 +358,6 @@ public:
     //////////////////////////////////////////////
     // Video Tracking vars
     ofPtr<ofQTKitGrabber>	vidRecorder;
-    sourceTracking          inputCam;
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
