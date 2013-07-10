@@ -24,7 +24,6 @@
     isAudioModuleON     = false;
     isArduinoModuleON   = false;
     isCVModuleON        = false;
-    isOSCModuleON       = false;
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(prefPanel._autoFullscreen == 1){
@@ -107,13 +106,6 @@
     gaCVMWindow = ofxNSWindower::instance()->getWindowPtr("GA Computer Vision");
     gaCVMWindow->setWindowTitle("GA Computer Vision");
     [gaCVMWindow->getWindow() orderOut:self];
-    
-    // START GAmuza OSC Module
-    gaOSCM = new gaOSCModule(800,450);
-    ofxNSWindower::instance()->addWindow(gaOSCM,"GA OSC", NSTitledWindowMask, 0);
-    gaOSCMWindow = ofxNSWindower::instance()->getWindowPtr("GA OSC");
-    gaOSCMWindow->setWindowTitle("GA OSC");
-    [gaOSCMWindow->getWindow() orderOut:self];
     
     // Splash window
     [_splash makeKeyAndOrderFront:self];
@@ -737,14 +729,11 @@
     gaARM->restart();
     
     gaVP->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
+    [self sendScreenResToGA];
     [prefPanel.mainPanel orderOut:NULL];
 }
 
 -(IBAction) hideAllModules:(id)sender{
-    if(isOSCModuleON){
-        isOSCModuleON = false;
-        [gaOSCMWindow->getWindow() orderOut:self];
-    }
     if(isCVModuleON){
         isCVModuleON = false;
         [gaCVMWindow->getWindow() orderOut:self];
@@ -764,18 +753,6 @@
     if(isPreviewON){
         isPreviewON = false;
         [gaVPWindow->getWindow() orderOut:self];
-    }
-}
-
--(IBAction) toggleOSCModule:(id)sender{
-    if(isOSCModuleON){
-        isOSCModuleON = false;
-        [gaOSCMWindow->getWindow() orderOut:self];
-        [sender setState: NSOffState];
-    }else{
-        isOSCModuleON = true;
-        [gaOSCMWindow->getWindow() makeKeyAndOrderFront:self];
-        [sender setState: NSOnState];
     }
 }
 

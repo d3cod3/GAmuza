@@ -6,7 +6,6 @@
 #include "gaAudioModule.h"
 #include "gaArduinoModule.h"
 #include "gaCVModule.h"
-#include "gaOSCModule.h"
 
 #include "ofxNSWindower.h"
 
@@ -55,7 +54,6 @@
     bool                        isAudioModuleON;
     bool                        isArduinoModuleON;
     bool                        isCVModuleON;
-    bool                        isOSCModuleON;
     
     NSMutableArray              *screensINFO;
     
@@ -172,9 +170,6 @@
 // COMPUTER VISION MODULE
 - (IBAction) toggleCVModule:(id)sender;
 
-// OSC MODULE
-- (IBAction) toggleOSCModule:(id)sender;
-
 // GAmuza render window reference
 gamuzaMain          *gapp;
 ofPtr<ofxNSWindow>  gappWindow;
@@ -195,8 +190,5 @@ ofPtr<ofxNSWindow>  gaARMWindow;
 // Computer Vision Module
 gaCVModule          *gaCVM;
 ofPtr<ofxNSWindow>  gaCVMWindow;
-// OSC Module
-gaOSCModule         *gaOSCM;
-ofPtr<ofxNSWindow>  gaOSCMWindow;
 
 @end
