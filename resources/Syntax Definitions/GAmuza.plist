@@ -1730,9 +1730,6 @@
 				<string>gaGetFrameNum</string>
 				<string>gaStringReplace</string>
 				<string>gaBackground</string>
-				<string>gaCameraTexture</string>
-				<string>gaCameraPixels</string>
-				<string>gaCameraPixelsRef</string>
 				<string>gaSaveFrame</string>
 				<string>gaGetOutputPixels</string>
 				<string>gaGetOutputTexture</string>

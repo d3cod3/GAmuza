@@ -1,20 +1,17 @@
-#ifndef 	_SOURCETRACKING_H
-#define 	_SOURCETRACKING_H
+#ifndef 	_GASOURCETRACKING_H
+#define 	_GASOURCETRACKING_H
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
 
-// b&w comic style (coherent line drawing) <http://www.cs.umsl.edu/~kang/Papers/kang_npar07.html>
-#include "ofxCLD.h"
-
 // imageAnalysis
 #include "ofxCvOpticalFlowLK.h"     // cvOpticalFlowLK wrapper for OF [from Takashi Maekawa]
 #include "ofxCvHaarFinder.h"		// openCV haar finder [by Charlie, Stefanix & Kyle Mcdonald + Theo Watson]
 #include "ofContourAnalysis.h"		// contour geometry analysis [from Chris Sugrue]
 #include "contourSimplify.h"		// contour simplify [from Theodore Watson]
-#include "matrixAreas.h"			// sub matrix areas for indipendent areas tracking [from Emanuele Mazza]
+#include "matrixAreas.h"			// sub matrix areas for indipendent trigger areas [from Emanuele Mazza]
 
 // extends ofxCvBlob functions
 #include "ofxCvBlobTracker.h"		
@@ -27,17 +24,18 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class sourceTracking: public ofBaseApp, public ofxCvBlobListener{
+class gaSourceTracking: public ofBaseApp, public ofxCvBlobListener{
 
 	public:
-			sourceTracking();
+			gaSourceTracking();
+            ~gaSourceTracking();
             
 			void setupCam(int __id, int _w, int _h, int deviceID, bool player = false, string haarFile = GAMUZA_HAAR_DEFAULT, string movie = GAMUZA_VIDEOTEST);
 			void update();
 			void draw();
-			void mouseDragged(int x, int y, int button);
-			void mousePressed(int x, int y, int button);
-			void mouseReleased(int x, int y, int button);
+			void mouseDragged(int x, int y);
+			void mousePressed(int x, int y);
+			void mouseReleased(int x, int y);
 	
 			void loadCalibration();
 			void getQuadSubImage(unsigned char* inputData,unsigned char* outputData,int inW,int inH,int outW,int outH,ofPoint *quad,int bpp);
@@ -67,9 +65,6 @@ class sourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			void kalmanFilterValues();											// kalman weighted average correction
 			void smoothingValues();												// smoothing numerical data
 			void normalizeValues();												// normalize numerical data
-    
-            // pixels manipulation
-            void computeCLD(int _black, float _sigma1, float _sigma2, float _tau, float _thresh);
 			
 			
 			int						_id;
@@ -94,11 +89,6 @@ class sourceTracking: public ofBaseApp, public ofxCvBlobListener{
             //////////////////////////////////////////////
             unsigned char			*camPixels;         // Live cam pixels copy
 			ofTexture				camTexture;			// Live cam texture copy
-            ofTexture               effectedTexture;    // Live effected cam texture
-    
-            unsigned char           *cld_pixels;
-            imatrix                 cld_img;
-            ETF                     cld_e;
     
             ////////////////////////////////////////////// TRACKING SECTION
             //////////////////////////////////////////////
@@ -246,7 +236,6 @@ class sourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			int						silencePeriod;
 	
 			// generic vars
-			ofMutex					cv_mutex;
 			unsigned char			*blackPixels;
 
 			int						threshold;
@@ -287,15 +276,6 @@ class sourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			bool					computeTriggerAreas;
 	
 			bool					saveAllSettings;
-	
-			// OSC flags
-			bool					sendOsc_MD;										// send motion detection flag
-			bool					sendOsc_BD;										// send blob detection flag
-			bool					sendOsc_CF;										// send contour fineder flag
-			bool					sendOsc_CG;										// send contour geometry flag
-			bool					sendOsc_OF;										// send optical flow flag
-			bool					sendOsc_HF;										// send haar finder flag
-			bool					sendOsc_TA;										// send trigger areas flag
 			
 };
 

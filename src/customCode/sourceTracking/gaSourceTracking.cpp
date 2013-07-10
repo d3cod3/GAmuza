@@ -1,13 +1,18 @@
-#include "sourceTracking.h"
+#include "gaSourceTracking.h"
 
 
 //--------------------------------------------------------------
-sourceTracking::sourceTracking(){
+gaSourceTracking::gaSourceTracking(){
 	
 }
 
 //--------------------------------------------------------------
-void sourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool player, string haarFile, string movie){
+gaSourceTracking::~gaSourceTracking(){
+	
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool player, string haarFile, string movie){
 	
 	_id			= __id;
 	_devID		= deviceID;
@@ -37,10 +42,6 @@ void sourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool playe
 	
     camPixels = new unsigned char[_numPixels*3];                // Live Cam pixels copy
 	camTexture.allocate(_width,_height,GL_RGB);                 // Live Cam texture copy
-    effectedTexture.allocate(_width,_height,GL_RGB);    // Live effected cam texture
-    
-    cld_pixels = new unsigned char[_numPixels*3];
-    cld_img.init(_width,_height);
     
     preColorImg.allocate(_width,_height);						// Live Cam as input source
 	colorImg.allocate(_width,_height);							// Live Cam as input source without lens correction
@@ -294,21 +295,12 @@ void sourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool playe
 	drawInfoGraphics = true;
 	
 	saveAllSettings = false;
-	
-	// OSC flags
-	sendOsc_MD = false;
-	sendOsc_BD = false;
-	sendOsc_CF = false;
-	sendOsc_CG = false;
-	sendOsc_OF = false;
-	sendOsc_HF = false;
-	sendOsc_TA = false;
 	//////////////////////////////////////////////
 	
 }
 
 //--------------------------------------------------------------
-void sourceTracking::update(){
+void gaSourceTracking::update(){
 	
 	char temp[128];
 	
@@ -520,7 +512,7 @@ void sourceTracking::update(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::draw(){
+void gaSourceTracking::draw(){
 	
 	if(captureVideo){
 		
@@ -542,9 +534,7 @@ void sourceTracking::draw(){
 		// blob detection + contours
 		if(computeContourFinder && drawInfoGraphics){
 			if(runningBlobs > 0){
-				cv_mutex.lock();
 				drawContourAnalysis();
-				cv_mutex.unlock();
 			}
 		}
 		//////////////////////////////////////////////////
@@ -579,78 +569,7 @@ void sourceTracking::draw(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::computeCLD(int _black, float _sigma1, float _sigma2, float _tau, float _thresh){
-    
-    if(_black < -255){
-        _black = 255;
-    }else if(_black > 255){
-        _black = 255;
-    }
-    
-    if(_sigma1 < 0.01f){
-        _sigma1 = 0.01f;
-    }else if(_sigma1 > 2.0f){
-        _sigma1 = 2.0f;
-    }
-    
-    if(_sigma2 < 0.01f){
-        _sigma2 = 0.01f;
-    }else if(_sigma2 > 10.0f){
-        _sigma2 = 10.0f;
-    }
-    
-    if(_tau < 0.8f){
-        _tau = 0.8f;
-    }else if(_tau > 1.0f){
-        _tau = 1.0f;
-    }
-    
-    if(_thresh < -1.0f){
-        _thresh = -1.0f;
-    }else if(_thresh > 1.0f){
-        _thresh = 1.0f;
-    }
-    
-    
-    if(!isPlayer && vidGrabber.isFrameNew()){
-        cld_pixels = vidGrabber.getPixels();
-    }else if(isPlayer && vidPlayer.isFrameNew()){
-        cld_pixels = vidPlayer.getPixels();
-    }
-    
-    if(captureVideo){
-        for(int w=0; w<_width; w++) {
-            for(int h=0; h<_height; h++) {
-        
-                int p = h*_width + w;
-                cld_img[w][h] = cld_pixels[p*3] - _black;
-            }        
-        }
-
-        cld_e.init(_width, _height);
-        cld_e.set(cld_img);
-        cld_e.Smooth(4, 2);
-        GetFDoG(cld_img, cld_e, _sigma1, _sigma2, _tau); 
-        GrayThresholding(cld_img, _thresh);
-
-        for(int w=0; w<_width; w++) {
-            for(int h=0; h<_height; h++) {
-        
-                int p = h*_width + w;
-                camPixels[p*3]      = CLAMP(cld_img[w][h], 0, 255);
-                camPixels[p*3+1]    = CLAMP(cld_img[w][h], 0, 255);
-                camPixels[p*3+2]    = CLAMP(cld_img[w][h], 0, 255);
-            }        
-        }
-
-        effectedTexture.loadData(camPixels, _width, _height, GL_RGB);
-
-    }
-    
-}
-
-//--------------------------------------------------------------
-void sourceTracking::mouseDragged(int x, int y, int button){
+void gaSourceTracking::mouseDragged(int x, int y){
 	
 	
 	triggerAreas.mouseDragged(x, y);
@@ -660,7 +579,7 @@ void sourceTracking::mouseDragged(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::mousePressed(int x, int y, int button){
+void gaSourceTracking::mousePressed(int x, int y){
 	
 	
 	triggerAreas.mousePressed(x, y);
@@ -670,7 +589,7 @@ void sourceTracking::mousePressed(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::mouseReleased(int x, int y, int button){
+void gaSourceTracking::mouseReleased(int x, int y){
 	
 	// trigger areas control
 	triggerAreas.mouseReleased(x,y);
@@ -681,7 +600,7 @@ void sourceTracking::mouseReleased(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::loadCalibration(){
+void gaSourceTracking::loadCalibration(){
 	
 	ofxXmlSettings xml;
 	char temp[128];
@@ -699,7 +618,7 @@ void sourceTracking::loadCalibration(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::getQuadSubImage(unsigned char* inputData,unsigned char* outputData,int inW,int inH,int outW,int outH,ofPoint *quad,int bpp){
+void gaSourceTracking::getQuadSubImage(unsigned char* inputData,unsigned char* outputData,int inW,int inH,int outW,int outH,ofPoint *quad,int bpp){
 	
 	for(int x=0;x<outW;x++) {
 		for(int y=0;y<outH;y++) {
@@ -716,7 +635,7 @@ void sourceTracking::getQuadSubImage(unsigned char* inputData,unsigned char* out
 }
 
 //--------------------------------------------------------------
-void sourceTracking::calculateColorDifference(){
+void gaSourceTracking::calculateColorDifference(){
 	
 	int bpp = 3;
 	pixels1 = colorImgWarped.getPixels();
@@ -747,7 +666,7 @@ void sourceTracking::calculateColorDifference(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::calculateGrayscaleDifference(){
+void gaSourceTracking::calculateGrayscaleDifference(){
 	
 	if(bgSubTech == 1){ // abs difference
 		grayThresh = grayImg;
@@ -772,7 +691,7 @@ void sourceTracking::calculateGrayscaleDifference(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::calculateColorDifferenceHSV(){
+void gaSourceTracking::calculateColorDifferenceHSV(){
 	
 	//Calculate min and max thersholds values
 	minHue = max((hue - hueWidth*0.5) * 255, 0.0);
@@ -811,7 +730,7 @@ void sourceTracking::calculateColorDifferenceHSV(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::balanceTracking(){
+void gaSourceTracking::balanceTracking(){
 	
 	if(bgSubTech == 0){
 		alg1 = colorDiff.getPixels();
@@ -841,7 +760,7 @@ void sourceTracking::balanceTracking(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::calculateMotion(){
+void gaSourceTracking::calculateMotion(){
 	
 	if(frameCounter > 5){// dont do anything until we have enough in history
 		
@@ -906,7 +825,7 @@ void sourceTracking::calculateMotion(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::computeContourAnalysis(){
+void gaSourceTracking::computeContourAnalysis(){
 	
 	for (unsigned int i = 0; i < contourFinder.nBlobs; i++){
 		
@@ -960,7 +879,7 @@ void sourceTracking::computeContourAnalysis(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::drawMotionCentroid(){
+void gaSourceTracking::drawMotionCentroid(){
 	
 	glPushMatrix();
 	glTranslatef(30, 378, 0);
@@ -988,7 +907,7 @@ void sourceTracking::drawMotionCentroid(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::drawContourAnalysis(){
+void gaSourceTracking::drawContourAnalysis(){
 	
 	string temp;
 	
@@ -1086,7 +1005,7 @@ void sourceTracking::drawContourAnalysis(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::drawHaarFinder(){
+void gaSourceTracking::drawHaarFinder(){
 	
 	glPushMatrix();
 	glTranslatef(286, 83, 0);
@@ -1106,7 +1025,7 @@ void sourceTracking::drawHaarFinder(){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::blobOn( int x, int y, int id, int order ){
+void gaSourceTracking::blobOn( int x, int y, int id, int order ){
 	
 	char updateMSG[100];
 	
@@ -1135,7 +1054,7 @@ void sourceTracking::blobOn( int x, int y, int id, int order ){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::blobMoved( int x, int y, int id, int order){
+void gaSourceTracking::blobMoved( int x, int y, int id, int order){
 	
 	char updateMSG[100];
 	int insideArea = 1;
@@ -1178,7 +1097,7 @@ void sourceTracking::blobMoved( int x, int y, int id, int order){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::blobOff( int x, int y, int id, int order ){
+void gaSourceTracking::blobOff( int x, int y, int id, int order ){
 	
 	char updateMSG[100];
     //cout << "blobOff() - id:" << id << " order:" << order << endl;
@@ -1201,7 +1120,7 @@ void sourceTracking::blobOff( int x, int y, int id, int order ){
 
 //--------------------------------------------------------------
 // Average black and white value calcualtion (used for "mood detection")
-float sourceTracking::averageBnWVal(IplImage * img){
+float gaSourceTracking::averageBnWVal(IplImage * img){
 	
 	int px = 0;
 	int max = img->imageSize;
@@ -1216,13 +1135,13 @@ float sourceTracking::averageBnWVal(IplImage * img){
 }
 
 //--------------------------------------------------------------
-void sourceTracking::getVelAtPixel(int x, int y, float *u, float *v) {
+void gaSourceTracking::getVelAtPixel(int x, int y, float *u, float *v) {
 	*u = cvGetReal2D( opticalFlow.getVelX(), y, x );
 	*v = cvGetReal2D( opticalFlow.getVelY(), y, x );
 }
 
 //--------------------------------------------------------------
-void sourceTracking::getVelAtNorm(float x, float y, float *u, float *v) {
+void gaSourceTracking::getVelAtNorm(float x, float y, float *u, float *v) {
 	int ix = x * _width;
 	int iy = y * _height;
 	if(ix<0) ix = 0; else if(ix>=_width) ix = _width - 1;
@@ -1239,7 +1158,7 @@ void sourceTracking::getVelAtNorm(float x, float y, float *u, float *v) {
 // so that the slower must always hold a lead.
 //
 //--------------------------------------------------------------
-void sourceTracking::smoothingValues(){
+void gaSourceTracking::smoothingValues(){
 	
 	// motion detection centers coords.
 	_s_MDCM.x = _s_MDCM.x*_smoothingFactor + (1.0-_smoothingFactor)*MDCM.x;
@@ -1316,7 +1235,7 @@ void sourceTracking::smoothingValues(){
 ////////////////////////////////////////////////////////////////////////////
 
 //--------------------------------------------------------------
-void sourceTracking::normalizeValues(){
+void gaSourceTracking::normalizeValues(){
 	
 	// motion detection center coords.
 	_osc_MDCM.x = ofNormalize(_s_MDCM.x,0.0f,(float)_width);
