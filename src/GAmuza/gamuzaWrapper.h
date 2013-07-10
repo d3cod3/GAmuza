@@ -5256,9 +5256,6 @@ class ofGamuzaWrapper{
 		 // graphics section
 		 def("gaBackground", (void(*)(float,float)) &gaBackground),
 		 def("gaBackground", (void(*)(float,float,float,float)) &gaBackground),
-		 def("gaCameraTexture", (ofTexture(*)(int)) &gaGetWebcamTexture),
-         def("gaCameraPixels", (unsigned char*(*)(int)) &gaGetWebcamPixels),
-         def("gaCameraPixelsRef", (ofPixelsRef(*)(int)) &gaGetWebcamPixelsRef),
          def("gaSaveFrame", (void(*)(string)) &gaSaveFrame),
          def("gaGetOutputPixels", (ofPixels(*)(void)) &gaGetOutputPixels),
          def("gaGetOutputTexture", (ofTexture(*)(void)) &gaGetOutputTexture),
@@ -5410,38 +5407,6 @@ class ofGamuzaWrapper{
          def("auAddPluginFromPreset", (void(*)(string)) &auAddPluginFromPreset),
          def("auPluginSetParam", (void(*)(string,string,float)) &auPluginSetParam),
          def("auListPlugins", (void(*)(void)) &auListPlugins),
-		 
-		 /////////////////////////////// (COMPUTER VISION Module)
-		 // webcam tracking
-         /*
-         def("captureBackground", (void(*)(int)) &gaCaptureBackground),
-		 def("camMotionQ", (float(*)(int)) &gaCamMotionQ),
-		 def("camMotionX", (float(*)(int)) &gaCamMotionX),
-		 def("camMotionY", (float(*)(int)) &gaCamMotionY),
-		 def("camBlobs", (int(*)(int)) &gaCamRunningBlob),
-		 def("camBlobX", (float(*)(int,int)) &gaCamBlobX),
-		 def("camBlobY", (float(*)(int,int)) &gaCamBlobY),
-		 def("camBlobW", (float(*)(int,int)) &gaCamBlobW),
-		 def("camBlobH", (float(*)(int,int)) &gaCamBlobH),
-		 def("camBlobAngle", (float(*)(int,int)) &gaCamBlobAngle),
-         def("camBlobContourSize", (int(*)(int,int)) &gaCamBlobContourSize),
-         def("camBlobCPointX", (float(*)(int,int,int)) &gaCamBlobCPointX),
-         def("camBlobCPointY", (float(*)(int,int,int)) &gaCamBlobCPointY),
-		 def("camBlobGeometrySize", (int(*)(int,int)) &gaCamBlobGeometrySize),
-         def("camBlobGLineX1", (float(*)(int,int,int)) &gaCamBlobGLineX1),
-         def("camBlobGLineY1", (float(*)(int,int,int)) &gaCamBlobGLineY1),
-         def("camBlobGLineX2", (float(*)(int,int,int)) &gaCamBlobGLineX2),
-         def("camBlobGLineY2", (float(*)(int,int,int)) &gaCamBlobGLineY2),
-		 def("camOpticalFlowX", (float(*)(int,int)) &gaCamOpticalFlowX),
-         def("camOpticalFlowY", (float(*)(int,int)) &gaCamOpticalFlowY),
-         def("camOpticalFlowVX", (float(*)(int,int)) &gaCamOpticalFlowVX),
-         def("camOpticalFlowVY", (float(*)(int,int)) &gaCamOpticalFlowVY),
-         def("camHaars", (int(*)(int)) &gaCamRunningHaar),
-		 def("camHaarX", (float(*)(int,int)) &gaCamHaarX),
-         def("camHaarY", (float(*)(int,int)) &gaCamHaarY),
-         def("camHaarW", (float(*)(int,int)) &gaCamHaarW),
-         def("camHaarH", (float(*)(int,int)) &gaCamHaarH),
-		 def("camTrigger", (bool(*)(int,int)) &gaCamTrigger),*/
 		 
 		 /////////////////////////////// (ARDUINO Module)
 		 // arduino
