@@ -214,7 +214,6 @@
 		2078495A1732D6030098ABF0 /* adaptiveSimpson.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849431732D6030098ABF0 /* adaptiveSimpson.cpp */; };
 		2078495B1732D6030098ABF0 /* gaussian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849451732D6030098ABF0 /* gaussian.cpp */; };
 		2078495C1732D6030098ABF0 /* randomUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849481732D6030098ABF0 /* randomUtils.cpp */; };
-		2078495E1732D6030098ABF0 /* sourceTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2078494D1732D6030098ABF0 /* sourceTracking.cpp */; };
 		20784B261732D6370098ABF0 /* ofxArcText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849611732D6370098ABF0 /* ofxArcText.cpp */; };
 		20784B271732D6370098ABF0 /* ofxAudioSample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 207849651732D6370098ABF0 /* ofxAudioSample.cpp */; };
 		20784B291732D6370098ABF0 /* ofxChromaKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2078496A1732D6370098ABF0 /* ofxChromaKey.cpp */; };
@@ -378,7 +377,7 @@
 		20B0CA43174386EB00D51E76 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
 		20B0CA44174386FC00D51E76 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
 		20BFA405177FAB0F00A6F664 /* gaCVModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20BFA404177FAB0F00A6F664 /* gaCVModule.mm */; };
-		20BFA408177FAD3200A6F664 /* gaOSCModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20BFA407177FAD3200A6F664 /* gaOSCModule.mm */; };
+		20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 20D08F57178CAC7200036639 /* dsa_pub.pem */; };
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D9173617667F9700368963 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D9173517667F9700368963 /* PreferencesController.m */; };
@@ -430,6 +429,7 @@
 		20E229321759882F0033D376 /* ofxBox2dJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229021759882F0033D376 /* ofxBox2dJoint.cpp */; };
 		20E229331759882F0033D376 /* ofxBox2dPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229041759882F0033D376 /* ofxBox2dPolygon.cpp */; };
 		20E229341759882F0033D376 /* ofxBox2dRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20E229071759882F0033D376 /* ofxBox2dRect.cpp */; };
+		20ED90DD178AC03A002B44C7 /* gaSourceTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20ED90DB178AC03A002B44C7 /* gaSourceTracking.cpp */; };
 		20EE1E3C1740F3CC0067DC29 /* GATextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */; };
 		20EE1E411740F5460067DC29 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E401740F5460067DC29 /* CoreData.framework */; };
 		20EE1E431740F5500067DC29 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EE1E421740F5500067DC29 /* Foundation.framework */; };
@@ -1044,8 +1044,6 @@
 		207849461732D6030098ABF0 /* gaussian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaussian.h; sourceTree = "<group>"; };
 		207849481732D6030098ABF0 /* randomUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = randomUtils.cpp; sourceTree = "<group>"; };
 		207849491732D6030098ABF0 /* randomUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = randomUtils.h; sourceTree = "<group>"; };
-		2078494D1732D6030098ABF0 /* sourceTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sourceTracking.cpp; sourceTree = "<group>"; };
-		2078494E1732D6030098ABF0 /* sourceTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourceTracking.h; sourceTree = "<group>"; };
 		207849611732D6370098ABF0 /* ofxArcText.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxArcText.cpp; sourceTree = "<group>"; };
 		207849621732D6370098ABF0 /* ofxArcText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxArcText.h; sourceTree = "<group>"; };
 		207849651732D6370098ABF0 /* ofxAudioSample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAudioSample.cpp; sourceTree = "<group>"; };
@@ -1376,8 +1374,7 @@
 		20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = System/Library/Frameworks/BWToolkitFramework.framework; sourceTree = SDKROOT; };
 		20BFA403177FAB0F00A6F664 /* gaCVModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaCVModule.h; sourceTree = "<group>"; };
 		20BFA404177FAB0F00A6F664 /* gaCVModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaCVModule.mm; sourceTree = "<group>"; };
-		20BFA406177FAD3200A6F664 /* gaOSCModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaOSCModule.h; sourceTree = "<group>"; };
-		20BFA407177FAD3200A6F664 /* gaOSCModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaOSCModule.mm; sourceTree = "<group>"; };
+		20D08F57178CAC7200036639 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		20D2435D173EAF4B0064A64B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = System/Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
 		20D9173417667F9700368963 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		20D9173517667F9700368963 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
@@ -1489,6 +1486,8 @@
 		20E77B83175E040A00E468EC /* ofxQRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQRCodeGenerator.h; sourceTree = "<group>"; };
 		20E77BB2175E1DC500E468EC /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
 		20E91816175924CD007E1EE8 /* gamuzaConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamuzaConsole.h; sourceTree = "<group>"; };
+		20ED90DB178AC03A002B44C7 /* gaSourceTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaSourceTracking.cpp; sourceTree = "<group>"; };
+		20ED90DC178AC03A002B44C7 /* gaSourceTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaSourceTracking.h; sourceTree = "<group>"; };
 		20EE1E391740F3CC0067DC29 /* GATextDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GATextDocument.h; path = ScriptEditor/GATextDocument.h; sourceTree = "<group>"; };
 		20EE1E3A1740F3CC0067DC29 /* GATextDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GATextDocument.m; path = ScriptEditor/GATextDocument.m; sourceTree = "<group>"; };
 		20EE1E401740F5460067DC29 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = ../../../../../../../../System/Library/Frameworks/CoreData.framework; sourceTree = "<group>"; };
@@ -2214,6 +2213,7 @@
 				20F54CA71746CE570029D637 /* GATextDocument.xib */,
 				2099AA631742B86200973FA1 /* GAMultiTextDocument.xib */,
 				20EEC80D174D356500A32396 /* SketchView.xib */,
+				20D08F57178CAC7200036639 /* dsa_pub.pem */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -2958,8 +2958,8 @@
 		2078494A1732D6030098ABF0 /* sourceTracking */ = {
 			isa = PBXGroup;
 			children = (
-				2078494D1732D6030098ABF0 /* sourceTracking.cpp */,
-				2078494E1732D6030098ABF0 /* sourceTracking.h */,
+				20ED90DB178AC03A002B44C7 /* gaSourceTracking.cpp */,
+				20ED90DC178AC03A002B44C7 /* gaSourceTracking.h */,
 			);
 			path = sourceTracking;
 			sourceTree = "<group>";
@@ -4578,8 +4578,6 @@
 				200F86201778A1B2001630D1 /* gaAudioModule.mm */,
 				20BFA403177FAB0F00A6F664 /* gaCVModule.h */,
 				20BFA404177FAB0F00A6F664 /* gaCVModule.mm */,
-				20BFA406177FAD3200A6F664 /* gaOSCModule.h */,
-				20BFA407177FAD3200A6F664 /* gaOSCModule.mm */,
 				202E6122175A93A100C53CFC /* gaTimeline.h */,
 				202E6123175A93A100C53CFC /* gaTimeline.mm */,
 				20A43FAD1756678F003EBF02 /* gaVideoPreview.h */,
@@ -4720,6 +4718,7 @@
 				20EEC80E174D356500A32396 /* SketchView.xib in Resources */,
 				204296E5174E8D9100957DFF /* overflowImage.tiff in Resources */,
 				204296E6174E8D9100957DFF /* overflowImagePressed.tif in Resources */,
+				20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4801,7 +4800,6 @@
 				2078495A1732D6030098ABF0 /* adaptiveSimpson.cpp in Sources */,
 				2078495B1732D6030098ABF0 /* gaussian.cpp in Sources */,
 				2078495C1732D6030098ABF0 /* randomUtils.cpp in Sources */,
-				2078495E1732D6030098ABF0 /* sourceTracking.cpp in Sources */,
 				20784B261732D6370098ABF0 /* ofxArcText.cpp in Sources */,
 				20784B271732D6370098ABF0 /* ofxAudioSample.cpp in Sources */,
 				20784B291732D6370098ABF0 /* ofxChromaKey.cpp in Sources */,
@@ -5128,8 +5126,8 @@
 				200F865D17790677001630D1 /* ofxDOF.mm in Sources */,
 				20893553177A30220000D45F /* gaArduinoModule.mm in Sources */,
 				20BFA405177FAB0F00A6F664 /* gaCVModule.mm in Sources */,
-				20BFA408177FAD3200A6F664 /* gaOSCModule.mm in Sources */,
 				20679E4717836E1800C059EA /* ofxGameCamera.cpp in Sources */,
+				20ED90DD178AC03A002B44C7 /* gaSourceTracking.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
