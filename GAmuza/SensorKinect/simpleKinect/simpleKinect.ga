@@ -20,12 +20,13 @@ grayImage = ofxCvGrayscaleImage()
 contourFinder = ofxCvContourFinder()
 easyCam = ofEasyCam()
 
-bDrawPointCloud = false
+bDrawPointCloud = 0
 nearThreshold = 0
 farThreshold = 0
 _angle = 0
 
 function setup()
+	
 	kinect:setRegistration(true)
 	kinect:init(false,true,true)
 	kinect:open(0)
@@ -52,9 +53,8 @@ function update()
     	
     	nearThreshold = gui:getValueI("NEAR_THRESHOLD")
     	farThreshold = gui:getValueI("FAR_THRESHOLD")
-    	kinect:setDepthClipping(nearThreshold, farThreshold)
-    	/// default is 50cm - 4m
-    	
+    	bDrawPointCloud = gui:getValueI("DRAW_POINT_CLOUD")
+    	kinect:setDepthClipping(nearThreshold, farThreshold) // default is 50cm - 4m
     	
     	if kinect:isFrameNew() then
     		grayImage:setFromPixels(kinect:getDepthPixelsRef())
@@ -66,11 +66,16 @@ function draw()
     	gaBackground(0.1,1.0)
     
     	ofSetColor(255)
-    	kinect:drawDepth(10, 10, 400, 300)
-	kinect:draw(420, 10, 400, 300)
-		
-	grayImage:draw(10, 320, 400, 300)
-	contourFinder:draw(10, 320, 400, 300)
+    	if bDrawPointCloud == 1 then
+    		easyCam:beginCamera(ofGetCurrentViewport())
+    		drawPointCloud()
+    		easyCam:endCamera()
+    	else
+    		kinect:drawDepth(10, 10, 400, 300)
+		kinect:draw(420, 10, 400, 300)
+		grayImage:draw(10, 320, 400, 300)
+		contourFinder:draw(10, 320, 400, 300)
+	end
 	
 	if viewGui then
 		gui:draw()
@@ -98,5 +103,6 @@ function mouseReleased()
 end
 
 function exit()
+	kinect:setCameraTiltAngle(0)
 	kinect:close()
 end

@@ -1,0 +1,29 @@
+
+
+function drawPointCloud()
+	mesh = ofMesh()
+	step = 4
+	w = 640
+	h = 480
+	mesh:setMode(OF_PRIMITIVE_POINTS)
+
+	for i=0,h-1, step do
+		for j=0,w-1,step do
+			if kinect:getDistanceAt(j,i) > 0 then
+				mesh:addVertex(kinect:getWorldCoordinateAt(j,i))
+				mesh:addColor(kinect:getColorAt(j,i))
+			end
+		end 
+	end
+
+	glPointSize(3)
+	ofPushMatrix()
+		ofScale(1,-1,-1)
+		ofTranslate(0,0,-1000)
+		glEnable(GL_DEPTH_TEST)
+		mesh:drawVertices()
+		glDisable(GL_DEPTH_TEST)
+	ofPopMatrix()
+	glPointSize(1)
+	
+end 
