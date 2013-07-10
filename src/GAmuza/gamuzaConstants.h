@@ -1,4 +1,4 @@
-#define GAMUZA_RELEASE                  "0426"
+#define GAMUZA_RELEASE                  "0427"
 
 // MAIN.CPP WINDOW VARS
 #define MAIN_WINDOW_W					854
@@ -59,7 +59,7 @@
 
 // AUDIO INPUT
 #define		BARK_SCALE_CRITICAL_BANDS	24
-#define     MAX_INPUT_CHANNELS          16
+#define     MAX_INPUT_CHANNELS          24
 
 // AUDIO SYNTH
 #define		DENORMAL_BUFFER				1e-15f
