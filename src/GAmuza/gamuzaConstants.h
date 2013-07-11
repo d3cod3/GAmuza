@@ -1,4 +1,4 @@
-#define GAMUZA_RELEASE                  "0427"
+#define GAMUZA_RELEASE                  "0428"
 
 // MAIN.CPP WINDOW VARS
 #define MAIN_WINDOW_W					854
