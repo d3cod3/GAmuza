@@ -413,7 +413,7 @@
     // save Main File
     [self saveToURL:[self fileURL] ofType:@"GAmuza Source Code" forSaveOperation:NSSaveOperation error:nil];
     
-    // Save the other sketch files (is any)
+    // Save the other sketch files (if any)
     NSMutableSet* _temp = sketchFiles;
     NSArray* groupsArray = [_temp allObjects];
     for(GASketchFile* document in groupsArray){
@@ -453,8 +453,15 @@
         [filemgr createDirectoryAtPath: newDirName withIntermediateDirectories:YES attributes: nil error:nil];
         // create data folder
         [filemgr createDirectoryAtPath: [NSString stringWithFormat:@"%@%@", newDirName, @"/data"] withIntermediateDirectories:YES attributes: nil error:nil];
+        
         // save script inside created directory
         [self saveToURL:temp ofType:@"GAmuza Source Code" forSaveOperation:NSSaveAsOperation error:nil];
+        // Save the other sketch files (if any)
+        NSMutableSet* _temp = sketchFiles;
+        NSArray* groupsArray = [_temp allObjects];
+        for(GASketchFile* document in groupsArray){
+            [self saveGAFile:document withName:document.filename];
+        }
         
         [[tabView tabViewItemAtIndex:0] setLabel:[[[sPan filename] lastPathComponent] stringByDeletingPathExtension]];
         
