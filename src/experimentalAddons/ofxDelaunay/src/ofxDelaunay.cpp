@@ -40,8 +40,7 @@ void ofxDelaunay :: setMaxPoints ( int maxPoints )
 	reset();
 }
 
-void ofxDelaunay :: reset()
-{
+void ofxDelaunay :: reset(){
 	if( p != NULL )
 	{
 		delete[] p;
@@ -61,14 +60,12 @@ void ofxDelaunay :: reset()
 	triangles.clear();
 }
 
-int ofxDelaunay :: addPoint( const ofPoint& point )
-{
+int ofxDelaunay :: addPoint( const ofPoint& point ){
 	int i = addPoint( point.x, point.y, point.z );
 	return i;
 }
 
-int ofxDelaunay :: addPoint( float x, float y, float z )
-{
+int ofxDelaunay :: addPoint( float x, float y, float z ){
 	if( nv < maxPoints )
 	{
 		p[ nv ].x = x;
@@ -80,8 +77,7 @@ int ofxDelaunay :: addPoint( float x, float y, float z )
 	return nv;
 }
 
-int ofxDelaunay :: triangulate()
-{
+int ofxDelaunay :: triangulate(){
 	XYZ *p_Temp = new XYZ[ nv + 3 ];
 	for( int i=0; i<nv; i++ )
 	{
@@ -116,18 +112,43 @@ int ofxDelaunay :: triangulate()
 		triangle.points[ 1 ].set( p[ p2 ].x, p[ p2 ].y, p[ p2 ].z );
 		triangle.points[ 2 ].set( p[ p3 ].x, p[ p3 ].y, p[ p3 ].z );
 	}
+    
 	
 	return ntri;
 }
 
-void ofxDelaunay :: draw ()
-{
-	for( int i=0; i<triangles.size(); i++ )
-	{
+int ofxDelaunay::getNumTriangles(){
+	return ntri;
+}
+
+ofVec3f ofxDelaunay::getTriangle(int _id){
+    ofVec3f _tri;
+    _tri.set(v[_id].p1,v[_id].p2,v[_id].p3);
+	return _tri;
+}
+
+ofVec3f ofxDelaunay::getPoint(int _id){
+    ofVec3f _pt;
+    _pt.set(p[_id].x,p[_id].y,p[_id].z);
+	return _pt;
+}
+
+void ofxDelaunay::drawTriangles(){
+	for(int i = 0; i < ntri; i++){
+		ofSetColor(0, 255, 0);
+		ofFill();
+		ofTriangle(p[v[i].p1].x, p[v[i].p1].y, p[v[i].p2].x, p[v[i].p2].y, p[v[i].p3].x, p[v[i].p3].y);
+		ofSetColor(0, 0, 255);
+		ofNoFill();
+		ofTriangle(p[v[i].p1].x, p[v[i].p1].y, p[v[i].p2].x, p[v[i].p2].y, p[v[i].p3].x, p[v[i].p3].y);
+	}
+}
+
+void ofxDelaunay :: draw (){
+	for( int i=0; i<triangles.size(); i++ ){
 		ofxDelaunayTriangle& triangle = triangles[ i ];
 		
-		ofTriangle
-		(
+		ofTriangle(
 			triangle.points[ 0 ].x,
 			triangle.points[ 0 ].y,
 			triangle.points[ 1 ].x,

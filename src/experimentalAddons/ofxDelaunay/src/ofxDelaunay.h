@@ -46,6 +46,12 @@ public:
 	void draw			();
     void drawTriangle   (int _id);
     void drawCenter     (int _id);
+    
+    int getNumTriangles();
+	ofVec3f getTriangle(int _id);
+	ofVec3f getPoint(int _id);
+    
+	void drawTriangles();
 	
 	vector<ofxDelaunayTriangle>		triangles;
 	
@@ -54,7 +60,7 @@ private:
 	int					maxPoints;
 	ITRIANGLE*			v;
 	XYZ*				p;
-	int					nv;
+	int                 nv;
 	int					ntri;
 	
 };

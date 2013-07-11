@@ -3055,6 +3055,9 @@ class ofGamuzaWrapper{
          .def("addPoint", (int(ofxDelaunay::*)(const ofPoint&)) &ofxDelaunay::addPoint)
          .def("addPoint", (int(ofxDelaunay::*)(float,float,float)) &ofxDelaunay::addPoint)
          .def("triangulate", (int(ofxDelaunay::*)(void)) &ofxDelaunay::triangulate)
+         .def("getNumTriangles", (int(ofxDelaunay::*)(void)) &ofxDelaunay::getNumTriangles)
+         .def("getTriangle", (ofVec3f(ofxDelaunay::*)(int)) &ofxDelaunay::getTriangle)
+         .def("getPoint", (ofVec3f(ofxDelaunay::*)(int)) &ofxDelaunay::getPoint)
          .def("draw", (void(ofxDelaunay::*)(void)) &ofxDelaunay::draw)
          .def("drawTriangle", (void(ofxDelaunay::*)(int)) &ofxDelaunay::drawTriangle)
          .def("drawCenter", (void(ofxDelaunay::*)(int)) &ofxDelaunay::drawCenter),

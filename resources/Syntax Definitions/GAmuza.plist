@@ -1291,6 +1291,9 @@
 				<string>ofxDelaunay</string>
 				<string>setMaxPoints</string>
 				<string>addPoint</string>
+				<string>getNumTriangles</string>
+				<string>getTriangle</string>
+				<string>getPoint</string>
 				<string>drawCenter</string>
 				<string>ofxDither</string>
 				<string>ordered</string>
