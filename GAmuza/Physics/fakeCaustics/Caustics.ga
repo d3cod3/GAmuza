@@ -1,0 +1,123 @@
+
+// -------------------------------------
+// Caustics Class
+
+class 'Caustics'
+
+function Caustics:__init()
+	self.triangulator = ofxDelaunay()
+	self.ping = ofFbo()
+	self.pong = ofFbo()
+	self._w = 0
+	self._h = 0
+	self.currentTime = 0
+	self.clearedFbo = false
+end
+
+function Caustics:setup(width,height,maxPoints)
+	self._w = width
+	self._h = height
+	self.ping:allocate(width, height,GL_RGB,0)
+	self.pong:allocate(width, height,GL_RGB,0)
+	self.triangulator:setMaxPoints(maxPoints)
+	self.clearedFbo = false
+end
+
+function Caustics:reset()
+	self.triangulator:reset()
+end
+
+function Caustics:addPoint(p)
+	self.triangulator:addPoint(p.x,p.y,0)
+end
+
+function Caustics:update()
+	self.triangulator:triangulate()
+end
+
+function Caustics:renderToFbo()
+	if not self.clearedFbo then
+		self.pong:beginFbo()
+		ofClear(0,0,0,0)
+		self.pong:endFbo()
+		self.clearedFbo = true
+	end
+
+	self.ping:beginFbo()
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA)
+	ofClear(0,0,0,0)
+
+	glColor4d(1,1,1,0.98)
+	glPushMatrix()
+		glTranslated(self._w/2,self._h/2, 0)
+		local s = 1 + 0.002
+		glScaled(s,s,1);
+		self.pong:setAnchorPercent(0.5,0.5)
+		self.pong:draw(0,0.5)
+	glPopMatrix()
+
+	glColor4d(1,1,1,0.05)
+	local numTris = self.triangulator:getNumTriangles()
+
+	self.currentTime = ofGetElapsedTimef()
+	ofEnableBlendMode(OF_BLENDMODE_ADD)
+	for i=0, numTris-1 do
+		local q = self.triangulator:getTriangle(i)
+		local a = ofVec2f(self.triangulator:getPoint(q.x).x,self.triangulator:getPoint(q.x).y)
+		local b = ofVec2f(self.triangulator:getPoint(q.y).x,self.triangulator:getPoint(q.y).y)
+		local c = ofVec2f(self.triangulator:getPoint(q.z).x,self.triangulator:getPoint(q.z).y)
+
+		self:drawWavyLine(a,b)
+		self:drawWavyLine(b,c)
+		self:drawWavyLine(c,a)
+	end
+
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA)
+	self.ping:endFbo()
+	self.pong:setAnchorPercent(0,0)
+	ofSetColor(255)
+
+	// do the ping-pong
+	local temp = ofFbo()
+	temp = self.ping
+	self.ping = self.pong
+	self.pong = temp
+end
+
+function Caustics:getFbo()
+	return self.pong
+end
+
+function Caustics:drawWavyLine(vecA,vecB)
+	local diff = ofVec2f()
+	diff = vecB - vecA
+	local _length = diff:length()
+
+	// now calculate the normal, normalized
+	local n = ofVec2f()
+	n = diff/_length
+
+	// turn (x, y) into (y, -x) - this flips the vector 90 degrees
+	local ny = n.y
+	n.y = -n.x
+	n.x = ny
+
+	glBegin(GL_LINE_STRIP)
+	
+	for f=0,PI*2,PI/5 do
+		local d = f/TWO_PI
+		local window = 1-4*(d-0.5)*(d-0.5)
+		local sine = ofVec2f()
+		sine = n * math.sin(f+self.currentTime)*ofMap(_length,0,200,0,8,true)*window
+		local p = ofVec2f()
+		p = sine + vecA + diff * d
+
+		glVertex2d(p.x,p.y)
+	end
+
+	glVertex2d(vecB.x,vecB.y)
+
+	glEnd()
+	
+end
+

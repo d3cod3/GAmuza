@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0427 examples 
+ ---------------------
+ Physics/fakeCaustics.ga
+ 
+ The . . . . . .
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+ original example from:
+ 
+        ___           ___           ___                         ___           ___
+       /__/\         /  /\         /  /\         _____         /  /\         /__/|
+      |  |::\       /  /::\       /  /::|       /  /::\       /  /::\       |  |:|
+      |  |:|:\     /  /:/\:\     /  /:/:|      /  /:/\:\     /  /:/\:\      |  |:|
+    __|__|:|\:\   /  /:/~/::\   /  /:/|:|__   /  /:/~/::\   /  /:/  \:\   __|__|:|
+   /__/::::| \:\ /__/:/ /:/\:\ /__/:/ |:| /\ /__/:/ /:/\:| /__/:/ \__\:\ /__/::::\____
+   \  \:\~~\__\/ \  \:\/:/__\/ \__\/  |:|/:/ \  \:\/:/~/:/ \  \:\ /  /:/    ~\~~\::::/
+    \  \:\        \  \::/          |  |:/:/   \  \::/ /:/   \  \:\  /:/      |~~|:|~~
+     \  \:\        \  \:\          |  |::/     \  \:\/:/     \  \:\/:/       |  |:|
+      \  \:\        \  \:\         |  |:/       \  \::/       \  \::/        |  |:|
+       \__\/         \__\/         |__|/         \__\/         \__\/         |__|/
+ 
+ Marek Bereza
+ 
+*/
+
+particles = {}
+caustics = Caustics()
+
+numParticles = 70
+
+function setup()
+	// create particles
+	for i=0,numParticles do
+		particles[i] = Particle()
+	end
+	
+	// setup caustics with 70 points
+	caustics:setup(OUTPUT_W,OUTPUT_H,numParticles)
+	
+end
+
+function update()
+	// reset caustics and a re-add all the points
+	caustics:reset()
+	for i=0,numParticles do
+		particles[i]:update()
+		local _p = ofVec2f(particles[i].pos.x,particles[i].pos.y)
+		caustics:addPoint(_p)
+	end
+	
+	// this triggers the delaunay
+	caustics:update()
+	
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    caustics:renderToFbo()
+    caustics:getFbo():draw(0,0)
+    
+end

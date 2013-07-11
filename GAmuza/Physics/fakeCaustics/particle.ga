@@ -1,0 +1,41 @@
+
+// -------------------------------------
+// Particle Class
+
+class 'Particle'
+
+function Particle:__init()
+	self.pos = ofVec2f()
+	self.vel = ofVec2f()
+    	self.pos:set(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+    	self.vel:set(ofRandom(0.3,2),0)
+	self.vel:rotate(ofRandom(0,360))
+end
+
+function Particle:update()
+    	self.pos = self.pos + self.vel
+
+	if self.pos.x < 0 then
+		self.pos.x = 0
+		self.vel.x *= -1
+	end
+
+	if self.pos.y < 0 then
+		self.pos.y = 0
+		self.vel.y *= -1
+	end
+
+	if self.pos.x > OUTPUT_W then
+		self.pos.x = OUTPUT_W
+		self.vel.x *= -1
+	end
+
+	if self.pos.y > OUTPUT_H then
+		self.pos.y = OUTPUT_H
+		self.vel.y *= -1
+	end
+end
+
+function Particle:draw()
+    ofCircle(self.pos.x,self.pos.y,3)
+end
