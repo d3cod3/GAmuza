@@ -23,7 +23,6 @@
     isTimelineON        = false;
     isAudioModuleON     = false;
     isArduinoModuleON   = false;
-    isCVModuleON        = false;
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(prefPanel._autoFullscreen == 1){
@@ -99,13 +98,6 @@
     gaARMWindow = ofxNSWindower::instance()->getWindowPtr("GA Arduino");
     gaARMWindow->setWindowTitle("GA Arduino");
     [gaARMWindow->getWindow() orderOut:self];
-    
-    // START GAmuza Computer Vision Module
-    gaCVM = new gaCVModule(1260,720);
-    ofxNSWindower::instance()->addWindow(gaCVM,"GA Computer Vision", NSTitledWindowMask, 0);
-    gaCVMWindow = ofxNSWindower::instance()->getWindowPtr("GA Computer Vision");
-    gaCVMWindow->setWindowTitle("GA Computer Vision");
-    [gaCVMWindow->getWindow() orderOut:self];
     
     // Splash window
     [_splash makeKeyAndOrderFront:self];
@@ -734,10 +726,6 @@
 }
 
 -(IBAction) hideAllModules:(id)sender{
-    if(isCVModuleON){
-        isCVModuleON = false;
-        [gaCVMWindow->getWindow() orderOut:self];
-    }
     if(isArduinoModuleON){
         isArduinoModuleON = false;
         [gaARMWindow->getWindow() orderOut:self];
@@ -753,18 +741,6 @@
     if(isPreviewON){
         isPreviewON = false;
         [gaVPWindow->getWindow() orderOut:self];
-    }
-}
-
--(IBAction) toggleCVModule:(id)sender{
-    if(isCVModuleON){
-        isCVModuleON = false;
-        [gaCVMWindow->getWindow() orderOut:self];
-        [sender setState: NSOffState];
-    }else{
-        isCVModuleON = true;
-        [gaCVMWindow->getWindow() makeKeyAndOrderFront:self];
-        [sender setState: NSOnState];
     }
 }
 

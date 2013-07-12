@@ -376,7 +376,7 @@
 		20AED8141737CF6800F8306E /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AED8131737CF6800F8306E /* TransparentView.m */; };
 		20B0CA43174386EB00D51E76 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
 		20B0CA44174386FC00D51E76 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
-		20BFA405177FAB0F00A6F664 /* gaCVModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20BFA404177FAB0F00A6F664 /* gaCVModule.mm */; };
+		20CAD35C1790163D001038ED /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 20CAD35B1790163D001038ED /* videos */; };
 		20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 20D08F57178CAC7200036639 /* dsa_pub.pem */; };
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
@@ -1372,8 +1372,7 @@
 		20AED8121737CF6800F8306E /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
 		20AED8131737CF6800F8306E /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
 		20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = System/Library/Frameworks/BWToolkitFramework.framework; sourceTree = SDKROOT; };
-		20BFA403177FAB0F00A6F664 /* gaCVModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaCVModule.h; sourceTree = "<group>"; };
-		20BFA404177FAB0F00A6F664 /* gaCVModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaCVModule.mm; sourceTree = "<group>"; };
+		20CAD35B1790163D001038ED /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; name = videos; path = bundle/videos; sourceTree = "<group>"; };
 		20D08F57178CAC7200036639 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		20D2435D173EAF4B0064A64B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = System/Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
 		20D9173417667F9700368963 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
@@ -2227,6 +2226,7 @@
 				2078479B1732CAAF0098ABF0 /* scripts */,
 				2078479C1732CAAF0098ABF0 /* settings */,
 				2078479D1732CAAF0098ABF0 /* shaders */,
+				20CAD35B1790163D001038ED /* videos */,
 			);
 			name = bundle;
 			sourceTree = "<group>";
@@ -4576,8 +4576,6 @@
 				20893552177A30220000D45F /* gaArduinoModule.mm */,
 				200F861F1778A1B2001630D1 /* gaAudioModule.h */,
 				200F86201778A1B2001630D1 /* gaAudioModule.mm */,
-				20BFA403177FAB0F00A6F664 /* gaCVModule.h */,
-				20BFA404177FAB0F00A6F664 /* gaCVModule.mm */,
 				202E6122175A93A100C53CFC /* gaTimeline.h */,
 				202E6123175A93A100C53CFC /* gaTimeline.mm */,
 				20A43FAD1756678F003EBF02 /* gaVideoPreview.h */,
@@ -4684,17 +4682,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE672EE31541E8D200229B52 /* MainMenu.xib in Resources */,
+				20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */,
 				204CC52A1752825600C2CCF5 /* gaAutocompletion.txt in Resources */,
-				20027F2217345BB700ED0C52 /* ga_file_extension.icns in Resources */,
-				20E227EE1759401C0033D376 /* Gamuza.icns in Resources */,
 				207847A71732CACA0098ABF0 /* calibrator in Resources */,
 				207847A91732CACA0098ABF0 /* fonts in Resources */,
 				207847AB1732CACA0098ABF0 /* img in Resources */,
 				207847AD1732CACA0098ABF0 /* scripts in Resources */,
 				207847AE1732CACA0098ABF0 /* settings in Resources */,
 				207847AF1732CACA0098ABF0 /* shaders in Resources */,
+				20CAD35C1790163D001038ED /* videos in Resources */,
 				20027F4A17345EBD00ED0C52 /* Syntax Definitions in Resources */,
+				20027F2217345BB700ED0C52 /* ga_file_extension.icns in Resources */,
+				20E227EE1759401C0033D376 /* Gamuza.icns in Resources */,
 				20995B621737221E00EE85C2 /* gamuza04_splash.png in Resources */,
 				20027F5F17345ED100ED0C52 /* back_kuro.jpg in Resources */,
 				20027F6017345ED100ED0C52 /* clean_out.png in Resources */,
@@ -4712,13 +4711,13 @@
 				20027F6F17345ED100ED0C52 /* save_over.png in Resources */,
 				20027F7017345ED100ED0C52 /* wm_out.png in Resources */,
 				20027F7117345ED100ED0C52 /* wm_over.png in Resources */,
+				204296E5174E8D9100957DFF /* overflowImage.tiff in Resources */,
+				204296E6174E8D9100957DFF /* overflowImagePressed.tif in Resources */,
 				20027F9C173496B200ED0C52 /* GAmuza in Resources */,
+				EE672EE31541E8D200229B52 /* MainMenu.xib in Resources */,
 				2099AA641742B86200973FA1 /* GAMultiTextDocument.xib in Resources */,
 				20F54CA81746CE570029D637 /* GATextDocument.xib in Resources */,
 				20EEC80E174D356500A32396 /* SketchView.xib in Resources */,
-				204296E5174E8D9100957DFF /* overflowImage.tiff in Resources */,
-				204296E6174E8D9100957DFF /* overflowImagePressed.tif in Resources */,
-				20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5125,7 +5124,6 @@
 				200F86211778A1B2001630D1 /* gaAudioModule.mm in Sources */,
 				200F865D17790677001630D1 /* ofxDOF.mm in Sources */,
 				20893553177A30220000D45F /* gaArduinoModule.mm in Sources */,
-				20BFA405177FAB0F00A6F664 /* gaCVModule.mm in Sources */,
 				20679E4717836E1800C059EA /* ofxGameCamera.cpp in Sources */,
 				20ED90DD178AC03A002B44C7 /* gaSourceTracking.cpp in Sources */,
 			);

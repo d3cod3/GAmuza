@@ -1350,9 +1350,32 @@ class ofGamuzaWrapper{
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofVideoGrabber
          
-         // LIMITED, ofVideoGrabber NOT AVAILABLE IN GAMUZA 0.3 IN THE LIVE CODING SYSTEM
-         // &
-         // MANAGED FROM GUI (video tracking module) & FROM gamuza LIVE CODING FUNCTIONS (ga. module)
+         class_<ofVideoGrabber>("ofVideoGrabber")
+		 .def(constructor<>())
+         .def("isFrameNew", (bool(ofVideoGrabber::*)(void)) &ofVideoGrabber::isFrameNew)
+         .def("update", (void(ofVideoGrabber::*)(void)) &ofVideoGrabber::update)
+         .def("close", (void(ofVideoGrabber::*)(void)) &ofVideoGrabber::close)
+         .def("initGrabber", (bool(ofVideoGrabber::*)(int,int)) &ofVideoGrabber::initGrabber)
+         .def("setPixelFormat", (bool(ofVideoGrabber::*)(ofPixelFormat)) &ofVideoGrabber::setPixelFormat)
+         .def("getPixelFormat", (ofPixelFormat(ofVideoGrabber::*)(void)) &ofVideoGrabber::getPixelFormat)
+         .def("videoSettings", (void(ofVideoGrabber::*)(void)) &ofVideoGrabber::videoSettings)
+         .def("getPixels", (unsigned char*(ofVideoGrabber::*)(void)) &ofVideoGrabber::getPixels)
+         .def("getPixelsRef", (ofPixelsRef(ofVideoGrabber::*)(void)) &ofVideoGrabber::getPixelsRef)
+         .def("getTextureReference", (ofTexture&(ofVideoGrabber::*)(void)) &ofVideoGrabber::getTextureReference)
+         .def("setVerbose", (void(ofVideoGrabber::*)(bool)) &ofVideoGrabber::setVerbose)
+         .def("setDeviceID", (void(ofVideoGrabber::*)(int)) &ofVideoGrabber::setDeviceID)
+         .def("setDesiredFrameRate", (void(ofVideoGrabber::*)(int)) &ofVideoGrabber::setDesiredFrameRate)
+         .def("setUseTexture", (void(ofVideoGrabber::*)(bool)) &ofVideoGrabber::setUseTexture)
+         .def("draw", (void(ofVideoGrabber::*)(float,float,float,float)) &ofVideoGrabber::draw)
+         .def("draw", (void(ofVideoGrabber::*)(float,float)) &ofVideoGrabber::draw)
+         .def("setAnchorPercent", (void(ofVideoGrabber::*)(float,float)) &ofVideoGrabber::setAnchorPercent)
+         .def("setAnchorPoint", (void(ofVideoGrabber::*)(float,float)) &ofVideoGrabber::setAnchorPoint)
+         .def("resetAnchor", (void(ofVideoGrabber::*)(void)) &ofVideoGrabber::resetAnchor)
+         .def("getWidth", (float(ofVideoGrabber::*)(void)) &ofVideoGrabber::getWidth)
+         .def("getHeight", (float(ofVideoGrabber::*)(void)) &ofVideoGrabber::getHeight)
+         .def("isInitialized", (bool(ofVideoGrabber::*)(void)) &ofVideoGrabber::isInitialized)
+         .def_readwrite("width", &ofVideoGrabber::width)
+		 .def_readwrite("height", &ofVideoGrabber::height),
          
          
 		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5239,6 +5262,53 @@ class ofGamuzaWrapper{
 		//////////////////////////////////////////////////////////////
 		///////////////////////////////
 		/// gamuza core api wrapper
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // GASOURCETRACKING
+         class_<gaSourceTracking>("gaCameraTracking")
+         .def(constructor<>())
+         .def("setup", (void(gaSourceTracking::*)(int,int,int)) &gaSourceTracking::setup)
+         .def("update", (void(gaSourceTracking::*)(void)) &gaSourceTracking::update)
+         .def("draw", (void(gaSourceTracking::*)(void)) &gaSourceTracking::draw)
+         .def("setHaarFile", (void(gaSourceTracking::*)(string)) &gaSourceTracking::setHaarFile)
+         .def("setMovieFile", (void(gaSourceTracking::*)(string)) &gaSourceTracking::setMovieFile)
+         .def("setGuiSettingsFile", (void(gaSourceTracking::*)(string)) &gaSourceTracking::setGuiSettingsFile)
+         .def("mousePressed", (void(gaSourceTracking::*)(int,int)) &gaSourceTracking::mousePressed)
+         .def("mouseDragged", (void(gaSourceTracking::*)(int,int)) &gaSourceTracking::mouseDragged)
+         .def("mouseReleased", (void(gaSourceTracking::*)(int,int)) &gaSourceTracking::mouseReleased)
+         .def("getCameraTexture", (ofTexture(gaSourceTracking::*)(void)) &gaSourceTracking::getCameraTexture)
+         .def("getCameraTextureMod", (ofTexture(gaSourceTracking::*)(void)) &gaSourceTracking::getCameraTextureMod)
+         .def("getCameraPixels", (ofPixelsRef(gaSourceTracking::*)(void)) &gaSourceTracking::getCameraPixels)
+         .def("captureBackground", (void(gaSourceTracking::*)(void)) &gaSourceTracking::captureBackground)
+         .def("getMotionQ", (float(gaSourceTracking::*)(void)) &gaSourceTracking::getMotionQ)
+         .def("getMotionX", (float(gaSourceTracking::*)(void)) &gaSourceTracking::getMotionX)
+         .def("getMotionY", (float(gaSourceTracking::*)(void)) &gaSourceTracking::getMotionY)
+         .def("getNumBlobs", (int(gaSourceTracking::*)(void)) &gaSourceTracking::getNumBlobs)
+         .def("getBlobX", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobX)
+         .def("getBlobY", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobY)
+         .def("getBlobW", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobW)
+         .def("getBlobH", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobH)
+         .def("getBlobAngle", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobAngle)
+         .def("getBlobContourSize", (int(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobContourSize)
+         .def("getBlobCPointX", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobCPointX)
+         .def("getBlobCPointY", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobCPointY)
+         .def("getBlobGeometrySize", (int(gaSourceTracking::*)(int)) &gaSourceTracking::getBlobGeometrySize)
+         .def("getBlobGLineX1", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobGLineX1)
+         .def("getBlobGLineY1", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobGLineY1)
+         .def("getBlobGLineX2", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobGLineX2)
+         .def("getBlobGLineY2", (float(gaSourceTracking::*)(int,int)) &gaSourceTracking::getBlobGLineY2)
+         .def("getOpticalFlowX", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getOpticalFlowX)
+         .def("getOpticalFlowY", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getOpticalFlowY)
+         .def("getOpticalFlowVX", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getOpticalFlowVX)
+         .def("getOpticalFlowVY", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getOpticalFlowVY)
+         .def("getNumHaars", (int(gaSourceTracking::*)(void)) &gaSourceTracking::getNumHaars)
+         .def("getHaarX", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarX)
+         .def("getHaarY", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarY)
+         .def("getHaarW", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarW)
+         .def("getHaarH", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarH)
+         .def("getTrigger", (bool(gaSourceTracking::*)(int)) &gaSourceTracking::getTrigger),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
          ///////////////////////////////
 		 // app section
          def("gaKey", &getKey),

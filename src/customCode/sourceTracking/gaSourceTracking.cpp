@@ -3,11 +3,479 @@
 
 //--------------------------------------------------------------
 gaSourceTracking::gaSourceTracking(){
-	
+	haarFileName = GAMUZA_HAAR_DEFAULT;
+    movieFile = GAMUZA_VIDEOTEST;
+    
+    fontSmall.loadFont("fonts/D3Litebitmapism.ttf", 8, true, true);
+    _empty.loadImage("img/empty.png");
+    _hueWheel.loadImage("img/hueWheel.jpg");
+    
+    gamuzaMainColor         = simpleColor(9,147,211,255);
+	gamuzaWhiteColor        = simpleColor(240,240,240,255);
+	gamuzaMarkColor         = simpleColor(255,231,118,255);
+    gamuzaChartBackColor    = simpleColor(40, 40, 40, 255);
 }
 
 //--------------------------------------------------------------
 gaSourceTracking::~gaSourceTracking(){
+	
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::setHaarFile(string hF){
+    haarFileName = hF;
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::setMovieFile(string mF){
+    movieFile = mF;
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::switchCamMovie(){
+    isPlayer = !isPlayer;
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::setGuiSettingsFile(string file){
+    guiSettingsFile = file;
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::setup(int deviceID, int _w, int _h){
+    
+    char xml_name[256];
+	char temp[128];
+	
+	_id			= 0;
+	_devID		= deviceID;
+	_width		= _w;
+	_height		= _h;
+	_numPixels	= _width*_height;
+	
+	randomWait = ofRandom(100);
+    
+    // vector<string> of bgSubTechniques list
+    bgSubTechniques.assign(4, string());
+	bgSubTechniques[0] = "COLOR ABS";
+	bgSubTechniques[1] = "B&W ABS";
+	bgSubTechniques[2] = "LIGHTER THAN";
+	bgSubTechniques[3] = "DARKER THAN";
+	// vector<string> of sourceFlipUse list
+    sourceFlipUse.assign(4, string());
+	sourceFlipUse[0] = "OFF";
+	sourceFlipUse[1] = "VERTICAL";
+	sourceFlipUse[2] = "HORIZONTAL";
+	sourceFlipUse[3] = "VERTICAL + HORIZONTAL";
+	// vector<string> of cfDetailUse list
+    cfDetailUse.assign(3, string());
+	cfDetailUse[0] = "RAW";
+	cfDetailUse[1] = "SMOOTH";
+	cfDetailUse[2] = "SIMPLE";
+    
+    gui.loadFont("fonts/D3Litebitmapism.ttf", 8);
+	gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+	gui.setBackgroundColor(simpleColor(120, 120, 120, 55));
+	gui.setTextColor(gamuzaWhiteColor,simpleColor(240, 240, 240, 225));
+	gui.setOutlineColor(simpleColor(0,0,0,255));
+    ofxControlPanel::topSpacing = 20;
+    gui.setup("COMPUTER VISION MODULE",0,20,1200,720);
+	gui.setDraggable(false);
+    
+    //////////////////////////////////////
+    gui.setBackgroundColor(simpleColor(20, 20, 20, 165));
+    gui.setOutlineColor(simpleColor(0,0,0,255));
+    sprintf(temp," CAM DEVICE [%i]",deviceID);
+    gui.addPanel(temp, 5);
+    
+    gui.setWhichPanel(temp);
+    gui.setBackgroundColor(simpleColor(90, 90, 90, 255));
+    gui.setOutlineColor(simpleColor(20, 20, 20, 125));
+    
+    gui.setWhichColumn(0);
+    gui.addDrawableRect("COLOR INPUT", &colorImg, 240, 180);
+    
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    sprintf(xml_name,"SWITCH_CAM_VIDEO_%i",deviceID);
+    gui.addToggle("USE CAMERA/VIDEOFILE", xml_name, false);
+    sprintf(xml_name,"UNDISTORT_INPUT_%i",deviceID);
+    gui.addToggle("UNDISTORT [LENS CORRECTION]", xml_name, false);
+    gui.addDrawableRect("MOTION DETECTION", &motionGUI, 160, 120);
+    sprintf(xml_name,"RESET_INPUT_WARPING_DEV_%i",deviceID);
+    gui.addToggle("RESET QUAD WARPING", xml_name, false);
+    
+    gui.setWhichColumn(1);
+    gui.addDrawableRect("BALANCED TRACKING", &balancedTracking, 240, 180);
+    sprintf(xml_name,"BG_CAPTURE_%i",deviceID);
+    gui.addToggle("CAPTURE BACKGROUND", xml_name, true);
+    sprintf(xml_name,"BG_USE_STRECH_%i",deviceID);
+    gui.addToggle("USE CONTRAST STRETCH", xml_name, true);
+    gui.addDrawableRect("BACKGROUND SUBTRACTION", &grayThresh, 160, 120);
+    sprintf(xml_name,"USE_COLOR_TRACKING_%i",deviceID);
+    gui.addToggle("USE COLOR TRACKING", xml_name, true);
+    gui.addDrawableRect("COLOR TRACKING", &hsvTracking, 160, 120);
+    
+    gui.setWhichColumn(2);
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("GENERAL SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    //////////////////////////////////////////////
+    sprintf(xml_name,"FLIP_SOURCE_USE_%i",deviceID);
+    gui.setForegroundColor(simpleColor(90, 90, 90, 200),simpleColor(220, 220, 220, 160));
+    gui.addTextDropDown("FLIP SOURCE IMAGE ", xml_name, 1,sourceFlipUse);
+    gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+    //////////////////////////////////////////////
+    sprintf(xml_name,"INPUT_BLUR_%i",deviceID);
+    gui.addSlider("SOURCE BLUR", xml_name,colorImgBlur, 0, 33, true);
+    sprintf(xml_name,"CONTRAST_%i",deviceID);
+    gui.addSlider("CONTRAST", xml_name,contrast, 0.0, 1.0f, false);
+    sprintf(xml_name,"BRIGHTNESS_%i",deviceID);
+    gui.addSlider("BRIGHTNESS", xml_name,brightness, -1.0, 3.0f, false);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("BACKGROUND SUBTRACTION SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"BGSUB_TECH_%i",deviceID);
+    gui.setForegroundColor(simpleColor(90, 90, 90, 200),simpleColor(220, 220, 220, 160));
+    gui.addTextDropDown("SUBTRACTION TECHNIQUE ", xml_name, 3, bgSubTechniques);
+    gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+    sprintf(xml_name,"BGSUB_THRESHOLD_%i",deviceID);
+    gui.addSlider("SUBTRACTION THRESHOLD", xml_name,threshold, 1, 254, true);
+    sprintf(xml_name,"BGSUB_BLUR_%i",deviceID);
+    gui.addSlider("BLUR", xml_name, bgSubBlur, 0, 33, true);
+    sprintf(xml_name,"BGSUB_ERODE_%i",deviceID);
+    gui.addSlider("ERODE", xml_name,bgSubErode, 0, 10, true);
+    sprintf(xml_name,"BGSUB_DILATE_%i",deviceID);
+    gui.addSlider("DILATE", xml_name,bgSubDilate, 0, 10, true);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("OSC DATA SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    sprintf(xml_name,"SMOOTHING_FACTOR_%i",deviceID);
+    gui.addSlider("SMOOTHING FACTOR",xml_name,_smoothingFactor,0.01f,0.99f,false);
+    //////////////////////////////////////////////
+    
+    gui.setWhichColumn(3);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("COLOR TRACKING SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    gui.addDrawableRect(" ", &_hueWheel,180, 8);
+    sprintf(xml_name,"HUE_%i",deviceID);
+    gui.addSlider("HUE", xml_name, hue, 0.0, 1.0f, false);
+    sprintf(xml_name,"HUE_WIDTH_%i",deviceID);
+    gui.addSlider("HUE RANGE", xml_name, hueWidth, 0.0, 1.0f, false);
+    sprintf(xml_name,"SAT_%i",deviceID);
+    gui.addSlider("SATURATION", xml_name, sat, 0.0, 1.0f, false);
+    sprintf(xml_name,"SAT_WIDTH_%i",deviceID);
+    gui.addSlider("SATURATION RANGE", xml_name,satWidth, 0.0, 1.0f, false);
+    sprintf(xml_name,"VAL_%i",deviceID);
+    gui.addSlider("VALUE", xml_name,val, 0.0, 1.0f, false);
+    sprintf(xml_name,"VAL_WIDTH_%i",deviceID);
+    gui.addSlider("VALUE RANGE", xml_name,valWidth, 0.0, 1.0f, false);
+    sprintf(xml_name,"HSV_BLUR_%i",deviceID);
+    gui.addSlider("HSV BLUR", xml_name,hsvBlur, 0, 33, true);
+    sprintf(xml_name,"HSV_ERODE_%i",deviceID);
+    gui.addSlider("ERODE", xml_name, hsvErode, 0, 10, true);
+    sprintf(xml_name,"HSV_DILATE_%i",deviceID);
+    gui.addSlider("DILATE", xml_name,hsvDilate, 0, 10, true);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("MOTION DETECTION SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"M_THRESHOLD_%i",deviceID);
+    gui.addSlider("MOTION THRESHOLD", xml_name,mThreshold, 1, 300, true);
+    sprintf(xml_name,"M_NOISE_COMP_%i",deviceID);
+    gui.addSlider("MOTION NOISE COMPENSATION", xml_name,mNoiseComp, 0, 1000, true);
+    sprintf(xml_name,"MOTION_ON_HORIZON_%i",deviceID);
+    gui.addSlider("MOTION TRIGGER LOW LIMIT", xml_name,onHorizon, 1, 100, true);
+    sprintf(xml_name,"MOTION_OFF_HORIZON_%i",deviceID);
+    gui.addSlider("MOTION TRIGGER RANGE LIMIT", xml_name,offHorizon, 0, 200, true);
+    //////////////////////////////////////////////
+    
+    gui.setWhichColumn(4);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("BLOB TRACKING SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"MIN_BLOB_AREA_%i",deviceID);
+    gui.addSlider("MIN BLOB",xml_name,minBlobArea,2,5000,true);
+    sprintf(xml_name,"MAX_BLOB_AREA_%i",deviceID);
+    gui.addSlider("MAX BLOB",xml_name,maxBlobArea,0,100000,true);
+    sprintf(xml_name,"CF_DETAIL_%i",deviceID);
+    gui.setForegroundColor(simpleColor(90, 90, 90, 200),simpleColor(220, 220, 220, 160));
+    gui.addTextDropDown("CONTOUR DETAIL", xml_name, 0, cfDetailUse);
+    gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+    sprintf(xml_name,"CF_SMOOTH_PCT_%i",deviceID);
+    gui.addSlider("CONTOUR SMOOTH FACTOR", xml_name,smoothPct,0.01f,0.99f,false);
+    sprintf(xml_name,"CF_TOLERANCE_%i",deviceID);
+    gui.addSlider("CONTOUR SIMPLE TOLERANCE", xml_name,tolerance,0.01f,20.0f,false);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("BALANCED TRACKING SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"BT_BLUR_%i",deviceID);
+    gui.addSlider("BALANCED TRACKING BLUR", xml_name, btBlur, 0, 33, true);
+    sprintf(xml_name,"BT_ERODE_%i",deviceID);
+    gui.addSlider("ERODE", xml_name, btErode, 0, 10, true);
+    sprintf(xml_name,"BT_DILATE_%i",deviceID);
+    gui.addSlider("DILATE", xml_name, btDilate, 0, 10, true);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("COMPUTING ALGORITHM SELECTOR");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"COMPUTE_CF_%i",deviceID);
+    gui.addToggle("COMPUTE CONTOUR FINDER", xml_name, false);
+    sprintf(xml_name,"COMPUTE_CG_%i",deviceID);
+    gui.addToggle("COMPUTE CONTOUR GEOMETRY", xml_name, false);
+    sprintf(xml_name,"COMPUTE_OF_%i",deviceID);
+    gui.addToggle("COMPUTE OPTICAL FLOW", xml_name, false);
+    sprintf(xml_name,"COMPUTE_FT_%i",deviceID);
+    gui.addToggle("COMPUTE HAAR FINDER", xml_name, false);
+    sprintf(xml_name,"COMPUTE_TA_%i",deviceID);
+    gui.addToggle("COMPUTE TRIGGER AREAS", xml_name, false);
+    //////////////////////////////////////////////
+    // load default gui settings
+	gui.loadSettings(guiSettingsFile);
+    // GUI Events
+	gui.setupEvents();
+	gui.enableEvents();
+    // create event for capture background
+    sprintf(temp,"BG_CAPTURE_%i",deviceID);
+    ofAddListener(gui.createEventGroup(temp), this, &gaSourceTracking::grabBackgroundEvent);
+    // create event for reset input warping points
+    sprintf(temp,"RESET_INPUT_WARPING_DEV_%i",deviceID);
+    ofAddListener(gui.createEventGroup(temp), this, &gaSourceTracking::resetInputWarping);
+    // create events to force contour finder computing
+    sprintf(temp,"COMPUTE_CG_%i",deviceID);
+    ofAddListener(gui.createEventGroup(temp), this, &gaSourceTracking::activateTrackingCF);
+    sprintf(temp,"COMPUTE_TA_%i",deviceID);
+    ofAddListener(gui.createEventGroup(temp), this, &gaSourceTracking::activateTrackingCF);
+    //////////////////////////////////////////////
+	
+	sprintf(temp,"settings/cams/backgrounds/bgColor%i.jpg",deviceID);
+	trackBg = temp;
+	sprintf(temp,"settings/cams/backgrounds/bgBW%i.jpg",deviceID);
+	trackBgBW = temp;
+	
+	isPlayer = false;
+	
+	vidGrabber.setDeviceID(deviceID);
+    vidGrabber.initGrabber(_width,_height);
+	vidPlayer.loadMovie(movieFile);
+    vidPlayer.play();
+	
+    camPixels = new unsigned char[_numPixels*3];                // Live Cam pixels copy
+	camTexture.allocate(_width,_height,GL_RGB);                 // Live Cam texture copy
+    
+    preColorImg.allocate(_width,_height);						// Live Cam as input source
+	colorImg.allocate(_width,_height);							// Live Cam as input source without lens correction
+	colorImgUndistorted.allocate(_width,_height);				// Live Cam as input source with lens correction
+	grayImg.allocate(_width,_height);							// B&W lve Cam
+	grayImgPixels = new unsigned char[_numPixels];
+	colorImgWarped.allocate(_width,_height);					// warping input for adjust tracking area
+	
+	colorImgHSV.allocate(_width,_height);						// HSV image
+	hueImg.allocate(_width,_height);							// Hue Image
+    satImg.allocate(_width,_height);							// Saturation Image
+    valImg.allocate(_width,_height);							// value Image
+	hsvTrackedPixels = new unsigned char[_numPixels];			// Hue pixels
+	huePixels = new unsigned char[_numPixels];					// Sat pixels
+	satPixels = new unsigned char[_numPixels];					// Val pixels
+	valPixels = new unsigned char[_numPixels];					// HSV tracked image
+	hsvTracking.allocate(_width,_height);						// resulting texture from HSV tracking
+	
+	colorBg.allocate(_width,_height);							// background color image
+	savedBG.allocate(_width,_height,OF_IMAGE_COLOR);			// saved background color image
+	colorDiff.allocate(_width,_height);							// background subtraction over RGB input image
+	resPixels = new unsigned char[_numPixels];					// single channel - b & w
+	pixels1 = new unsigned char[_numPixels];
+	pixels2 = new unsigned char[_numPixels];
+	
+	grayBg.allocate(_width,_height);							// background b&w image
+	savedGrayBG.allocate(_width,_height,OF_IMAGE_GRAYSCALE);	// saved background b&w image
+	grayThresh.allocate(_width,_height);						// background subtraction thresholded
+	grayThreshMD.allocate(_width,_height);						// background subtraction thresholded + Motion Detection
+	
+	balancedTracking.allocate(_width,_height);					// balanced tracking from back subtraction over RGB & HSV tracking merged
+	alg1 = new unsigned char[_numPixels];
+	alg2 = new unsigned char[_numPixels];
+	balPixels = new unsigned char[_numPixels];
+	
+	motionGUI.allocate(_width, _height);
+	grayPrev.allocate(_width,_height);							// previous frame for motion detection
+	grayNow.allocate(_width,_height);							// actual frame for motion detection
+	motionImg.allocate(_width,_height);							// motion detection image
+	motion = new unsigned char[_numPixels];
+	
+	opticalFlow.allocate(_width,_height);
+	
+	blackPixels = new unsigned char[_numPixels];				// black image
+	for(unsigned int b=0;b<_numPixels;b++){
+		blackPixels[b] = 0;
+	}
+	
+	//////////////////////////////////////////////
+	// set background subtraction vars
+	bLearnBackground = false;
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// set motion detection vars
+	frameCounter	 = 0;
+	numPixelsChanged = 0;
+	mCX				 = 0;
+	mCY				 = 0;
+	mCX2			 = 0;
+	mCY2			 = 0;
+	_s_MDQ			 = 0.0f;
+	_osc_MDQ		 = 0.0f;
+	
+	MDCM.set(0.0f,0.0f);
+	_s_MDCM.set(0.0f,0.0f);
+	_osc_MDCM.set(0.0f,0.0f);
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// contour finder
+	contourReg				= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	contourSmooth			= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	contourSimple			= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	geomLines				= new vector<ofVec4f>[MAX_NUM_CONTOURS_TO_FIND];
+	_s_blobGeom				= new vector<ofVec4f>[MAX_NUM_CONTOURS_TO_FIND];
+	_osc_blobGeom			= new vector<ofVec4f>[MAX_NUM_CONTOURS_TO_FIND];
+	_s_contourSmooth		= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	_osc_contourSmooth		= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	_s_contourSimple		= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	_osc_contourSimple		= new vector<ofVec2f>[MAX_NUM_CONTOURS_TO_FIND];
+	
+	box						= new CvBox2D32f[MAX_NUM_CONTOURS_TO_FIND];
+	blobAngle				= new float[MAX_NUM_CONTOURS_TO_FIND];
+	_s_blobInfo				= new CvBox2D32f[MAX_NUM_CONTOURS_TO_FIND];
+	_osc_blobInfo			= new CvBox2D32f[MAX_NUM_CONTOURS_TO_FIND];
+	
+	
+	smoothPct = 0.13f;
+	tolerance = 20.0f;
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// advanced blob tracking (blob order)
+	blobTracker.setListener(this);
+	blobsOrder = new int[MAX_USERS_HARDLIMIT];
+	topLeftX = 1;
+	topLeftY = 1;
+	maxUsers = MAX_USERS_HARDLIMIT;
+	lowRightX = _width;
+	lowRightY = _height;
+	userOffsetX = 0;
+	userOffsetY = 0;
+	moodSpike = 0.25f;
+	nonMoodFrames = 3;
+	currNonMoodFrame = 0;
+	csState = CO_SELNONE;
+	// All blobs are marked as dead initially
+	for (unsigned int i = 0; i < MAX_USERS_HARDLIMIT; i++){
+		usersTracking[i] = B_DEAD;
+	}
+	currAdjustment = AJ_THRESH;
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// optical flow
+	opticalFlowXGrid = (int)(_width/OPTICAL_FLOW_COLS_STEP);
+	opticalFlowYGrid = (int)(_height/OPTICAL_FLOW_ROWS_STEP);
+	
+	_s_opfVel		= new ofVec4f[opticalFlowXGrid*opticalFlowYGrid];
+	_osc_opfVel		= new ofVec4f[opticalFlowXGrid*opticalFlowYGrid];
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// face tracking
+	//load in our face xml file
+	haarFinder.setup(haarFileName);
+	
+	_s_ftInfo		= new ofVec4f[MAX_NUM_CONTOURS_TO_FIND];
+	_osc_ftInfo		= new ofVec4f[MAX_NUM_CONTOURS_TO_FIND];
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// matrix areas for motion trigger
+	float	flopX = 30;
+	float	flopY = 90;
+    
+	triggerAreas.setup(flopX,flopY,240,180,TRIGGER_AREAS_NUM);
+	sprintf(temp,"settings/cams/triggerAreas_id_%i.xml",deviceID);
+	triggerAreas.loadSettings(temp);
+	triggerState = new bool[TRIGGER_AREAS_NUM];
+	for(unsigned int i=0;i<TRIGGER_AREAS_NUM;i++){
+		triggerState[i] = false;
+	}
+	lastAreaON = -1;
+	actualArea = -1;
+	lastTime = 0;
+	silencePeriod = 0;
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// set input warping points
+	sourceFrame.setup(flopX,flopY,240,180,4);
+	sprintf(temp,"settings/cams/sourceFrame_id_%i.xml",deviceID);
+	sourceFrame.loadSettings(temp);
+	
+	sourcePoints  = new ofPoint[4];
+	sourcePoints[0] = ofPoint(flopX, flopY);
+	sourcePoints[1] = ofPoint(240.0f + flopX, flopY);
+	sourcePoints[2] = ofPoint(240.0f + flopX, 180.0f + flopY);
+	sourcePoints[3] = ofPoint(flopX, 180.0f + flopY);
+	
+	destPoints  = new ofPoint[4];
+	destPoints[0] = ofPoint(0.0f, 0.0f);
+	destPoints[1] = ofPoint(240.0f, 0.0f);
+	destPoints[2] = ofPoint(240.0f, 180.0f);
+	destPoints[3] = ofPoint(0.0f, 180.0f);
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// loading tracking backgrounds (color and b&w)
+	fakeBG.loadImage("img/fakeBG.jpg");
+	
+	if(loadBG.loadImage(trackBg)){
+		loadBG.resize(_width,_height);
+		colorBg.setFromPixels(loadBG.getPixels(),_width,_height);
+	}else{
+		fakeBG.resize(_width,_height);
+		colorBg.setFromPixels(fakeBG.getPixels(),_width,_height);
+	}
+	
+	if(loadGrayBG.loadImage(trackBgBW)){
+		loadGrayBG.resize(_width,_height);
+		grayBg.setFromPixels(loadGrayBG.getPixels(),_width,_height);
+	}else{
+		fakeBG.resize(_width,_height);
+		grayBg.setFromPixels(fakeBG.getPixels(),_width,_height);
+	}
+	//////////////////////////////////////////////
+	
+	//////////////////////////////////////////////
+	// loading lens correction vars (undistorting image)
+	loadCalibration();
+	//////////////////////////////////////////////
+	
+	
+	//////////////////////////////////////////////
+	// dummy gui vars init
+	captureVideo = true;
+    drawInfoGraphics = true;
+	saveAllSettings = false;
+	//////////////////////////////////////////////
 	
 }
 
@@ -31,6 +499,7 @@ void gaSourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool pla
 	
 	isPlayer = player;
 	movieFile = movie;
+    haarFileName = haarFile;
 	
 	if(!isPlayer){
 		vidGrabber.setDeviceID(deviceID);
@@ -168,8 +637,7 @@ void gaSourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool pla
 	//////////////////////////////////////////////
 	// face tracking
 	//load in our face xml file
-	haarFinder.setup(haarFile);
-	printf("loaded haar finder file: %s\n", haarFile.c_str());
+	haarFinder.setup(haarFileName);
 	
 	_s_ftInfo		= new ofVec4f[MAX_NUM_CONTOURS_TO_FIND];
 	_osc_ftInfo		= new ofVec4f[MAX_NUM_CONTOURS_TO_FIND];
@@ -303,6 +771,104 @@ void gaSourceTracking::setupCam(int __id, int _w, int _h, int deviceID, bool pla
 void gaSourceTracking::update(){
 	
 	char temp[128];
+    char xml_name[256];
+    
+    //////////////////////////////////////////////
+    sprintf(xml_name,"SWITCH_CAM_VIDEO_%i",_devID);
+    isPlayer = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"FLIP_SOURCE_USE_%i",_devID);
+    _sourceFlipUse = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"UNDISTORT_INPUT_%i",_devID);
+    undistortInput = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"INPUT_BLUR_%i",_devID);
+    colorImgBlur = gui.getValueI(xml_name);
+    sprintf(xml_name,"CONTRAST_%i",_devID);
+    contrast = gui.getValueF(xml_name);
+    sprintf(xml_name,"BRIGHTNESS_%i",_devID);
+    brightness = gui.getValueF(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"USE_COLOR_TRACKING_%i",_devID);
+    useHsvTracking = gui.getValueI(xml_name);
+    sprintf(xml_name,"HUE_%i",_devID);
+    hue = gui.getValueF(xml_name);
+    sprintf(xml_name,"HUE_WIDTH_%i",_devID);
+    hueWidth = gui.getValueF(xml_name);
+    sprintf(xml_name,"SAT_%i",_devID);
+    sat = gui.getValueF(xml_name);
+    sprintf(xml_name,"SAT_WIDTH_%i",_devID);
+    satWidth = gui.getValueF(xml_name);
+    sprintf(xml_name,"VAL_%i",_devID);
+    val = gui.getValueF(xml_name);
+    sprintf(xml_name,"VAL_WIDTH_%i",_devID);
+    valWidth = gui.getValueF(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"MOTION_ON_HORIZON_%i",_devID);
+    onHorizon = gui.getValueI(xml_name);
+    sprintf(xml_name,"MOTION_OFF_HORIZON_%i",_devID);
+    offHorizon = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"BGSUB_TECH_%i",_devID);
+    bgSubTech = gui.getValueI(xml_name);
+    sprintf(xml_name,"BGSUB_THRESHOLD_%i",_devID);
+    threshold = gui.getValueI(xml_name);
+    sprintf(xml_name,"BG_USE_STRECH_%i",_devID);
+    bgUseContrastStrech = gui.getValueI(xml_name);
+    sprintf(xml_name,"BGSUB_BLUR_%i",_devID);
+    bgSubBlur = gui.getValueI(xml_name);
+    sprintf(xml_name,"BGSUB_ERODE_%i",_devID);
+    bgSubErode = gui.getValueI(xml_name);
+    sprintf(xml_name,"BGSUB_DILATE_%i",_devID);
+    bgSubDilate = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"HSV_BLUR_%i",_devID);
+    hsvBlur = gui.getValueI(xml_name);
+    sprintf(xml_name,"HSV_ERODE_%i",_devID);
+    hsvErode = gui.getValueI(xml_name);
+    sprintf(xml_name,"HSV_DILATE_%i",_devID);
+    hsvDilate = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"M_THRESHOLD_%i",_devID);
+    mThreshold = gui.getValueI(xml_name);
+    sprintf(xml_name,"M_NOISE_COMP_%i",_devID);
+    mNoiseComp = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"BT_BLUR_%i",_devID);
+    btBlur = gui.getValueI(xml_name);
+    sprintf(xml_name,"BT_ERODE_%i",_devID);
+    btErode = gui.getValueI(xml_name);
+    sprintf(xml_name,"BT_DILATE_%i",_devID);
+    btDilate = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"MIN_BLOB_AREA_%i",_devID);
+    minBlobArea = gui.getValueI(xml_name);
+    sprintf(xml_name,"MAX_BLOB_AREA_%i",_devID);
+    maxBlobArea = gui.getValueI(xml_name) + minBlobArea;
+    sprintf(xml_name,"CF_DETAIL_%i",_devID);
+    cfDetail = gui.getValueI(xml_name);
+    sprintf(xml_name,"CF_SMOOTH_PCT_%i",_devID);
+    smoothPct = gui.getValueF(xml_name);
+    sprintf(xml_name,"CF_TOLERANCE_%i",_devID);
+    tolerance = gui.getValueF(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"COMPUTE_CF_%i",_devID);
+    computeContourFinder = gui.getValueI(xml_name);
+    sprintf(xml_name,"COMPUTE_CG_%i",_devID);
+    computeContourGeometry = gui.getValueI(xml_name);
+    sprintf(xml_name,"COMPUTE_OF_%i",_devID);
+    computeOpticalFlow = gui.getValueI(xml_name);
+    sprintf(xml_name,"COMPUTE_FT_%i",_devID);
+    computeHaarFinder = gui.getValueI(xml_name);
+    sprintf(xml_name,"COMPUTE_TA_%i",_devID);
+    computeTriggerAreas = gui.getValueI(xml_name);
+    //////////////////////////////////////////////
+    sprintf(xml_name,"SMOOTHING_FACTOR_%i",_devID);
+    _smoothingFactor = gui.getValueF(xml_name);
+    //////////////////////////////////////////////
+    
+    gui.update();
 	
 	//////////////////////////////////////////////
 	// input warping points from GUI
@@ -513,8 +1079,23 @@ void gaSourceTracking::update(){
 
 //--------------------------------------------------------------
 void gaSourceTracking::draw(){
+    
+    char temp[128];
+    string temp1;
+	ostringstream temp2;
 	
 	if(captureVideo){
+        
+        //////////////////////////////////////////////////
+		// Draw gui
+        ofSetColor(255);
+		gui.draw(1);
+        ofEnableAlphaBlending();
+		ofFill();
+        glColor4f(1.0,0.3,0.0,0.6);
+        ofRect(gui.panelTabs[0].x+1, gui.panelTabs[0].y+1, gui.panelTabs[0].width-2, gui.panelTabs[0].height-2);
+        ofDisableAlphaBlending();
+		//////////////////////////////////////////////////
 		
 		//////////////////////////////////////////////////
 		// Draw lines between warping points (input source)
@@ -562,29 +1143,446 @@ void gaSourceTracking::draw(){
 		if(computeContourFinder && computeTriggerAreas && drawInfoGraphics){
 			triggerAreas.draw(triggerState);
 		}
+        
 		//////////////////////////////////////////////////
+        
+        //////////////////////////////////////////////////
+        // Additional text info
+        ofSetColor(255);
+        sprintf(temp,"MOTION QUANTITY : %i",numPixelsChanged);
+        fontSmall.drawString(temp, 30, 490);
+        if(computeContourFinder && computeTriggerAreas){
+            temp2 << "TRIGGERS: ";
+            for(unsigned int t=0;t<TRIGGER_AREAS_NUM;t++){
+                temp2 << t;
+                temp2 << "[";
+                sprintf(temp,"%i",triggerState[t]);
+                temp2 << temp;
+                temp2 << "] ";
+            }
+            temp2 << endl;
+            temp1 = temp2.str();
+            sprintf(temp,"%s",temp1.c_str());
+            fontSmall.drawString(temp, 286,280);
+        }
+        //////////////////////////////////////////////////
 		
 	}
 	
 }
 
 //--------------------------------------------------------------
-void gaSourceTracking::mouseDragged(int x, int y){
+void gaSourceTracking::grabBackgroundEvent(guiCallbackData & data){
 	
+	char temp[256];
+    sprintf(temp,"BG_CAPTURE_%i",_devID);
+    if(data.isElement(temp) && data.getInt(0) == 1 ){
+        bLearnBackground = true;
+        gui.setValueB(temp, false);
+    }
+	
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::activateTrackingCF(guiCallbackData & data){
+	
+	char temp[256], temp2[256],temp3[256];
+    sprintf(temp,"COMPUTE_CG_%i",_devID);
+    sprintf(temp2,"COMPUTE_TA_%i",_devID);
+    sprintf(temp3,"COMPUTE_CF_%i",_devID);
+    if((data.isElement(temp) || data.isElement(temp2)) && data.getInt(0) == 1 ){
+        gui.setValueB(temp3, true);
+    }
+	
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::resetInputWarping(guiCallbackData & data){
+	
+	char temp[256];
+	sprintf(temp,"RESET_INPUT_WARPING_DEV_%i",_devID);
+    if(data.isElement(temp) && data.getInt(0) == 1){
+        resetWarpingPoints();
+        gui.setValueB(temp, false);
+    }
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::resetWarpingPoints(){
+	
+	sourceFrame.points[0].x = 0.0f;
+	sourceFrame.points[0].y = 0.0f;
+	sourceFrame.points[1].x = 240.0f;
+	sourceFrame.points[1].y = 0.0f;
+	sourceFrame.points[2].x = 240.0f;
+	sourceFrame.points[2].y = 180.0f;
+	sourceFrame.points[3].x = 0.0f;
+	sourceFrame.points[3].y = 180.0f;
+	
+}
+
+//--------------------------------------------------------------
+ofTexture gaSourceTracking::getCameraTexture(){
+    if(isPlayer){
+        return vidPlayer.getTextureReference();
+    }else{
+        return vidGrabber.getTextureReference();
+    }
+}
+
+//--------------------------------------------------------------
+ofTexture gaSourceTracking::getCameraTextureMod(){
+    return camTexture;
+}
+
+//--------------------------------------------------------------
+ofPixelsRef gaSourceTracking::getCameraPixels(){
+    if(isPlayer){
+        return vidPlayer.getPixelsRef();
+    }else{
+        return vidGrabber.getPixelsRef();
+    }
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::captureBackground(){
+    bLearnBackground = true;
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getMotionQ(){
+    return _osc_MDQ;
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getMotionX(){
+    return _osc_MDCM.x;
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getMotionY(){
+    return _osc_MDCM.y;
+}
+
+//--------------------------------------------------------------
+int gaSourceTracking::getNumBlobs(){
+    if(computeContourFinder){
+        return runningBlobs;
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobX(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].center.x;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobY(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].center.y;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobW(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].size.width;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobH(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].size.height;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobAngle(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].angle;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+int gaSourceTracking::getBlobContourSize(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                if(cfDetail == 0 || cfDetail == 1){
+                    return contourSmooth[e].size();
+                }else if(cfDetail == 2){
+                    return contourSimple[e].size();
+                }
+            }
+        }
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobCPointX(int blob,int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob){
+                if(cfDetail == 0 || cfDetail == 1){
+                    if(i < contourSmooth[e].size()){
+                        return contourSmooth[e].at(i).x;
+                    }else{
+                        return 0.0;
+                    }
+                }else if(cfDetail == 2){
+                    if(i < contourSimple[e].size()){
+                        return contourSimple[e].at(i).x;
+                    }else{
+                        return 0.0;
+                    }
+                }
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobCPointY(int blob,int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob){
+                if(cfDetail == 0 || cfDetail == 1){
+                    if(i < contourSmooth[e].size()){
+                        return contourSmooth[e].at(i).y;
+                    }else{
+                        return 0.0;
+                    }
+                }else if(cfDetail == 2){
+                    if(i < contourSimple[e].size()){
+                        return contourSimple[e].at(i).y;
+                    }else{
+                        return 0.0;
+                    }
+                }
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+int gaSourceTracking::getBlobGeometrySize(int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return geomLines[e].size();
+            }
+        }
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobGLineX1(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).x;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobGLineY1(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).y;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobGLineX2(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).z;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getBlobGLineY2(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).w;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getOpticalFlowX(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].x;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getOpticalFlowY(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].y;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getOpticalFlowVX(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].z;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getOpticalFlowVY(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].w;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+int gaSourceTracking::getNumHaars(){
+    if(computeHaarFinder){
+		return numFace;
+	}else{
+		return 0;
+	}
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getHaarX(int i){
+    if(i < numFace && computeHaarFinder){
+        return _osc_ftInfo[i].x;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getHaarY(int i){
+    if(i < numFace && computeHaarFinder){
+        return _osc_ftInfo[i].y;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getHaarW(int i){
+    if(i < numFace && computeHaarFinder){
+        return _osc_ftInfo[i].z;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaSourceTracking::getHaarH(int i){
+    if(i < numFace && computeHaarFinder){
+        return _osc_ftInfo[i].w;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+bool  gaSourceTracking::getTrigger(int i){
+    if(computeContourFinder && computeTriggerAreas){
+        return triggerState[i];
+    }else{
+        return -1;
+    }
+}
+
+//--------------------------------------------------------------
+void gaSourceTracking::mouseDragged(int x, int y){
 	
 	triggerAreas.mouseDragged(x, y);
 	// input source quad control
 	sourceFrame.mouseDragged(x, y);
+    
+    gui.mouseDragged(x, y, 0);
 	
 }
 
 //--------------------------------------------------------------
 void gaSourceTracking::mousePressed(int x, int y){
 	
-	
 	triggerAreas.mousePressed(x, y);
 	// input source quad control
 	sourceFrame.mousePressed(x, y);
+    
+    gui.mousePressed(x, y, 0);
+    
+    if(gui.saveDown){
+        saveAllSettings = true;
+    }
 	
 }
 
@@ -595,7 +1593,8 @@ void gaSourceTracking::mouseReleased(int x, int y){
 	triggerAreas.mouseReleased(x,y);
 	// input source quad control
 	sourceFrame.mouseReleased(x,y);
-	
+    
+    gui.mouseReleased();
 	
 }
 

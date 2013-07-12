@@ -529,19 +529,10 @@
 									<reference key="NSOnImage" ref="756751024"/>
 									<reference key="NSMixedImage" ref="908425081"/>
 								</object>
-								<object class="NSMenuItem" id="989449739">
-									<reference key="NSMenu" ref="624513634"/>
-									<string key="NSTitle">Computer Vision</string>
-									<string key="NSKeyEquiv">5</string>
-									<int key="NSKeyEquivModMask">1179648</int>
-									<int key="NSMnemonicLoc">2147483647</int>
-									<reference key="NSOnImage" ref="756751024"/>
-									<reference key="NSMixedImage" ref="908425081"/>
-								</object>
 								<object class="NSMenuItem" id="991879395">
 									<reference key="NSMenu" ref="624513634"/>
 									<string key="NSTitle">Arduino</string>
-									<string key="NSKeyEquiv">6</string>
+									<string key="NSKeyEquiv">5</string>
 									<int key="NSKeyEquivModMask">1179648</int>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="756751024"/>
@@ -5651,14 +5642,6 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">toggleCVModule:</string>
-						<reference key="source" ref="486508904"/>
-						<reference key="destination" ref="989449739"/>
-					</object>
-					<int key="connectionID">1653</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">makeKeyAndOrderFront:</string>
 						<reference key="source" ref="717770335"/>
 						<reference key="destination" ref="767662390"/>
@@ -7315,7 +7298,6 @@ wGw</bytes>
 							<reference ref="251497356"/>
 							<reference ref="135289121"/>
 							<reference ref="148146389"/>
-							<reference ref="989449739"/>
 							<reference ref="991879395"/>
 						</array>
 						<reference key="parent" ref="68375293"/>
@@ -9272,11 +9254,6 @@ wGw</bytes>
 						<reference key="parent" ref="624513634"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">1603</int>
-						<reference key="object" ref="989449739"/>
-						<reference key="parent" ref="624513634"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">1604</int>
 						<reference key="object" ref="991879395"/>
 						<reference key="parent" ref="624513634"/>
@@ -9775,7 +9752,6 @@ wGw</bytes>
 				<string key="1581.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1600.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1602.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="1603.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1604.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1623.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1624.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9909,7 +9885,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1685</int>
+			<int key="maxID">1686</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9951,7 +9927,6 @@ wGw</bytes>
 						<string key="switchMouseKeyControl:">id</string>
 						<string key="toggleArduinoModule:">id</string>
 						<string key="toggleAudioModule:">id</string>
-						<string key="toggleCVModule:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
 						<string key="togglePreviewWindow:">id</string>
 						<string key="toggleTimelinePanel:">id</string>
@@ -10092,10 +10067,6 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="toggleAudioModule:">
 							<string key="name">toggleAudioModule:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleCVModule:">
-							<string key="name">toggleCVModule:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="toggleGAmuzaFullscreen:">

@@ -721,6 +721,22 @@
 				<string>isPaused</string>
 				<string>isLoaded</string>
 				<string>isPlaying</string>
+				<string>ofVideoGrabber</string>
+				<string>close</string>
+				<string>initGrabber</string>
+				<string>setPixelFormat</string>
+				<string>getPixelFormat</string>
+				<string>videoSettings</string>
+				<string>getPixelsRef</string>
+				<string>getTextureReference</string>
+				<string>setVerbose</string>
+				<string>setDeviceID</string>
+				<string>setDesiredFrameRate</string>
+				<string>setUseTexture</string>
+				<string>setAnchorPercent</string>
+				<string>setAnchorPoint</string>
+				<string>resetAnchor</string>
+				<string>isInitialized</string>
 				<string>ofPath</string>
 				<string>newSubPath</string>
 				<string>lineTo</string>
@@ -1722,6 +1738,41 @@
 				<string>getVectorInterpolated</string>
 				<string>bias</string>
 				<string>smudge</string>
+				<string>gaCameraTracking</string>
+				<string>setHaarFile</string>
+				<string>setMovieFile</string>
+				<string>setGuiSettingsFile</string>
+				<string>getCameraTexture</string>
+				<string>getCameraTextureMod</string>
+				<string>getCameraPixels</string>
+				<string>captureBackground</string>
+				<string>getMotionQ</string>
+				<string>getMotionX</string>
+				<string>getMotionY</string>
+				<string>getNumBlobs</string>
+				<string>getBlobX</string>
+				<string>getBlobY</string>
+				<string>getBlobW</string>
+				<string>getBlobH</string>
+				<string>getBlobAngle</string>
+				<string>getBlobContourSize</string>
+				<string>getBlobCPointX</string>
+				<string>getBlobCPointY</string>
+				<string>getBlobGeometrySize</string>
+				<string>getBlobGLineX1</string>
+				<string>getBlobGLineY1</string>
+				<string>getBlobGLineX2</string>
+				<string>getBlobGLineY2</string>
+				<string>getOpticalFlowX</string>
+				<string>getOpticalFlowY</string>
+				<string>getOpticalFlowVX</string>
+				<string>getOpticalFlowVY</string>
+				<string>getNumHaars</string>
+				<string>getHaarX</string>
+				<string>getHaarY</string>
+				<string>getHaarW</string>
+				<string>getHaarH</string>
+				<string>getTrigger</string>
 				<string>gaKey</string>
 				<string>gaMouseX</string>
 				<string>gaMouseY</string>

@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0428 examples 
+ ---------------------
+ Video/camTrackingPanel.ga
+ 
+ The GAmuza Camera Tracking Panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+camPanel = gaCameraTracking()
+drawGUI = true
+captureWidth = 320
+captureHeight = 240
+
+runningBlobs = 0
+cam = ofTexture()
+
+function setup()
+	camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
+	camPanel:setup(1,captureWidth,captureHeight)
+	
+	cam:allocate(captureWidth,captureHeight,GL_RGB)
+end
+
+function update()
+	cam = camPanel:getCameraTextureMod()
+	runningBlobs = camPanel:getNumBlobs()
+    	camPanel:update()
+end
+
+function draw()
+    	gaBackground(0.1,1.0)
+    	
+    	// draw the live image from device
+	ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* captureWidth / captureHeight
+    	cam:draw(OUTPUT_W/2 - scaleW/2,0, scaleW,scaleH)
+    	
+    	ofSetColor(255)
+    	if drawGUI then
+    		camPanel:draw()
+    	end
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	end
+end
+
+function mouseDragged()
+	camPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	camPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	camPanel:mouseReleased(gaMouseX(),gaMouseY())
+end

@@ -141,6 +141,7 @@ void matrixAreas::mouseDragged(float x, float y){
 		}
 	
 	}
+    ofSetColor(255);
 	
 	
 }

@@ -87,7 +87,7 @@ openFrameworks 0074
 
 Compile with LLVM GCC 4.2 (NOT Apple LLVM Compiler 4.1), for 32-bit architecture using OS X 10.7 base sdk.
 
-# Sketching (like every Processing's child do)
+# Sketching (Live Coding)
 
 ### These are some of the GAmuza IDE futures:
 
@@ -174,11 +174,11 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
 ## Modules
 
- * ARDUINO					- READY
- * AUDIO ANALYSIS 			- READY
- * COMPUTER VISION 			- working on it
- * OSC 						- NOT READY YET
- * TIMELINE 				- READY
+ * ARDUINO
+ * AUDIO ANALYSIS
+ * COMPUTER VISION from cameras (wrapped within a class and available from code)
+ * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)	- WORKING ON IT
+ * TIMELINE
 
 
 # Known issues
@@ -190,15 +190,9 @@ none
 
 Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but this is just a matter of time, the real deal is porting this project to Linux and Windows (just for mac now, compatible from osx 10.7 Lion), so, if anyone interested in join me in this project, is more than welcome!!
 
-# NOW Working on:
-
-* The COMPUTER VISION GUI Module
 
 # Version history
 
-## v1.1
-* 
-
-## v1.0
+## v1.0 
  
 * initial version

@@ -5,6 +5,7 @@
 
 #include "ofMain.h"
 #include "ofxOpenCv.h"
+#include "ofxControlPanel.h"
 
 // imageAnalysis
 #include "ofxCvOpticalFlowLK.h"     // cvOpticalFlowLK wrapper for OF [from Takashi Maekawa]
@@ -31,6 +32,12 @@ class gaSourceTracking: public ofBaseApp, public ofxCvBlobListener{
             ~gaSourceTracking();
             
 			void setupCam(int __id, int _w, int _h, int deviceID, bool player = false, string haarFile = GAMUZA_HAAR_DEFAULT, string movie = GAMUZA_VIDEOTEST);
+    
+            void setHaarFile(string hF);
+            void setMovieFile(string mF);
+            void switchCamMovie();
+            void setup(int deviceID, int _w, int _h);
+    
 			void update();
 			void draw();
 			void mouseDragged(int x, int y);
@@ -74,6 +81,7 @@ class gaSourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			int						_numPixels;
 			bool					isPlayer;
 			string					movieFile;
+            string                  haarFileName;
 	
 			string					trackBg;
 			string					trackBgBW;
@@ -83,6 +91,60 @@ class gaSourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			
 			ofVideoGrabber			vidGrabber;
 			ofVideoPlayer			vidPlayer;
+    
+            void grabBackgroundEvent(guiCallbackData & data);
+            void activateTrackingCF(guiCallbackData & data);
+            void resetInputWarping(guiCallbackData & data);
+            void resetWarpingPoints();
+            void setGuiSettingsFile(string file);
+    
+            ofxControlPanel             gui;
+            string                      guiSettingsFile;
+            simpleColor					gamuzaMainColor;
+            simpleColor					gamuzaWhiteColor;
+            simpleColor					gamuzaMarkColor;
+            simpleColor					gamuzaChartBackColor;
+            ofTrueTypeFont				fontSmall;
+            ofImage						_empty;
+            ofImage                     _hueWheel;
+            vector<string>				bgSubTechniques;
+            vector<string>				sourceFlipUse;
+            vector<string>				cfDetailUse;
+    
+    
+            //////////// WRAPPER GETTERS
+            ofTexture getCameraTexture();
+            ofTexture getCameraTextureMod();
+            ofPixelsRef getCameraPixels();
+            void captureBackground();
+            float getMotionQ();
+            float getMotionX();
+            float getMotionY();
+            int getNumBlobs();
+            float getBlobX(int i);
+            float getBlobY(int i);
+            float getBlobW(int i);
+            float getBlobH(int i);
+            float getBlobAngle(int i);
+            int getBlobContourSize(int i);
+            float getBlobCPointX(int blob,int i);
+            float getBlobCPointY(int blob,int i);
+            int getBlobGeometrySize(int i);
+            float getBlobGLineX1(int blob,int i);
+            float getBlobGLineY1(int blob,int i);
+            float getBlobGLineX2(int blob,int i);
+            float getBlobGLineY2(int blob,int i);
+            float getOpticalFlowX(int i);
+            float getOpticalFlowY(int i);
+            float getOpticalFlowVX(int i);
+            float getOpticalFlowVY(int i);
+            int getNumHaars();
+            float getHaarX(int i);
+            float getHaarY(int i);
+            float getHaarW(int i);
+            float getHaarH(int i);
+            bool  getTrigger(int i);
+            //////////// WRAPPER GETTERS
 			
     
             ////////////////////////////////////////////// IMAGE MANIPULATION SECTION

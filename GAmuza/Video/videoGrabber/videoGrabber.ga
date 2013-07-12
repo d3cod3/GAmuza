@@ -1,0 +1,50 @@
+
+/* 
+   
+ GAmuza 0428 examples 
+ ---------------------
+ Video/videoGrabber.ga
+ 
+ The basic video grabber from OF.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+pixels = ofPixels()
+inverted = ofPixels()
+
+pixelateFactor = 8
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(320,240)
+end
+
+function update()
+    	grabber:update()
+    	if grabber:isFrameNew() then
+    		pixels = grabber:getPixelsRef()
+    	end
+end
+
+function draw()
+    	gaBackground(0.2,1.0)
+    
+    	ofPushMatrix()
+    	ofScale(OUTPUT_W/320,OUTPUT_H/240,1)
+    	for i=0,320-1,pixelateFactor do
+		for j=0, 240-1,pixelateFactor do
+			c = ofColor()
+			c = pixels:getColor(i,j)
+			ofSetColor(255-c.r,255-c.g,255-c.b)
+			ofEllipse(i+ pixelateFactor/2,j+ pixelateFactor/2,pixelateFactor,pixelateFactor)
+		end
+	end
+	ofPopMatrix()
+	
+	ofSetColor(255)
+    	grabber:draw(0,0)
+    
+end
