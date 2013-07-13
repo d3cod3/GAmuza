@@ -175,10 +175,24 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 ## Modules
 
  * ARDUINO
+
+[![GAmuza](http://gamuza.d3cod3.org/graphics/arduinoModule.jpg)](http://www.gamuza.cc)
+
  * AUDIO ANALYSIS
+
+[![GAmuza](http://gamuza.d3cod3.org/graphics/audioAnalysisModule.jpg)](http://www.gamuza.cc)
+
  * COMPUTER VISION from cameras (wrapped within a class and available from code)
- * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)	- WORKING ON IT
+
+[![ScreenShot](http://gamuza.d3cod3.org/graphics/cameraTrackingModule.jpg)](http://www.d3cod3.org/gamuza/footage/gaComputerVision.mov)
+
+ * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)
+
+ - WORKING ON IT
+
  * TIMELINE
+
+[![GAmuza](http://gamuza.d3cod3.org/graphics/timelineModule.jpg)](http://www.gamuza.cc)
 
 
 # Known issues
