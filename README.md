@@ -149,7 +149,6 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 ### OF 0.7.4 language **EXCLUDING**:
 
  * ofArduino  --> managed from Arduino GUI module + GAmuza framework related functions
- * ofVideoGrabber --> managed from ComputerVision GUI module + GAmuza framework related functions
  * ofSoundStream -- managed from AudioAnalysis GUI module + GAmuza framework related functions
  * ofLog, ofLogFatalError, ofLogError, ofLogVerbose, ofLogWarning, ofLogNotice --> covered by GAmuza console panel
  * ofPoint --> use ofVec3f instead
