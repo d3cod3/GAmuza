@@ -21,7 +21,7 @@ cam = ofTexture()
 
 function setup()
 	camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
-	camPanel:setup(1,captureWidth,captureHeight)
+	camPanel:setup(0,captureWidth,captureHeight)
 	
 	cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
@@ -50,6 +50,8 @@ end
 function keyReleased()
 	if gaKey() == string.byte('g') then
 		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
 	end
 end
 
