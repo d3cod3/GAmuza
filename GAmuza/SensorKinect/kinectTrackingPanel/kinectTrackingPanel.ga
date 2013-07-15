@@ -1,0 +1,65 @@
+
+/* 
+   
+ GAmuza 0428 examples 
+ ---------------------
+ SensorKinect/kinectTrackingPanel.ga
+ 
+ The GAmuza Kinect Tracking Panel.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+kinectPanel = gaKinectTracking()
+drawGUI = true
+
+//kinectImage = ofTexture()
+
+function setup()
+	//kinectPanel:setGuiSettingsFile(gaDataPath("kinectTrackingSettings.xml"))
+	kinectPanel:setup(0,false,true,0)
+	
+	//kinectImage:allocate(captureWidth,captureHeight,GL_RGB)
+end
+
+function update()
+	//cam = camPanel:getCameraTextureMod()
+	//runningBlobs = camPanel:getNumBlobs()
+    	kinectPanel:update()
+end
+
+function draw()
+    	gaBackground(0.1,1.0)
+    	
+    	// draw the live image from device
+	//ofSetColor(255)
+	//scaleH = OUTPUT_H
+	//scaleW = scaleH* captureWidth / captureHeight
+    	//cam:draw(OUTPUT_W/2 - scaleW/2,0, scaleW,scaleH)
+    	
+    	ofSetColor(255)
+    	if drawGUI then
+    		kinectPanel:draw()
+    	end
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
+	end
+end
+
+function mouseDragged()
+	kinectPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	kinectPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	kinectPanel:mouseReleased(gaMouseX(),gaMouseY())
+end

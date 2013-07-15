@@ -12,27 +12,60 @@
 */
 
 
+gui = ofxControlPanel()
+viewGui = true
+
+nearThreshold = 500
+farThreshold = 2000
+
 function setup()
-	gaGuiAddPage("PAGE TEST",gaImportFile("simpleGui.xml"))
-	gaGuiAddSliderFloat("float slider",0.0,10.0,0.0)
-	gaGuiAddSliderInt("int slider",0,10)
+	gui:setup(0,10,480,OUTPUT_H)
+	
+	gui:addPanel(2)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("PANEL1")
+	gui:addSlider("farThreshold",farThreshold,500,4000,true)
+	gui:addToggle("toggle",true)
+	gui:setWhichColumn(1)
+	gui:addSlider("nearThreshold",nearThreshold,500,4000,true)
+	
+	gui:addPanel(2)
+	
+	gui:loadSettings(gaImportFile("simpleGui.xml"))
 	
 end
 
 function update()
-	
+    	gui:update()
 end
 
 function draw()
-	gaBackground(0.5,0.5,0.0,1.0)
-	
-	ofSetColor(255,10)
-	gaGuiDraw()
-	
+    	gaBackground(0.2,1.0)
+    	
+    	ofSetColor(255)
+    	
+    	if viewGui then
+    		gui:draw()
+    	end
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+end
+
+function mousePressed()
+	gui:mousePressed()
+end
+
+function mouseReleased()
+	gui:mouseReleased()
 end
 
 function keyReleased()
-	if gaKey() == string.byte('g') then
-		gaGuiToggle()
+	if gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	elseif gaKey() == string.byte('g') then
+		viewGui = not viewGui
 	end
 end

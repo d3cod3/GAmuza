@@ -11,17 +11,17 @@
  
 */
 
-response = of.httpResponse()
-buffer = of.buffer()
+response = ofHttpResponse()
+buffer = ofBuffer()
 text = {}
 _line = 0
 
 
 function setup()
-    response = of.loadURL("http://www.d3cod3.org")
+    response = ofLoadURL("http://www.d3cod3.org")
     buffer = response.data
     
-    // capture data from file, line by line
+        // capture data from file, line by line
     	while not buffer:isLastLine() do
         	text[_line] = buffer:getNextLine()
         	_line = _line + 1
@@ -34,10 +34,10 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
-    of.setColor(245)
+    ofSetColor(245)
     for i=0,_line-1 do
-    		of.drawBitmapString(tostring(text[i]),20,20 + 20*i)
-    	end
+        ofDrawBitmapString(tostring(text[i]),20,20 + 20*i)
+    end
 end

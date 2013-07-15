@@ -5,7 +5,7 @@
  ---------------------
  Font/curveText.ga
  
- This example show how to draw a text over a curve, using the ofx.arcText()
+ This example show how to draw a text over a curve, using the ofxArcText()
  class.
  
  Original addon from companje <https://github.com/companje/ofxArcText>

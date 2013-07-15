@@ -1,12 +1,12 @@
 
 /* 
    
- GAmuza 0.4.2 examples 
+ GAmuza 0428 examples 
  ---------------------
  Net/twitterConnect.ga
  
  This example shows how to simply connect and realize a search
- over twitter social network, using the ofx.twitter addon, a modified
+ over twitter social network, using the ofxTwitter addon, a modified
  version of the original addon ofxTwitter:
  <https://github.com/drewvergara/ofxTwitter>
  from Andrew Vergara <http://www.drewvergara.com/>
@@ -15,13 +15,13 @@
  
 */
 
-font = of.trueTypeFont()
-twitter = ofx.twitter()
+font = ofTrueTypeFont()
+twitter = ofxTwitter()
 tweets = {}
 
 
 function setup()
-        font:loadFont(ga.importFile("verdana.ttf"),10,true,false)
+        font:loadFont(gaImportFile("verdana.ttf"),10,true,false)
     
         twitter:clear()
         twitter:setup()
@@ -29,7 +29,7 @@ function setup()
     
         for i=0,100 do
             tweets[i] = {}
-            tweets[i].t = ofx.tweet()
+            tweets[i].t = ofxTweet()
         end
 end
 
@@ -48,9 +48,9 @@ function update()
 end
 
 function draw()
-        ga.background(0.0,1.0)
+        gaBackground(0.0,1.0)
 
-        of.setColor(255)
+        ofSetColor(255)
     
         if twitter:getTotalResponse() > 0 then
             for i=0, twitter:getTotalResponse()-1 do

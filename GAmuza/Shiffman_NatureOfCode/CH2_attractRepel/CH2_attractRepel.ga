@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples
+ GAmuza 0428 examples
  ---------------------
  Shiffman_NatureOfCode/CH2_attractRepel.ga
  
@@ -14,9 +14,6 @@
  
 */
 
-dofile(ga.importFile("classes/Mover.ga"))
-dofile(ga.importFile("classes/Attractor.ga"))
-
 
 g = 1
 NUM_MOVERS = 20
@@ -24,9 +21,9 @@ movers = {}
 a = Attractor()
 
 function setup()
-	of.setCircleResolution(50)
+	ofSetCircleResolution(50)
 	for i=0,NUM_MOVERS-1 do
-		movers[i] = Mover(of.random(4,12),of.random(OUTPUT_W),of.random(OUTPUT_H))
+		movers[i] = Mover(ofRandom(4,12),ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
     	end
 end
 
@@ -34,13 +31,13 @@ function update()
     	for i=0,NUM_MOVERS-1 do
 		for j=0,NUM_MOVERS-1 do
 			if i != j then
-				force = of.vec2f()
+				force = ofVec2f()
 				force = movers[j]:repel(movers[i])
 				movers[i]:applyForce(force)
 			end
 		end
 
-		attraction = of.vec2f()
+		attraction = ofVec2f()
 		attraction = a:attract(movers[i])
 		movers[i]:applyForce(attraction)
 		movers[i]:update()
@@ -49,7 +46,7 @@ function update()
 end
 
 function draw()
-	ga.background(1.0,0.1)
+	gaBackground(1.0,0.1)
 
 	a:display()
 

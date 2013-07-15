@@ -1,71 +1,110 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ComputerVision/contour.ga
  
  This example show how to extract contour data from contour finder
- algorithm + contour geometry, from GAmuza videotracking panel.
+ algorithm + contour geometry, from GAmuza Camera Tracking panel.
  
  created by n3m3da | www.d3cod3.org
  
 */
 
+camPanel = gaCameraTracking()
+drawGUI = true
 camID = 0
 runningBlobs = 0
-cam = of.texture()
+cam = ofTexture()
+
+captureWidth = 320
+captureHeight = 240
 
 function setup()
-	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
+    camPanel:setup(0,captureWidth,captureHeight)
+	
+    cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
-	runningBlobs = ga.camBlobs(0)
+	cam = camPanel:getCameraTextureMod()
+	runningBlobs = camPanel:getNumBlobs()
+    camPanel:update()
 end
 
 function draw()
-    
-	ga.background(0.0,1.0)
-    
-	// draw the live image from device
-	of.setColor(255)
-    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
-    
-	of.pushMatrix()
-	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1.0)
-    
-	for j=0, runningBlobs-1 do
+	gaBackground(0.0,0.8)
 	
-		// draw contours for each blob detected
-		of.setLineWidth(1)
-		of.setColor(255)
-		of.fill()
+    // draw the live image from device
+    ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* captureWidth / captureHeight
+    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
+    
+	// draw blobs
+	ofSetLineWidth(3)
+	ofNoFill()
+	ofSetColor(31,165,210)
 		
-		of.beginShape()
-		for i=0, ga.camBlobContourSize(camID,j)-1 do
-			x = ga.camBlobCPointX(camID,j,i)
-			y = ga.camBlobCPointY(camID,j,i)
-			of.vertex(x,y)
+	ofPushMatrix()
+	ofTranslate(OUTPUT_W/2 - scaleW/2,0,0)
+	ofScale(scaleW/captureWidth,scaleH/captureHeight,1.0)
+	
+	for j=0, runningBlobs-1 do
+        	// draw contours for each blob detected
+		ofSetLineWidth(1)
+		ofSetColor(255)
+		ofFill()
+		ofBeginShape()
+		for i=0, camPanel:getBlobContourSize(j)-1 do
+			x = camPanel:getBlobCPointX(j,i)
+			y = camPanel:getBlobCPointY(j,i)
+			ofVertex(x,y)
 		end
-		of.endShape(false)
+		ofEndShape(false)
     		
-    		// draw geometry for each blob detected
-		of.setLineWidth(3)
-		of.setColor(9,245,160)
-		of.noFill()
-		for z=0, ga.camBlobGeometrySize(camID,j)-1 do
-			x1 = ga.camBlobGLineX1(camID,j,z)
-			y1 = ga.camBlobGLineY1(camID,j,z)
-			x2 = ga.camBlobGLineX2(camID,j,z)
-			y2 = ga.camBlobGLineY2(camID,j,z)
-			of.line(x1,y1,x2,y2)
-			of.circle(x1,y1,3)
-			of.circle(x2,y2,3)
+        // draw geometry for each blob detected
+		ofSetLineWidth(3)
+		ofSetColor(9,245,160)
+		ofNoFill()
+		for z=0, camPanel:getBlobGeometrySize(j)-1 do
+			x1 = camPanel:getBlobGLineX1(j,z)
+			y1 = camPanel:getBlobGLineY1(j,z)
+			x2 = camPanel:getBlobGLineX2(j,z)
+			y2 = camPanel:getBlobGLineY2(j,z)
+			ofLine(x1,y1,x2,y2)
+			ofCircle(x1,y1,3)
+			ofCircle(x2,y2,3)
 		end
 	end
+	ofPopMatrix()
+    
+    // draw Camera Tracking panel
+    ofSetColor(255)
+    if drawGUI then
+        camPanel:draw()
+    end
 
-	of.popMatrix()
+end
 
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
+	end
+end
+
+function mouseDragged()
+	camPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	camPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	camPanel:mouseReleased(gaMouseX(),gaMouseY())
 end

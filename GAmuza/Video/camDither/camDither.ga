@@ -1,52 +1,60 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/camDither.ga
  
- This shows how to filter the camera image with ofx.dither() class.
+ This shows how to filter the camera image with ofxDither() class.
  
  created by n3m3da | www.d3cod3.org
  
 */
 
-dither = ofx.dither()
+grabber = ofVideoGrabber()
+dither = ofxDither()
 _type = 1
-cam = of.texture()
-pixels = of.pixels()
-imageIn = of.image()
-imageOut = of.image()
+
+captureW = 320
+captureH = 240
+
+pixels = ofPixels()
+imageIn = ofImage()
+imageOut = ofImage()
 
 function setup()
-	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
-    	imageIn:allocate(CAPTURE_W,CAPTURE_H,OF_IMAGE_GRAYSCALE)
-    	imageOut:allocate(CAPTURE_W,CAPTURE_H,OF_IMAGE_GRAYSCALE)    
+	grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+    
+    imageIn:allocate(captureW,captureH,OF_IMAGE_GRAYSCALE)
+    imageOut:allocate(captureW,captureH,OF_IMAGE_GRAYSCALE)    
 end
 
 function update()
-	// get the cam texture
-    	cam = ga.cameraTexture(0)
-    	// get the cam pixels
-    	cam:readToPixels(pixels)
-    	imageIn:setFromPixels(pixels)
-    	
-    	applyDither()
+	
+    // get the cam pixels
+    grabber:update()
+    if grabber:isFrameNew() then
+        pixels = grabber:getPixelsRef()
+        imageIn:setFromPixels(pixels)
+    end
+        
+    applyDither()
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
 
-    	of.setColor(255)    
+    	ofSetColor(255)    
     	imageOut:draw(0,0,OUTPUT_W,OUTPUT_H)
 end
 
 function keyReleased()
-	if ga.key() == string.byte('0') then
+	if gaKey() == string.byte('0') then
 		_type = 0
-	elseif ga.key() == string.byte('1') then
+	elseif gaKey() == string.byte('1') then
 		_type = 1
-	elseif ga.key() == string.byte('2') then
+	elseif gaKey() == string.byte('2') then
 		_type = 2
 	end
 end
@@ -54,7 +62,7 @@ end
 /////////////////////////////////////////
 // Custom functions
 
-// the ofx.dither class has three different alghorithms you can use
+// the ofxDither class has three different alghorithms you can use
 function applyDither()
 	if _type == 0 then
         dither:ordered(imageIn,imageOut)

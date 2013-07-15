@@ -1,35 +1,80 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ComputerVision/triggerAreas.ga
  
  This example show how to use the trigger area utility from GAmuza
- videotracking panel.
+ Camera Tracking panel.
  
  created by n3m3da | www.d3cod3.org
  
 */
 
 
+camPanel = gaCameraTracking()
+drawGUI = true
+camID = 0
+cam = ofTexture()
+
+captureWidth = 320
+captureHeight = 240
+
 function setup()
-    // generate a brown noise
-    ga.wave(GA_BROWN,10.0)
+    gaWave(GA_BROWN,1)
+
+    camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
+    camPanel:setup(0,captureWidth,captureHeight)
+	
+    cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
 
 function update()
-
+	cam = camPanel:getCameraTextureMod()
+    camPanel:update()
+    
+    // mute and unmute the brown noise with the trigger area 0
+    if camPanel:getTrigger(0) then
+        gaWaveVolume(0,0.8)
+    else
+        gaWaveVolume(0,0.0)
+    end
 end
 
 function draw()
-    ga.background(0.0,1.0)
+	gaBackground(0.0,0.8)
+	
+    // draw the live image from device
+    ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* captureWidth / captureHeight
+    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
     
-    // mute and unmute the brown noise with the trigger area 0 of device 0
-    // ga.camTrigger(device,area)
-    if ga.camTrigger(0,0) then
-        ga.waveVolume(0,0.8)
-    else
-        ga.waveVolume(0,0.0)
+    // draw Camera Tracking panel
+    ofSetColor(255)
+    if drawGUI then
+        camPanel:draw()
     end
+
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
+	end
+end
+
+function mouseDragged()
+	camPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	camPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	camPanel:mouseReleased(gaMouseX(),gaMouseY())
 end

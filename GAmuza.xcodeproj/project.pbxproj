@@ -371,6 +371,10 @@
 		209E4E57175F657100B135CB /* x_qlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 209E4DF8175F657100B135CB /* x_qlist.c */; };
 		209E4E58175F657100B135CB /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 209E4DF9175F657100B135CB /* x_time.c */; };
 		20A43FAF1756678F003EBF02 /* gaVideoPreview.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20A43FAE1756678F003EBF02 /* gaVideoPreview.mm */; };
+		20A4BB4D17919FC6001763AF /* ofxKinectClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20A4BB4817919FC6001763AF /* ofxKinectClient.cpp */; };
+		20A4BB4E17919FC6001763AF /* ofxKinectServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20A4BB4A17919FC6001763AF /* ofxKinectServer.cpp */; };
+		20A4BB511791B9FC001763AF /* ofxKinectMeshRecorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20A4BB4F1791B9FC001763AF /* ofxKinectMeshRecorder.cpp */; };
+		20A4BB541791D745001763AF /* gaKinectTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20A4BB521791D745001763AF /* gaKinectTracking.cpp */; };
 		20A7DD1E176E4E9C00BD44CA /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7DD1D176E4E9C00BD44CA /* AudioUnit.framework */; };
 		20A7DD20176E4EBB00BD44CA /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7DD1F176E4EBB00BD44CA /* CoreAudioKit.framework */; };
 		20AED8141737CF6800F8306E /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AED8131737CF6800F8306E /* TransparentView.m */; };
@@ -1367,6 +1371,15 @@
 		209E4E86175FB86000B135CB /* gamuzaPD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamuzaPD.h; sourceTree = "<group>"; };
 		20A43FAD1756678F003EBF02 /* gaVideoPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaVideoPreview.h; sourceTree = "<group>"; };
 		20A43FAE1756678F003EBF02 /* gaVideoPreview.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaVideoPreview.mm; sourceTree = "<group>"; };
+		20A4BB4817919FC6001763AF /* ofxKinectClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinectClient.cpp; sourceTree = "<group>"; };
+		20A4BB4917919FC6001763AF /* ofxKinectClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectClient.h; sourceTree = "<group>"; };
+		20A4BB4A17919FC6001763AF /* ofxKinectServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinectServer.cpp; sourceTree = "<group>"; };
+		20A4BB4B17919FC6001763AF /* ofxKinectServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectServer.h; sourceTree = "<group>"; };
+		20A4BB4C17919FC6001763AF /* ofxKinectStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectStreamer.h; sourceTree = "<group>"; };
+		20A4BB4F1791B9FC001763AF /* ofxKinectMeshRecorder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxKinectMeshRecorder.cpp; sourceTree = "<group>"; };
+		20A4BB501791B9FC001763AF /* ofxKinectMeshRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxKinectMeshRecorder.h; sourceTree = "<group>"; };
+		20A4BB521791D745001763AF /* gaKinectTracking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gaKinectTracking.cpp; sourceTree = "<group>"; };
+		20A4BB531791D745001763AF /* gaKinectTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaKinectTracking.h; sourceTree = "<group>"; };
 		20A7DD1D176E4E9C00BD44CA /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = ../../../../../../../../System/Library/Frameworks/AudioUnit.framework; sourceTree = "<group>"; };
 		20A7DD1F176E4EBB00BD44CA /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = ../../../../../../../../System/Library/Frameworks/CoreAudioKit.framework; sourceTree = "<group>"; };
 		20AED8121737CF6800F8306E /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
@@ -2958,6 +2971,8 @@
 		2078494A1732D6030098ABF0 /* sourceTracking */ = {
 			isa = PBXGroup;
 			children = (
+				20A4BB521791D745001763AF /* gaKinectTracking.cpp */,
+				20A4BB531791D745001763AF /* gaKinectTracking.h */,
 				20ED90DB178AC03A002B44C7 /* gaSourceTracking.cpp */,
 				20ED90DC178AC03A002B44C7 /* gaSourceTracking.h */,
 			);
@@ -3402,6 +3417,13 @@
 				20784A291732D6370098ABF0 /* ofxBase3DVideo.h */,
 				20784A2A1732D6370098ABF0 /* ofxKinect.cpp */,
 				20784A2B1732D6370098ABF0 /* ofxKinect.h */,
+				20A4BB4817919FC6001763AF /* ofxKinectClient.cpp */,
+				20A4BB4917919FC6001763AF /* ofxKinectClient.h */,
+				20A4BB4F1791B9FC001763AF /* ofxKinectMeshRecorder.cpp */,
+				20A4BB501791B9FC001763AF /* ofxKinectMeshRecorder.h */,
+				20A4BB4A17919FC6001763AF /* ofxKinectServer.cpp */,
+				20A4BB4B17919FC6001763AF /* ofxKinectServer.h */,
+				20A4BB4C17919FC6001763AF /* ofxKinectStreamer.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -5126,6 +5148,10 @@
 				20893553177A30220000D45F /* gaArduinoModule.mm in Sources */,
 				20679E4717836E1800C059EA /* ofxGameCamera.cpp in Sources */,
 				20ED90DD178AC03A002B44C7 /* gaSourceTracking.cpp in Sources */,
+				20A4BB4D17919FC6001763AF /* ofxKinectClient.cpp in Sources */,
+				20A4BB4E17919FC6001763AF /* ofxKinectServer.cpp in Sources */,
+				20A4BB511791B9FC001763AF /* ofxKinectMeshRecorder.cpp in Sources */,
+				20A4BB541791D745001763AF /* gaKinectTracking.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

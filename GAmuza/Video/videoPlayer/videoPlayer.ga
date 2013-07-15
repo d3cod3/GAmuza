@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/videoPlayer.ga
  
@@ -11,10 +11,10 @@
  
 */
 
-myVideo = of.videoPlayer()
+myVideo = ofVideoPlayer()
 
 function setup()
-    myVideo:loadMovie(ga.importFile("video.mov"))
+    myVideo:loadMovie(gaImportFile("video.mov"))
     myVideo:play()
     myVideo:setLoopState(OF_LOOP_PALINDROME)
 end
@@ -24,8 +24,9 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
-    of.setColor(255)
+    gaBackground(0.0,1.0)
+    
+    ofSetColor(255)
     scaleH = (OUTPUT_W/myVideo:getWidth())*myVideo:getHeight()
     myVideo:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
 end

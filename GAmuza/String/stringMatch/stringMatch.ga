@@ -1,11 +1,11 @@
 
 /* 
    
- GAmuza 0.4.2 examples 
+ GAmuza 0428 examples 
  ---------------------
  String/stringMatch.ga
  
- One of a series of example about string manipulation and analysis.
+ One of a series of examples about string manipulation and analysis.
  
  created by n3m3da | www.d3cod3.org
  
@@ -24,15 +24,15 @@ function update()
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     
-    	of.setColor(255)
+    	ofSetColor(255)
     
     	c = 0
     	for t in string.gmatch(frase, "%a+") do
     		for i=0, table.getn(notas)-1 do
     			if tostring(t) == notas[i] then
-    				of.drawBitmapString(tostring(t),200,100 + 20*c)
+    				ofDrawBitmapString(tostring(t),200,100 + 20*c)
     				c = c + 1
     				i = table.getn(notas)-1
     			end

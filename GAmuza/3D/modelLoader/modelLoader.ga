@@ -6,7 +6,7 @@
  3D/modelLoader.ga
  
  This example show how to load a .3ds model and draw it, using the
- ofx.ModelLoader3D class, wrapping the OF addon ofx3DModelLoader.
+ ofxModelLoader3D class, wrapping the OF addon ofx3DModelLoader.
  
  Original example from openFrameworks:
  <of_folder/examples/addons/3DModelLoaderExample/>

@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/Chair.ga
  
@@ -12,7 +12,7 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel. 0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -26,7 +26,7 @@ chairBackHeight      = 100
 chairFrameThickness  = 10
 
 function setup()
-    of.enableSmoothing()
+    ofEnableSmoothing()
 end
 
 function update()
@@ -34,18 +34,18 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
-    of.setColor(245,151,176)
-    of.drawBitmapString("Click to random-change chair dimensions",200,200)
+    ofSetColor(245,151,176)
+    ofDrawBitmapString("Click to random-change chair dimensions",200,200)
     
-    of.pushMatrix()
-    of.translate(OUTPUT_W/2,OUTPUT_H/2,0)
-    of.rotateX(of.radToDeg(-PI/9))
-    of.rotateY(of.radToDeg(PI/8))
-    of.setLineWidth(3)
+    ofPushMatrix()
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    ofRotateX(ofRadToDeg(-PI/9))
+    ofRotateY(ofRadToDeg(PI/8))
+    ofSetLineWidth(3)
     drawChair()
-    of.popMatrix()
+    ofPopMatrix()
     
 end
 
@@ -55,38 +55,38 @@ end
 
 function drawChair()
 	// back
-	of.pushMatrix()
-	of.translate(chairWidth/2, chairBackHeight/2,0)
+	ofPushMatrix()
+	ofTranslate(chairWidth/2, chairBackHeight/2,0)
 	drawBox(chairWidth, chairBackHeight, chairFrameThickness)
-	of.popMatrix()
+	ofPopMatrix()
 
 	// seat
-	of.pushMatrix()
-	of.translate(chairWidth/2, chairBackHeight + chairFrameThickness/2, chairDepth/2 - chairFrameThickness/2)
+	ofPushMatrix()
+	ofTranslate(chairWidth/2, chairBackHeight + chairFrameThickness/2, chairDepth/2 - chairFrameThickness/2)
 	drawBox(chairWidth, chairFrameThickness, chairDepth)
-	of.popMatrix()
+	ofPopMatrix()
 
 
 	// legs
-	of.pushMatrix()
-	of.translate(chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, 0)
+	ofPushMatrix()
+	ofTranslate(chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, 0)
 	drawBox(chairFrameThickness, chairSeatHeight, chairFrameThickness)
-	of.popMatrix()
+	ofPopMatrix()
 
-	of.pushMatrix()
-	of.translate(chairWidth - chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, 0)
+	ofPushMatrix()
+	ofTranslate(chairWidth - chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, 0)
 	drawBox(chairFrameThickness, chairSeatHeight, chairFrameThickness)
-	of.popMatrix()
+	ofPopMatrix()
 
-	of.pushMatrix()
-	of.translate(chairWidth - chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, chairDepth - chairFrameThickness)
+	ofPushMatrix()
+	ofTranslate(chairWidth - chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, chairDepth - chairFrameThickness)
 	drawBox(chairFrameThickness, chairSeatHeight, chairFrameThickness)
-	of.popMatrix()
+	ofPopMatrix()
 
-	of.pushMatrix()
-	of.translate(chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, chairDepth - chairFrameThickness)
+	ofPushMatrix()
+	ofTranslate(chairFrameThickness/2, chairBackHeight + chairSeatHeight/2 + chairFrameThickness, chairDepth - chairFrameThickness)
 	drawBox(chairFrameThickness, chairSeatHeight, chairFrameThickness)
-	of.popMatrix()
+	ofPopMatrix()
 end
 
 function drawBox(w,h,d)
@@ -146,8 +146,8 @@ function drawBox(w,h,d)
 end
 
 function scrambleChair()
-	chairSeatHeight = math.floor(of.random(30, 200))
-	chairWidth      = math.floor(of.random(30, 200))
-	chairDepth      = math.floor(of.random(30, 200))
-	chairBackHeight = math.floor(of.random(30, 200))
+	chairSeatHeight = math.floor(ofRandom(30, 200))
+	chairWidth      = math.floor(ofRandom(30, 200))
+	chairDepth      = math.floor(ofRandom(30, 200))
+	chairBackHeight = math.floor(ofRandom(30, 200))
 end

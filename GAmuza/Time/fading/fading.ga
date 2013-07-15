@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Time/fading.ga
  
@@ -28,8 +28,8 @@ function setup()
 end
 
 function update()
-    myTimeIn = of.getElapsedTimef() - startTimeIn
-    myTimeOut = of.getElapsedTimef() - startTimeOut
+    myTimeIn = ofGetElapsedTimef() - startTimeIn
+    myTimeOut = ofGetElapsedTimef() - startTimeOut
     
     if startFadeIn then
         if alphaIn < 1.0 then
@@ -49,18 +49,18 @@ function update()
 end
 
 function draw()
-    ga.background(1.0,1.0)
+    gaBackground(1.0,1.0)
     
-    of.setColor(255*alphaIn - 255*alphaOut)
-    of.rect(0,0,OUTPUT_W,OUTPUT_H)
+    ofSetColor(255*alphaIn - 255*alphaOut)
+    ofRect(0,0,OUTPUT_W,OUTPUT_H)
 end
 
 function keyReleased()
 	if ga.key() == string.byte('i') then
-		startTimeIn = of.getElapsedTimef()
+		startTimeIn = ofGetElapsedTimef()
 		startFadeIn = true
 	elseif ga.key() == string.byte('o') then
-		startTimeOut = of.getElapsedTimef()
+		startTimeOut = ofGetElapsedTimef()
     		startFadeOut = true
 	end
     

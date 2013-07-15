@@ -5,7 +5,7 @@ class 'simpleParticle'
 
 function simpleParticle:__init()
     self.duration = 0
-    self.loc = of.vec2f(0,0)
+    self.loc = ofVec2f(0,0)
 end
 
 function simpleParticle:setup(p)
@@ -19,7 +19,7 @@ function simpleParticle:move(dir)
 end
 
 function simpleParticle:draw()
-    of.circle(self.loc.x,self.loc.y,5)
+    ofCircle(self.loc.x,self.loc.y,5)
 end
 
 function simpleParticle:stayOnscreen()

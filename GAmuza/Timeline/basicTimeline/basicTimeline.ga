@@ -1,6 +1,6 @@
 /* 
    
- GAmuza 1.0 examples
+ GAmuza 0428 examples
  ---------------------
  Timeline/basicTimeline.ga
  
@@ -22,12 +22,10 @@ function setup()
 	ofSetCircleResolution(50)
 
     	gaTimelineSetup(gaDataPath("timeline/"),"timelineTest")
-	gaTimelineSetLoopType(OF_LOOP_NORMAL)
+        gaTimelineSetLoopType(OF_LOOP_NORMAL)
     	gaTimelineEnableKeySnap(false)
     	gaTimelineSetFrameRate(25)
-    	//gaTimelineAddAudioTrack("audioTrack",gaDataPath("loop00_hypno.wav"))
     	gaTimelineDurationInSeconds(10)
-    	//gaTimelineSetTimecontrolTrack("audioTrack")
     	gaTimelineAddCurves("circleX",0,OUTPUT_W)
     	gaTimelineAddCurves("circleY",0,OUTPUT_H)
     	gaTimelineAddColors("circleColor")

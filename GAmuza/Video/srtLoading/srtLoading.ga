@@ -1,12 +1,12 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/srtLoading.ga
  
  This example shows how to load and visualize an  .srt subtitle file
- using the ofx.subtitles() class.
+ using the ofxSubtitles() class.
  
  Original addon from patriciogonzalezvivo
  <https://github.com/patriciogonzalezvivo/ofxSubtitles>
@@ -15,16 +15,16 @@
  
 */
 
-video = of.videoPlayer()
-sub = ofx.subtitles()
+video = ofVideoPlayer()
+sub = ofxSubtitles()
 
 function setup()
 	// load movie file
-	video:loadMovie(ga.importFile("video.mov")) // your video here
+	video:loadMovie(gaImportFile("video.mov")) // your video here
 	video:play()
 	// load subtitles .srt file
-	sub:load(ga.importFile("dark.srt")) // your sub here
-	sub:loadfont(ga.importFile("Anonymous_Pro_B.ttf"),22)
+	sub:load(gaImportFile("dark.srt")) // your sub here
+	sub:loadfont(gaImportFile("Anonymous_Pro_B.ttf"),22)
 	sub:setScreen(OUTPUT_W,OUTPUT_H)
 end
 
@@ -35,10 +35,10 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
     // draw the video centered and fullscreen
-    of.setColor(255)
+    ofSetColor(255)
     scaleH = (OUTPUT_W/video.width)*video.height
     video:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
     
@@ -48,5 +48,5 @@ function draw()
 end
 
 function mouseDragged()
-    video:setPosition(ga.mouseX()/OUTPUT_W)
+    video:setPosition(gaMouseX()/OUTPUT_W)
 end

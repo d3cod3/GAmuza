@@ -1,53 +1,88 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ComputerVision/blobs.ga
  
  This example show how to extract blobs data from contour finder algorithm, 
- from GAmuza videotracking panel.
+ from GAmuza Camera Tracking panel.
  
  created by n3m3da | www.d3cod3.org
  
 */
 
+camPanel = gaCameraTracking()
+drawGUI = true
 camID = 0
 runningBlobs = 0
-cam = of.texture()
+cam = ofTexture()
+
+captureWidth = 320
+captureHeight = 240
 
 function setup()
-	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
+    camPanel:setup(0,captureWidth,captureHeight)
+	
+    cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
-	runningBlobs = ga.camBlobs(0)
+	cam = camPanel:getCameraTextureMod()
+	runningBlobs = camPanel:getNumBlobs()
+    camPanel:update()
 end
 
 function draw()
-	ga.background(0.0,0.8)
+	gaBackground(0.0,0.8)
 	
-	// draw the live image from device
-	of.setColor(255)
-    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
+    // draw the live image from device
+    ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* captureWidth / captureHeight
+    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
     
 	// draw blobs
-	of.setLineWidth(3)
-	of.noFill()
-	of.setColor(31,165,210)
+	ofSetLineWidth(3)
+	ofNoFill()
+	ofSetColor(31,165,210)
 		
-	of.pushMatrix()
-	of.scale(OUTPUT_W,OUTPUT_H,1.0)
+	ofPushMatrix()
+	ofScale(scaleW,scaleH,1.0)
+        for j=0, runningBlobs-1 do
+            x = camPanel:getBlobX(j)
+            y = camPanel:getBlobY(j)
+            w = camPanel:getBlobW(j)
+            h = camPanel:getBlobH(j)
+            ofRect(x,y,w,h)
+        end
+	ofPopMatrix()
     
-	for j=0, runningBlobs-1 do
-		x = ga.camBlobX(camID,j)
-		y = ga.camBlobY(camID,j)
-		w = ga.camBlobW(camID,j)
-		h = ga.camBlobH(camID,j)
-		of.rect(x,y,w,h)
+    // draw Camera Tracking panel
+    ofSetColor(255)
+    if drawGUI then
+        camPanel:draw()
+    end
+
+end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
 	end
+end
 
-	of.popMatrix()
+function mouseDragged()
+	camPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
 
+function mousePressed()
+	camPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	camPanel:mouseReleased(gaMouseX(),gaMouseY())
 end

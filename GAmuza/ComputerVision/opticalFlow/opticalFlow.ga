@@ -1,50 +1,88 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ComputerVision/opticalFlow.ga
  
  This example show how to use the data from optical flow algorithm from 
- GAmuza videotracking panel.
+ GAmuza Camera Tracking panel.
  
  created by n3m3da | www.d3cod3.org
  
 */
 
+camPanel = gaCameraTracking()
+drawGUI = true
 camID = 0
-cam = of.texture()
+cam = ofTexture()
+
+captureWidth = 320
+captureHeight = 240
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
+    camPanel:setup(0,captureWidth,captureHeight)
+	
+    cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
+	cam = camPanel:getCameraTextureMod()
+    camPanel:update()
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+	gaBackground(0.0,0.8)
+	
+    // draw the live image from device
+    ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* captureWidth / captureHeight
+    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
     
-	// draw the live image from device
-	of.setColor(255)
-    	cam:draw(0,0,OUTPUT_W,OUTPUT_H)
-	
 	// draw an optical flow representation
-	of.setColor(31,165,210)
-	of.setLineWidth(3)
+	ofSetColor(31,165,210)
+	ofSetLineWidth(3)
 	
-	of.pushMatrix()
-	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
+	ofPushMatrix()
+	ofScale(scaleW/captureWidth,scaleH/captureHeight,1)
 	
 	for i=0, OPTICAL_FLOW_GRID_X*OPTICAL_FLOW_GRID_Y do
-		x = ga.camOpticalFlowX(camID,i)
-		y = ga.camOpticalFlowY(camID,i)
-		vX = ga.camOpticalFlowVX(camID,i)
-		vY = ga.camOpticalFlowVY(camID,i)
-		of.line(x,y,x + vX,y + vY)
+		x = camPanel:getOpticalFlowX(i)
+		y = camPanel:getOpticalFlowY(i)
+		vX = camPanel:getOpticalFlowVX(i)
+		vY = camPanel:getOpticalFlowVY(i)
+		ofLine(x,y,x + vX,y + vY)
 	end
 	
-	of.popMatrix()
+	ofPopMatrix()
+    
+    // draw Camera Tracking panel
+    ofSetColor(255)
+    if drawGUI then
+        camPanel:draw()
+    end
 
 end
+
+function keyReleased()
+	if gaKey() == string.byte('g') then
+		drawGUI = not drawGUI
+	elseif gaKey() == string.byte('o') then
+		gaSaveFrame(gaDataPath("export.tif"))
+	end
+end
+
+function mouseDragged()
+	camPanel:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	camPanel:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	camPanel:mouseReleased(gaMouseX(),gaMouseY())
+end
+

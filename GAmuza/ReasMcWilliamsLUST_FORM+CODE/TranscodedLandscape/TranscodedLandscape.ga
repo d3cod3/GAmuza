@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/TranscodedLandscape.ga
  
@@ -12,17 +12,17 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel .0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
  
 */
 
-img = of.image()
-tex = of.texture()
-c = of.color()
-pixels = of.pixels()
+img = ofImage()
+tex = ofTexture()
+c = ofColor()
+pixels = ofPixels()
 theta = 0
 
 function setup()
@@ -39,13 +39,13 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,0.3)
+    gaBackground(0.0,0.3)
     
 
-    of.pushMatrix()
-        of.translate(OUTPUT_W/2,OUTPUT_H/2,0.0)
-        of.scale(9.0,9.0,1.0)
-        of.rotateY(theta)
+    ofPushMatrix()
+        ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+        ofScale(9.0,9.0,1.0)
+        ofRotateY(theta)
         
         ww = img:getWidth()
         hh = img:getHeight()
@@ -54,7 +54,7 @@ function draw()
         for i=0, hh do
             for j=0, ww do
                 c = pixels:getColor(j,i)
-                of.setColor(245,151,176,c:getBrightness()) 
+                ofSetColor(245,151,176,c:getBrightness()) 
             
                 x1 = j - ww/2
                 y1 = i - hh/2
@@ -70,6 +70,6 @@ function draw()
         end
         glEnd()
 
-    of.popMatrix()
+    ofPopMatrix()
 
 end

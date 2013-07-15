@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples
+ GAmuza 0428 examples
  ---------------------
  Shiffman_NatureOfCode/CH0_randomWalk.ga
  
@@ -31,10 +31,10 @@ end
 
 function update()
 	for i=0,numW-1 do
-        	local rX = of.randomf()
-        	local rY = of.randomf()
-        	local grX = ofx.gaussian()
-        	local grY = ofx.gaussian()
+        	local rX = ofRandomf()
+        	local rY = ofRandomf()
+        	local grX = ofxGaussian()
+        	local grY = ofxGaussian()
 
 		walkers[i].x = walkers[i].x + rX
         	walkers[i].y = walkers[i].y + rY
@@ -45,13 +45,13 @@ function update()
 end
 
 function draw()
-    	ga.background(0.0,0.01)
+    	gaBackground(0.0,0.01)
 
-    	of.noFill()
+    	ofNoFill()
     	for i=0,numW-1 do
-        	of.setColor(255)
-        	of.rect(walkers[i].x,walkers[i].y,1,1)
-        	of.setColor(255,0,0)
-        	of.rect(gWalkers[i].x,gWalkers[i].y,1,1)
+        	ofSetColor(255)
+        	ofRect(walkers[i].x,walkers[i].y,1,1)
+        	ofSetColor(255,0,0)
+        	ofRect(gWalkers[i].x,gWalkers[i].y,1,1)
     	end
 end

@@ -45,6 +45,6 @@ function draw()
 	ofPopMatrix()
 	
 	ofSetColor(255)
-    	grabber:draw(0,0)
+    grabber:draw(0,0)
     
 end

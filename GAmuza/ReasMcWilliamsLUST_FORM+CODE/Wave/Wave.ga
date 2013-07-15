@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/Wave.ga
  
@@ -12,7 +12,7 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel. 0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -29,7 +29,7 @@ phaseInc = 0.15
 r = 0.0
 
 function setup()
-    r = of.random(-math.pi/4, math.pi/4)
+    r = ofRandom(-math.pi/4, math.pi/4)
 end
 
 function update()
@@ -37,26 +37,26 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,0.05)
-    of.noFill()
-    of.setColor(245,151,176)
-    of.translate(30,30,0)
+    gaBackground(0.0,0.05)
+    ofNoFill()
+    ofSetColor(245,151,176)
+    ofTranslate(30,30,0)
     for i=0, cols do
-        of.pushMatrix()
-        of.translate(i*cOffset,0,0)
+        ofPushMatrix()
+        ofTranslate(i*cOffset,0,0)
         
         dir = 1
         for j=0, rows do
-            of.pushMatrix()
-            of.translate(0,rOffset*j,0)
-            of.rotateZ(of.radToDeg(r))
-            of.rect(-brickW/2,-brickH/2,brickW,brickH)
-            of.popMatrix()
+            ofPushMatrix()
+            ofTranslate(0,rOffset*j,0)
+            ofRotateZ(ofRadToDeg(r))
+            ofRect(-brickW/2,-brickH/2,brickW,brickH)
+            ofPopMatrix()
             r = r + ((dir+0.0001)*phaseInc)
             if r >= HALF_PI/2.0 or r <= -(HALF_PI/2.0) then
                 dir = dir * -1
             end
         end
-        of.popMatrix()
+        ofPopMatrix()
     end
 end

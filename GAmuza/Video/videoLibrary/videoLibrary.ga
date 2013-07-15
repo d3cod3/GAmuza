@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/videoLibrary.ga
  
@@ -12,22 +12,22 @@
  
 */
 
-dir = of.directory()
+dir = ofDirectory()
 videos = {}
 currentVideo = 0
 numVideos = 0
 
 function setup()
 	// open and list the content of a directory
-	dir:listDir(ga.importFile("arcade/"))
+	dir:listDir(gaDataPath("arcade/"))
 	dir:sort()
 	numVideos = dir:size()
 
-	currentVideo = math.floor(of.random(0,numVideos))
+	currentVideo = math.floor(ofRandom(0,numVideos))
     
     	if dir:size() > 0 then
 		for i=0,numVideos-1 do
-			videos[i] = of.videoPlayer()
+			videos[i] = ofVideoPlayer()
 			videos[i]:loadMovie(dir:getPath(i))
 			if i == currentVideo then
 				videos[i]:play()
@@ -48,22 +48,22 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 
 	// draw the current video
-	of.setColor(255)
+	ofSetColor(255)
 	scaleH = (OUTPUT_W/videos[currentVideo]:getWidth())*videos[currentVideo]:getHeight()
 	videos[currentVideo]:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
 
-    of.setColor(255)
+    ofSetColor(255)
     text = string.format("File: %s |Ê Position: %f", dir:getName(currentVideo),videos[currentVideo]:getPosition())
-    of.drawBitmapString(text,10,OUTPUT_H-30)
+    ofDrawBitmapString(text,10,OUTPUT_H-30)
     
 end
 
 function mouseReleased()
 	// change video
-	currentVideo = math.floor(of.random(0,numVideos))
+	currentVideo = math.floor(ofRandom(0,numVideos))
 	
 	for i=0,numVideos-1 do
 		if i == currentVideo then

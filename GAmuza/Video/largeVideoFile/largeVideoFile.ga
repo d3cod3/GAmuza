@@ -1,11 +1,12 @@
 
 /* 
    
- GAmuza 1.0 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/largeVideoFile.ga
  
- The empty GAmuza script (you can start from here).
+ Import large video files using the ofxPBOVideoPlayer addon
+ (Pixel buffer object = PBO).
  
  created by n3m3da | www.d3cod3.org
  
@@ -14,7 +15,7 @@
 video = ofxPBOVideoPlayer()
 
 function setup()
-	video:load(gaImportFile("video/las_vidasdeL_final.mov"))
+	video:load(gaImportFile("yourVideoHere.mov"))
 	video:play()
 end
 

@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 1.0 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/videoExport.ga
  
@@ -35,7 +35,7 @@ end
 
 function keyReleased()
 	if gaKey() == string.byte('r') then
-		recorder:startNewRecording(gaImportFile("exportFile"))
+		recorder:startNewRecording(gaDataPath("exportFile"))
 	elseif gaKey() == string.byte('s') then
 		recorder:finishMovie(true)
 	end

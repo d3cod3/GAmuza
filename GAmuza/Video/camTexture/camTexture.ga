@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/camTexture.ga
  
@@ -11,20 +11,30 @@
  
 */
 
-cam = of.texture()
+grabber = ofVideoGrabber()
+cam = ofTexture()
+
+captureW = 320
+captureH = 240
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+    cam:allocate(captureW,captureH,GL_RGB)
     cam:clear()
 end
 
 function update()
-    cam = ga.cameraTexture(0)
+    // get the cam texture
+    grabber:update()
+    if grabber:isFrameNew() then
+        cam = grabber:getTextureReference()
+    end
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
-    of.setColor(255)
+    ofSetColor(255)
     cam:draw(0,0)
 end

@@ -5,7 +5,7 @@
  ---------------------
  Physics/vectorField.ga
  
- This example show how to simply create a vector field from the ofx.vectorField() class.
+ This example show how to simply create a vector field from the ofxVectorField() class.
  
  Original addon from mantissa <https://github.com/mantissa/ofxVectorField>
  
@@ -13,18 +13,15 @@
  
 */
 
-dofile(ga.importFile("simpleParticle.ga"))
-
-
-img = of.image()
-field = ofx.vectorField()
+img = ofImage()
+field = ofxVectorField()
 particles = {}
 numParticles = 300
 pressed = false
 
 function setup()
-	of.setCircleResolution(50)
-	img:loadImage(ga.importFile("noisemap.jpg"))
+	ofSetCircleResolution(50)
+	img:loadImage(gaImportFile("noisemap.jpg"))
 	img:resize(OUTPUT_W,OUTPUT_H)
 
 	field:setup(OUTPUT_W,OUTPUT_H,20)
@@ -46,42 +43,42 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,0.1)
+	gaBackground(0.0,0.1)
 	
-	// if mouse pressed draw the image that generates the vector field
-	of.setColor(255)
+	// if mouse pressed draw the image that generates the vector field 
+	ofSetColor(255)
 	if pressed then
 		img:draw(0,0)
 	end
 
-	// draw the vector field
-	of.enableAlphaBlending()
-	of.setColor(255,10)
+	// draw the vector field 
+	ofEnableAlphaBlending()
+	ofSetColor(255,10)
 	field:draw()
-	of.disableAlphaBlending()
+	ofDisableAlphaBlending()
 
-	// draw the particles
-	of.setColor(14,205,150)
+	// draw the particles 
+	ofSetColor(14,205,150)
 	for i=0,numParticles do
 		particles[i]:draw()
 	end
 	
-	// draw text info
-	of.setColor(255,191,81)
-	of.drawBitmapString(" Left click to see the image that generates the vector filed\n Press spacebar to reset particles",20,100)
+	// draw text info 
+	ofSetColor(255,191,81)
+	ofDrawBitmapString(" Left click to see the image that generates the vector filed\n Press spacebar to reset particles",20,100)
 end
 
 function resetParticles()
 	for i=0,numParticles do
 		particles[i] = simpleParticle()
-		pos = of.vec2f()
-		pos:set(OUTPUT_W/2 + of.random(-400,400), OUTPUT_H/2 + of.random(-200,200))
+		pos = ofVec2f()
+		pos:set(OUTPUT_W/2 + ofRandom(-400,400), OUTPUT_H/2 + ofRandom(-200,200))
 		particles[i]:setup(pos)
     end
 end
 
 function keyReleased()
-	if ga.key() == string.byte(' ') then
+	if gaKey() == string.byte(' ') then
 		resetParticles()
 	end
 end

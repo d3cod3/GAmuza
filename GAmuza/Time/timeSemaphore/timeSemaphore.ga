@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.2 examples 
+ GAmuza 0428 examples 
  ---------------------
  Time/timeSemaphore.ga
  
@@ -21,7 +21,7 @@ GAmuzaTime 	= 0
 myTime  		= 0
 wait 		= 5000 // 5 seconds
 
-lastReset 	= of.getElapsedTimeMillis()
+lastReset 	= ofGetElapsedTimeMillis()
 
 // SEMAPHORE VARIABLES
 semaphore = true
@@ -32,16 +32,16 @@ volume = 0
 // ----------------------------------------
 function setup()
 	// set a better circles resolution from default
-	of.setCircleResolution(50)
+	ofSetCircleResolution(50)
 end
 
 // ----------------------------------------
 function update()
 	// get the volume from audio input channel 0
-	volume = ga.getVolume(0)
+	volume = gaGetVolume(0)
 	
 	// get the time elapsed from the opening of GAmuza
-	GAmuzaTime = of.getElapsedTimeMillis()
+	GAmuzaTime = ofGetElapsedTimeMillis()
 	
 	// create a parallel timeline starting from the last interaction moment
 	// when microphone detect a higher volume we record that moment in time
@@ -69,27 +69,27 @@ end
 // ----------------------------------------
 function draw()
 	// draw the background
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 	
 	// draw the semaphore
 	if semaphore then
-		of.setColor(0,255,0) // green
-		of.drawBitmapString("TALK LOUD TO INTERACT", OUTPUT_W/2 - 86, OUTPUT_H/2 - 120)
+		ofSetColor(0,255,0) // green
+		ofDrawBitmapString("TALK LOUD TO INTERACT", OUTPUT_W/2 - 86, OUTPUT_H/2 - 120)
 	else
-		of.setColor(255,0,0) // red
+		ofSetColor(255,0,0) // red
 		// visualize the countdown time (waiting time)
 		countdown = wait-(GAmuzaTime-lastReset)
-		of.drawBitmapString(string.format("WAIT %i ms", countdown), OUTPUT_W/2 - 46, OUTPUT_H/2 - 120)
+		ofDrawBitmapString(string.format("WAIT %i ms", countdown), OUTPUT_W/2 - 46, OUTPUT_H/2 - 120)
 	end
-	of.circle(OUTPUT_W/2,OUTPUT_H/2,100)
+	ofCircle(OUTPUT_W/2,OUTPUT_H/2,100)
 	
 	// draw Data
-	of.setColor(40)
-	of.rect(20,20,230,120)
-	of.setColor(255)
-	of.drawBitmapString(string.format("GAmuza Time: %s ms",GAmuzaTime),30,50)
-	of.drawBitmapString(string.format("Last Reset at: %s ms", lastReset),30,80)
-	of.drawBitmapString(string.format("My Time: %s ms", myTime),30,110)
+	ofSetColor(40)
+	ofRect(20,20,230,120)
+	ofSetColor(255)
+	ofDrawBitmapString(string.format("GAmuza Time: %s ms",GAmuzaTime),30,50)
+	ofDrawBitmapString(string.format("Last Reset at: %s ms", lastReset),30,80)
+	ofDrawBitmapString(string.format("My Time: %s ms", myTime),30,110)
 end
 
 

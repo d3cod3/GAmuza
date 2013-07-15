@@ -17,23 +17,23 @@ stringLabel = "/testSTRING"
 
 function setup()
 	// init OSC sending labels
-    	ga.setOSCMessage(intLabel,OSC_INT)    
-    	ga.setOSCMessage(floatLabel,OSC_FLOAT)
-    	ga.setOSCMessage(stringLabel,OSC_STRING)
+    	gaSetOSCMessage(intLabel,OSC_INT)    
+    	gaSetOSCMessage(floatLabel,OSC_FLOAT)
+    	gaSetOSCMessage(stringLabel,OSC_STRING)
 end
 
 function update()
 	// send OSC messages
-    	ga.setOSCValue(intLabel,tostring(ga.mouseX()))
-    	ga.setOSCValue(floatLabel,tostring(of.randomuf()))
-    	ga.setOSCValue(stringLabel,"any string")    
+    	gaSetOSCValue(intLabel,tostring(gaMouseX()))
+    	gaSetOSCValue(floatLabel,tostring(ofRandomuf()))
+    	gaSetOSCValue(stringLabel,"any string")
 end
 
 function draw()
-    	ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
     
-    	of.setColor(34,217,179)
-    	text = string.format("Sending OSC data to IP: %s at port: %s",ga.sendingOscTo(),OSC_SENDING_PORT)
-    	of.drawBitmapString(text,20,200)
+    	ofSetColor(34,217,179)
+    	text = string.format("Sending OSC data to IP: %s at port: %s",gaSendingOscTo(),OSC_SENDING_PORT)
+    	ofDrawBitmapString(text,20,200)
     
 end

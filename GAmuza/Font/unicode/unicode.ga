@@ -5,7 +5,7 @@
  ---------------------
  Font/unicode.ga
  
- This is a basic example use of the ofx.trueTypeFontUC() class, used to load .ttf 
+ This is a basic example use of the ofxTrueTypeFontUC() class, used to load .ttf 
  or .otf fonts form the disk and using it to draw UNICODE text content,
  with all accents and special characters.
  

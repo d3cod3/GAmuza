@@ -1,6 +1,8 @@
 
 /*
 
+GAmuza port to Processing examples [http://www.processing.org]
+
 TRIANGLE_STRIP Mode by Ira Greenberg. 
 
 Generate a closed ring using the vertex() function and glBegin(GL_TRIANGLE_STRIP) mode.
@@ -21,35 +23,35 @@ function setup()
 end
 
 function draw()
-  ga.background(0.85,1.0);
+  gaBackground(0.85,1.0);
   
-  pts = math.ceil(of.map(ga.mouseX(), 0, OUTPUT_W, 6, 60,true));
+  pts = math.ceil(ofMap(gaMouseX(), 0, OUTPUT_W, 6, 60,true));
   rot = 180.0/pts;
   _angle = 0;
   
-  of.setColor(255)
+  ofSetColor(255)
   glBegin(GL_TRIANGLE_STRIP)
   for i=0, pts do
-    px = x + math.cos(of.degToRad(_angle)) * outerRad
-    py = y + math.sin(of.degToRad(_angle)) * outerRad
+    px = x + math.cos(ofDegToRad(_angle)) * outerRad
+    py = y + math.sin(ofDegToRad(_angle)) * outerRad
     _angle = _angle + rot
     glVertex3d(px, py, 0)
-    px = x + math.cos(of.degToRad(_angle)) * innerRad
-    py = y + math.sin(of.degToRad(_angle)) * innerRad
+    px = x + math.cos(ofDegToRad(_angle)) * innerRad
+    py = y + math.sin(ofDegToRad(_angle)) * innerRad
     glVertex3d(px, py, 0)
     _angle = _angle + rot
   end
   glEnd()
   
-  of.setColor(0)
+  ofSetColor(0)
   glBegin(GL_LINE_LOOP)
   for i=0, pts do
-    px = x + math.cos(of.degToRad(_angle)) * outerRad
-    py = y + math.sin(of.degToRad(_angle)) * outerRad
+    px = x + math.cos(ofDegToRad(_angle)) * outerRad
+    py = y + math.sin(ofDegToRad(_angle)) * outerRad
     _angle = _angle + rot
     glVertex3d(px, py, 0)
-    px = x + math.cos(of.degToRad(_angle)) * innerRad
-    py = y + math.sin(of.degToRad(_angle)) * innerRad
+    px = x + math.cos(ofDegToRad(_angle)) * innerRad
+    py = y + math.sin(ofDegToRad(_angle)) * innerRad
     glVertex3d(px, py, 0)
     _angle = _angle + rot
   end

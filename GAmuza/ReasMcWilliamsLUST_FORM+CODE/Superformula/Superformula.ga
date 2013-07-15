@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/Superformula.ga
  
@@ -12,7 +12,7 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel. 0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -28,7 +28,7 @@ pointNum = 180
 holePoints = {}
 
 function setup()
-   of.enableSmoothing() 
+   ofEnableSmoothing() 
 end
 
 function update()
@@ -36,17 +36,17 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
     
-    of.noFill()
-    of.setLineWidth(1)
-    of.setColor(245,151,176)
-    of.pushMatrix()
-    of.translate(OUTPUT_W/3,OUTPUT_H/2,0)
-    of.rotateZ(of.getElapsedTimef())
+    ofNoFill()
+    ofSetLineWidth(1)
+    ofSetColor(245,151,176)
+    ofPushMatrix()
+    ofTranslate(OUTPUT_W/3,OUTPUT_H/2,0)
+    ofRotateZ(ofGetElapsedTimef())
     newscaler = scaler
     for s=0, 16 do
-        of.beginShape()
+        ofBeginShape()
         
         mm = m + s
         nn1 = n1 + s
@@ -56,14 +56,14 @@ function draw()
         sscaler = newscaler
         
         holePoints = superFormula(mm, nn1, nn2, nn3)   
-        of.curveVertex(holePoints[pointNum-1].x*sscaler,holePoints[pointNum-1].y*sscaler)
+        ofCurveVertex(holePoints[pointNum-1].x*sscaler,holePoints[pointNum-1].y*sscaler)
         for j=0, pointNum do
-            of.curveVertex(holePoints[j].x*sscaler,holePoints[j].y*sscaler)
+            ofCurveVertex(holePoints[j].x*sscaler,holePoints[j].y*sscaler)
         end
-        of.curveVertex(holePoints[0].x*sscaler,holePoints[0].y*sscaler)
-        of.endShape(false)
+        ofCurveVertex(holePoints[0].x*sscaler,holePoints[0].y*sscaler)
+        ofEndShape(false)
     end
-    of.popMatrix()
+    ofPopMatrix()
 end
 
 

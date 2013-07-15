@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/RecursiveTree.ga
  
@@ -16,7 +16,7 @@
  "Foggy Tree by Chris Coyne:
  http://www.contextfreeart.org/gallery/view.php?id=4
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel 0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -24,12 +24,12 @@
 */
 
 dotSize = 9
-startAngle = of.degToRad(270)
-angleOffsetA = of.degToRad(1.5)
-angleOffsetB = of.degToRad(50)
+startAngle = ofDegToRad(270)
+angleOffsetA = ofDegToRad(1.5)
+angleOffsetB = ofDegToRad(50)
 
 function setup()
-	of.enableSmoothing()
+	ofEnableSmoothing()
 end
 
 function update()
@@ -37,26 +37,26 @@ function update()
 end
 
 function draw()
-    ga.background(0.0,0.01)
+    gaBackground(0.0,0.01)
     
-    of.fill()
-    of.setColor(245,151,176)
-    of.translate(OUTPUT_W/2,OUTPUT_H,0)
+    ofFill()
+    ofSetColor(245,151,176)
+    ofTranslate(OUTPUT_W/2,OUTPUT_H,0)
     seed1(dotSize,startAngle,0,0)
 end
 
 function seed1(_dSize,_angle,_x,_y)
 	if _dSize > 1.0 then
-		r = of.randomuf()
+		r = ofRandomuf()
     		// 98% chance this will happen
     		if r > 0.02 then
-      		of.ellipse(_x, _y, _dSize, _dSize)
+      		ofEllipse(_x, _y, _dSize, _dSize)
       		newx = _x + math.cos(_angle) * _dSize
       		newy = _y + math.sin(_angle) * _dSize
       		seed1(_dSize * 0.99, _angle - angleOffsetA, newx, newy) 
     		// 2% chance this will happen
     		else
-      		of.ellipse(_x, _y, _dSize, _dSize)
+      		ofEllipse(_x, _y, _dSize, _dSize)
       		newx = _x + math.cos(_angle)
       		newy = _y + math.sin(_angle)
       		seed2(_dSize * 0.99, _angle + angleOffsetA, newx, newy)
@@ -69,16 +69,16 @@ end
 
 function seed2(_dSize,_angle,_x,_y)
 	if _dSize > 1.0 then
-		r = of.randomuf()
+		r = ofRandomuf()
     		// 95% chance this will happen
     		if r > 0.05 then 
-      		of.ellipse(_x, _y, _dSize, _dSize)
+      		ofEllipse(_x, _y, _dSize, _dSize)
       		newx = _x + math.cos(_angle) * _dSize
       		newy = _y + math.sin(_angle) * _dSize
       		seed2(_dSize * 0.99, _angle + angleOffsetA, newx, newy) 
     		// 5% chance this will happen
     		else
-      		of.ellipse(_x, _y, _dSize, _dSize)
+      		ofEllipse(_x, _y, _dSize, _dSize)
       		newx = _x + math.cos(_angle)
       		newy = _y + math.sin(_angle)
       		seed1(_dSize * 0.99, _angle + angleOffsetA, newx, newy)

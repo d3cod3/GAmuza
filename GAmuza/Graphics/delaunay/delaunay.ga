@@ -6,7 +6,7 @@
  Graphics/delaunay.ga
  
  This example shows how to generate delaunay structures using the
- ofx.delaunay() class.
+ ofxDelaunay() class.
  
  Original addon from obviousjim <https://github.com/obviousjim/ofxDelaunay>
  

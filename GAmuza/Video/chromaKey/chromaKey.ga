@@ -1,12 +1,12 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Video/chromaKey.ga
  
  This example show how to use the simple chromakey system from the
- ofx.chromakey() class.
+ ofxChromakey() class.
  
  Original addon from underdoeg <https://github.com/underdoeg/ofxChromaKey>
  
@@ -14,43 +14,51 @@
  
 */
 
-chroma = ofx.chromaKey()
-cam = of.texture()
-pixels = of.pixels()
+grabber = ofVideoGrabber()
+pixels = ofPixels()
+chroma = ofxChromaKey()
+
+captureW = 320
+captureH = 240
 
 function setup()    
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
 end
 
 function update()
-    cam = ga.cameraTexture(0)
-    cam:readToPixels(pixels)
-    chroma:setPixels(pixels)
+    // get the cam pixels
+    grabber:update()
+    if grabber:isFrameNew() then
+        pixels = grabber:getPixelsRef()
+        chroma:setPixels(pixels)
+    end
+    
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    gaBackground(0.0,1.0)
 
-    of.setColor(255)
+    ofSetColor(255)
     // draw the chromakey result
     chroma:draw(0,0,OUTPUT_W,OUTPUT_H,false)
     // draw the live feed from camera
-    cam:draw(0,0,160,120)
+    grabber:draw(0,0,160,120)
     // draw the extraction color reference
     chroma:drawBgColor(0,0,20,20)
 end
 
 function keyPressed()
-    if ga.key() == string.byte('+') then
+    if gaKey() == string.byte('+') then
         chroma:setThreshold(chroma:getThreshold()+2)
-    elseif ga.key() == string.byte('-') then
+    elseif gaKey() == string.byte('-') then
         chroma:setThreshold(chroma:getThreshold()-2)
     end
 end
 
 function keyReleased()
 	// capture the most present color (your background color) 
-    	if ga.key() == string.byte(' ') then
-		chroma:learnBgColor(ga.cameraPixelsRef(0))
-    	end
+    if gaKey() == string.byte(' ') then
+		chroma:learnBgColor(grabber:getPixelsRef())
+    end
 end

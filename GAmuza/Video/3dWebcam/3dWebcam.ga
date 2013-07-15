@@ -1,12 +1,13 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza0428 examples
  ---------------------
  Video/3dWebcam.ga
  
  This example emulate a depth image from 2D cam pixels
  Something like Radiohead - House of cards videoclip (beginner version).
+ Take a look at the kinect examples for an advanced version...
  
  Original example code from Andy Best
  <http://andybest.net/2008/07/3d-webcam-lines/>
@@ -15,41 +16,46 @@
  
 */
 
-cam = of.texture()
-pixels = of.pixels()
+grabber = ofVideoGrabber()
+pixels = ofPixels()
+
+captureW = 320
+captureH = 240
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
 end
 
 function update()
-    cam = ga.cameraTexture(0)
-    cam:readToPixels(pixels)
+    grabber:update()
+    if grabber:isFrameNew() then
+        pixels = grabber:getPixelsRef()
+    end
 end
 
 function draw()
-    ga.background(0.0,0.2)
+    gaBackground(0.0,0.2)
     
-    of.pushMatrix()
-        of.translate(OUTPUT_W/2,OUTPUT_H/2,0.0)
-        of.rotateY(of.degToRad(500-(OUTPUT_W/2)))
-        of.rotateX(of.degToRad(-(200-(OUTPUT_H/2))))
-        of.translate(-OUTPUT_W/2,-OUTPUT_H/2,0.0)
+    ofPushMatrix()
+        ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
+        ofRotateX(ofDegToRad(-OUTPUT_H/2))
+        ofTranslate(-OUTPUT_W/2,-OUTPUT_H/2,0.0)
 
-        of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1.0)
+        ofScale(OUTPUT_W/captureW,OUTPUT_H/captureH,1.0)
         index = 0
-        c = of.color()
-        of.enableAlphaBlending()
-        for y=0, cam:getHeight(), 5 do
+        c = ofColor()
+        ofEnableAlphaBlending()
+        for y=0, captureH, 5 do
             glBegin(GL_LINES)
-            for x=0, cam:getWidth(), 1 do
+            for x=0, captureW, 1 do
                 c = pixels:getColor(x,y)
-                of.setColor(15,c:getBrightness()/1.2,15,210)
+                ofSetColor(15,c:getBrightness()/1.2,15,210)
                 glVertex3d(x,y,c:getBrightness()/2.2 - 100)
                 index = index + 1
             end
             glEnd()
         end
-        of.disableAlphaBlending()
-    of.popMatrix()
+        ofDisableAlphaBlending()
+    ofPopMatrix()
 end

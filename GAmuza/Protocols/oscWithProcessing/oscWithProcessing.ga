@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.2 examples
+ GAmuza 0428 examples
  ---------------------
  Protocols/oscWithProcessing.ga
  
@@ -30,15 +30,15 @@ function setup()
     	gaSetOSCMessage(sendingDiameter,OSC_FLOAT)
     	
     	// init OSC receiving labels
-    	gaGetOSCMessage(receivingMouseX)
-    	gaGetOSCMessage(receivingMouseY)
+    	gaGetOSCMessage(receivingMouseX,1)
+    	gaGetOSCMessage(receivingMouseY,1)
 end
 
 function update()
 
     	// receive OSC messages and store it in a variable
-    	processingMouseX = gaGetOSCValue(receivingMouseX)
-    	processingMouseY = gaGetOSCValue(receivingMouseY)
+    	processingMouseX = gaGetOSCValue(receivingMouseX,0)
+    	processingMouseY = gaGetOSCValue(receivingMouseY,0)
     	
     	// send OSC messages
     	gaSetOSCValue(sendingAlpha,tostring(ofRandom(ofToFloat(processingMouseX))))

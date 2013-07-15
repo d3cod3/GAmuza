@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  ReasMcWilliamsLUST_FORM+CODE/SlitScan.ga
  
@@ -12,35 +12,42 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 0.4.1+
+ This code was written in GAmuza 1.0 rel. 0428
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
  
 */
 
-videoSliceX = CAPTURE_W/2
+captureW = 640
+captureH = 480
+videoSliceX = captureW/2
 drawPositionX = 0
 
-camPixels = of.pixels()
-texPixels = of.pixels()
+grabber = ofVideoGrabber()
+camPixels = ofPixels()
+texPixels = ofPixels()
 
-cam = of.texture()
-tex = of.texture()
+tex = ofTexture()
 
-c = of.color()
-temp = of.color()
+c = ofColor()
+temp = ofColor()
 
 function setup()
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+    
 	tex:allocate(OUTPUT_W,OUTPUT_H,GL_RGB)
 	texPixels:allocate(OUTPUT_W,OUTPUT_H,3)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
-	cam:readToPixels(camPixels)
+    grabber:update()
+    	if grabber:isFrameNew() then
+    		camPixels = grabber:getPixelsRef()
+    	end
     
-	for y=0, CAPTURE_H do
+	for y=0, captureH do
 		c = camPixels:getColor(videoSliceX,y)
 		temp:set(c:getBrightness(),255)
 		texPixels:setColor(drawPositionX,y,temp)
@@ -56,8 +63,8 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 
-	of.setColor(245,151,176)
-	tex:draw(0,OUTPUT_H/2 - CAPTURE_H/2)   
+	ofSetColor(245,151,176)
+	tex:draw(0,OUTPUT_H/2 - captureH/2)
 end
