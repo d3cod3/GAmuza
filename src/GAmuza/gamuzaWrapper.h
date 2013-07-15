@@ -5264,7 +5264,7 @@ class ofGamuzaWrapper{
 		/// gamuza core api wrapper
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
-         // GASOURCETRACKING
+         // GACAMERATRACKING
          class_<gaSourceTracking>("gaCameraTracking")
          .def(constructor<>())
          .def("setup", (void(gaSourceTracking::*)(int,int,int)) &gaSourceTracking::setup)
@@ -5307,6 +5307,20 @@ class ofGamuzaWrapper{
          .def("getHaarW", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarW)
          .def("getHaarH", (float(gaSourceTracking::*)(int)) &gaSourceTracking::getHaarH)
          .def("getTrigger", (bool(gaSourceTracking::*)(int)) &gaSourceTracking::getTrigger),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // GAKINECTTRACKING
+         class_<gaKinectTracking>("gaKinectTracking")
+         .def(constructor<>())
+         .def("setup", (void(gaKinectTracking::*)(int,bool,bool,int)) &gaKinectTracking::setup)
+         .def("update", (void(gaKinectTracking::*)(void)) &gaKinectTracking::update)
+         .def("draw", (void(gaKinectTracking::*)(void)) &gaKinectTracking::draw)
+         .def("close", (void(gaKinectTracking::*)(void)) &gaKinectTracking::close)
+         
+         .def("mousePressed", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mousePressed)
+         .def("mouseDragged", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mouseDragged)
+         .def("mouseReleased", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mouseReleased),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          ///////////////////////////////

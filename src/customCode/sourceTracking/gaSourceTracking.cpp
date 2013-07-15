@@ -79,7 +79,7 @@ void gaSourceTracking::setup(int deviceID, int _w, int _h){
 	gui.setTextColor(gamuzaWhiteColor,simpleColor(240, 240, 240, 225));
 	gui.setOutlineColor(simpleColor(0,0,0,255));
     ofxControlPanel::topSpacing = 20;
-    gui.setup("COMPUTER VISION MODULE",0,20,1200,720);
+    gui.setup("CAMERA TRACKING MODULE",0,20,1200,720);
 	gui.setDraggable(false);
     
     //////////////////////////////////////

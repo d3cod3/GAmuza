@@ -54,6 +54,8 @@
 
 // KINECT
 #include "ofxKinect.h"
+#include "ofxKinectStreamer.h"
+#include "ofxKinectMeshRecorder.h"
 
 // AUDIO
 #include "ofxPd.h"
@@ -118,7 +120,8 @@
 //////////////////////////////////////
 // CUSTOM CODE
 
-// Webcam Input
+// Computer Vision
+#include "gaKinectTracking.h"
 #include "gaSourceTracking.h"
 #include "matrixAreas.h"		
 

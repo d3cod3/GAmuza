@@ -69,7 +69,6 @@ class gaSourceTracking: public ofBaseApp, public ofxCvBlobListener{
 			void getVelAtNorm(float x, float y, float *u, float *v);            // get optical_flow normal velocity
 			
 			// utils functions
-			void kalmanFilterValues();											// kalman weighted average correction
 			void smoothingValues();												// smoothing numerical data
 			void normalizeValues();												// normalize numerical data
 			
