@@ -4587,6 +4587,7 @@ gaStringReplace(string,string,string)
 gaBackground(float,float)
 gaBackground(float,float,float,float)
 gaSaveFrame(string)
+gaSaveFrame(string,ofTexture)
 gaGetOutputPixels()
 gaGetOutputTexture()
 gaDrawAxis(float,ofColor,bool)
@@ -4887,17 +4888,14 @@ LED_BLINK_GREEN
 LED_BLINK_YELLOW_RED
 OUTPUT_W
 OUTPUT_H
-CAPTURE_W
-CAPTURE_H
-CAPTURE_PIX
 OSC_SENDING_PORT
 OSC_RECEIVING_PORT
 OSC_INT
 OSC_FLOAT
 OSC_STRING
 MAX_BLOBS
-OPTICAL_FLOW_GRID_X
-OPTICAL_FLOW_GRID_Y
+OPTICAL_FLOW_COLS_STEP
+OPTICAL_FLOW_ROWS_STEP
 AUDIO_INPUT_CHANNELS
 AUDIO_OUTPUT_CHANNELS
 BUFFER_SIZE

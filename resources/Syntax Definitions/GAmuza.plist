@@ -2389,9 +2389,6 @@
 				<string>LED_BLINK_YELLOW_RED</string>
 				<string>OUTPUT_W</string>
 				<string>OUTPUT_H</string>
-				<string>CAPTURE_W</string>
-				<string>CAPTURE_H</string>
-				<string>CAPTURE_PIX</string>
 				<string>OSC_SENDING_IP</string>
 				<string>OSC_SENDING_PORT</string>
 				<string>OSC_RECEIVING_PORT</string>
@@ -2399,8 +2396,8 @@
 				<string>OSC_FLOAT</string>
 				<string>OSC_STRING</string>
 				<string>MAX_BLOBS</string>
-				<string>OPTICAL_FLOW_GRID_X</string>
-				<string>OPTICAL_FLOW_GRID_Y</string>
+				<string>OPTICAL_FLOW_COLS_STEP</string>
+				<string>OPTICAL_FLOW_ROWS_STEP</string>
 				<string>AUDIO_INPUT_CHANNELS</string>
 				<string>AUDIO_OUTPUT_CHANNELS</string>
 				<string>BUFFER_SIZE</string>
