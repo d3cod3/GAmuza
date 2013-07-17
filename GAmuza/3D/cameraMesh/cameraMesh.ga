@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  3D/cameramesh.ga
  
@@ -17,19 +17,23 @@
 */
 
 wireframe = false
+grabber = ofVideoGrabber()
 camera = ofCamera()
 pixels = ofPixels()
-cam = ofTexture()
 mesh = ofVboMesh()
 rotateAmountY = 0
 extrusionAmount = 300.0
 pixelateFactor = 3
 
+captureW = 320
+captureH = 240
+
 function setup()
-	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
 	//add one vertex to the mesh for each pixel
-	for x=0,CAPTURE_W-1, pixelateFactor do
-		for y=0,CAPTURE_H-1, pixelateFactor do
+	for x=0,captureW-1, pixelateFactor do
+		for y=0,captureH-1, pixelateFactor do
 			c = ofFloatColor(0,0,0,0)
 			p = ofVec3f(x,y,0)
 			mesh:addVertex(p)
@@ -37,28 +41,28 @@ function setup()
 		end
 	end
 	
-	for x=0,CAPTURE_W-2 do
-		for y=0,CAPTURE_H-2 do
-			mesh:addIndex(x+y*CAPTURE_W)		// 0
-			mesh:addIndex((x+1)+y*CAPTURE_W)		// 1
-			mesh:addIndex(x+(y+1)*CAPTURE_W)		// 10
+	for x=0,captureW-2 do
+		for y=0,captureH-2 do
+			mesh:addIndex(x+y*captureW)		// 0
+			mesh:addIndex((x+1)+y*captureW)		// 1
+			mesh:addIndex(x+(y+1)*captureW)		// 10
 			
-			mesh:addIndex((x+1)+y*CAPTURE_W)		// 1
-			mesh:addIndex((x+1)+(y+1)*CAPTURE_W)	// 11
-			mesh:addIndex(x+(y+1)*CAPTURE_W)		// 10
+			mesh:addIndex((x+1)+y*captureW)		// 1
+			mesh:addIndex((x+1)+(y+1)*captureW)	// 11
+			mesh:addIndex(x+(y+1)*captureW)		// 10
 		end
 	end
 end
 
 function update()
-    	// get the cam texture
-    	cam = gaCameraTexture(0)
-    	// get the cam pixels
-    	cam:readToPixels(pixels)
+    grabber:update()
+    if grabber:isFrameNew() then
+        pixels = grabber:getPixelsRef()
+    end
 	
 	cc = 0
-	for x=0,CAPTURE_W-1, pixelateFactor do
-		for y=0,CAPTURE_H-1, pixelateFactor do
+	for x=0,captureW-1, pixelateFactor do
+		for y=0,captureH-1, pixelateFactor do
 			
 			col = pixels:getColor(x,y)
 			sampleColor = ofFloatColor(col.r/255,col.g/255,col.b/255,1.0)
@@ -95,7 +99,7 @@ function mouseMoved()
 	rotateVecY = ofVec3f(1,0,0)
 	pCam = ofVec3f(0,1,0)
 	rotateAmountY = ofMap(gaMouseY(), 0, OUTPUT_H, 0, 360,true)
-	center = ofVec3f(CAPTURE_W/2,CAPTURE_H/2,255/2)
+	center = ofVec3f(captureW/2,captureH/2,255/2)
 	camDirectionRotatedY = ofVec3f()
 	camDirectionRotatedY = camDirection:rotate(rotateAmountY,rotateVecY)
 	camPosition = ofVec3f()

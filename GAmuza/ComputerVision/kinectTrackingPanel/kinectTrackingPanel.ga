@@ -18,7 +18,7 @@ drawGUI = true
 
 function setup()
 	//kinectPanel:setGuiSettingsFile(gaDataPath("kinectTrackingSettings.xml"))
-	kinectPanel:setup(0,false,true,0)
+	kinectPanel:setup(0,true,true,1)
 	
 	//kinectImage:allocate(captureWidth,captureHeight,GL_RGB)
 end
@@ -62,4 +62,8 @@ end
 
 function mouseReleased()
 	kinectPanel:mouseReleased(gaMouseX(),gaMouseY())
+end
+
+function exit()
+	kinectPanel:close()
 end

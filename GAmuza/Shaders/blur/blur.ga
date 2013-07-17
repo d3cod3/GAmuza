@@ -1,11 +1,11 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0428 examples 
  ---------------------
  Shaders/blur.ga
  
- Shaders examples from ofx.fx addon
+ Shaders examples from ofxFx addon
  <https://github.com/patriciogonzalezvivo/ofxFX>; 
  this example shows the blur effect.
  
@@ -13,36 +13,43 @@
  
 */
 
-_blur = ofx.blur()
-cam = of.texture()
+grabber = ofVideoGrabber()
+blur = ofxBlur()
+cam = ofTexture()
+
+captureW = 320
+captureH = 240
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
-    _blur:allocate(CAPTURE_W,CAPTURE_H)
-    _blur:setPasses(6)
+    grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+    cam:allocate(captureW,captureH,GL_RGB)
+    blur:allocate(captureW,captureH)
+    blur:setPasses(6)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
-	_blur:setRadius(ga.mouseX()/OUTPUT_W*10)
+	cam = grabber:getTextureReference()
+    blur:setRadius(math.sin(ofGetElapsedTimef())*10);
+    blur:update();
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
     
-	_blur:beginFx()
-		of.setColor(255)
+	blur:beginFx(0)
+		ofSetColor(255)
 		cam:draw(0,0)
-		of.circle(ga.mouseX(),ga.mouseY(),5)
-	_blur:endFx(true)
+		ofCircle(gaMouseX(),gaMouseY(),5)
+	blur:endFx(0)
 
-	of.pushMatrix()
-	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
-		of.setColor(255)
-		_blur:draw(0,0)
-	of.popMatrix()
+	ofPushMatrix()
+	ofScale(OUTPUT_W/captureW,OUTPUT_H/captureH,1)
+		ofSetColor(255)
+		blur:draw(0,0,captureW,captureH)
+	ofPopMatrix()
 	
-	of.setColor(255)
+	ofSetColor(255)
 	cam:draw(0,0)
     
 end

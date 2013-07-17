@@ -20,6 +20,9 @@ cam = ofTexture()
 captureWidth = 320
 captureHeight = 240
 
+opticalFlowCols = math.ceil(captureWidth/OPTICAL_FLOW_COLS_STEP)
+opticalFlowRows = math.ceil(captureHeight/OPTICAL_FLOW_ROWS_STEP)
+
 function setup()
     camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
     camPanel:setup(0,captureWidth,captureHeight)
@@ -35,20 +38,21 @@ end
 function draw()
 	gaBackground(0.0,0.8)
 	
-    // draw the live image from device
-    ofSetColor(255)
+    	// draw the live image from device
+    	ofSetColor(255)
 	scaleH = OUTPUT_H
 	scaleW = scaleH* captureWidth / captureHeight
-    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
+    	cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
     
 	// draw an optical flow representation
 	ofSetColor(31,165,210)
 	ofSetLineWidth(3)
 	
 	ofPushMatrix()
+	ofTranslate(OUTPUT_W/2 - scaleW/2,0,0)
 	ofScale(scaleW/captureWidth,scaleH/captureHeight,1)
 	
-	for i=0, OPTICAL_FLOW_GRID_X*OPTICAL_FLOW_GRID_Y do
+	for i=0, opticalFlowCols*opticalFlowRows - 1 do
 		x = camPanel:getOpticalFlowX(i)
 		y = camPanel:getOpticalFlowY(i)
 		vX = camPanel:getOpticalFlowVX(i)

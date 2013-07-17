@@ -63,19 +63,14 @@ function update()
 end
 
 function draw()
-    	gaBackground(0.1,1.0)
+    gaBackground(0.1,1.0)
     
-    	ofSetColor(255)
-    	if bDrawPointCloud == 1 then
-    		easyCam:beginCamera(ofGetCurrentViewport())
-    		drawPointCloud()
-    		easyCam:endCamera()
-    	else
-    		kinect:drawDepth(10, 10, 400, 300)
-		kinect:draw(420, 10, 400, 300)
-		grayImage:draw(10, 320, 400, 300)
-		contourFinder:draw(10, 320, 400, 300)
-	end
+    ofSetColor(255)
+        
+    kinect:drawDepth(10, 10, 400, 300)
+    kinect:draw(420, 10, 400, 300)
+    grayImage:draw(10, 320, 400, 300)
+    contourFinder:draw(10, 320, 400, 300)
 	
 	if viewGui then
 		gui:draw()

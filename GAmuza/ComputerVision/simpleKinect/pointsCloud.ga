@@ -18,7 +18,7 @@ function drawPointCloud()
 
 	glPointSize(3)
 	ofPushMatrix()
-		ofScale(1,-1,-1)
+		ofScale(1,1,-1)
 		ofTranslate(0,0,-1000)
 		glEnable(GL_DEPTH_TEST)
 		mesh:drawVertices()
