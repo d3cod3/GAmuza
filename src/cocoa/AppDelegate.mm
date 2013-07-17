@@ -56,7 +56,7 @@
     
     // START GAmuza video preview
     gaVP = new gaVideoPreview();
-    ofxNSWindower::instance()->addWindow(gaVP,"Preview", NSBorderlessWindowMask, 0);
+    ofxNSWindower::instance()->addWindow(gaVP,"Preview", NSBorderlessWindowMask);
     gaVPWindow = ofxNSWindower::instance()->getWindowPtr("Preview");
     gaVPWindow->setWindowTitle("Preview");
     gaVPWindow->setWindowShape(320,240);
@@ -65,7 +65,7 @@
     
     // START GAmuza TIMELINE Panel
     gaTL = new gaTimeline(screenW,screenH);
-    ofxNSWindower::instance()->addWindow(gaTL,"Timeline", NSTitledWindowMask|NSResizableWindowMask, 0);
+    ofxNSWindower::instance()->addWindow(gaTL,"Timeline", NSTitledWindowMask|NSResizableWindowMask,20);
     gaTLWindow = ofxNSWindower::instance()->getWindowPtr("Timeline");
     gaTLWindow->setWindowTitle("Timeline");
     gaTLWindow->setWindowShape(screenW,screenH-30);
@@ -75,7 +75,7 @@
     
     // START GAmuza render window
     gapp = new gamuzaMain();
-	ofxNSWindower::instance()->addWindow(gapp,"gamuza", NSTitledWindowMask, 0);
+	ofxNSWindower::instance()->addWindow(gapp,"gamuza", NSTitledWindowMask);
     gappWindow = ofxNSWindower::instance()->getWindowPtr("gamuza");
     gappWindow->setWindowTitle(gapp->_windowTitle);
     gappWindow->setWindowPosition(screenW - MAIN_WINDOW_W,screenH - MAIN_WINDOW_H);
@@ -87,14 +87,14 @@
     
     // START GAmuza Audio Analysis Module
     gaAM = new gaAudioModule(810,470);
-    ofxNSWindower::instance()->addWindow(gaAM,"GA Audio Analysis", NSTitledWindowMask, 0);
+    ofxNSWindower::instance()->addWindow(gaAM,"GA Audio Analysis", NSTitledWindowMask,20);
     gaAMWindow = ofxNSWindower::instance()->getWindowPtr("GA Audio Analysis");
     gaAMWindow->setWindowTitle("GA Audio Analysis");
     [gaAMWindow->getWindow() orderOut:self];
     
     // START GAmuza Arduino Module
     gaARM = new gaArduinoModule(1260,720);
-    ofxNSWindower::instance()->addWindow(gaARM,"GA Arduino", NSTitledWindowMask, 0);
+    ofxNSWindower::instance()->addWindow(gaARM,"GA Arduino", NSTitledWindowMask,20);
     gaARMWindow = ofxNSWindower::instance()->getWindowPtr("GA Arduino");
     gaARMWindow->setWindowTitle("GA Arduino");
     [gaARMWindow->getWindow() orderOut:self];

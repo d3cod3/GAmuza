@@ -8,8 +8,8 @@ void gamuzaMain::setupFBO(){
     ///////////////////////////
 	// FBO setup
     drawingFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB);
-    gamuzaFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB);
-    gamuzaPixels.allocate(projectionScreenW,projectionScreenH,OF_PIXELS_RGBA);
+    gamuzaFbo.allocate(projectionScreenW,projectionScreenH,GL_RGB);
+    gamuzaPixels.allocate(projectionScreenW,projectionScreenH,OF_PIXELS_RGB);
     
     drawingFbo.begin();
     ofClear(255,255,255, 0);
@@ -56,7 +56,7 @@ void gamuzaMain::drawFBO(){
     drawingFbo.begin();
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     glEnable(GL_BLEND);
-    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA,GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFuncSeparate(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA,GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
     drawIntoFBO();
     glDisable(GL_BLEND);
     glPopAttrib();
@@ -114,12 +114,10 @@ void gamuzaMain::drawIntoFBO(){
     ofPushView();
     ofPushMatrix();
     ofPushStyle();
-    glPushAttrib(GL_ALL_ATTRIB_BITS);
-    glEnable(GL_MULTISAMPLE_ARB);
+    //glPushAttrib(GL_ALL_ATTRIB_BITS);
         lua.scriptDraw();
-    glDisable(GL_MULTISAMPLE_ARB);
-    glDisable(GL_DEPTH_TEST);
-    glPopAttrib();
+    //glDisable(GL_DEPTH_TEST);
+    //glPopAttrib();
     ofPopStyle();
     ofPopMatrix();
     ofPopView();

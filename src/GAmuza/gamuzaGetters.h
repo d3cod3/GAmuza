@@ -12,7 +12,7 @@ extern gaTimeline   *gaTL; // external reference to TIMELINE GUI Panel, declared
 // SYSTEM SECTION
 //--------------------------------------------------------------
 ofPixels gaGetOutputPixels(){
-    gapp->pixelsReader.readToPixels(gapp->drawingFbo, gapp->gamuzaPixels);
+    gapp->pixelsReader.readToPixels(gapp->gamuzaFbo, gapp->gamuzaPixels);
     return gapp->gamuzaPixels;
 }
 
@@ -21,9 +21,17 @@ ofTexture gaGetOutputTexture(){
 }
 
 void gaSaveFrame(string _name){
-    gapp->pixelsReader.readToPixels(gapp->drawingFbo, gapp->gamuzaPixels);
+    gapp->pixelsReader.readToPixels(gapp->gamuzaFbo, gapp->gamuzaPixels);
     gapp->tempFrame.setFromPixels(gapp->gamuzaPixels);
     gapp->tempFrame.saveImage(_name.c_str());
+}
+
+void gaSaveFrame(string _name,ofTexture _tex){
+    ofImage             _img;
+    ofPixels 			_pix;
+    _tex.readToPixels(_pix);
+    _img.setFromPixels(_pix);
+    _img.saveImage(_name.c_str());
 }
 
 void gaLog(string _log){
