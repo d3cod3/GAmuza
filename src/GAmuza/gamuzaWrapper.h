@@ -5317,10 +5317,35 @@ class ofGamuzaWrapper{
          .def("update", (void(gaKinectTracking::*)(void)) &gaKinectTracking::update)
          .def("draw", (void(gaKinectTracking::*)(void)) &gaKinectTracking::draw)
          .def("close", (void(gaKinectTracking::*)(void)) &gaKinectTracking::close)
-         
+         .def("setGuiSettingsFile", (void(gaKinectTracking::*)(string)) &gaKinectTracking::setGuiSettingsFile)
          .def("mousePressed", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mousePressed)
          .def("mouseDragged", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mouseDragged)
-         .def("mouseReleased", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mouseReleased),
+         .def("mouseReleased", (void(gaKinectTracking::*)(int,int)) &gaKinectTracking::mouseReleased)
+         .def("getCameraTexture", (ofTexture(gaKinectTracking::*)(void)) &gaKinectTracking::getCameraTexture)
+         .def("getDepthTexture", (ofTexture(gaKinectTracking::*)(void)) &gaKinectTracking::getDepthTexture)
+         .def("getCameraPixels", (ofPixelsRef(gaKinectTracking::*)(void)) &gaKinectTracking::getCameraPixels)
+         .def("getNumBlobs", (int(gaKinectTracking::*)(void)) &gaKinectTracking::getNumBlobs)
+         .def("getBlobX", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobX)
+         .def("getBlobY", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobY)
+         .def("getBlobW", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobW)
+         .def("getBlobH", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobH)
+         .def("getBlobAngle", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobAngle)
+         .def("getBlobContourSize", (int(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobContourSize)
+         .def("getBlobCPointX", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobCPointX)
+         .def("getBlobCPointY", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobCPointY)
+         .def("getBlobGeometrySize", (int(gaKinectTracking::*)(int)) &gaKinectTracking::getBlobGeometrySize)
+         .def("getBlobGLineX1", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobGLineX1)
+         .def("getBlobGLineY1", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobGLineY1)
+         .def("getBlobGLineX2", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobGLineX2)
+         .def("getBlobGLineY2", (float(gaKinectTracking::*)(int,int)) &gaKinectTracking::getBlobGLineY2)
+         .def("getOpticalFlowX", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getOpticalFlowX)
+         .def("getOpticalFlowY", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getOpticalFlowY)
+         .def("getOpticalFlowVX", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getOpticalFlowVX)
+         .def("getOpticalFlowVY", (float(gaKinectTracking::*)(int)) &gaKinectTracking::getOpticalFlowVY)
+         .def("getTrigger", (bool(gaKinectTracking::*)(int)) &gaKinectTracking::getTrigger)
+         .def("getAccelX", (float(gaKinectTracking::*)(void)) &gaKinectTracking::getAccelX)
+         .def("getAccelY", (float(gaKinectTracking::*)(void)) &gaKinectTracking::getAccelY)
+         .def("getAccelZ", (float(gaKinectTracking::*)(void)) &gaKinectTracking::getAccelZ),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          ///////////////////////////////
@@ -5344,6 +5369,7 @@ class ofGamuzaWrapper{
 		 def("gaBackground", (void(*)(float,float)) &gaBackground),
 		 def("gaBackground", (void(*)(float,float,float,float)) &gaBackground),
          def("gaSaveFrame", (void(*)(string)) &gaSaveFrame),
+         def("gaSaveFrame", (void(*)(string,ofTexture)) &gaSaveFrame),
          def("gaGetOutputPixels", (ofPixels(*)(void)) &gaGetOutputPixels),
          def("gaGetOutputTexture", (ofTexture(*)(void)) &gaGetOutputTexture),
          
@@ -5729,9 +5755,6 @@ class ofGamuzaWrapper{
 		// graphics
 		lua.doString("OUTPUT_W = "+ofToString(gapp->projectionScreenW));
 		lua.doString("OUTPUT_H = "+ofToString(gapp->projectionScreenH));
-		lua.doString("CAPTURE_W = "+ofToString(gapp->workingW));
-		lua.doString("CAPTURE_H = "+ofToString(gapp->workingH));
-		lua.doString("CAPTURE_PIX = "+ofToString(gapp->totPixels));
         
         // OSC messages
         lua.doString("OSC_SENDING_PORT = "+ofToString(atoi(gapp->host_port.c_str())));
@@ -5742,8 +5765,8 @@ class ofGamuzaWrapper{
 		
 		// video tracking
 		lua.doString("MAX_BLOBS = "+ofToString(MAX_USERS_HARDLIMIT));
-        lua.doString("OPTICAL_FLOW_GRID_X = "+ofToString((int)(gapp->workingW/OPTICAL_FLOW_COLS_STEP)));
-        lua.doString("OPTICAL_FLOW_GRID_Y = "+ofToString((int)(gapp->workingH/OPTICAL_FLOW_ROWS_STEP)));
+        lua.doString("OPTICAL_FLOW_COLS_STEP = "+ofToString(OPTICAL_FLOW_COLS_STEP));
+        lua.doString("OPTICAL_FLOW_ROWS_STEP = "+ofToString(OPTICAL_FLOW_ROWS_STEP));
 		
 		// audio analysis
         lua.doString("AUDIO_INPUT_CHANNELS = "+ofToString(gapp->audioInputChannels));

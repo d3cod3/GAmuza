@@ -5,6 +5,7 @@
 gaSourceTracking::gaSourceTracking(){
 	haarFileName = GAMUZA_HAAR_DEFAULT;
     movieFile = GAMUZA_VIDEOTEST;
+    guiSettingsFile = "guiSettings.xml";
     
     fontSmall.loadFont("fonts/D3Litebitmapism.ttf", 8, true, true);
     _empty.loadImage("img/empty.png");

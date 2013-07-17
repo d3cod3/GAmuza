@@ -69,12 +69,40 @@ class gaKinectTracking: public ofBaseApp, public ofxCvBlobListener{
     
             // GUI
             void activateTrackingCF(guiCallbackData & data);
+            void setGuiSettingsFile(string file);
     
-            
+            //////////// WRAPPER GETTERS
+            ofTexture getCameraTexture();
+            ofPixelsRef getCameraPixels();
+            ofTexture getDepthTexture();
+            int     getNumBlobs();
+            float   getBlobX(int i);
+            float   getBlobY(int i);
+            float   getBlobW(int i);
+            float   getBlobH(int i);
+            float   getBlobAngle(int i);
+            int     getBlobContourSize(int i);
+            float   getBlobCPointX(int blob,int i);
+            float   getBlobCPointY(int blob,int i);
+            int     getBlobGeometrySize(int i);
+            float   getBlobGLineX1(int blob,int i);
+            float   getBlobGLineY1(int blob,int i);
+            float   getBlobGLineX2(int blob,int i);
+            float   getBlobGLineY2(int blob,int i);
+            float   getOpticalFlowX(int i);
+            float   getOpticalFlowY(int i);
+            float   getOpticalFlowVX(int i);
+            float   getOpticalFlowVY(int i);
+            bool    getTrigger(int i);
+            float   getAccelX();
+            float   getAccelY();
+            float   getAccelZ();
+            //////////// WRAPPER GETTERS
+    
+    
             //////////////////////////////////////////
             // Kinect sensor variables
             ofxKinect kinect;
-    
             ofEasyCam easyCam;
     
             bool bDrawPointCloud;

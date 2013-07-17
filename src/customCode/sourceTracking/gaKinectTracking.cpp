@@ -5,6 +5,7 @@
 gaKinectTracking::gaKinectTracking(){
 	fontSmall.loadFont("fonts/D3Litebitmapism.ttf", 8, true, true);
     _empty.loadImage("img/empty.png");
+    guiSettingsFile = "guiSettings.xml";
     
     gamuzaMainColor         = simpleColor(9,147,211,255);
 	gamuzaWhiteColor        = simpleColor(240,240,240,255);
@@ -47,8 +48,8 @@ void gaKinectTracking::setupDevice(int _id, bool _ir, bool videoImage, int _ledS
 	kinect.init(_ir,videoImage);
     kinect.open(_id);
 	
-	_width	= kinect.width;
-	_height = kinect.height;
+	_width	= kinect.getWidth();
+	_height = kinect.getHeight();
     devID   = _id;
     
     nearThreshold = 230;
@@ -87,144 +88,6 @@ void gaKinectTracking::setupDevice(int _id, bool _ir, bool videoImage, int _ledS
     // hardware sensors
     _s_hAccel       = new ofVec3f(0,0,0);
     _osc_hAccel       = new ofVec3f(0,0,0);
-    //////////////////////////////////////////////
-    
-    //////////////////////////////////////////////
-    // GUI setup
-    char xml_name[256];
-	char temp[128];
-    
-    // vector<string> of cfDetailUse list
-    cfDetailUse.assign(3, string());
-	cfDetailUse[0] = "RAW";
-	cfDetailUse[1] = "SMOOTH";
-	cfDetailUse[2] = "SIMPLE";
-    
-    gui.loadFont("fonts/D3Litebitmapism.ttf", 8);
-	gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
-	gui.setBackgroundColor(simpleColor(120, 120, 120, 55));
-	gui.setTextColor(gamuzaWhiteColor,simpleColor(240, 240, 240, 225));
-	gui.setOutlineColor(simpleColor(0,0,0,255));
-    ofxControlPanel::topSpacing = 20;
-    gui.setup("KINECT TRACKING MODULE",0,20,1200,720);
-	gui.setDraggable(false);
-    
-    gui.setBackgroundColor(simpleColor(20, 20, 20, 255));
-    gui.setOutlineColor(simpleColor(0,0,0,255));
-    sprintf(temp," KINECT DEVICE[%i] - %s",devID,kinect.getSerial().c_str());
-    gui.addPanel(temp, 5);
-    gui.setWhichPanel(temp);
-    
-    gui.setBackgroundColor(simpleColor(90, 90, 90, 255));
-    gui.setOutlineColor(simpleColor(0,0,0,255));
-    gui.setWhichColumn(0);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    gui.addDrawableRect("CAMERA IMAGE", &kinect.getTextureReference(), 320, 240);
-    gui.setTextColor(gamuzaMarkColor);
-    sprintf(xml_name,"COMPUTE_SENSOR_KINECT");
-    gui.addToggle("COMPUTE SENSOR KINECT", xml_name, true);
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    gui.addDrawableRect("DEPTH IMAGE", &kinect.getDepthTextureReference(), 320, 240);
-    sprintf(xml_name,"NEAR_THRESHOLD_SENSOR_KINECT");
-    gui.addSlider("NEAR TRESHOLD",xml_name,nearThreshold,0,255,true);
-    sprintf(xml_name,"FAR_THRESHOLD_SENSOR_KINECT");
-    gui.addSlider("FAR TRESHOLD",xml_name,farThreshold,0,255,true);
-    
-    gui.setWhichColumn(1);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    gui.addDrawableRect("DEPTH RANGE MASK", &cleanImage, 320, 240);
-    
-    gui.setWhichColumn(2);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("GENERAL SETTINGS");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    sprintf(xml_name,"CI_BLUR_SENSOR_KINECT");
-    gui.addSlider("SENSOR KINECT BLUR", xml_name, ciBlur, 0, 33, true);
-    sprintf(xml_name,"CI_ERODE_SENSOR_KINECT");
-    gui.addSlider("ERODE", xml_name, ciErode, 0, 10, true);
-    sprintf(xml_name,"CI_DILATE_SENSOR_KINECT");
-    gui.addSlider("DILATE", xml_name, ciDilate, 0, 10, true);
-    
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("MOTION DETECTION SETTINGS");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    sprintf(xml_name,"M_THRESHOLD_SENSOR_KINECT");
-    gui.addSlider("MOTION THRESHOLD", xml_name, mThreshold, 1, 300, true);
-    sprintf(xml_name,"MOTION_ON_HORIZON_SENSOR_KINECT");
-    gui.addSlider("MOTION TRIGGER LOW LIMIT", xml_name, onHorizon, 1, 100, true);
-    sprintf(xml_name,"MOTION_OFF_HORIZON_SENSOR_KINECT");
-    gui.addSlider("MOTION TRIGGER RANGE LIMIT", xml_name, offHorizon, 0, 200, true);
-    gui.addDrawableRect("MOTION IMAGE", &motionImg, 160, 120);
-    //////////////////////////////////////////////
-    
-    gui.setWhichColumn(3);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("BLOB TRACKING SETTINGS");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    sprintf(xml_name,"MIN_BLOB_AREA_SENSOR_KINECT");
-    gui.addSlider("MIN BLOB",xml_name,minBlobArea,2,5000,true);
-    sprintf(xml_name,"MAX_BLOB_AREA_SENSOR_KINECT");
-    gui.addSlider("MAX BLOB",xml_name,maxBlobArea,0,100000,true);
-    sprintf(xml_name,"CF_DETAIL_SENSOR_KINECT");
-    gui.setForegroundColor(simpleColor(90, 90, 90, 200),simpleColor(220, 220, 220, 160));
-    gui.addTextDropDown("CONTOUR DETAIL", xml_name, 0, cfDetailUse);
-    gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
-    sprintf(xml_name,"CF_SMOOTH_PCT_SENSOR_KINECT");
-    gui.addSlider("CONTOUR SMOOTH FACTOR", xml_name,smoothPct,0.01f,0.99f,false);
-    sprintf(xml_name,"CF_TOLERANCE_SENSOR_KINECT");
-    gui.addSlider("CONTOUR SIMPLE TOLERANCE", xml_name,tolerance,0.01f,20.0f,false);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("COMPUTING ALGORITHM SELECTOR");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    sprintf(xml_name,"COMPUTE_CF_SENSOR_KINECT");
-    gui.addToggle("COMPUTE CONTOUR FINDER", xml_name, false);
-    sprintf(xml_name,"COMPUTE_CG_SENSOR_KINECT");
-    gui.addToggle("COMPUTE CONTOUR GEOMETRY", xml_name, false);
-    sprintf(xml_name,"COMPUTE_OF_SENSOR_KINECT");
-    gui.addToggle("COMPUTE OPTICAL FLOW", xml_name, false);
-    sprintf(xml_name,"COMPUTE_TA_SENSOR_KINECT");
-    gui.addToggle("COMPUTE TRIGGER AREAS", xml_name, false);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("OSC DATA SETTINGS");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    sprintf(xml_name,"SMOOTHING_FACTOR_SENSOR_KINECT");
-    gui.addSlider("SMOOTHING FACTOR",xml_name,_smoothingFactor,0.01f,0.99f,false);
-    
-    gui.setWhichColumn(4);
-    //////////////////////////////////////////////
-    gui.setTextColor(gamuzaMainColor);
-    gui.addLabel("SENSOR KINECT HARDWARE");
-    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
-    
-    gui.setBackgroundColor(gamuzaChartBackColor);
-    sprintf(temp,"ACCELEROMETER X");
-    gui.addChartPlotter(temp, guiStatVarPointer("X", &_osc_hAccel->x, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
-    sprintf(temp,"ACCELEROMETER Y");
-    gui.addChartPlotter(temp, guiStatVarPointer("Y", &_osc_hAccel->y, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
-    sprintf(temp,"ACCELEROMETER Z");
-    gui.addChartPlotter(temp, guiStatVarPointer("Z", &_osc_hAccel->z, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
-    
-    // GUI Events
-	gui.setupEvents();
-	gui.enableEvents();
-    
-    sprintf(temp,"COMPUTE_CG_SENSOR_KINECT");
-    ofAddListener(gui.createEventGroup(temp), this, &gaKinectTracking::activateTrackingCF);
-    sprintf(temp,"COMPUTE_TA_SENSOR_KINECT");
-    ofAddListener(gui.createEventGroup(temp), this, &gaKinectTracking::activateTrackingCF);
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////
@@ -337,6 +200,147 @@ void gaKinectTracking::setupDevice(int _id, bool _ir, bool videoImage, int _ledS
     
     saveAllSettings = false;
     //////////////////////////////////////////////
+    
+    //////////////////////////////////////////////
+    // GUI setup
+    char xml_name[256];
+	char temp[128];
+    
+    // vector<string> of cfDetailUse list
+    cfDetailUse.assign(3, string());
+	cfDetailUse[0] = "RAW";
+	cfDetailUse[1] = "SMOOTH";
+	cfDetailUse[2] = "SIMPLE";
+    
+    gui.loadFont("fonts/D3Litebitmapism.ttf", 8);
+	gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+	gui.setBackgroundColor(simpleColor(120, 120, 120, 55));
+	gui.setTextColor(gamuzaWhiteColor,simpleColor(240, 240, 240, 225));
+	gui.setOutlineColor(simpleColor(0,0,0,255));
+    ofxControlPanel::topSpacing = 20;
+    gui.setup("KINECT TRACKING MODULE",0,20,1200,720);
+	gui.setDraggable(false);
+    
+    gui.setBackgroundColor(simpleColor(20, 20, 20, 255));
+    gui.setOutlineColor(simpleColor(0,0,0,255));
+    sprintf(temp," KINECT DEVICE[%i] - %s",devID,kinect.getSerial().c_str());
+    gui.addPanel(temp, 5);
+    gui.setWhichPanel(temp);
+    
+    gui.setBackgroundColor(simpleColor(90, 90, 90, 255));
+    gui.setOutlineColor(simpleColor(0,0,0,255));
+    gui.setWhichColumn(0);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    gui.addDrawableRect("CAMERA IMAGE", &kinect.getTextureReference(), 240,180);
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    gui.addDrawableRect("DEPTH IMAGE", &kinect.getDepthTextureReference(), 240,180);
+    sprintf(xml_name,"NEAR_THRESHOLD_SENSOR_KINECT");
+    gui.addSlider("NEAR TRESHOLD",xml_name,nearThreshold,0,4000,true);
+    sprintf(xml_name,"FAR_THRESHOLD_SENSOR_KINECT");
+    gui.addSlider("FAR TRESHOLD",xml_name,farThreshold,0,4000,true);
+    
+    gui.setWhichColumn(1);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    gui.addDrawableRect("DEPTH RANGE MASK", &cleanImage, 240,180);
+    //gui.addDrawableRect("POINTS CLOUD", &_empty, 240,180);
+    //sprintf(xml_name,"DRAW_POINT_CLOUD");
+    //gui.addToggle("DRAW POINTS CLOUD", xml_name, false);
+    
+    gui.setWhichColumn(2);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("GENERAL SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"CI_BLUR_SENSOR_KINECT");
+    gui.addSlider("SENSOR KINECT BLUR", xml_name, ciBlur, 0, 33, true);
+    sprintf(xml_name,"CI_ERODE_SENSOR_KINECT");
+    gui.addSlider("ERODE", xml_name, ciErode, 0, 10, true);
+    sprintf(xml_name,"CI_DILATE_SENSOR_KINECT");
+    gui.addSlider("DILATE", xml_name, ciDilate, 0, 10, true);
+    
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("MOTION DETECTION SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"M_THRESHOLD_SENSOR_KINECT");
+    gui.addSlider("MOTION THRESHOLD", xml_name, mThreshold, 1, 300, true);
+    sprintf(xml_name,"MOTION_ON_HORIZON_SENSOR_KINECT");
+    gui.addSlider("MOTION TRIGGER LOW LIMIT", xml_name, onHorizon, 1, 100, true);
+    sprintf(xml_name,"MOTION_OFF_HORIZON_SENSOR_KINECT");
+    gui.addSlider("MOTION TRIGGER RANGE LIMIT", xml_name, offHorizon, 0, 200, true);
+    gui.addDrawableRect("MOTION IMAGE", &motionImg, 160, 120);
+    //////////////////////////////////////////////
+    
+    gui.setWhichColumn(3);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("BLOB TRACKING SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"MIN_BLOB_AREA_SENSOR_KINECT");
+    gui.addSlider("MIN BLOB",xml_name,minBlobArea,2,5000,true);
+    sprintf(xml_name,"MAX_BLOB_AREA_SENSOR_KINECT");
+    gui.addSlider("MAX BLOB",xml_name,maxBlobArea,0,100000,true);
+    sprintf(xml_name,"CF_DETAIL_SENSOR_KINECT");
+    gui.setForegroundColor(simpleColor(90, 90, 90, 200),simpleColor(220, 220, 220, 160));
+    gui.addTextDropDown("CONTOUR DETAIL", xml_name, 0, cfDetailUse);
+    gui.setForegroundColor(gamuzaMainColor,simpleColor(220, 220, 220, 160));
+    sprintf(xml_name,"CF_SMOOTH_PCT_SENSOR_KINECT");
+    gui.addSlider("CONTOUR SMOOTH FACTOR", xml_name,smoothPct,0.01f,0.99f,false);
+    sprintf(xml_name,"CF_TOLERANCE_SENSOR_KINECT");
+    gui.addSlider("CONTOUR SIMPLE TOLERANCE", xml_name,tolerance,0.01f,20.0f,false);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("COMPUTING ALGORITHM SELECTOR");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"COMPUTE_CF_SENSOR_KINECT");
+    gui.addToggle("COMPUTE CONTOUR FINDER", xml_name, false);
+    sprintf(xml_name,"COMPUTE_CG_SENSOR_KINECT");
+    gui.addToggle("COMPUTE CONTOUR GEOMETRY", xml_name, false);
+    sprintf(xml_name,"COMPUTE_OF_SENSOR_KINECT");
+    gui.addToggle("COMPUTE OPTICAL FLOW", xml_name, false);
+    sprintf(xml_name,"COMPUTE_TA_SENSOR_KINECT");
+    gui.addToggle("COMPUTE TRIGGER AREAS", xml_name, false);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("OSC DATA SETTINGS");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    sprintf(xml_name,"SMOOTHING_FACTOR_SENSOR_KINECT");
+    gui.addSlider("SMOOTHING FACTOR",xml_name,_smoothingFactor,0.01f,0.99f,false);
+    
+    gui.setWhichColumn(4);
+    //////////////////////////////////////////////
+    gui.setTextColor(gamuzaMainColor);
+    gui.addLabel("SENSOR KINECT HARDWARE");
+    gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
+    
+    gui.setBackgroundColor(gamuzaChartBackColor);
+    sprintf(temp,"ACCELEROMETER X");
+    gui.addChartPlotter(temp, guiStatVarPointer("X", &_osc_hAccel->x, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
+    sprintf(temp,"ACCELEROMETER Y");
+    gui.addChartPlotter(temp, guiStatVarPointer("Y", &_osc_hAccel->y, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
+    sprintf(temp,"ACCELEROMETER Z");
+    gui.addChartPlotter(temp, guiStatVarPointer("Z", &_osc_hAccel->z, GUI_VAR_FLOAT, true, 2), 110, 80, 200, 0.0f, 1.0f);
+    
+    // load default gui settings
+	gui.loadSettings(guiSettingsFile);
+    
+    // GUI Events
+	gui.setupEvents();
+	gui.enableEvents();
+    
+    sprintf(temp,"COMPUTE_CG_SENSOR_KINECT");
+    ofAddListener(gui.createEventGroup(temp), this, &gaKinectTracking::activateTrackingCF);
+    sprintf(temp,"COMPUTE_TA_SENSOR_KINECT");
+    ofAddListener(gui.createEventGroup(temp), this, &gaKinectTracking::activateTrackingCF);
+    //////////////////////////////////////////////
 	
 }
 
@@ -400,7 +404,7 @@ void gaKinectTracking::updateOpenCV(){
 		if(numPixelsChanged > onHorizon){
 			// if first blob is inside area...
 			// this is useful when working with laser tracking 
-			triggerAreas.isPointInside(box[0].center.x,box[0].center.y);
+			triggerAreas.isPointInside(blobTracker.blobs[0].boundingRect.x,blobTracker.blobs[0].boundingRect.y);
 			if(lastAreaON != triggerAreas.areaON){
 				if(actualArea != triggerAreas.areaON){
 					actualArea = triggerAreas.areaON;
@@ -438,9 +442,11 @@ void gaKinectTracking::updateGUI(){
     char xml_name[256];
     
     sprintf(xml_name,"NEAR_THRESHOLD_SENSOR_KINECT");
-    nearThreshold = gui.getValueI(xml_name);
+    nearThreshold = ceil(ofMap(gui.getValueI(xml_name),0,4000,0,255));
     sprintf(xml_name,"FAR_THRESHOLD_SENSOR_KINECT");
-    farThreshold = gui.getValueI(xml_name);
+    farThreshold = ceil(ofMap(gui.getValueI(xml_name),0,4000,0,255));
+    sprintf(xml_name,"DRAW_POINT_CLOUD");
+    bDrawPointCloud = gui.getValueI(xml_name);
     //////////////////////////////////////////////
     sprintf(xml_name,"CI_BLUR_SENSOR_KINECT");
     ciBlur = gui.getValueI(xml_name);
@@ -486,11 +492,11 @@ void gaKinectTracking::drawDevice(){
     
     //////////////////////////////////////////////////
     // Kinect source
-    if(bDrawPointCloud){
+    /*if(bDrawPointCloud){
 		easyCam.begin();
 		drawPointCloud();
 		easyCam.end();
-	}
+	}*/
     //////////////////////////////////////////////////
     
     //////////////////////////////////////////////////
@@ -506,8 +512,8 @@ void gaKinectTracking::drawDevice(){
     // optical flow LK
     if(computeOpticalFlow){
         glPushMatrix();
-        glTranslatef(366, 83, 0);
-        glScalef(320.0f/_width, 240.0f/_height, 1.0);
+        glTranslatef(286, 83, 0);
+        glScalef(240.0f/_width, 180.0f/_height, 1.0);
         opticalFlow.draw();
         glPopMatrix();
     }
@@ -538,13 +544,11 @@ void gaKinectTracking::drawGUI(){
 
 //--------------------------------------------------------------
 void gaKinectTracking::drawPointCloud() {
-	int w = 640;
-	int h = 480;
 	ofMesh mesh;
 	mesh.setMode(OF_PRIMITIVE_POINTS);
-	int step = 2;
-	for(int y = 0; y < h; y += step) {
-		for(int x = 0; x < w; x += step) {
+	int step = 3;
+	for(int y = 0; y < _height-step; y += step) {
+		for(int x = 0; x < _width-step; x += step) {
 			if(kinect.getDistanceAt(x, y) > 0) {
 				mesh.addColor(kinect.getColorAt(x,y));
 				mesh.addVertex(kinect.getWorldCoordinateAt(x, y));
@@ -553,14 +557,300 @@ void gaKinectTracking::drawPointCloud() {
 	}
 	glPointSize(3);
 	ofPushMatrix();
-	// the projected points are 'upside down' and 'backwards'
-	ofScale(1, -1, -1);
-	ofTranslate(0, 0, -1000); // center the points a bit
-	glEnable(GL_DEPTH_TEST);
+	// the projected points are 'upside down'
+	ofTranslate(0,0,-1000); // center the points a bit
+    ofScale(1,1,-1);
+	
 	mesh.drawVertices();
-	glDisable(GL_DEPTH_TEST);
+	
 	ofPopMatrix();
-    glPointSize(1);
+    //glPointSize(1);
+}
+
+//--------------------------------------------------------------
+void gaKinectTracking::setGuiSettingsFile(string file){
+    guiSettingsFile = file;
+}
+
+//--------------------------------------------------------------
+ofTexture gaKinectTracking::getCameraTexture(){
+    return kinect.getTextureReference();
+}
+
+//--------------------------------------------------------------
+ofPixelsRef gaKinectTracking::getCameraPixels(){
+    return kinect.getPixelsRef();
+}
+
+//--------------------------------------------------------------
+ofTexture gaKinectTracking::getDepthTexture(){
+    return kinect.getDepthTextureReference();
+}
+
+//--------------------------------------------------------------
+int gaKinectTracking::getNumBlobs(){
+    if(computeContourFinder){
+        return runningBlobs;
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobX(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].center.x;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobY(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].center.y;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobW(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].size.width;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobH(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].size.height;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobAngle(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return _osc_blobInfo[e].angle;
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+int gaKinectTracking::getBlobContourSize(int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                if(cfDetail == 0 || cfDetail == 1){
+                    return contourSmooth[e].size();
+                }else if(cfDetail == 2){
+                    return contourSimple[e].size();
+                }
+            }
+        }
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobCPointX(int blob,int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob){
+                if(cfDetail == 0 || cfDetail == 1){
+                    if(i < contourSmooth[e].size()){
+                        return contourSmooth[e].at(i).x;
+                    }else{
+                        return 0.0;
+                    }
+                }else if(cfDetail == 2){
+                    if(i < contourSimple[e].size()){
+                        return contourSimple[e].at(i).x;
+                    }else{
+                        return 0.0;
+                    }
+                }
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobCPointY(int blob,int i){
+    if(computeContourFinder){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob){
+                if(cfDetail == 0 || cfDetail == 1){
+                    if(i < contourSmooth[e].size()){
+                        return contourSmooth[e].at(i).y;
+                    }else{
+                        return 0.0;
+                    }
+                }else if(cfDetail == 2){
+                    if(i < contourSimple[e].size()){
+                        return contourSimple[e].at(i).y;
+                    }else{
+                        return 0.0;
+                    }
+                }
+            }
+        }
+    }else{
+        return 0.0;
+    }
+}
+
+//--------------------------------------------------------------
+int gaKinectTracking::getBlobGeometrySize(int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == i){
+                return geomLines[e].size();
+            }
+        }
+    }else{
+        return 0;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobGLineX1(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).x;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobGLineY1(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).y;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobGLineX2(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).z;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getBlobGLineY2(int blob,int i){
+    if(computeContourFinder && computeContourGeometry){
+        for(unsigned int e = 0; e < runningBlobs; e++){
+            if(blobsOrder[e] == blob && i < _osc_blobGeom[e].size()){
+                return geomLines[e].at(i).w;
+            }
+        }
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getOpticalFlowX(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].x;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getOpticalFlowY(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].y;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getOpticalFlowVX(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].z;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getOpticalFlowVY(int i){
+    if(computeOpticalFlow){
+        return _osc_opfVel[i].w;
+    }else{
+        return 0.0f;
+    }
+}
+
+//--------------------------------------------------------------
+bool  gaKinectTracking::getTrigger(int i){
+    if(computeContourFinder && computeTriggerAreas){
+        return triggerState[i];
+    }else{
+        return -1;
+    }
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getAccelX(){
+    return _osc_hAccel->x;
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getAccelY(){
+    return _osc_hAccel->y;
+}
+
+//--------------------------------------------------------------
+float gaKinectTracking::getAccelZ(){
+    return _osc_hAccel->z;
 }
 
 //--------------------------------------------------------------
@@ -701,8 +991,8 @@ void gaKinectTracking::drawContourAnalysis(){
 	string temp;
 	
 	glPushMatrix();
-	glTranslatef(366, 90, 0);
-	glScalef(320.0f/_width, 240.0f/_height, 1.0);
+	glTranslatef(286, 90, 0);
+	glScalef(240.0f/_width, 180.0f/_height, 1.0);
 	
 	ofEnableAlphaBlending();
 	
