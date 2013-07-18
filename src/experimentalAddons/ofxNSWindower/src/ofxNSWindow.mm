@@ -115,12 +115,25 @@ void ofxNSWindow::setFullscreen(bool fullscreen){
 	
 	
 	if(fullscreen) {
-		NSScreen *screen = [NSScreen mainScreen];
-		[glview enterFullScreenMode:screen withOptions:nil];
-		NSRect f = [screen frame];
-		[glview setFrame:f];
-		oframe = frame;
-		frame.set(0, 0, f.size.width, f.size.height);
+        NSPoint center;
+		NSRect rect = [window frame];
+        center.x = rect.origin.x + rect.size.width / 2;
+		center.y = rect.origin.y + rect.size.height / 2;
+        
+        NSEnumerator *screenEnum = [[NSScreen screens] objectEnumerator];
+		NSScreen *screen;
+        
+		//NSScreen *screen = [NSScreen mainScreen];
+        while (screen = [screenEnum nextObject]){
+            NSRect f = [screen frame];
+            if(NSPointInRect(center,f)){
+                [glview enterFullScreenMode:screen withOptions:nil];
+                [glview setFrame:f];
+                oframe = frame;
+                frame.set(0, 0, f.size.width, f.size.height);
+                break;
+            }
+        }
 	}
 	else {
 		[glview exitFullScreenModeWithOptions:nil];
