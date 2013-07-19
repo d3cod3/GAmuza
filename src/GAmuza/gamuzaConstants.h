@@ -1,13 +1,11 @@
-#define GAMUZA_RELEASE                  "0429"
+#define GAMUZA_RELEASE                  "0430"
 
 // MAIN.CPP WINDOW VARS
 #define MAIN_WINDOW_W					854
 #define MAIN_WINDOW_H					480
 
 // SETTINGS
-#define	GAMUZA_LIVECODING_FONT          "fonts/Anonymous_Pro_B.ttf"
 #define	GAMUZA_SETTINGS					"settings/gamuzaSettings.xml"
-#define	GAMUZA_SPLASH					"img/gamuza04_splash.png"
 #define GAMUZA_VIDEOTEST				"videos/video.mov"
 #define GAMUZA_MAPPING_FILE				"settings/projection/mapping.xml"
 #define GAMUZA_SHADER					"shaders/gamuzaShader"
