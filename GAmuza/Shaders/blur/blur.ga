@@ -14,24 +14,27 @@
 */
 
 grabber = ofVideoGrabber()
-blur = ofxBlur()
+blur = ofxBokeh()
 cam = ofTexture()
 
 captureW = 320
 captureH = 240
 
 function setup()
-    grabber:setDeviceID(0)
+    	grabber:setDeviceID(0)
 	grabber:initGrabber(captureW,captureH)
-    cam:allocate(captureW,captureH,GL_RGB)
-    blur:allocate(captureW,captureH)
-    blur:setPasses(6)
+    	cam:allocate(captureW,captureH,GL_RGB)
+    	blur:allocate(captureW,captureH)
+    	blur:setPasses(6)
 end
 
 function update()
-	cam = grabber:getTextureReference()
-    blur:setRadius(math.sin(ofGetElapsedTimef())*10);
-    blur:update();
+	grabber:update()
+    	if grabber:isFrameNew() then
+    		cam = grabber:getTextureReference()
+    	end
+    	blur:setRadius(math.sin(ofGetElapsedTimef())*10);
+    	blur:update();
 end
 
 function draw()

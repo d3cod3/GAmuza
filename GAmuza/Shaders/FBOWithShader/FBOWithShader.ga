@@ -11,15 +11,15 @@
  
 */
 
-fboTex = of.fbo()
-shader = of.shader()
+fboTex = ofFbo()
+shader = ofShader()
 start = true
 
 function setup()
-    of.setCircleResolution(6)
+    ofSetCircleResolution(6)
     // allocate(width,height,color range,samples)
     fboTex:allocate(OUTPUT_W,OUTPUT_H,GL_RGB,0)  
-    shader:load(ga.importFile("noise"))
+    shader:load(gaImportFile("noise"))
 end
 
 function update()
@@ -27,7 +27,7 @@ function update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
     
 	// draw inside de FBO texture
 	fboTex:beginFbo() // start FBO
@@ -36,25 +36,25 @@ function draw()
 		// clean the FBO just once at beginning
 		if start then
 			start = false
-			of.clear(0,0,0,255)
+			ofClear(0,0,0,255)
 		end
 		
 		// simulate trails effect
-		of.enableAlphaBlending()
-		of.fill()
-		of.setColor(0,0,0,7)
-		of.rect(0,0,fboTex:getWidth(),fboTex:getHeight())
-		of.disableAlphaBlending()
+		ofEnableAlphaBlending()
+		ofFill()
+		ofSetColor(0,0,0,7)
+		ofRect(0,0,fboTex:getWidth(),fboTex:getHeight())
+		ofDisableAlphaBlending()
 		
 		// draw a red circle
-		of.setColor(19,170,211)
-		of.circle(of.randomuf()*fboTex:getWidth(), of.randomuf()*fboTex:getHeight(), 200)
+		ofSetColor(19,170,211)
+		ofCircle(ofRandomuf()*fboTex:getWidth(), ofRandomuf()*fboTex:getHeight(), 200)
 		
 	shader:endShader() // close shader
 	fboTex:endFbo() // close FBO
 
 	// draw the FBO with shader
-	of.setColor(255)
+	ofSetColor(255)
 	fboTex:draw(0,0,OUTPUT_W,OUTPUT_H)
     
 end
