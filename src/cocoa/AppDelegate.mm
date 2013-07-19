@@ -29,7 +29,7 @@
         [self getScreenXPosition:prefPanel._fullscreenScreen];
         gappWindow->setWindowPosition(fullscreenWinPosX,screenH-60);
         gappWindow->toggleFullscreen();
-        gapp->gamuzaFullscreen();
+        gapp->gamuzaFullscreen(gappWindow->getActualScreen());
     }
     
 }
@@ -75,7 +75,7 @@
     
     // START GAmuza render window
     gapp = new gamuzaMain();
-	ofxNSWindower::instance()->addWindow(gapp,"gamuza", NSTitledWindowMask);
+	ofxNSWindower::instance()->addWindow(gapp,"gamuza", NSBorderlessWindowMask);
     gappWindow = ofxNSWindower::instance()->getWindowPtr("gamuza");
     gappWindow->setWindowTitle(gapp->_windowTitle);
     gappWindow->setWindowPosition(screenW - MAIN_WINDOW_W,screenH - MAIN_WINDOW_H);
@@ -981,21 +981,22 @@
 -(IBAction) sendScriptToGAmuza: (id)sender{
     GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
     
-    // send source code to LUA engine
-    NSString* _temp = [currentDoc sendToGAmuza];
-    NSString * _sUrl = [[currentDoc fileURL] path];
+    if(currentDoc != NULL){
+        // send source code to LUA engine
+        NSString* _temp = [currentDoc sendToGAmuza];
+        NSString * _sUrl = [[currentDoc fileURL] path];
 
-    if(_sUrl != NULL){
-        string _path = [_sUrl UTF8String];
-        gapp->setScriptPath(_path);
-    }
+        if(_sUrl != NULL){
+            string _path = [_sUrl UTF8String];
+            gapp->setScriptPath(_path);
+        }
     
-    string text = [_temp UTF8String];
-    gapp->receiveScript(text);
+        string text = [_temp UTF8String];
+        gapp->receiveScript(text);
 	
-    
-    // save file if isn't
-    [currentDoc saveGAAll:sender];
+        // save file if isn't
+        [currentDoc saveGAAll:sender];
+    }
 }
 
 -(IBAction) cleanScriptToGAmuza: (id)sender{
@@ -1005,7 +1006,7 @@
 
 -(IBAction) toggleGAmuzaFullscreen: (id)sender{
     gappWindow->toggleFullscreen();
-	gapp->gamuzaFullscreen();
+	gapp->gamuzaFullscreen(gappWindow->getActualScreen());
 }
 
 ///////////////////////////////////////////// MAPPING

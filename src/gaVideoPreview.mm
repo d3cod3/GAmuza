@@ -17,16 +17,23 @@ gaVideoPreview::~gaVideoPreview(){
 
 //--------------------------------------------------------------
 void gaVideoPreview::resetPreview(){
-    if(fboW < previewW){
+    if(fboW > previewW){
         fboDrawingW         = (fboW*previewH)/fboH;
         fboDrawingH         = previewH;
         fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
         fboDrawingPosY      = 0;
     }else{
-        fboDrawingW         = previewW;
-        fboDrawingH         = (fboH*previewW)/fboW;
-        fboDrawingPosX      = 0;
-        fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+        if(fboH < previewH){
+            fboDrawingW         = previewW;
+            fboDrawingH         = (fboH*previewW)/fboW;
+            fboDrawingPosX      = 0;
+            fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+        }else{
+            fboDrawingH         = previewH;
+            fboDrawingW         = (fboW*previewH)/fboH;
+            fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+            fboDrawingPosY      = 0;
+        }
     }
     
     previewFbo.allocate(fboW,fboH,GL_RGBA);
@@ -46,16 +53,23 @@ void gaVideoPreview::setPreviewDim(int w, int h){
     previewW = w;
     previewH = h;
     
-    if(fboW < previewW){
+    if(fboW > previewW){
         fboDrawingW         = (fboW*previewH)/fboH;
         fboDrawingH         = previewH;
         fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
         fboDrawingPosY      = 0;
     }else{
-        fboDrawingW         = previewW;
-        fboDrawingH         = (fboH*previewW)/fboW;
-        fboDrawingPosX      = 0;
-        fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+        if(fboH < previewH){
+            fboDrawingW         = previewW;
+            fboDrawingH         = (fboH*previewW)/fboW;
+            fboDrawingPosX      = 0;
+            fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+        }else{
+            fboDrawingH         = previewH;
+            fboDrawingW         = (fboW*previewH)/fboH;
+            fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+            fboDrawingPosY      = 0;
+        }
     }
 }
 

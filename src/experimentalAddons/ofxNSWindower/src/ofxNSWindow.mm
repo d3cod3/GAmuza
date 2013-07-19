@@ -111,33 +111,59 @@ void ofxNSWindow::setWindowPosition(int x, int y) {
 	frame.y = y;
 }
 
+int ofxNSWindow::getActualScreen(){
+    NSPoint center;
+    NSRect rect = [window frame];
+    center.x = rect.origin.x + rect.size.width / 2;
+    center.y = rect.origin.y + rect.size.height / 2;
+    
+    NSEnumerator *screenEnum = [[NSScreen screens] objectEnumerator];
+    NSScreen *screen;
+    
+    int count = 0;
+    while (screen = [screenEnum nextObject]){
+        NSRect f = [screen frame]; // visibleFrame
+        if(NSPointInRect(center,f)){
+            return count;
+        }
+        count++;
+    }
+    
+    return 0;
+}
+
 void ofxNSWindow::setFullscreen(bool fullscreen){
-	
-	
+    NSMutableDictionary *opts = [NSMutableDictionary dictionary];
+    [opts setObject:[NSNumber numberWithBool:NO] forKey:NSFullScreenModeAllScreens];
+    
+	NSPoint center;
+    NSRect rect = [window frame];
+    center.x = rect.origin.x + rect.size.width / 2;
+    center.y = rect.origin.y + rect.size.height / 2;
+    
 	if(fullscreen) {
-        NSPoint center;
-		NSRect rect = [window frame];
-        center.x = rect.origin.x + rect.size.width / 2;
-		center.y = rect.origin.y + rect.size.height / 2;
-        
         NSEnumerator *screenEnum = [[NSScreen screens] objectEnumerator];
 		NSScreen *screen;
         
-		//NSScreen *screen = [NSScreen mainScreen];
         while (screen = [screenEnum nextObject]){
-            NSRect f = [screen frame];
+            NSRect f = [screen frame]; // visibleFrame
             if(NSPointInRect(center,f)){
-                [glview enterFullScreenMode:screen withOptions:nil];
-                [glview setFrame:f];
-                oframe = frame;
+                [glview enterFullScreenMode:screen withOptions:opts];
+                //[glview setFrame:f];
+                [window setFrame:f display:YES animate:NO];
+                oframe.x = rect.origin.x;
+                oframe.y = rect.origin.y;
+                oframe.width = rect.size.width;
+                oframe.height = rect.size.height;
                 frame.set(0, 0, f.size.width, f.size.height);
                 break;
             }
         }
 	}
 	else {
-		[glview exitFullScreenModeWithOptions:nil];
-		[glview setFrame:NSMakeRect(0, 0, oframe.width, oframe.height)];
+		[glview exitFullScreenModeWithOptions:opts];
+		//[glview setFrame:NSMakeRect(0, 0, oframe.width, oframe.height)];
+        [window setFrame:NSMakeRect(oframe.x, oframe.y, oframe.width, oframe.height) display:YES animate:NO];
 		frame = oframe;
 	}
 
@@ -173,6 +199,10 @@ void	ofxNSWindow::toggleFullscreen(){
 	return self;
 }
 
+- (void) mouseMoved: (NSEvent*) event {
+    
+}
+
 - (void) mouseUp: (NSEvent*) event{
 	shouldRedoInitials = YES;
 }
@@ -183,6 +213,7 @@ void	ofxNSWindow::toggleFullscreen(){
 	initialLocationOnScreen = [self convertBaseToScreen:[event locationInWindow]];
     
 	initialFrame = [self frame];
+    
 }
 
 - (void) mouseDragged: (NSEvent*) event{

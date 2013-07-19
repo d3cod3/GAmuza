@@ -45,9 +45,11 @@ void gamuzaMain::drawGui(){
 }
 
 //--------------------------------------------------------------
-void gamuzaMain::gamuzaFullscreen(){
+void gamuzaMain::gamuzaFullscreen(int actualScreen){
     
-	if(isFullscreen){
+    _actualScreen = actualScreen;
+    
+	if(isFullscreen){ // go to window mode
 		isFullscreen = false;
         externIsFullscreen = false;
         if(projectionScreenW > MAIN_WINDOW_W){
@@ -62,58 +64,70 @@ void gamuzaMain::gamuzaFullscreen(){
                 fboDrawingPosX      = 0;
                 fboDrawingPosY      = (MAIN_WINDOW_H-fboDrawingH)/2.0;
             }else{
-                fboDrawingH = MAIN_WINDOW_H;
+                fboDrawingH         = MAIN_WINDOW_H;
                 fboDrawingW         = (projectionScreenW*MAIN_WINDOW_H)/projectionScreenH;
                 fboDrawingPosX      = (MAIN_WINDOW_W-fboDrawingW)/2.0;
                 fboDrawingPosY      = 0;
             }
 		}
-	}else{
+	}else{ // go to fullscreen mode (at specified screen only, GAmuza do not span fullscreen over all screens)
+        
+        int theScreenX = 0;
+        int theScreenY = 0;
+        int theScreenW = _screensData[actualScreen].width;
+        int theScreenH = _screensData[actualScreen].height;
+        
+        for(int i=0;i<actualScreen;i++){
+            theScreenX += _screensData[i].x;
+            theScreenY += _screensData[i].y;
+        }
+        
 		isFullscreen = true;
         externIsFullscreen = true;
-        if(projectionScreenW > _mainScreenW && projectionScreenH > _mainScreenH){ // width & height bigger than screen
+        if(projectionScreenW > theScreenW && projectionScreenH > theScreenH){ // width & height bigger than screen
             if(asRatio.x > asRatio.y){ // horizontal texture
-                fboDrawingW         = _mainScreenW;
+                fboDrawingW         = theScreenW;
                 fboDrawingH         = (asRatio.y*fboDrawingW)/asRatio.x;
                 fboDrawingPosX      = 0;
-                fboDrawingPosY      = (_mainScreenH-fboDrawingH)/2.0;
+                fboDrawingPosY      = (theScreenH-fboDrawingH)/2.0;
             }else{ // vertical texture
-                fboDrawingH         = _mainScreenH;
+                fboDrawingH         = theScreenH;
                 fboDrawingW         = (asRatio.x*fboDrawingH)/asRatio.y;
-                fboDrawingPosX      = (_mainScreenW-fboDrawingW)/2.0;
+                fboDrawingPosX      = (theScreenW-fboDrawingW)/2.0;
                 fboDrawingPosY      = 0;
             }
-		}else if(projectionScreenW > _mainScreenW && projectionScreenH <= _mainScreenH){ // width bigger
+		}else if(projectionScreenW > theScreenW && projectionScreenH <= theScreenH){ // width bigger
             // horizontal texture only (due to landscape screens nature)
-            fboDrawingW         = _mainScreenW;
+            fboDrawingW         = theScreenW;
             fboDrawingH         = (asRatio.y*fboDrawingW)/asRatio.x;
             fboDrawingPosX      = 0;
-            fboDrawingPosY      = (_mainScreenH-fboDrawingH)/2.0;
-        }else if(projectionScreenW <= _mainScreenW && projectionScreenH > _mainScreenH){ // height bigger
-            fboDrawingH         = _mainScreenH;
+            fboDrawingPosY      = (theScreenH-fboDrawingH)/2.0;
+        }else if(projectionScreenW <= theScreenW && projectionScreenH > theScreenH){ // height bigger
+            fboDrawingH         = theScreenH;
             fboDrawingW         = (asRatio.x*fboDrawingH)/asRatio.y;
-            fboDrawingPosX      = (_mainScreenW-fboDrawingW)/2.0;
+            fboDrawingPosX      = (theScreenW-fboDrawingW)/2.0;
             fboDrawingPosY      = 0;
         }else{ // smaller than screen
             if(asRatio.x > asRatio.y){ // horizontal texture
                 if((asRatio.x/asRatio.y) < 1.5){
-                    fboDrawingH         = _mainScreenH;
+                    fboDrawingH         = theScreenH;
                     fboDrawingW         = (projectionScreenW*fboDrawingH)/projectionScreenH;
-                    fboDrawingPosX      = (_mainScreenW-fboDrawingW)/2.0;
+                    fboDrawingPosX      = (theScreenW-fboDrawingW)/2.0;
                     fboDrawingPosY      = 0;
                 }else{
-                    fboDrawingW         = _mainScreenW;
+                    fboDrawingW         = theScreenW;
                     fboDrawingH         = (projectionScreenH*fboDrawingW)/projectionScreenW;
                     fboDrawingPosX      = 0;
-                    fboDrawingPosY      = (_mainScreenH-fboDrawingH)/2.0;
+                    fboDrawingPosY      = (theScreenH-fboDrawingH)/2.0;
                 }
             }else{ // vertical texture
-                fboDrawingW         = _mainScreenW;
+                fboDrawingW         = theScreenW;
                 fboDrawingH         = (projectionScreenH*fboDrawingW)/projectionScreenW;
                 fboDrawingPosX      = 0;
-                fboDrawingPosY      = (_mainScreenH-fboDrawingH)/2.0;
+                fboDrawingPosY      = (theScreenH-fboDrawingH)/2.0;
             }
         }
+        
 	}
 	
 }

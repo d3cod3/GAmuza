@@ -48,6 +48,7 @@ public:
 
 	ofPoint	getWindowPosition() { return ofPoint(frame.x, frame.y); }
 	ofPoint	getWindowSize(){ return ofPoint(frame.width, frame.height); }
+    int     getActualScreen();
 	ofRectangle getFrame() { return frame; }
 
 	int getWidth() { return getWindowSize().x; }
@@ -92,6 +93,7 @@ private:
     float       minY;
 }
 
+- (void) mouseMoved: (NSEvent*) event;
 - (void) mouseUp: (NSEvent*) event;
 - (void) mouseDown: (NSEvent*) event;
 - (void) mouseDragged: (NSEvent*) event;

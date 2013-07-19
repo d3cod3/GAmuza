@@ -130,7 +130,7 @@ public:
     void setupGui();
     void updateGui();
     void drawGui();
-    void gamuzaFullscreen();
+    void gamuzaFullscreen(int actualScreen);
     ofVec2f reduceToAspectRatio(int _w, int _h);
     
     // MAPPING ///////////////////////// --> gamuzaMapping.h
@@ -186,6 +186,7 @@ public:
     //////////////////////////////////////////////
     // APP --> gamuzaApp.h
     vector<ofRectangle>         _screensData;
+    int                         _actualScreen;
     int                         _mainScreenW;
     int                         _mainScreenH;
     ofSerial	                _serial;
