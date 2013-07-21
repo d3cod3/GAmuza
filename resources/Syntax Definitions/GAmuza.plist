@@ -2233,12 +2233,12 @@
 			<string>Identifiers5</string>
 			<key>Keywords</key>
 			<array>
-				<string>==</string>
-				<string>!=</string>
-				<string>&lt;=</string>
-				<string>&gt;=</string>
-				<string>&gt;</string>
-				<string>&lt;</string>
+				<string> == </string>
+				<string> != </string>
+				<string> &lt;= </string>
+				<string> &gt;= </string>
+				<string> &gt; </string>
+				<string> &lt; </string>
 			</array>
 			<key>Type</key>
 			<string>Keywords</string>
