@@ -36,6 +36,8 @@ gaTimeline::~gaTimeline(){
 //--------------------------------------------------------------
 void gaTimeline::setup(){
     
+    ofSetEscapeQuitsApp(false);
+    
     timeline.setup(scrW,scrH);
 	
 	ofAddListener(timeline.events().bangFired, this, &gaTimeline::bangFired);

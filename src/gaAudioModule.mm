@@ -19,6 +19,7 @@ gaAudioModule::~gaAudioModule(){
 //--------------------------------------------------------------
 void gaAudioModule::setup(){
     ofSetWindowShape(winW,winH);
+    ofSetEscapeQuitsApp(false);
     
     ///////////////////////////////////////////////
 	// load fonts

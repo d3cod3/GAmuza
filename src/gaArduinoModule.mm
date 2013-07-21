@@ -20,6 +20,7 @@ gaArduinoModule::~gaArduinoModule(){
 //--------------------------------------------------------------
 void gaArduinoModule::setup(){
     ofSetWindowShape(winW,winH);
+    ofSetEscapeQuitsApp(false);
     
     ///////////////////////////////////////////////
 	// load fonts

@@ -29,6 +29,7 @@ void gamuzaMain::setup() {
     //////////////////////////////////////////////
 	// INIT general OF settings
     ofSetWindowShape(MAIN_WINDOW_W,MAIN_WINDOW_H);
+    ofSetEscapeQuitsApp(false);
 	ofEnableSmoothing();
 	ofSetLogLevel(OF_LOG_VERBOSE);
     ofBackground(0);
