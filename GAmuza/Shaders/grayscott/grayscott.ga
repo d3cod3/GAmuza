@@ -1,11 +1,11 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0430 examples 
  ---------------------
  Shaders/grayscott.ga
  
- Shaders examples from ofx.fx addon
+ Shaders examples from ofxFX addon
  <https://github.com/patriciogonzalezvivo/ofxFX>; 
  this example shows the grayscott algorithm effect.
  
@@ -13,31 +13,48 @@
  
 */
 
-grayscott = ofx.grayScott()
-cam = of.texture()
+grayscott = ofxGrayScott()
+normals = ofxNormals()
+
+captureW = 640
+captureH = 480
 
 function setup()
-    cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
-    grayscott:allocate(CAPTURE_W,CAPTURE_H)
-    grayscott:setIterations(5)
-    grayscott:setDiffV(0.01)
+    	grayscott:allocate(captureW,captureH)
+    	normals:allocate(captureW,captureH)
 end
 
 function update()
-    cam = ga.cameraTexture(0)
+	grayscott:update()
+	
+	normals:setTexture(grayscott:getTextureReference(),0)
+	normals:update()
 end
 
 function draw()
-    ga.background(0.0,1.0)
+    	gaBackground(0.0,1.0)
+    	
+    	ofSetColor(255)
+    	grayscott:draw(0,0,captureW,captureH)
+    	
+    	ofDrawBitmapString("GrayScott Reaction Diffusion", 15,15)
+	ofDrawBitmapString(string.format("K ( mouseX ): %f", grayscott:getK()) , 15,35)
+	ofDrawBitmapString(string.format("F ( mouseY ): %f", grayscott:getF()) , 15,55)
+	
+	ofSetColor(255,120)
+	normals:draw(640,0,320,240)
+	ofSetColor(255)
+	ofDrawBitmapString("NormalMap of the GrayScott", 640+15,15)
+end
 
-	grayscott:beginFx()
-		of.setColor(10)
-		cam:draw(0,0)
-	grayscott:endFx(false)
-	
-	of.pushMatrix()
-	of.scale(OUTPUT_W/CAPTURE_W,OUTPUT_H/CAPTURE_H,1)
-		grayscott:draw(0,0)
-	of.popMatrix()
-	
+function mouseMoved()
+	grayscott:setK(ofMap(gaMouseX(),0,captureW,0.005,0.095,true))
+    	grayscott:setF(ofMap(gaMouseY(),0,captureH,0.01,0.028,true))
+end
+
+function mousePressed()
+	grayscott:beginFx(0)
+	ofSetColor(ofNoise(ofGetElapsedTimef())*255)
+    	ofCircle(gaMouseX(),gaMouseY(),3)
+	grayscott:endFx(0)
 end

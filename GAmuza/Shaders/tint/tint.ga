@@ -1,0 +1,85 @@
+
+/* 
+   
+ GAmuza 0430 examples 
+ ---------------------
+ Shaders/filters.ga
+ 
+ Shaders examples from ofxFX addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows the use of tint filters.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gauss = ofxGaussianBlur()
+tint = ofxTint()
+
+back = ofImage()
+font = ofTrueTypeFont()
+message = "~ NEMO PERVENIT QUI NON LEGITIME CERTAVERIT ~"
+fade = 0.0
+
+gradStart = ofColor(252,239,233,255)
+gradEnd = ofColor(58,30,0,255)
+
+width = OUTPUT_W
+height = 400
+
+function setup()
+	back:loadImage(gaImportFile("texture.jpg"))
+	gauss:allocate(width,height)
+	tint:allocate(width,height)
+	tint:setZoom(60)
+	
+	font:loadFont(gaImportFile("cardinal.ttf"),28,true,true)
+end
+
+function update()
+	fade = math.abs(math.sin(ofGetElapsedTimef()*0.099))
+	
+	ofPushView()
+	ofPushStyle()
+	gauss:beginFx(0)
+	ofPushMatrix()
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA)
+	ofClear(0, 255)
+	ofSetColor(ofMap(fade,0.0,0.5,0.0,1.0,true)*255,255)
+	font:drawString(message,30,height/2)
+	ofDisableBlendMode()
+	ofPopMatrix()
+	gauss:endFx(0)
+	
+	gauss:setRadius( 1.0 + ( 1.0 - fade ) * 5.0 )
+	gauss:setPasses( 1.0 + ( 1.0 - fade ) * 3.0 )
+	gauss:update()
+	
+	tint:setFade( 0.2 + (1.0-fade )*0.8 )
+	
+	if fade < 0.01 then
+		tint:clear()
+	end
+	
+	tint:setTexture(gauss:getTextureReference(),0)
+	tint:update()
+	ofPopView()
+	ofPopStyle()
+	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	ofBackgroundGradient(gradStart,gradEnd,OF_GRADIENT_CIRCULAR)
+    	
+    	ofEnableBlendMode(OF_BLENDMODE_ALPHA)
+    	ofSetColor(255, 50)
+    	back:draw(0,0,OUTPUT_W,OUTPUT_H)
+    	
+    	ofEnableBlendMode(OF_BLENDMODE_MULTIPLY)
+    	ofSetColor(255, 255)
+    	tint:getTextureReference():draw(0,0)
+    	ofDisableBlendMode()
+    
+end

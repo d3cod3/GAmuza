@@ -1,0 +1,174 @@
+
+/* 
+   
+ GAmuza 0430 examples 
+ ---------------------
+ Shaders/filters.ga
+ 
+ Shaders examples from ofxFX addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows some basic filters
+ and the use of LUTs : <http://en.wikipedia.org/wiki/Lookup_table>.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+cam = ofTexture()
+
+polaroid = ofImage()
+mapa = ofImage()
+mult = ofxMultiTexture()
+
+dir = ofDirectory()
+lut = ofxLUT()
+
+bloom = ofxBloom()
+gaussiaBlur = ofxGaussianBlur()
+bokeh = ofxBokeh()
+glow = ofxGlow()
+_blur = ofxBlur()
+
+captureW = 640
+captureH = 480
+
+selection = -1
+dirLoadIndex = 0
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+	cam:allocate(captureW,captureH,GL_RGB)
+	
+	mapa:loadImage(gaImportFile("mapa.jpg"))
+	polaroid:loadImage(gaImportFile("polaroid.png"))
+	
+	mult:allocate(captureW,captureH)
+	mult:setTexture(mapa:getTextureReference(),0)
+	
+	lut:allocate(captureW,captureH)
+	
+	bloom:allocate(captureW,captureH)
+	gaussiaBlur:allocate(captureW,captureH)
+	bokeh:allocate(captureW,captureH)
+	glow:allocate(captureW,captureH)
+	_blur:allocate(captureW,captureH)
+	
+	dir:allowExt("cube")
+	dir:listDir(gaDataPath("LUT/"))
+	dir:sort()
+	
+	if dir:size() > 0 then
+		dirLoadIndex = 0
+		lut:loadLUT(dir:getPath(dirLoadIndex))
+	end
+	
+end
+
+function update()
+	grabber:update()
+    	if grabber:isFrameNew() then
+    		cam = grabber:getTextureReference()
+    		lut:setTexture(cam,0)
+    		lut:update()
+    		
+    		mult:setTexture(lut:getTextureReference(),1)
+    		
+    		if selection == -1 then // NO FILTER
+    			mult:setTexture(lut:getTextureReference(),2)
+    		elseif selection == 0 then // BLOOM
+    			bloom:setTexture(lut:getTextureReference(),0)
+    			bloom:update()
+    			mult:setTexture(bloom:getTextureReference(),2)
+    		elseif selection == 1 then // GAUSSIAN BLUR
+    			gaussiaBlur:setRadius(math.sin(ofGetElapsedTimef())*10)
+    			gaussiaBlur:setTexture(lut:getTextureReference(),0)
+    			gaussiaBlur:update()
+    			mult:setTexture(gaussiaBlur:getTextureReference(),2)
+    		elseif selection == 2 then // BOKEH
+    			bokeh:setRadius(math.sin(ofGetElapsedTimef())*10)
+    			bokeh:setTexture(lut:getTextureReference(),0)
+    			bokeh:update()
+    			mult:setTexture(bokeh:getTextureReference(),2)
+    		elseif selection == 3 then // GLOW
+    			glow:setRadius(math.sin(ofGetElapsedTimef())*16)
+    			glow:setTexture(lut:getTextureReference(),0)
+    			glow:update()
+    			mult:setTexture(glow:getTextureReference(),2)
+    		elseif selection == 4 then // BLUR
+    			_blur:setFade(math.sin(ofGetElapsedTimef()))
+    			_blur:setTexture(lut:getTextureReference(),0)
+    			_blur:update()
+    			mult:setTexture(_blur:getTextureReference(),2)
+    		end
+    		
+    		mult:update()
+    		
+    	end
+    	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	ofSetColor(255)
+    	
+    	ofPushMatrix()
+    	ofTranslate(OUTPUT_W*0.5, OUTPUT_H*0.5, 0)
+    	
+    	mult:draw(-captureH*0.5,-captureH*0.5,captureH,captureH)
+    	
+    	ofSetColor(255,255);
+    	polaroid:draw(-polaroid:getWidth()*0.46,-polaroid:getHeight()*0.43,polaroid:getWidth()*0.95,polaroid:getHeight()*0.95);
+    	
+    	ofSetColor(50, 255);
+    	ofDrawBitmapString(string.format("LUT: %s",dir:getName(dirLoadIndex)), -220 ,280);
+	if selection == 0 then // BLOOM
+    		ofDrawBitmapString("FILTER: Bloom", -220 ,300)
+    	elseif selection == 1 then // GAUSSIAN BLUR
+    		ofDrawBitmapString(string.format("FILTER: Gaussian Blur at: %f",math.sin(ofGetElapsedTimef())*10),-220 ,300)
+    	elseif selection == 2 then // BOKEH
+    		ofDrawBitmapString(string.format("FILTER: Bokeh at: %f",math.abs(math.sin(ofGetElapsedTimef())*10)),-220 ,300)
+    	elseif selection == 3 then // GLOW
+    		ofDrawBitmapString(string.format("FILTER: Glow at: %f",math.sin(ofGetElapsedTimef())*15),-220 ,300)
+    	elseif selection == 4 then // BLUR
+    		ofDrawBitmapString(string.format("FILTER: Blur (smooth/sharp) at: %f",math.sin(ofGetElapsedTimef())),-220 ,300)
+    	else
+    		ofDrawBitmapString("FILTER: No Filter", -220 ,300)
+    	end
+    	
+    	ofPopMatrix()
+    	
+    	ofSetColor(255, 255)
+    	ofDrawBitmapString("Press A/Z keys to change between filters", 15,15)
+    	ofDrawBitmapString("Press +/- keys to change between LUT´s", 15,30)
+end
+
+function keyReleased()
+	if gaKey() == string.byte('+') then
+		dirLoadIndex += 1
+		if dirLoadIndex >= dir:size() then
+			dirLoadIndex = 0
+		end
+		lut:loadLUT(dir:getPath(dirLoadIndex))
+	elseif gaKey() == string.byte('-') then
+		dirLoadIndex -= 1
+		if dirLoadIndex < 0 then
+			dirLoadIndex = dir:size() - 1
+		end
+		lut:loadLUT(dir:getPath(dirLoadIndex))
+	elseif gaKey() == string.byte('a') then
+		selection += 1
+	elseif gaKey() == string.byte('z') then
+		selection -= 1
+	end
+	
+	if selection >= 5 then
+		selection = -1
+	elseif selection < -1 then
+		selection = 4
+	end
+	
+end
+

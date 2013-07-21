@@ -13,40 +13,35 @@
  
 */
 
-maskFx = ofx.mask()
-top = of.image()
-bottom = of.image()
-mask = of.image()
+maskFx = ofxMask()
+top = ofImage()
+bottom = ofImage()
+mask = ofImage()
 
 function setup()
-    top:loadImage(ga.importFile("misteryMen0.jpg"))
-    mask:loadImage(ga.importFile("horizontalMask.png"))
+    top:loadImage(gaImportFile("misteryMen0.jpg"))
+    mask:loadImage(gaImportFile("horizontalMask.png"))
     mask:resize(top.width,top.height)
-    bottom:loadImage(ga.importFile("misteryMen1.jpg"))
-    maskFx:allocate(top.width,top.height) 
+    bottom:loadImage(gaImportFile("misteryMen1.jpg"))
+    maskFx:allocate(top.width,top.height)
+    maskFx:setTexture(mask:getTextureReference(),0)
+    maskFx:setTexture(top:getTextureReference(),1)
+end
+
+function update()
+	maskFx:update()
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
 
-	// create mask
-	maskFx:beginMask()
-    		of.clear(255,255)
-    		of.setColor(255)
-    		mask:draw(0,ga.mouseY()-(OUTPUT_H/2 - top.height/2))
-	maskFx:endMask()
-    
-
-	of.pushMatrix()
-	of.translate(OUTPUT_W/2 - top.width/2, OUTPUT_H/2 - top.height/2,0)
+	ofPushMatrix()
+	ofTranslate(OUTPUT_W/2 - top.width/2, OUTPUT_H/2 - top.height/2,0)
 	
 	// draw the base image
-	of.setColor(255)
+	ofSetColor(255)
 	bottom:draw(0,0)
-    
-    // draw the masked image
-	maskFx:beginFx()
-		top:draw(0,0)
-	maskFx:endFx(true)
-	of.popMatrix()
+	
+	maskFx:draw(0,0,top.width,top.height)
+	ofPopMatrix()
 end

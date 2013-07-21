@@ -1,0 +1,44 @@
+
+/* 
+   
+ GAmuza 0430 examples 
+ ---------------------
+ Shaders/conway.ga
+ 
+ Shaders examples from ofxFX addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows the use of custom Conway Life GLSL Game shader.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+img = ofImage()
+conway = ofxFXObject()
+
+function setup()
+	ofEnableAlphaBlending()
+	img:loadImage(gaImportFile("mem.gif"))
+	conway:allocate(640,480)
+	conway:setPasses(10)
+	conway:setCode(conwayShader)
+	conway:setTexture(img:getTextureReference(),0)
+end
+
+function update()
+	conway:update()
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	conway:beginFx(0)
+	ofClear(255,255)
+	//conway:draw(0,0,640,480)
+	ofSetColor(0,255)
+	ofCircle(gaMouseX(),gaMouseY(),5)
+	conway:endFx(0)
+	
+    	conway:draw(0,0,640,480)
+end
+
