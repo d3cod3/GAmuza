@@ -191,12 +191,17 @@ void	ofxNSWindow::toggleFullscreen(){
     
     if(aStyle == NSBorderlessWindowMask){
         [self setMovableByWindowBackground:YES];
+        [self setAcceptsMouseMovedEvents:YES];
         [self setBackgroundColor:[NSColor clearColor]];
         [self setLevel:NSNormalWindowLevel];
         [self setOpaque:NO];
         [self setHasShadow:YES];
     }
 	return self;
+}
+
+- (BOOL) canBecomeKeyWindow {
+    return YES;
 }
 
 - (void) mouseMoved: (NSEvent*) event {
