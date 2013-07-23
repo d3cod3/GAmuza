@@ -18,6 +18,7 @@ ofxGameCamera
 ofxGaussian
 ofxGenerative
 ofxHttpUtils
+ofxIpVideoGrabber
 ofxJitterNetworkSender
 oofKinect
 ofxLua

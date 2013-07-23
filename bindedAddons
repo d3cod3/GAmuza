@@ -12,6 +12,7 @@ ofxFX
 ofxGameCamera
 ofxGaussian
 ofxGenerative
+ofxIpVideoGrabber
 ofxJitterNetworkSender
 ofxKinect
 ofxOpticalFlowLK

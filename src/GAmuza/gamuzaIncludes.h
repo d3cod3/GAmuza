@@ -115,6 +115,7 @@
 // STREAMING
 #include "ofxSyphon.h"
 #include "ofxJitterNetworkSender.h"
+#include "ofxIpVideoGrabber.h"
 
 
 //////////////////////////////////////

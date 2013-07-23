@@ -1,0 +1,39 @@
+
+/* 
+   
+ GAmuza 0431 examples 
+ ---------------------
+ Net/ipVideoGrabber.ga
+ 
+ This example shows how to connect to a video streaming
+ using the ofxIpVideoGrabber(), a class for MJPEG streams (Axis IP Camera, etc.)
+ 
+ Original addon from bakercp <https://github.com/bakercp/ofxIpVideoGrabber>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+cameraStream	= "http://kassertheatercam.montclair.edu/axis-cgi/mjpg/video.cgi"
+ipGrabber 	= ofxIpVideoGrabber()
+
+captureW = 640
+captureH = 480
+
+function setup()
+	ipGrabber:setURI(cameraStream)
+	ipGrabber:connect()
+end
+
+function update()
+	ipGrabber:update()
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    ofSetColor(255)
+    ipGrabber:draw(0,0,captureW,captureH)
+    
+    ofDrawBitmapString(tostring(ipGrabber:getCameraName()),20,500)
+end

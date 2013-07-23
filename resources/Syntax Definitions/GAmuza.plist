@@ -1583,6 +1583,55 @@
 				<string>ofxSwarmBehavior</string>
 				<string>ofxTrailParticle</string>
 				<string>ofxVerletSolver</string>
+				<string>IPCameraDef</string>
+				<string>ofxIpVideoGrabber</string>
+				<string>connect</string>
+				<string>disconnect</string>
+				<string>waitForDisconnect</string>
+				<string>getNumFramesReceived</string>
+				<string>getNumBytesReceived</string>
+				<string>getFrameRate</string>
+				<string>getBitRate</string>
+				<string>getCameraName</string>
+				<string>setCameraName</string>
+				<string>setURI</string>
+				<string>getURI</string>
+				<string>getHost</string>
+				<string>getQuery</string>
+				<string>getPort</string>
+				<string>getFragment</string>
+				<string>setCookie</string>
+				<string>eraseCookie</string>
+				<string>getCookie</string>
+				<string>setUsername</string>
+				<string>setPassword</string>
+				<string>getUsername</string>
+				<string>getPassword</string>
+				<string>setUseProxy</string>
+				<string>setProxyUsername</string>
+				<string>setProxyPassword</string>
+				<string>setProxyHost</string>
+				<string>setProxyPort</string>
+				<string>getUseProxy</string>
+				<string>getProxyUsername</string>
+				<string>getProxyPassword</string>
+				<string>getProxyHost</string>
+				<string>getProxyPort</string>
+				<string>isConnected</string>
+				<string>hasConnectionFailed</string>
+				<string>setReconnectTimeout</string>
+				<string>getReconnectTimeout</string>
+				<string>getNeedsReconnect</string>
+				<string>getAutoReconnect</string>
+				<string>getReconnectCount</string>
+				<string>getMaxReconnects</string>
+				<string>setMaxReconnects</string>
+				<string>getAutoRetryDelay</string>
+				<string>setAutoRetryDelay</string>
+				<string>getNextAutoRetryTime</string>
+				<string>getTimeTillNextAutoRetry</string>
+				<string>setDefaultBoundaryMarker</string>
+				<string>getDefaultBoundaryMarker</string>
 				<string>ofxJitterNetworkSender</string>
 				<string>sendFrame</string>
 				<string>sendText</string>
