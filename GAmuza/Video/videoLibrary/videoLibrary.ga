@@ -56,7 +56,7 @@ function draw()
 	videos[currentVideo]:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
 
     ofSetColor(255)
-    text = string.format("File: %s |Ê Position: %f", dir:getName(currentVideo),videos[currentVideo]:getPosition())
+    text = string.format("File: %s |Â  Position: %f", dir:getName(currentVideo),videos[currentVideo]:getPosition())
     ofDrawBitmapString(text,10,OUTPUT_H-30)
     
 end
