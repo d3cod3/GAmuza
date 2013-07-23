@@ -79,6 +79,30 @@
 		200F86191778A050001630D1 /* simpleLogger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 200F85FC1778A050001630D1 /* simpleLogger.cpp */; };
 		200F86211778A1B2001630D1 /* gaAudioModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 200F86201778A1B2001630D1 /* gaAudioModule.mm */; };
 		200F865D17790677001630D1 /* ofxDOF.mm in Sources */ = {isa = PBXBuildFile; fileRef = 200F865C17790677001630D1 /* ofxDOF.mm */; };
+		201740AB179CA383005468BD /* ofxIpVideoGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 201740A9179CA383005468BD /* ofxIpVideoGrabber.cpp */; };
+		201740DD179CB9EB005468BD /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740B1179CB9EB005468BD /* ioapi.c */; };
+		201740DE179CB9EB005468BD /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740B3179CB9EB005468BD /* unzip.c */; };
+		201740DF179CB9EB005468BD /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740B5179CB9EB005468BD /* zip.c */; };
+		201740E0179CB9EB005468BD /* FileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 201740B9179CB9EB005468BD /* FileInZipInfo.m */; };
+		201740E1179CB9EB005468BD /* ZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 201740BB179CB9EB005468BD /* ZipException.m */; };
+		201740E2179CB9EB005468BD /* ZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 201740BD179CB9EB005468BD /* ZipFile.m */; };
+		201740E3179CB9EB005468BD /* ZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 201740BF179CB9EB005468BD /* ZipReadStream.m */; };
+		201740E4179CB9EB005468BD /* ZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 201740C1179CB9EB005468BD /* ZipWriteStream.m */; };
+		201740E5179CB9EB005468BD /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740C3179CB9EB005468BD /* adler32.c */; };
+		201740E6179CB9EB005468BD /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740C4179CB9EB005468BD /* compress.c */; };
+		201740E7179CB9EB005468BD /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740C5179CB9EB005468BD /* crc32.c */; };
+		201740E8179CB9EB005468BD /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740C7179CB9EB005468BD /* deflate.c */; };
+		201740E9179CB9EB005468BD /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740C9179CB9EB005468BD /* gzclose.c */; };
+		201740EA179CB9EB005468BD /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740CB179CB9EB005468BD /* gzlib.c */; };
+		201740EB179CB9EB005468BD /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740CC179CB9EB005468BD /* gzread.c */; };
+		201740EC179CB9EB005468BD /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740CD179CB9EB005468BD /* gzwrite.c */; };
+		201740ED179CB9EB005468BD /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740CE179CB9EB005468BD /* infback.c */; };
+		201740EE179CB9EB005468BD /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740CF179CB9EB005468BD /* inffast.c */; };
+		201740EF179CB9EB005468BD /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740D2179CB9EB005468BD /* inflate.c */; };
+		201740F0179CB9EB005468BD /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740D4179CB9EB005468BD /* inftrees.c */; };
+		201740F1179CB9EB005468BD /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740D6179CB9EB005468BD /* trees.c */; };
+		201740F2179CB9EB005468BD /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740D8179CB9EB005468BD /* uncompr.c */; };
+		201740F3179CB9EB005468BD /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 201740DB179CB9EB005468BD /* zutil.c */; };
 		20201425175D7089003D25F3 /* ofxBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F1175D7089003D25F3 /* ofxBehavior.cpp */; };
 		20201426175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F5175D7089003D25F3 /* ofxBufferEffectorBehavior.cpp */; };
 		20201427175D7089003D25F3 /* ofxDamperBehavior.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 202013F8175D7089003D25F3 /* ofxDamperBehavior.cpp */; };
@@ -650,6 +674,52 @@
 		200F86201778A1B2001630D1 /* gaAudioModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaAudioModule.mm; sourceTree = "<group>"; };
 		200F86501778DFB3001630D1 /* ofxDOF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDOF.h; sourceTree = "<group>"; };
 		200F865C17790677001630D1 /* ofxDOF.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxDOF.mm; sourceTree = "<group>"; };
+		201740A9179CA383005468BD /* ofxIpVideoGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxIpVideoGrabber.cpp; sourceTree = "<group>"; };
+		201740AA179CA383005468BD /* ofxIpVideoGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxIpVideoGrabber.h; sourceTree = "<group>"; };
+		201740AE179CB9EB005468BD /* ARCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ARCHelper.h; sourceTree = "<group>"; };
+		201740B0179CB9EB005468BD /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		201740B1179CB9EB005468BD /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		201740B2179CB9EB005468BD /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		201740B3179CB9EB005468BD /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		201740B4179CB9EB005468BD /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		201740B5179CB9EB005468BD /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		201740B6179CB9EB005468BD /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		201740B8179CB9EB005468BD /* FileInZipInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileInZipInfo.h; sourceTree = "<group>"; };
+		201740B9179CB9EB005468BD /* FileInZipInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileInZipInfo.m; sourceTree = "<group>"; };
+		201740BA179CB9EB005468BD /* ZipException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipException.h; sourceTree = "<group>"; };
+		201740BB179CB9EB005468BD /* ZipException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipException.m; sourceTree = "<group>"; };
+		201740BC179CB9EB005468BD /* ZipFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipFile.h; sourceTree = "<group>"; };
+		201740BD179CB9EB005468BD /* ZipFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipFile.m; sourceTree = "<group>"; };
+		201740BE179CB9EB005468BD /* ZipReadStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipReadStream.h; sourceTree = "<group>"; };
+		201740BF179CB9EB005468BD /* ZipReadStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipReadStream.m; sourceTree = "<group>"; };
+		201740C0179CB9EB005468BD /* ZipWriteStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipWriteStream.h; sourceTree = "<group>"; };
+		201740C1179CB9EB005468BD /* ZipWriteStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipWriteStream.m; sourceTree = "<group>"; };
+		201740C3179CB9EB005468BD /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adler32.c; sourceTree = "<group>"; };
+		201740C4179CB9EB005468BD /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compress.c; sourceTree = "<group>"; };
+		201740C5179CB9EB005468BD /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
+		201740C6179CB9EB005468BD /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		201740C7179CB9EB005468BD /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = deflate.c; sourceTree = "<group>"; };
+		201740C8179CB9EB005468BD /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deflate.h; sourceTree = "<group>"; };
+		201740C9179CB9EB005468BD /* gzclose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzclose.c; sourceTree = "<group>"; };
+		201740CA179CB9EB005468BD /* gzguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzguts.h; sourceTree = "<group>"; };
+		201740CB179CB9EB005468BD /* gzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzlib.c; sourceTree = "<group>"; };
+		201740CC179CB9EB005468BD /* gzread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzread.c; sourceTree = "<group>"; };
+		201740CD179CB9EB005468BD /* gzwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzwrite.c; sourceTree = "<group>"; };
+		201740CE179CB9EB005468BD /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infback.c; sourceTree = "<group>"; };
+		201740CF179CB9EB005468BD /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inffast.c; sourceTree = "<group>"; };
+		201740D0179CB9EB005468BD /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffast.h; sourceTree = "<group>"; };
+		201740D1179CB9EB005468BD /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffixed.h; sourceTree = "<group>"; };
+		201740D2179CB9EB005468BD /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inflate.c; sourceTree = "<group>"; };
+		201740D3179CB9EB005468BD /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
+		201740D4179CB9EB005468BD /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inftrees.c; sourceTree = "<group>"; };
+		201740D5179CB9EB005468BD /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
+		201740D6179CB9EB005468BD /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
+		201740D7179CB9EB005468BD /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
+		201740D8179CB9EB005468BD /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
+		201740D9179CB9EB005468BD /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		201740DA179CB9EB005468BD /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		201740DB179CB9EB005468BD /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zutil.c; sourceTree = "<group>"; };
+		201740DC179CB9EB005468BD /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
 		202013F0175D7089003D25F3 /* ofx1DExtruder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofx1DExtruder.h; sourceTree = "<group>"; };
 		202013F1175D7089003D25F3 /* ofxBehavior.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBehavior.cpp; sourceTree = "<group>"; };
 		202013F2175D7089003D25F3 /* ofxBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBehavior.h; sourceTree = "<group>"; };
@@ -1793,6 +1863,107 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		201740A7179CA383005468BD /* ofxIpVideoGrabber */ = {
+			isa = PBXGroup;
+			children = (
+				201740A8179CA383005468BD /* src */,
+			);
+			name = ofxIpVideoGrabber;
+			path = src/experimentalAddons/ofxIpVideoGrabber;
+			sourceTree = "<group>";
+		};
+		201740A8179CA383005468BD /* src */ = {
+			isa = PBXGroup;
+			children = (
+				201740A9179CA383005468BD /* ofxIpVideoGrabber.cpp */,
+				201740AA179CA383005468BD /* ofxIpVideoGrabber.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		201740AC179CB9EB005468BD /* ObjectiveZip */ = {
+			isa = PBXGroup;
+			children = (
+				201740AD179CB9EB005468BD /* ARCHelper */,
+				201740AF179CB9EB005468BD /* MiniZip */,
+				201740B7179CB9EB005468BD /* Objective-Zip */,
+				201740C2179CB9EB005468BD /* ZLib */,
+			);
+			path = ObjectiveZip;
+			sourceTree = "<group>";
+		};
+		201740AD179CB9EB005468BD /* ARCHelper */ = {
+			isa = PBXGroup;
+			children = (
+				201740AE179CB9EB005468BD /* ARCHelper.h */,
+			);
+			path = ARCHelper;
+			sourceTree = "<group>";
+		};
+		201740AF179CB9EB005468BD /* MiniZip */ = {
+			isa = PBXGroup;
+			children = (
+				201740B0179CB9EB005468BD /* crypt.h */,
+				201740B1179CB9EB005468BD /* ioapi.c */,
+				201740B2179CB9EB005468BD /* ioapi.h */,
+				201740B3179CB9EB005468BD /* unzip.c */,
+				201740B4179CB9EB005468BD /* unzip.h */,
+				201740B5179CB9EB005468BD /* zip.c */,
+				201740B6179CB9EB005468BD /* zip.h */,
+			);
+			path = MiniZip;
+			sourceTree = "<group>";
+		};
+		201740B7179CB9EB005468BD /* Objective-Zip */ = {
+			isa = PBXGroup;
+			children = (
+				201740B8179CB9EB005468BD /* FileInZipInfo.h */,
+				201740B9179CB9EB005468BD /* FileInZipInfo.m */,
+				201740BA179CB9EB005468BD /* ZipException.h */,
+				201740BB179CB9EB005468BD /* ZipException.m */,
+				201740BC179CB9EB005468BD /* ZipFile.h */,
+				201740BD179CB9EB005468BD /* ZipFile.m */,
+				201740BE179CB9EB005468BD /* ZipReadStream.h */,
+				201740BF179CB9EB005468BD /* ZipReadStream.m */,
+				201740C0179CB9EB005468BD /* ZipWriteStream.h */,
+				201740C1179CB9EB005468BD /* ZipWriteStream.m */,
+			);
+			path = "Objective-Zip";
+			sourceTree = "<group>";
+		};
+		201740C2179CB9EB005468BD /* ZLib */ = {
+			isa = PBXGroup;
+			children = (
+				201740C3179CB9EB005468BD /* adler32.c */,
+				201740C4179CB9EB005468BD /* compress.c */,
+				201740C5179CB9EB005468BD /* crc32.c */,
+				201740C6179CB9EB005468BD /* crc32.h */,
+				201740C7179CB9EB005468BD /* deflate.c */,
+				201740C8179CB9EB005468BD /* deflate.h */,
+				201740C9179CB9EB005468BD /* gzclose.c */,
+				201740CA179CB9EB005468BD /* gzguts.h */,
+				201740CB179CB9EB005468BD /* gzlib.c */,
+				201740CC179CB9EB005468BD /* gzread.c */,
+				201740CD179CB9EB005468BD /* gzwrite.c */,
+				201740CE179CB9EB005468BD /* infback.c */,
+				201740CF179CB9EB005468BD /* inffast.c */,
+				201740D0179CB9EB005468BD /* inffast.h */,
+				201740D1179CB9EB005468BD /* inffixed.h */,
+				201740D2179CB9EB005468BD /* inflate.c */,
+				201740D3179CB9EB005468BD /* inflate.h */,
+				201740D4179CB9EB005468BD /* inftrees.c */,
+				201740D5179CB9EB005468BD /* inftrees.h */,
+				201740D6179CB9EB005468BD /* trees.c */,
+				201740D7179CB9EB005468BD /* trees.h */,
+				201740D8179CB9EB005468BD /* uncompr.c */,
+				201740D9179CB9EB005468BD /* zconf.h */,
+				201740DA179CB9EB005468BD /* zlib.h */,
+				201740DB179CB9EB005468BD /* zutil.c */,
+				201740DC179CB9EB005468BD /* zutil.h */,
+			);
+			path = ZLib;
+			sourceTree = "<group>";
+		};
 		202013EE175D7089003D25F3 /* ofxGenerative */ = {
 			isa = PBXGroup;
 			children = (
@@ -2199,6 +2370,7 @@
 		207847831732C98B0098ABF0 /* cocoa */ = {
 			isa = PBXGroup;
 			children = (
+				201740AC179CB9EB005468BD /* ObjectiveZip */,
 				200CE97117357C1D0001192B /* PSMTabBarControl */,
 				20027F2717345DA100ED0C52 /* ScriptEditor */,
 				207847841732C98B0098ABF0 /* AppDelegate.h */,
@@ -2291,6 +2463,7 @@
 				207849C71732D6370098ABF0 /* ofxGaussian */,
 				202013EE175D7089003D25F3 /* ofxGenerative */,
 				207849CB1732D6370098ABF0 /* ofxHttpUtils */,
+				201740A7179CA383005468BD /* ofxIpVideoGrabber */,
 				20E77B79175E040000E468EC /* ofxJitterNetworkSender */,
 				207849D41732D6370098ABF0 /* ofxKinect */,
 				20784BC91732D73A0098ABF0 /* ofxLua */,
@@ -5152,6 +5325,30 @@
 				20A4BB4E17919FC6001763AF /* ofxKinectServer.cpp in Sources */,
 				20A4BB511791B9FC001763AF /* ofxKinectMeshRecorder.cpp in Sources */,
 				20A4BB541791D745001763AF /* gaKinectTracking.cpp in Sources */,
+				201740AB179CA383005468BD /* ofxIpVideoGrabber.cpp in Sources */,
+				201740DD179CB9EB005468BD /* ioapi.c in Sources */,
+				201740DE179CB9EB005468BD /* unzip.c in Sources */,
+				201740DF179CB9EB005468BD /* zip.c in Sources */,
+				201740E0179CB9EB005468BD /* FileInZipInfo.m in Sources */,
+				201740E1179CB9EB005468BD /* ZipException.m in Sources */,
+				201740E2179CB9EB005468BD /* ZipFile.m in Sources */,
+				201740E3179CB9EB005468BD /* ZipReadStream.m in Sources */,
+				201740E4179CB9EB005468BD /* ZipWriteStream.m in Sources */,
+				201740E5179CB9EB005468BD /* adler32.c in Sources */,
+				201740E6179CB9EB005468BD /* compress.c in Sources */,
+				201740E7179CB9EB005468BD /* crc32.c in Sources */,
+				201740E8179CB9EB005468BD /* deflate.c in Sources */,
+				201740E9179CB9EB005468BD /* gzclose.c in Sources */,
+				201740EA179CB9EB005468BD /* gzlib.c in Sources */,
+				201740EB179CB9EB005468BD /* gzread.c in Sources */,
+				201740EC179CB9EB005468BD /* gzwrite.c in Sources */,
+				201740ED179CB9EB005468BD /* infback.c in Sources */,
+				201740EE179CB9EB005468BD /* inffast.c in Sources */,
+				201740EF179CB9EB005468BD /* inflate.c in Sources */,
+				201740F0179CB9EB005468BD /* inftrees.c in Sources */,
+				201740F1179CB9EB005468BD /* trees.c in Sources */,
+				201740F2179CB9EB005468BD /* uncompr.c in Sources */,
+				201740F3179CB9EB005468BD /* zutil.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,6 +11,13 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
 
+#import "ZipFile.h"
+#import "ZipException.h"
+#import "FileInZipInfo.h"
+#import "ZipReadStream.h"
+#import "ZipWriteStream.h"
+#import "zlib.h"
+
 #import "SplashWindow.h"
 #import "PreferencesController.h"
 
@@ -131,6 +138,9 @@
 - (IBAction) cleanScriptToGAmuza:(id)sender;
 
 - (IBAction) toggleGAmuzaFullscreen:(id)sender;
+
+// Archive Sketch (Zip it)
+- (IBAction) archiveSketch:(id)sender;
 
 // COLOR CORRECTION
 - (IBAction) getColorCorrection:(id)sender;

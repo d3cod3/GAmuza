@@ -556,6 +556,80 @@
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
+-(IBAction) archiveSketch:(id)sender{
+    GAMultiTextDocument *currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+    NSString* directoryName = @"";
+    if([[[currentDoc fileURL] absoluteString] rangeOfString:@"localhost"].location != NSNotFound){
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:15] stringByDeletingLastPathComponent];
+    }else{
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+    }
+    
+    NSString* sketchName = [[[[currentDoc fileURL] absoluteString] lastPathComponent] stringByDeletingPathExtension];
+    
+    if(currentDoc != NULL){
+        // Custom Save Panel
+        NSSavePanel                 *sPan;
+        
+        sPan = [NSSavePanel savePanel];
+        [sPan setTitle:@"Archive GAmuza Sketch As"];
+        [sPan setDirectoryURL:[NSURL fileURLWithPath:directoryName]];
+        [sPan setAllowsOtherFileTypes:NO];
+        [sPan setCanCreateDirectories:NO];
+        
+        long tvar = [sPan runModalForDirectory:sketchName file:sketchName];
+        
+        if(tvar == NSOKButton){
+            NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
+            NSURL *directoryURL = [NSURL URLWithString:directoryName];
+            NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+            NSDirectoryEnumerator *enumerator = [fileManager
+                                                 enumeratorAtURL:directoryURL
+                                                 includingPropertiesForKeys:keys
+                                                 options:0
+                                                 errorHandler:NULL];
+            
+            NSString *stringPath = [[sPan filename] stringByAppendingFormat:@".zip"];
+            ZipFile *zipFile = [[ZipFile alloc]initWithFileName:stringPath mode:ZipFileModeCreate];
+        
+            for (NSURL *url in enumerator) {
+                NSNumber    *isDirectory = NULL;
+                NSString    *_actualFile = [[url absoluteString] lastPathComponent];
+                
+                [url getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:NULL];
+                
+                if([_actualFile hasPrefix:@"."] || [_actualFile rangeOfString:@".DS_Store"].location != NSNotFound){
+                    continue;
+                }
+                
+                if(![isDirectory boolValue]){
+                    NSString* tempPath = [NSString stringWithFormat:@"file://localhost%@/", [[directoryURL absoluteString] stringByDeletingLastPathComponent]];
+                    NSString *difference = [[[url absoluteString] substringFromIndex:tempPath.length] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    NSString* zipElement = [[NSString stringWithFormat:@"/%@",difference] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    
+                    NSLog(@"%@",difference);
+                    
+                    id elem = difference;                    
+                    NSString *path = [[directoryName stringByDeletingLastPathComponent] stringByAppendingString:zipElement];
+                    
+                    NSDictionary *attributes = [fileManager attributesOfItemAtPath:path error:NULL];
+                    NSDate *Date = [attributes objectForKey:NSFileCreationDate];
+                    
+                    ZipWriteStream *stream = [zipFile writeFileInZipWithName:elem fileDate:Date compressionLevel:ZipCompressionLevelDefault];
+                    NSData *data = [NSData dataWithContentsOfFile:path];
+                    [stream writeData:data];
+                    [stream finishedWriting];
+                }
+            }
+            [zipFile close];
+            
+        }else{
+            return;
+        }
+    }
+}
+
 -(IBAction) getColorCorrection:(id)sender{
     NSXMLDocument *xmlDoc;
     NSArray* itemArray;
