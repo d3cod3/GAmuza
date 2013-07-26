@@ -17,9 +17,8 @@ img = ofImage()
 conway = ofxFXObject()
 
 function setup()
-	ofEnableAlphaBlending()
 	img:loadImage(gaImportFile("mem.gif"))
-	conway:allocate(640,480)
+	conway:allocate(OUTPUT_W,OUTPUT_H)
 	conway:setPasses(10)
 	conway:setCode(conwayShader)
 	conway:setTexture(img:getTextureReference(),0)
@@ -31,14 +30,18 @@ end
 
 function draw()
     	gaBackground(0.0,1.0)
-    
+    	
     	conway:beginFx(0)
 	ofClear(255,255)
-	//conway:draw(0,0,640,480)
-	ofSetColor(0,255)
+	conway:draw(0,0,OUTPUT_W,OUTPUT_H)
+	ofSetColor(255,0,0,255)
+	ofNoFill()
 	ofCircle(gaMouseX(),gaMouseY(),5)
+	for i=0,130 do
+		ofCircle(OUTPUT_W/2,OUTPUT_H/2,i*6)
+	end
 	conway:endFx(0)
-	
-    	conway:draw(0,0,640,480)
+    	
+    	conway:draw(0,0,OUTPUT_W,OUTPUT_H)
 end
 
