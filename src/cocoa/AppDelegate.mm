@@ -643,6 +643,7 @@
     }else{
         directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
     }
+    NSString* finalFilePath = @"";
     
     if(currentDoc != NULL){
         
@@ -789,14 +790,17 @@
             [htmlText appendFormat: @"</html>"];
             
             // create & save the html file
-            NSString* filePath = [[NSString stringWithFormat:@"%@/index", [sPan filename]] stringByAppendingFormat:@".html"];
-            [htmlText writeToFile:filePath atomically:YES encoding: NSUTF8StringEncoding error:NULL];
+            finalFilePath = [[NSString stringWithFormat:@"%@/index", [sPan filename]] stringByAppendingFormat:@".html"];
+            [htmlText writeToFile:finalFilePath atomically:YES encoding: NSUTF8StringEncoding error:NULL];
+            
         }else{
             return;
         }
     }
     
     [self cleanScriptToGAmuza:NULL];
+    
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://localhost%@", finalFilePath]]];
     
 }
 
