@@ -115,7 +115,7 @@
     
     ////////////////////////////////////////////////
     // custom buttons
-    [sendToBut setLabel:@"Send To GAmuza"];
+    [sendToBut setLabel:@"Compile Script"];
     [sendToBut setButtonImages:[NSImage imageNamed:@"gotoG_out"] rollOver:[NSImage imageNamed:@"gotoG_over"]];
     
     [emptyBut setLabel:@"Clear Script"];
