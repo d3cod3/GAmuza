@@ -142,6 +142,9 @@
 // Archive Sketch (Zip it)
 - (IBAction) archiveSketch:(id)sender;
 
+// Export to HTML
+- (IBAction) exportSketchToHTML:(id)sender;
+
 // COLOR CORRECTION
 - (IBAction) getColorCorrection:(id)sender;
 - (IBAction) saveColorCorrection:(id)sender;

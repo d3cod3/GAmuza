@@ -630,6 +630,176 @@
     }
 }
 
+-(IBAction) exportSketchToHTML:(id)sender{
+    
+    [self sendScriptToGAmuza:NULL];
+    
+    GAMultiTextDocument *currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+    NSString* _tempCode = [currentDoc sendToGAmuza];
+    NSString* sketchName = [[[[currentDoc fileURL] absoluteString] lastPathComponent] stringByDeletingPathExtension];
+    NSString* directoryName = @"";
+    if([[[currentDoc fileURL] absoluteString] rangeOfString:@"localhost"].location != NSNotFound){
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:15] stringByDeletingLastPathComponent];
+    }else{
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+    }
+    
+    if(currentDoc != NULL){
+        
+        // Custom Save Panel
+        NSSavePanel                 *sPan;
+        
+        sPan = [NSSavePanel savePanel];
+        [sPan setTitle:@"Export GAmuza Sketch to HTML"];
+        [sPan setDirectoryURL:[NSURL fileURLWithPath:directoryName]];
+        [sPan setAllowsOtherFileTypes:NO];
+        [sPan setCanCreateDirectories:NO];
+        
+        long tvar = [sPan runModalForDirectory:sketchName file:sketchName];
+        
+        if(tvar == NSOKButton){
+            
+            // extract header comment for description
+            NSRange rr2 = [_tempCode rangeOfString:@"/*"];
+            NSRange rr3 = [_tempCode rangeOfString:@"*/"];
+            int lengt = rr3.location - rr2.location - rr2.length;
+            int location = rr2.location + rr2.length;
+            NSRange aa;
+            aa.location = location;
+            aa.length = lengt;
+            _tempCode = [_tempCode substringWithRange:aa];
+            NSArray *headerCodeLinesNm = [_tempCode componentsSeparatedByString:@"\n"];
+            
+            // create documentation directories
+            NSString* docDirectory = [NSString stringWithFormat:@"%@", [sPan filename]];
+            [filemgr createDirectoryAtPath:docDirectory withIntermediateDirectories:YES attributes: NULL error:NULL];
+            docDirectory = [NSString stringWithFormat:@"%@/img", [sPan filename]];
+            [filemgr createDirectoryAtPath:docDirectory withIntermediateDirectories:YES attributes: NULL error:NULL];
+            
+            // capture one jpg from sketch output window
+            ofImage             _img;
+            ofPixels 			_pix;
+            ofTexture           _tex = gapp->gamuzaFbo.getTextureReference();
+            _tex.readToPixels(_pix);
+            _img.setFromPixels(_pix);
+            
+            // save jpg inside img/ folder
+            NSString* _imageUrl = [NSString stringWithFormat:@"%@/img/frame0.jpg", [sPan filename]];
+            string _name = [_imageUrl UTF8String];
+            _img.saveImage(_name.c_str());
+            
+            //compose html file
+            NSMutableString *htmlText = [[NSMutableString alloc] init];
+            [htmlText appendFormat: @"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"];
+            [htmlText appendFormat: @"<html xmlns=\"http://www.w3.org/1999/xhtml\">\n"];
+            [htmlText appendFormat: @"\t<head>\n"];
+            [htmlText appendFormat: @"\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"];
+            NSString* temp_skName = [NSString stringWithFormat:@"\t\t<title>%@ | GAmuza 1.0 sketch documentation</title>\n",sketchName];
+            [htmlText appendFormat: temp_skName];
+            [htmlText appendFormat: @"\t\t<style type=\"text/css\">\n"];
+            [htmlText appendFormat: @"\t\t\tbody{ \n"];
+            [htmlText appendFormat: @"\t\t\t\tbackground-color:#FFFFFF;\n"];
+            [htmlText appendFormat: @"\t\t\t\tfont-family: Helvetica, Arial;\n"];
+            [htmlText appendFormat: @"\t\t\t\tfont-size: 11px;\n"];
+            [htmlText appendFormat: @"\t\t\t\tcolor: #111;\n"];
+            [htmlText appendFormat: @"\t\t\t\t-webkit-font-smoothing: antialiased;\n"];
+            [htmlText appendFormat: @"\t\t\t}\n"];
+            [htmlText appendFormat: @"\t\t\ta{color:#ee3987;}\n"];
+            [htmlText appendFormat: @"\t\t\ta:link{color:#ee3987; text-decoration:underline;}\n"];
+            [htmlText appendFormat: @"\t\t\ta:visited{color:#ee3987; text-decoration:underline;}\n"];
+            [htmlText appendFormat: @"\t\t\ta:active{color:#ee3987; text-decoration:underline;}\n"];
+            [htmlText appendFormat: @"\t\t\ta:hover{color:#ee3987; text-decoration:underline;}\n"];
+            [htmlText appendFormat: @"\t\t\t.mainContent{\n"];
+            [htmlText appendFormat: @"\t\t\t\tbackground: url(\"img/frame0.jpg\") transparent;\n"];
+            [htmlText appendFormat: @"\t\t\t\topacity: 0.18;\n"];
+            [htmlText appendFormat: @"\t\t\t\tfilter: alpha(opacity = 18);\n"];
+            [htmlText appendFormat: @"\t\t\t\tbottom: 0;\n"];
+            [htmlText appendFormat: @"\t\t\t\tleft: 0;\n"];
+            [htmlText appendFormat: @"\t\t\t\tposition: absolute;\n"];
+            [htmlText appendFormat: @"\t\t\t\tright: 0;\n"];
+            [htmlText appendFormat: @"\t\t\t\ttop: 0;\n"];
+            [htmlText appendFormat: @"\t\t\t\tz-index: 0;\n"];
+            [htmlText appendFormat: @"\t\t\t\tbackground-repeat: repeat;\n"];
+            [htmlText appendFormat: @"\t\t\t\tbackground-size: cover;\n"];
+            [htmlText appendFormat: @"\t\t\t\t-o-background-size: cover;\n"];
+            [htmlText appendFormat: @"\t\t\t\t-webkit-background-size: cover;\n"];
+            [htmlText appendFormat: @"\t\t\t}\n"];
+            [htmlText appendFormat: @"\t\t</style>\n"];
+            [htmlText appendFormat: @"\n"];
+            [htmlText appendFormat: @"\t</head>\n"];
+            [htmlText appendFormat: @"\n"];
+            [htmlText appendFormat: @"<body>\n"];
+            [htmlText appendFormat: @"\t<div class=\"mainContent\"></div>\n"];
+            [htmlText appendFormat: @"\t<div>\n"];
+            temp_skName = [NSString stringWithFormat:@"\t\t<span style=\"font-size:28px;position:absolute;left:66px;top:10px;\"><p>%@</p></span>\n",sketchName];
+            [htmlText appendFormat: temp_skName];
+            [htmlText appendFormat: @"\t</div>\n"];
+            [htmlText appendFormat: @"\t<div class=\"header_comment\">\n"];
+            [htmlText appendFormat: @"\t\t<span style=\"color:#666;font-size:13px;font-style:italic;position:absolute;left:66px;top:50px;\"><p>\n"];
+            
+            for(int i=0;i<headerCodeLinesNm.count;i++){
+                [htmlText appendFormat:[NSString stringWithFormat:@"%@<br \\>", [headerCodeLinesNm objectAtIndex:i]]];
+            }
+            int _topSlide = headerCodeLinesNm.count*14;
+            
+            [htmlText appendFormat: @"\t\t</p></span>\n"];
+            [htmlText appendFormat: @"\t</div>\n"];
+            [htmlText appendFormat: @"\t<div>\n"];
+            
+            _topSlide += 70;
+            int _exportWidth = gapp->projectionScreenW*360 / gapp->projectionScreenH;
+            temp_skName = [NSString stringWithFormat:@"\t\t<span style=\"position:absolute;top:%ipx;left:66px;\"><p><img src=\"img/frame0.jpg\" width=\"%i\" height=\"360\"/></p></span>\n",_topSlide,_exportWidth];
+            [htmlText appendFormat:temp_skName];
+            [htmlText appendFormat: @"\t</div>\n"];
+            [htmlText appendFormat: @"\t<div>\n"];
+            
+            _topSlide += 370;
+            temp_skName = [NSString stringWithFormat:@"\t\t<span style=\"position:absolute;left:26px;top:%ipx;\"><p><ul>\n",_topSlide];
+            [htmlText appendFormat:temp_skName];
+            [htmlText appendFormat: @"\t\t\tSource Code: \n"];
+            temp_skName = [NSString stringWithFormat:@"\t\t\t<li style=\"display:inline;list-style-type:none;padding-right:20px;\"><a href=\"%@.ga\">%@</a></li>\n",sketchName,sketchName];
+            [htmlText appendFormat: temp_skName];
+            
+            // save all the sketch files to main folder
+            [[NSFileManager defaultManager] copyItemAtURL:[currentDoc fileURL] toURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://localhost%@/%@.ga", [sPan filename],sketchName]] error:NULL];
+            NSArray * sketchFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
+            if(sketchFiles){
+                for(int index=0;index<sketchFiles.count;index++){
+                    NSString * file = [sketchFiles objectAtIndex:index];
+                    if( [[file pathExtension] compare: @"ga"] == NSOrderedSame && [[file stringByDeletingPathExtension]  compare:sketchName] != NSOrderedSame){
+                        [[NSFileManager defaultManager] copyItemAtURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://localhost%@/%@",directoryName,file]] toURL:[NSURL URLWithString:[NSString stringWithFormat:@"file://localhost%@/%@", [sPan filename],file]] error:NULL];
+                        temp_skName = [NSString stringWithFormat:@"\t\t\t<li style=\"display:inline;list-style-type:none;padding-right:20px;\"><a href=\"%@\">%@</a></li>\n",file,[file stringByDeletingPathExtension]];
+                        [htmlText appendFormat: temp_skName];
+                    }
+                }
+            }
+            
+            [htmlText appendFormat: @"\t\t</ul></p></span>\n"];
+            [htmlText appendFormat: @"\t</div>\n"];
+            [htmlText appendFormat: @"\t<div>\n"];
+            
+            _topSlide += 40;
+            temp_skName = [NSString stringWithFormat:@"\t\t<span style=\"position:absolute;left:66px;top:%ipx;\"><p>\n",_topSlide];
+            [htmlText appendFormat:temp_skName];
+            temp_skName = [NSString stringWithFormat:@"\t\t\tBuilt with <a href=\"http://www.gamuza.cc\" title=\"GAmuza\">GAmuza 1.0 Rel. %@</a>\n",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
+            [htmlText appendFormat:temp_skName];
+            [htmlText appendFormat: @"\t\t</p></span>\n"];
+            [htmlText appendFormat: @"\t</div>\n"];
+            [htmlText appendFormat: @"</body>\n"];
+            [htmlText appendFormat: @"</html>"];
+            
+            // create & save the html file
+            NSString* filePath = [[NSString stringWithFormat:@"%@/index", [sPan filename]] stringByAppendingFormat:@".html"];
+            [htmlText writeToFile:filePath atomically:YES encoding: NSUTF8StringEncoding error:NULL];
+        }else{
+            return;
+        }
+    }
+    
+    [self cleanScriptToGAmuza:NULL];
+    
+}
+
 -(IBAction) getColorCorrection:(id)sender{
     NSXMLDocument *xmlDoc;
     NSArray* itemArray;
