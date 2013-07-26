@@ -1,0 +1,269 @@
+//////////////////////////////////////////////////////////////
+///////////////////////////////
+/// GAmuza core api wrapper
+         
+      ////////////////////////////////////////////////////////
+      // GACAMERATRACKING
+         gaCameraTracking()
+         void			gaSourceTracking:setup(int,int,int)
+         void			gaSourceTracking:update() 
+         void			gaSourceTracking:draw()
+         void			gaSourceTracking:setHaarFile(string) 
+         void			gaSourceTracking:setMovieFile(string) 
+         void			gaSourceTracking:setGuiSettingsFile(string) 
+         void			gaSourceTracking:mousePressed(int,int) 
+         void			gaSourceTracking:mouseDragged(int,int) 
+         void			gaSourceTracking:mouseReleased(int,int) 
+         ofTexture	gaSourceTracking:getCameraTexture() 
+         ofTexture	gaSourceTracking:getCameraTextureMod() 
+         ofPixelsRef	gaSourceTracking:getCameraPixels() 
+         void			gaSourceTracking:captureBackground() 
+         float			gaSourceTracking:getMotionQ() 
+         float			gaSourceTracking:getMotionX() 
+         float			gaSourceTracking:getMotionY() 
+         int			gaSourceTracking:getNumBlobs() 
+         float			gaSourceTracking:getBlobX(int) 
+         float			gaSourceTracking:getBlobY(int) 
+         float			gaSourceTracking:getBlobW(int) 
+         float			gaSourceTracking:getBlobH(int) 
+         float			gaSourceTracking:getBlobAngle(int) 
+         int			gaSourceTracking:getBlobContourSize(int) 
+         float			gaSourceTracking:getBlobCPointX(int,int) 
+         float			gaSourceTracking:getBlobCPointY(int,int) 
+         int			gaSourceTracking:getBlobGeometrySize(int) 
+         float			gaSourceTracking:getBlobGLineX1(int,int) 
+         float			gaSourceTracking:getBlobGLineY1(int,int) 
+         float			gaSourceTracking:getBlobGLineX2(int,int) 
+         float			gaSourceTracking:getBlobGLineY2(int,int) 
+         float			gaSourceTracking:getOpticalFlowX(int) 
+         float			gaSourceTracking:getOpticalFlowY(int) 
+         float			gaSourceTracking:getOpticalFlowVX(int) 
+         float			gaSourceTracking:getOpticalFlowVY(int) 
+         int			gaSourceTracking:getNumHaars() 
+         float			gaSourceTracking:getHaarX(int) 
+         float			gaSourceTracking:getHaarY(int) 
+         float			gaSourceTracking:getHaarW(int) 
+         float			gaSourceTracking:getHaarH(int) 
+         bool			gaSourceTracking:getTrigger(int) 
+      ////////////////////////////////////////////////////////
+         
+      ////////////////////////////////////////////////////////
+      // GAKINECTTRACKING
+         gaKinectTracking()
+         void        gaKinectTracking:setup(int,bool,bool,int)
+         void        gaKinectTracking:update() 
+         void        gaKinectTracking:draw()
+         void        gaKinectTracking:close()
+         void        gaKinectTracking:setGuiSettingsFile(string)
+         void        gaKinectTracking:mousePressed(int,int)
+         void        gaKinectTracking:mouseDragged(int,int)
+         void        gaKinectTracking:mouseReleased(int,int)
+         ofTexture   gaKinectTracking:getCameraTexture()
+         ofTexture   gaKinectTracking:getDepthTexture()
+         ofPixelsRef gaKinectTracking:getCameraPixels()
+         int         gaKinectTracking:getNumBlobs() 
+         float       gaKinectTracking:getBlobX(int) 
+         float       gaKinectTracking:getBlobY(int) 
+         float       gaKinectTracking:getBlobW(int) 
+         float       gaKinectTracking:getBlobH(int) 
+         float       gaKinectTracking:getBlobAngle(int) 
+         int         gaKinectTracking:getBlobContourSize(int) 
+         float       gaKinectTracking:getBlobCPointX(int,int) 
+         float       gaKinectTracking:getBlobCPointY(int,int) 
+         int         gaKinectTracking:getBlobGeometrySize(int) 
+         float       gaKinectTracking:getBlobGLineX1(int,int) 
+         float       gaKinectTracking:getBlobGLineY1(int,int) 
+         float       gaKinectTracking:getBlobGLineX2(int,int) 
+         float       gaKinectTracking:getBlobGLineY2(int,int) 
+         float       gaKinectTracking:getOpticalFlowX(int) 
+         float       gaKinectTracking:getOpticalFlowY(int) 
+         float       gaKinectTracking:getOpticalFlowVX(int) 
+         float       gaKinectTracking:getOpticalFlowVY(int) 
+         bool        gaKinectTracking:getTrigger(int)
+         float       gaKinectTracking:getAccelX()
+         float       gaKinectTracking:getAccelY()
+         float       gaKinectTracking:getAccelZ()
+      ////////////////////////////////////////////////////////
+         
+      ///////////////////////////////
+      // APP
+         void        gaKey()
+         void        gaMouseX()
+         void        gaMouseY()
+         void        gaSystem(string)
+         void        gaLog(string)
+         string      gaImportFile(string)
+         string      gaDataPath(string)
+         string      gaSendingOscTo()
+         int         gaGetFrameNum()
+         
+      ///////////////////////////////
+      // STRING
+         int         gaStringReplace(string&,string,string)
+         
+      ///////////////////////////////
+      // GRAPHICS
+         void        gaBackground(float,float)
+         void        gaBackground(float,float,float,float)
+         void        gaSaveFrame(string)
+         void        gaSaveFrame(string,ofTexture)
+         ofPixels    gaGetOutputPixels()
+         ofTexture   gaGetOutputTexture()
+         
+      ///////////////////////////////
+      // 3D
+         void        gaDrawAxis(float,ofColor,bool)
+         void        gaDrawXAxis(float,ofColor,bool)
+         void        gaDrawYAxis(float,ofColor,bool)
+         void        gaDrawZAxis(float,ofColor,bool)
+         
+      ///////////////////////////////
+      // MATH
+         float       gaGaussianFn(float,float,float,float)
+         
+      ///////////////////////////////
+      // TIMELINE
+         void        gaTimelineSetup(string,string)
+         void        gaTimelineSetPageName(string)
+         void        gaTimelineSetCurrentPage(string)
+         void        gaTimelinePlay()
+         void        gaTimelineStop()
+         void        gaTimelineDurationInFrames(int)
+         void        gaTimelineDurationInSeconds(int)
+         void        gaTimelineEnableKeySnap(bool)
+         void        gaTimelineSetLoopType(int)
+         void        gaTimelineSetFrameRate(int)
+         void        gaTimelineSetBPM(int)
+         void        gaTimelineEnableBPMSnap(bool)
+         void        gaTimelineShowBPMGrid(bool)
+         void        gaTimelineSetTimecontrolTrack(string)
+         void        gaTimelineBringTrackToTop(string)
+         void        gaTimelineBringVideoTrackToTop(string)
+         void        gaTimelineBringAudioTrackToTop(string)
+         void        gaTimelineAddPage(string)
+         void        gaTimelineAddCurves(string,int,int)
+         void        gaTimelineAddBangs(string)
+         void        gaTimelineAddFlags(string)
+         void        gaTimelineAddColors(string)
+         void        gaTimelineAddLFO(string)
+         void        gaTimelineAddSwitches(string)
+         void        gaTimelineAddNotes(string)
+         void        gaTimelineAddAudioTrack(string,string)
+         void        gaTimelineAddVideoTrack(string,string)
+         float       gaTimelineGetValue(string)
+         bool        gaTimelineGetSwitch(string)
+         bool        gaTimelineGetNote(string)
+         int         gaTimelineGetNotePitch(string)
+         float       gaTimelineGetNoteVelocity(string)
+         ofColor     gaTimelineGetColor(string)
+         string      gaTimelineGetBang()
+         int         gaTimelineGetINFrame()
+         void        gaTimelineSetINFrame(float)
+         int         gaTimelineGetOUTFrame()
+         void        gaTimelineSetOUTFrame(float)
+         void        gaTimelineClearINOUT()
+         int         gaTimelineGetAudioTrackDuration(string)
+         int         gaTimelineGetAudioTrackFFTSize(string)
+         float       gaTimelineGetAudioTrackFFTBin(string,int)
+         int         gaTimelineGetVideoTrackPosition(string)
+         int         gaTimelineGetVideoTrackDuration(string)
+         int         gaTimelineGetVideoTrackNumFrames(string)
+         int         gaTimelineGetVideoTrackCurrentFrame(string)
+         void        gaTimelineVideoPlayerNextFrame(string)
+         void        gaTimelineVideoPlayerUpdate(string)
+         void        gaTimelineVideoPlayerDraw(string)
+
+         ofxTLVideoTrack*  gaTimelineGetVideoTrack(string)
+         ofxTLAudioTrack*  gaTimelineGetAudioTrack(string)
+         
+      ///////////////////////////////
+      // audio input
+         float       gaGetVolume(int)
+         float       gaGetPitch(int)
+         float       gaGetBin(int,int)
+         float       gaGetFFT(int,int)
+         float       gaGetInputBuffer(int,int)
+         float       gaGetOutputBuffer(int)
+         float       gaGetSoundSpectrum(int,int)
+		 
+      ///////////////////////////////
+      // audio synth
+         void        gaWave(int,float)
+         void        gaMonoWave(int,float,int)
+         void        gaWaveVolume(int,float)
+         void        gaWaveFrequency(int,float)
+         void        gaWaveType(int,int)
+         void        gaWaveTuning(int,int)
+         float       gaNToF(int)
+         
+      ///////////////////////////////
+      // audio input recording
+         void        gaStartRec(int)
+         void        gaStopRec()
+         void        gaRecSamplePlay(int)
+         void        gaRecSampleStop(int)
+         void        gaRecSampleVolume(int,float)
+         void        gaRecSampleLooping(int,bool)
+         void        gaRecSamplePaused(int,bool)
+         void        gaRecSampleSpeed(int,float)
+         void        gaDrawRecHead(int,int,int,int,int)
+         
+      ///////////////////////////////
+      // MIDI
+         int         gaGetMidiChannel()
+         int         gaGetMidiByteOne()
+         int         gaGetMidiByteTwo()
+         int         gaGetMidiPitch()
+         int         gaGetMidiVelocity()
+         float       gaGetMidiValue(int,int)
+         
+      ///////////////////////////////
+      // OSC
+         void        gaGetOSCMessage(string,int)
+         string      gaGetOSCValue(string,int)
+         int         gaGetOSCNumVars(string)
+         void        gaSetOSCMessage(string,int)
+         void        gaSetOSCValue(string,string)
+         void        gaSetOSCActive(string,bool)
+         
+      ///////////////////////////////
+      // PURE DATA
+         void        pdAddToSearchPath(string)
+         void        pdOpenPatch(string)
+         void        pdClosePatch(string)
+         void        pdStart()
+         void        pdStop()
+         void        pdComputeAudio(bool)
+         void        pdSendBang(string)
+         void        pdSendFloat(string,float)
+         void        pdSendSymbol(string,string)
+         void        pdStartMessage()
+         void        pdAddFloat(float)
+         void        pdAddSymbol(string)
+         void        pdFinishList(string)
+         void        pdFinishMessage(string,string)
+         void        pdSendNoteOn(int,int,int)
+         void        pdSendControlChange(int,int,int)
+         void        pdSendProgramChange(int,int)
+         void        pdSendPitchBend(int,int)
+         void        pdSendAftertouch(int,int)
+         void        pdSendPolyAftertouch(int,int,int)
+		 
+      ///////////////////////////////
+      // AUDIO UNIT PLUGINS
+         void        auAddPlugin(string)
+         void        auAddPluginFromPreset(string)
+         void        auPluginSetParam(string,string,float)
+         void        auListPlugins()
+		 
+      ///////////////////////////////
+      // ARDUINO
+         string      gaSerialDevice()
+         float       gaAnalogRead(int)
+         int         gaDigitalRead(int)
+         void        gaDigitalWrite(int,int)
+         void        gaSetServoPin(int,bool)
+         void        gaServoWrite(int,int)
+
+///////////////////////////////
+//////////////////////////////////////////////////////////////

@@ -165,7 +165,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
 ### GAmuza framework
 
- * work in progress
+ * functions list [here](https://github.com/d3cod3/GAmuza/blob/master/gaFunctionsList)
 
 ### OPENGL 1.1
 
@@ -187,7 +187,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
  * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)
 
- - WORKING ON IT
+
 
  * TIMELINE
 
@@ -206,6 +206,13 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # Version history
 
-## v1.0 
+## v1.0  |  Rel. 0431
+
+* Fixed Preview aspect ratio texture scaling
+* Added export to HTML (simple script documentation)
+* Added Archive sketch (save everything to .zip)
+* Cleaning editor interface
+
+## v1.0  |  Rel. 0426
  
 * initial version
