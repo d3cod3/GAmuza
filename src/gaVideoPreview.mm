@@ -17,22 +17,47 @@ gaVideoPreview::~gaVideoPreview(){
 
 //--------------------------------------------------------------
 void gaVideoPreview::resetPreview(){
-    if(fboW > previewW){
-        fboDrawingW         = (fboW*previewH)/fboH;
-        fboDrawingH         = previewH;
-        fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
-        fboDrawingPosY      = 0;
-    }else{
-        if(fboH < previewH){
+    if(fboW > previewW && fboH > previewH){ // width & height bigger than window
+        if(fboW > fboH){ // horizontal texture
             fboDrawingW         = previewW;
-            fboDrawingH         = (fboH*previewW)/fboW;
+            fboDrawingH         = (fboH*fboDrawingW)/fboW;
             fboDrawingPosX      = 0;
             fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
-        }else{
+        }else{ // vertical texture
             fboDrawingH         = previewH;
-            fboDrawingW         = (fboW*previewH)/fboH;
+            fboDrawingW         = (fboW*fboDrawingH)/fboH;
             fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
             fboDrawingPosY      = 0;
+        }
+    }else if(fboW > previewW && fboH <= previewH){ // width bigger
+        // horizontal texture only (due to landscape window nature)
+        fboDrawingW         = previewW;
+        fboDrawingH         = (fboH*fboDrawingW)/fboW;
+        fboDrawingPosX      = 0;
+        fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+    }else if(fboW <= previewW && fboH > previewH){ // height bigger
+        fboDrawingH         = previewH;
+        fboDrawingW         = (fboW*fboDrawingH)/fboH;
+        fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+        fboDrawingPosY      = 0;
+    }else{ // smaller than window
+        if(fboW > fboH){ // horizontal texture
+            if((fboW/fboH) < 1.5){
+                fboDrawingH         = previewH;
+                fboDrawingW         = (fboW*fboDrawingH)/fboH;
+                fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+                fboDrawingPosY      = 0;
+            }else{
+                fboDrawingW         = previewW;
+                fboDrawingH         = (fboH*fboDrawingW)/fboW;
+                fboDrawingPosX      = 0;
+                fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+            }
+        }else{ // vertical texture
+            fboDrawingW         = previewW;
+            fboDrawingH         = (fboH*fboDrawingW)/fboW;
+            fboDrawingPosX      = 0;
+            fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
         }
     }
     
@@ -53,22 +78,47 @@ void gaVideoPreview::setPreviewDim(int w, int h){
     previewW = w;
     previewH = h;
     
-    if(fboW > previewW){
-        fboDrawingW         = (fboW*previewH)/fboH;
-        fboDrawingH         = previewH;
-        fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
-        fboDrawingPosY      = 0;
-    }else{
-        if(fboH < previewH){
+    if(fboW > previewW && fboH > previewH){ // width & height bigger than window
+        if(fboW > fboH){ // horizontal texture
             fboDrawingW         = previewW;
-            fboDrawingH         = (fboH*previewW)/fboW;
+            fboDrawingH         = (fboH*fboDrawingW)/fboW;
             fboDrawingPosX      = 0;
             fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
-        }else{
+        }else{ // vertical texture
             fboDrawingH         = previewH;
-            fboDrawingW         = (fboW*previewH)/fboH;
+            fboDrawingW         = (fboW*fboDrawingH)/fboH;
             fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
             fboDrawingPosY      = 0;
+        }
+    }else if(fboW > previewW && fboH <= previewH){ // width bigger
+        // horizontal texture only (due to landscape window nature)
+        fboDrawingW         = previewW;
+        fboDrawingH         = (fboH*fboDrawingW)/fboW;
+        fboDrawingPosX      = 0;
+        fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+    }else if(fboW <= previewW && fboH > previewH){ // height bigger
+        fboDrawingH         = previewH;
+        fboDrawingW         = (fboW*fboDrawingH)/fboH;
+        fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+        fboDrawingPosY      = 0;
+    }else{ // smaller than window
+        if(fboW > fboH){ // horizontal texture
+            if((fboW/fboH) < 1.5){
+                fboDrawingH         = previewH;
+                fboDrawingW         = (fboW*fboDrawingH)/fboH;
+                fboDrawingPosX      = (previewW-fboDrawingW)/2.0;
+                fboDrawingPosY      = 0;
+            }else{
+                fboDrawingW         = previewW;
+                fboDrawingH         = (fboH*fboDrawingW)/fboW;
+                fboDrawingPosX      = 0;
+                fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
+            }
+        }else{ // vertical texture
+            fboDrawingW         = previewW;
+            fboDrawingH         = (fboH*fboDrawingW)/fboW;
+            fboDrawingPosX      = 0;
+            fboDrawingPosY      = (previewH-fboDrawingH)/2.0;
         }
     }
 }
