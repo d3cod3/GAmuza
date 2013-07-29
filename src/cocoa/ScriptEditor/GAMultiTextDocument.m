@@ -53,7 +53,14 @@
     // customize initial windows restore
     [super restoreDocumentWindowWithIdentifier:identifier state:state completionHandler:completionHandler];
     
-    NSString* directoryName = [[[[[[[NSDocumentController sharedDocumentController] currentDocument] fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:15] stringByDeletingLastPathComponent];
+    GAMultiTextDocument *currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+    NSString* directoryName = @"";
+    if([[[currentDoc fileURL] absoluteString] rangeOfString:@"localhost"].location != NSNotFound){
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:15] stringByDeletingLastPathComponent];
+    }else{
+        directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+    }
+    
     // add sketch files (if we have)
     NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
     NSEnumerator            *enm = [contents objectEnumerator];

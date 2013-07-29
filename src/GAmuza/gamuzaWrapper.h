@@ -3159,7 +3159,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxFXObject::*)(void)) &ofxFXObject::getResolution)
          .def("getInternalFormat", (int(ofxFXObject::*)(void)) &ofxFXObject::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxFXObject::*)(void)) &ofxFXObject::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxFXObject::*)(void)) &ofxFXObject::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxFXObject::*)(void)) &ofxFXObject::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxFXObject::*)(void)) &ofxFXObject::getTextureReference)
          .def("clear", (void(ofxFXObject::*)(int)) &ofxFXObject::clear)
          .def("update", (void(ofxFXObject::*)(void)) &ofxFXObject::update)
@@ -3188,7 +3188,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxAbsDiff::*)(void)) &ofxAbsDiff::getResolution)
          .def("getInternalFormat", (int(ofxAbsDiff::*)(void)) &ofxAbsDiff::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxAbsDiff::*)(void)) &ofxAbsDiff::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxAbsDiff::*)(void)) &ofxAbsDiff::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxAbsDiff::*)(void)) &ofxAbsDiff::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxAbsDiff::*)(void)) &ofxAbsDiff::getTextureReference)
          .def("clear", (void(ofxAbsDiff::*)(int)) &ofxAbsDiff::clear)
          .def("update", (void(ofxAbsDiff::*)(void)) &ofxAbsDiff::update)
@@ -3217,7 +3217,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxBlend::*)(void)) &ofxBlend::getResolution)
          .def("getInternalFormat", (int(ofxBlend::*)(void)) &ofxBlend::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxBlend::*)(void)) &ofxBlend::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxBlend::*)(void)) &ofxBlend::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxBlend::*)(void)) &ofxBlend::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxBlend::*)(void)) &ofxBlend::getTextureReference)
          .def("clear", (void(ofxBlend::*)(int)) &ofxBlend::clear)
          .def("update", (void(ofxBlend::*)(void)) &ofxBlend::update)
@@ -3251,7 +3251,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxClone::*)(void)) &ofxClone::getResolution)
          .def("getInternalFormat", (int(ofxClone::*)(void)) &ofxClone::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxClone::*)(void)) &ofxClone::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxClone::*)(void)) &ofxClone::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxClone::*)(void)) &ofxClone::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxClone::*)(void)) &ofxClone::getTextureReference)
          .def("clear", (void(ofxClone::*)(int)) &ofxClone::clear)
          .def("update", (void(ofxClone::*)(void)) &ofxClone::update)
@@ -3281,7 +3281,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxMask::*)(void)) &ofxMask::getResolution)
          .def("getInternalFormat", (int(ofxMask::*)(void)) &ofxMask::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxMask::*)(void)) &ofxMask::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxMask::*)(void)) &ofxMask::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxMask::*)(void)) &ofxMask::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxMask::*)(void)) &ofxMask::getTextureReference)
          .def("clear", (void(ofxMask::*)(int)) &ofxMask::clear)
          .def("update", (void(ofxMask::*)(void)) &ofxMask::update)
@@ -3309,7 +3309,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxMultiTexture::*)(void)) &ofxMultiTexture::getResolution)
          .def("getInternalFormat", (int(ofxMultiTexture::*)(void)) &ofxMultiTexture::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxMultiTexture::*)(void)) &ofxMultiTexture::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxMultiTexture::*)(void)) &ofxMultiTexture::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxMultiTexture::*)(void)) &ofxMultiTexture::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxMultiTexture::*)(void)) &ofxMultiTexture::getTextureReference)
          .def("clear", (void(ofxMultiTexture::*)(int)) &ofxMultiTexture::clear)
          .def("update", (void(ofxMultiTexture::*)(void)) &ofxMultiTexture::update)
@@ -3337,7 +3337,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxSubstract::*)(void)) &ofxSubstract::getResolution)
          .def("getInternalFormat", (int(ofxSubstract::*)(void)) &ofxSubstract::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxSubstract::*)(void)) &ofxSubstract::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxSubstract::*)(void)) &ofxSubstract::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxSubstract::*)(void)) &ofxSubstract::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxSubstract::*)(void)) &ofxSubstract::getTextureReference)
          .def("clear", (void(ofxSubstract::*)(int)) &ofxSubstract::clear)
          .def("update", (void(ofxSubstract::*)(void)) &ofxSubstract::update)
@@ -3365,7 +3365,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxBloom::*)(void)) &ofxBloom::getResolution)
          .def("getInternalFormat", (int(ofxBloom::*)(void)) &ofxBloom::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxBloom::*)(void)) &ofxBloom::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxBloom::*)(void)) &ofxBloom::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxBloom::*)(void)) &ofxBloom::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxBloom::*)(void)) &ofxBloom::getTextureReference)
          .def("clear", (void(ofxBloom::*)(int)) &ofxBloom::clear)
          .def("update", (void(ofxBloom::*)(void)) &ofxBloom::update)
@@ -3393,7 +3393,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxBlur::*)(void)) &ofxBlur::getResolution)
          .def("getInternalFormat", (int(ofxBlur::*)(void)) &ofxBlur::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxBlur::*)(void)) &ofxBlur::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxBlur::*)(void)) &ofxBlur::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxBlur::*)(void)) &ofxBlur::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxBlur::*)(void)) &ofxBlur::getTextureReference)
          .def("clear", (void(ofxBlur::*)(int)) &ofxBlur::clear)
          .def("update", (void(ofxBlur::*)(void)) &ofxBlur::update)
@@ -3423,7 +3423,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxBokeh::*)(void)) &ofxBokeh::getResolution)
          .def("getInternalFormat", (int(ofxBokeh::*)(void)) &ofxBokeh::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxBokeh::*)(void)) &ofxBokeh::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxBokeh::*)(void)) &ofxBokeh::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxBokeh::*)(void)) &ofxBokeh::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxBokeh::*)(void)) &ofxBokeh::getTextureReference)
          .def("clear", (void(ofxBokeh::*)(int)) &ofxBokeh::clear)
          .def("update", (void(ofxBokeh::*)(void)) &ofxBokeh::update)
@@ -3453,7 +3453,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxChromaAb::*)(void)) &ofxChromaAb::getResolution)
          .def("getInternalFormat", (int(ofxChromaAb::*)(void)) &ofxChromaAb::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxChromaAb::*)(void)) &ofxChromaAb::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxChromaAb::*)(void)) &ofxChromaAb::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxChromaAb::*)(void)) &ofxChromaAb::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxChromaAb::*)(void)) &ofxChromaAb::getTextureReference)
          .def("clear", (void(ofxChromaAb::*)(int)) &ofxChromaAb::clear)
          .def("update", (void(ofxChromaAb::*)(void)) &ofxChromaAb::update)
@@ -3483,7 +3483,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxContrast::*)(void)) &ofxContrast::getResolution)
          .def("getInternalFormat", (int(ofxContrast::*)(void)) &ofxContrast::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxContrast::*)(void)) &ofxContrast::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxContrast::*)(void)) &ofxContrast::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxContrast::*)(void)) &ofxContrast::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxContrast::*)(void)) &ofxContrast::getTextureReference)
          .def("clear", (void(ofxContrast::*)(int)) &ofxContrast::clear)
          .def("update", (void(ofxContrast::*)(void)) &ofxContrast::update)
@@ -3513,7 +3513,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getResolution)
          .def("getInternalFormat", (int(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::getTextureReference)
          .def("clear", (void(ofxGaussianBlur::*)(int)) &ofxGaussianBlur::clear)
          .def("update", (void(ofxGaussianBlur::*)(void)) &ofxGaussianBlur::update)
@@ -3542,7 +3542,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxGlow::*)(void)) &ofxGlow::getResolution)
          .def("getInternalFormat", (int(ofxGlow::*)(void)) &ofxGlow::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxGlow::*)(void)) &ofxGlow::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxGlow::*)(void)) &ofxGlow::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxGlow::*)(void)) &ofxGlow::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxGlow::*)(void)) &ofxGlow::getTextureReference)
          .def("clear", (void(ofxGlow::*)(int)) &ofxGlow::clear)
          .def("update", (void(ofxGlow::*)(void)) &ofxGlow::update)
@@ -3572,7 +3572,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxGrayscale::*)(void)) &ofxGrayscale::getResolution)
          .def("getInternalFormat", (int(ofxGrayscale::*)(void)) &ofxGrayscale::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxGrayscale::*)(void)) &ofxGrayscale::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxGrayscale::*)(void)) &ofxGrayscale::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxGrayscale::*)(void)) &ofxGrayscale::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxGrayscale::*)(void)) &ofxGrayscale::getTextureReference)
          .def("clear", (void(ofxGrayscale::*)(int)) &ofxGrayscale::clear)
          .def("update", (void(ofxGrayscale::*)(void)) &ofxGrayscale::update)
@@ -3600,7 +3600,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxInverse::*)(void)) &ofxInverse::getResolution)
          .def("getInternalFormat", (int(ofxInverse::*)(void)) &ofxInverse::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxInverse::*)(void)) &ofxInverse::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxInverse::*)(void)) &ofxInverse::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxInverse::*)(void)) &ofxInverse::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxInverse::*)(void)) &ofxInverse::getTextureReference)
          .def("clear", (void(ofxInverse::*)(int)) &ofxInverse::clear)
          .def("update", (void(ofxInverse::*)(void)) &ofxInverse::update)
@@ -3628,7 +3628,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxLUT::*)(void)) &ofxLUT::getResolution)
          .def("getInternalFormat", (int(ofxLUT::*)(void)) &ofxLUT::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxLUT::*)(void)) &ofxLUT::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxLUT::*)(void)) &ofxLUT::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxLUT::*)(void)) &ofxLUT::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxLUT::*)(void)) &ofxLUT::getTextureReference)
          .def("clear", (void(ofxLUT::*)(int)) &ofxLUT::clear)
          .def("update", (void(ofxLUT::*)(void)) &ofxLUT::update)
@@ -3659,7 +3659,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxMedian::*)(void)) &ofxMedian::getResolution)
          .def("getInternalFormat", (int(ofxMedian::*)(void)) &ofxMedian::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxMedian::*)(void)) &ofxMedian::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxMedian::*)(void)) &ofxMedian::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxMedian::*)(void)) &ofxMedian::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxMedian::*)(void)) &ofxMedian::getTextureReference)
          .def("clear", (void(ofxMedian::*)(int)) &ofxMedian::clear)
          .def("update", (void(ofxMedian::*)(void)) &ofxMedian::update)
@@ -3689,7 +3689,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxOldTv::*)(void)) &ofxOldTv::getResolution)
          .def("getInternalFormat", (int(ofxOldTv::*)(void)) &ofxOldTv::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxOldTv::*)(void)) &ofxOldTv::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxOldTv::*)(void)) &ofxOldTv::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxOldTv::*)(void)) &ofxOldTv::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxOldTv::*)(void)) &ofxOldTv::getTextureReference)
          .def("clear", (void(ofxOldTv::*)(int)) &ofxOldTv::clear)
          .def("update", (void(ofxOldTv::*)(void)) &ofxOldTv::update)
@@ -3721,7 +3721,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxFire::*)(void)) &ofxFire::getResolution)
          .def("getInternalFormat", (int(ofxFire::*)(void)) &ofxFire::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxFire::*)(void)) &ofxFire::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxFire::*)(void)) &ofxFire::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxFire::*)(void)) &ofxFire::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxFire::*)(void)) &ofxFire::getTextureReference)
          .def("clear", (void(ofxFire::*)(int)) &ofxFire::clear)
          .def("update", (void(ofxFire::*)(void)) &ofxFire::update)
@@ -3752,7 +3752,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxGrayScott::*)(void)) &ofxGrayScott::getResolution)
          .def("getInternalFormat", (int(ofxGrayScott::*)(void)) &ofxGrayScott::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxGrayScott::*)(void)) &ofxGrayScott::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxGrayScott::*)(void)) &ofxGrayScott::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxGrayScott::*)(void)) &ofxGrayScott::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxGrayScott::*)(void)) &ofxGrayScott::getTextureReference)
          .def("clear", (void(ofxGrayScott::*)(int)) &ofxGrayScott::clear)
          .def("update", (void(ofxGrayScott::*)(void)) &ofxGrayScott::update)
@@ -3790,7 +3790,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxNoise::*)(void)) &ofxNoise::getResolution)
          .def("getInternalFormat", (int(ofxNoise::*)(void)) &ofxNoise::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxNoise::*)(void)) &ofxNoise::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxNoise::*)(void)) &ofxNoise::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxNoise::*)(void)) &ofxNoise::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxNoise::*)(void)) &ofxNoise::getTextureReference)
          .def("clear", (void(ofxNoise::*)(int)) &ofxNoise::clear)
          .def("update", (void(ofxNoise::*)(void)) &ofxNoise::update)
@@ -3821,7 +3821,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxTint::*)(void)) &ofxTint::getResolution)
          .def("getInternalFormat", (int(ofxTint::*)(void)) &ofxTint::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxTint::*)(void)) &ofxTint::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxTint::*)(void)) &ofxTint::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxTint::*)(void)) &ofxTint::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxTint::*)(void)) &ofxTint::getTextureReference)
          .def("clear", (void(ofxTint::*)(int)) &ofxTint::clear)
          .def("update", (void(ofxTint::*)(void)) &ofxTint::update)
@@ -3853,7 +3853,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxFlocking::*)(void)) &ofxFlocking::getResolution)
          .def("getInternalFormat", (int(ofxFlocking::*)(void)) &ofxFlocking::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxFlocking::*)(void)) &ofxFlocking::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxFlocking::*)(void)) &ofxFlocking::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxFlocking::*)(void)) &ofxFlocking::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxFlocking::*)(void)) &ofxFlocking::getTextureReference)
          .def("clear", (void(ofxFlocking::*)(int)) &ofxFlocking::clear)
          .def("update", (void(ofxFlocking::*)(void)) &ofxFlocking::update)
@@ -3884,7 +3884,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxFluid::*)(void)) &ofxFluid::getResolution)
          .def("getInternalFormat", (int(ofxFluid::*)(void)) &ofxFluid::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxFluid::*)(void)) &ofxFluid::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxFluid::*)(void)) &ofxFluid::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxFluid::*)(void)) &ofxFluid::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxFluid::*)(void)) &ofxFluid::getTextureReference)
          .def("clear", (void(ofxFluid::*)(int)) &ofxFluid::clear)
          .def("update", (void(ofxFluid::*)(void)) &ofxFluid::update)
@@ -3925,7 +3925,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxBounce::*)(void)) &ofxBounce::getResolution)
          .def("getInternalFormat", (int(ofxBounce::*)(void)) &ofxBounce::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxBounce::*)(void)) &ofxBounce::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxBounce::*)(void)) &ofxBounce::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxBounce::*)(void)) &ofxBounce::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxBounce::*)(void)) &ofxBounce::getTextureReference)
          .def("clear", (void(ofxBounce::*)(int)) &ofxBounce::clear)
          .def("update", (void(ofxBounce::*)(void)) &ofxBounce::update)
@@ -3953,7 +3953,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getResolution)
          .def("getInternalFormat", (int(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::getTextureReference)
          .def("clear", (void(ofxDisplacePixels::*)(int)) &ofxDisplacePixels::clear)
          .def("update", (void(ofxDisplacePixels::*)(void)) &ofxDisplacePixels::update)
@@ -3981,7 +3981,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxNormals::*)(void)) &ofxNormals::getResolution)
          .def("getInternalFormat", (int(ofxNormals::*)(void)) &ofxNormals::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxNormals::*)(void)) &ofxNormals::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxNormals::*)(void)) &ofxNormals::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxNormals::*)(void)) &ofxNormals::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxNormals::*)(void)) &ofxNormals::getTextureReference)
          .def("clear", (void(ofxNormals::*)(int)) &ofxNormals::clear)
          .def("update", (void(ofxNormals::*)(void)) &ofxNormals::update)
@@ -4009,7 +4009,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxRipples::*)(void)) &ofxRipples::getResolution)
          .def("getInternalFormat", (int(ofxRipples::*)(void)) &ofxRipples::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxRipples::*)(void)) &ofxRipples::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxRipples::*)(void)) &ofxRipples::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxRipples::*)(void)) &ofxRipples::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxRipples::*)(void)) &ofxRipples::getTextureReference)
          .def("clear", (void(ofxRipples::*)(int)) &ofxRipples::clear)
          .def("update", (void(ofxRipples::*)(void)) &ofxRipples::update)
@@ -4041,7 +4041,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxThreshold::*)(void)) &ofxThreshold::getResolution)
          .def("getInternalFormat", (int(ofxThreshold::*)(void)) &ofxThreshold::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxThreshold::*)(void)) &ofxThreshold::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxThreshold::*)(void)) &ofxThreshold::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxThreshold::*)(void)) &ofxThreshold::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxThreshold::*)(void)) &ofxThreshold::getTextureReference)
          .def("clear", (void(ofxThreshold::*)(int)) &ofxThreshold::clear)
          .def("update", (void(ofxThreshold::*)(void)) &ofxThreshold::update)
@@ -4071,7 +4071,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxRotate::*)(void)) &ofxRotate::getResolution)
          .def("getInternalFormat", (int(ofxRotate::*)(void)) &ofxRotate::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxRotate::*)(void)) &ofxRotate::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxRotate::*)(void)) &ofxRotate::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxRotate::*)(void)) &ofxRotate::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxRotate::*)(void)) &ofxRotate::getTextureReference)
          .def("clear", (void(ofxRotate::*)(int)) &ofxRotate::clear)
          .def("update", (void(ofxRotate::*)(void)) &ofxRotate::update)
@@ -4102,7 +4102,7 @@ class ofGamuzaWrapper{
          .def("getResolution", (ofVec2f(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getResolution)
          .def("getInternalFormat", (int(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getInternalFormat)
          .def("getNumberOfCalledTextures", (int(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getNumberOfCalledTextures)
-         .def("getBackBuffer", (ofFbo*(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getBackBuffer)
+         .def("getBackBuffer", (ofFbo&(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getBackBuffer)
          .def("getTextureReference", (ofTexture&(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::getTextureReference)
          .def("clear", (void(ofxKaleidoscope::*)(int)) &ofxKaleidoscope::clear)
          .def("update", (void(ofxKaleidoscope::*)(void)) &ofxKaleidoscope::update)
@@ -5620,30 +5620,30 @@ class ofGamuzaWrapper{
         lua.doString("RAD_TO_DEG = "+ofToString(RAD_TO_DEG));
         
         // OF key constants
-        lua.doString("OF_KEY_RETURN = "+ofToString(OF_KEY_RETURN));
-        lua.doString("OF_KEY_ESC = "+ofToString(OF_KEY_ESC));
-        lua.doString("OF_KEY_F1 = "+ofToString(OF_KEY_F1));
-        lua.doString("OF_KEY_F2 = "+ofToString(OF_KEY_F2));
-        lua.doString("OF_KEY_F3 = "+ofToString(OF_KEY_F3));
-        lua.doString("OF_KEY_F4 = "+ofToString(OF_KEY_F4));
-        lua.doString("OF_KEY_F5 = "+ofToString(OF_KEY_F5));
-        lua.doString("OF_KEY_F6 = "+ofToString(OF_KEY_F6));
-        lua.doString("OF_KEY_F7 = "+ofToString(OF_KEY_F7));
-        lua.doString("OF_KEY_F8 = "+ofToString(OF_KEY_F8));
-        lua.doString("OF_KEY_F9 = "+ofToString(OF_KEY_F9));
-        lua.doString("OF_KEY_F10 = "+ofToString(OF_KEY_F10));
-        lua.doString("OF_KEY_F11 = "+ofToString(OF_KEY_F11));
-        lua.doString("OF_KEY_F12 = "+ofToString(OF_KEY_F11));
-        lua.doString("OF_KEY_LEFT = "+ofToString(OF_KEY_LEFT));
-        lua.doString("OF_KEY_UP = "+ofToString(OF_KEY_UP));
-        lua.doString("OF_KEY_RIGHT = "+ofToString(OF_KEY_RIGHT));
-        lua.doString("OF_KEY_DOWN = "+ofToString(OF_KEY_DOWN));
+        lua.doString("OF_KEY_RETURN = "+ofToString(13));
+        lua.doString("OF_KEY_ESC = "+ofToString(27));
+        lua.doString("OF_KEY_F1 = "+ofToString(63236));
+        lua.doString("OF_KEY_F2 = "+ofToString(63237));
+        lua.doString("OF_KEY_F3 = "+ofToString(63238));
+        lua.doString("OF_KEY_F4 = "+ofToString(63239));
+        lua.doString("OF_KEY_F5 = "+ofToString(63240));
+        lua.doString("OF_KEY_F6 = "+ofToString(63241));
+        lua.doString("OF_KEY_F7 = "+ofToString(63242));
+        lua.doString("OF_KEY_F8 = "+ofToString(63243));
+        lua.doString("OF_KEY_F9 = "+ofToString(63244));
+        lua.doString("OF_KEY_F10 = "+ofToString(63245));
+        lua.doString("OF_KEY_F11 = "+ofToString(63246));
+        lua.doString("OF_KEY_F12 = "+ofToString(63247));
+        lua.doString("OF_KEY_LEFT = "+ofToString(63234));
+        lua.doString("OF_KEY_UP = "+ofToString(63232));
+        lua.doString("OF_KEY_RIGHT = "+ofToString(63235));
+        lua.doString("OF_KEY_DOWN = "+ofToString(63233));
         lua.doString("OF_KEY_PAGE_UP = "+ofToString(OF_KEY_PAGE_UP));
         lua.doString("OF_KEY_PAGE_DOWN = "+ofToString(OF_KEY_PAGE_DOWN));
         lua.doString("OF_KEY_HOME = "+ofToString(OF_KEY_HOME));
         lua.doString("OF_KEY_END = "+ofToString(OF_KEY_END));
         lua.doString("OF_KEY_INSERT = "+ofToString(OF_KEY_INSERT));
-        lua.doString("OF_KEY_BACKSPACE = "+ofToString(OF_KEY_BACKSPACE));
+        lua.doString("OF_KEY_BACKSPACE = "+ofToString(127));
         lua.doString("OF_KEY_DEL = "+ofToString(OF_KEY_DEL));
         
         // OF RECTMODES

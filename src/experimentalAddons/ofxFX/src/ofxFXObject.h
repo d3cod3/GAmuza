@@ -82,6 +82,7 @@ public:
     int             getNumberOfCalledTextures() const { return nTextures; };
     
     ofFbo*          getBackBuffer() const { return pingPong.src; };
+    ofFbo&          getBackBuffer() { return *pingPong.src; };
     ofTexture&      getTextureReference() const { return pingPong.dst->getTextureReference(); };
     
     void            clear(int alpha = 255){ pingPong.clear(alpha); } 

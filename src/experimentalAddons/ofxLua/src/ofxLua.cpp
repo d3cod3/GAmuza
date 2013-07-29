@@ -91,7 +91,7 @@ bool ofxLua::doString(const std::string& text) {
 		return false;
 	}
 
-	ofLog(OF_LOG_VERBOSE, "ofxLua: Doing string: \"%s\"", text.substr(0,40).c_str());
+	//ofLog(OF_LOG_VERBOSE, "ofxLua: Doing string: \"%s\"", text.substr(0,40).c_str());
 	
 	// load the string
 	int ret = luaL_loadstring(L, text.c_str());
