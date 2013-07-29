@@ -1,0 +1,458 @@
+
+fragShaders = {}
+fragsTitles = {}
+totalFrags = 10
+
+// --------------------------------------------------
+// Electrocardiogram Effect
+// Imported from:
+/* <http://www.geeks3d.com/20111223/shader-library electrocardiogram-effect-glsl> */
+fragsTitles[0] = "Electrocardiogram Effect"
+fragShaders[0] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+uniform sampler2DRect tex0; \
+\
+float viewAngle = 1.0; \
+float speed = 9.0; \
+float rate = 15.0; \
+float baseamp = 0.10; \
+\
+void main(void){\
+	vec2 p = -1.0 + 3.0 * ( gl_FragCoord.xy / resolution.xy ); \
+	p.y = 1.0 - p.y; \
+	float x = speed * viewAngle * time + rate * p.x; \
+	float base = (1.0 + cos(x * 2.5 + time)) * (1.0 + sin(x * 3.5 + time)); \
+	float z = fract(0.05 * x); \
+	z = max(z, 1.0 - z); \
+	z = pow(z, 2.0); \
+	float pulse = exp(-10.0 * z); \
+	vec4 ecg_color = vec4(0.3, 1.0, 0.4, 1.0); \
+	vec4 c = pow(clamp(1.0 - abs(p.y - (baseamp * base + pulse - 0.5)), 0.0, 1.0), 16.0) * ecg_color; \
+	gl_FragColor = c; \
+}"
+
+// --------------------------------------------------
+fragsTitles[1] = "Colorfull Waves"
+fragShaders[1] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+uniform sampler2DRect tex0; \
+uniform sampler2DRect tex1; \
+\
+float pi = 3.141592653589793238462643383279; \
+\
+void main( void ) { \
+	float tscale = 2.5; \
+\
+	vec2 position = gl_FragCoord.xy / resolution.xy; \
+\
+	float lum   = abs(tan(position.y * pi)) - pi/5.0; \
+\
+	float red   = sin(position.x * 5.0 + time*tscale*1.00) * 2.0 - 1.0; \
+	float green = sin(position.x * 8.0 + time*tscale*1.33) * 2.0 - 1.0; \
+	float blue  = sin(position.x * 2.0 + time*tscale*1.93) * 2.0 - 1.0; \
+\
+	gl_FragColor = vec4( vec3( lum + red, lum + green, lum + blue ), 1.0 ); \
+}"
+
+// --------------------------------------------------
+fragsTitles[2] = "Hypnotic color spiral"
+fragShaders[2] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+\
+void main( void ){ \
+    vec2 position = (gl_FragCoord.xy - resolution * 0.5) / resolution.yy; \
+    float longest = sqrt(float(resolution.x*resolution.x) + float(resolution.y*resolution.y))*0.5; \
+    float dx = gl_FragCoord.x-resolution.x/2.0; \
+    float dy = 0.2+gl_FragCoord.y-resolution.y/2.0; \
+    float len = sqrt(dx*dx+dy*dy); \
+    float ds = len/longest; \
+    float md = time*2.0; \
+\
+    float ang = 2.0*atan(dy,(len+dx)); \
+    ang += pow(len, 0.5)*5.0; \
+\
+    float red = (128.0 - sin(ang + md*3.141592*2.0) * 127.0)*(1.0-ds); \
+    float green = (128.0 - cos(ang + md*3.141592*2.0) * 127.0)*(1.0-ds); \
+    float blue = (128.0 + sin(ang  + md*3.141592*2.0) * 127.0)*(1.0-ds); \
+\
+    gl_FragColor = vec4( vec3( red/255.0, green/255.0, blue/255.0), 1.0 ); \
+}"
+
+// --------------------------------------------------
+// An attempt at Quilez's warping (domain distortions)
+/* http://iquilezles.org/www/articles/warp/warp.htm */  
+// Not as good as his, but still interesting 
+// @SyntopiaDK, 20123
+fragsTitles[3] = "Domain Distorsions By @SyntopaDK"
+fragShaders[3] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+\
+float rand(vec2 co){ \
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453); \
+} \
+\
+float noise2f( in vec2 p ){ \
+    vec2 ip = vec2(floor(p)); \
+    vec2 u = fract(p); \
+    u = u*u*(3.0-2.0*u); \
+\
+    float res = mix(mix(rand(ip),rand(ip+vec2(1.0,0.0)),u.x),mix(rand(ip+vec2(0.0,1.0)),rand(ip+vec2(1.0,1.0)),u.x),u.y); \
+    return res*res; \
+} \
+\
+float fbm(vec2 c) { \
+    float f = 0.0; \
+    float w = 1.0; \
+\
+    for (int i = 0; \ i < 8; \ i++) { \
+        f += w*noise2f(c); \
+        c *=2.0; \
+        w*=0.5; \
+    } \
+    return f; \
+} \
+\
+vec2 cMul(vec2 a, vec2 b) { \
+    return vec2( a.x*b.x -  a.y*b.y,a.x*b.y + a.y * b.x); \
+} \
+\
+float pattern(  vec2 p, out vec2 q, out vec2 r ){ \
+    q.x = fbm( p  +0.00*time); \
+    q.y = fbm( p + vec2(1.0)); \
+    r.x = fbm( p +1.0*q + vec2(1.7,9.2)+0.15*time ); \
+    r.y = fbm( p+ 1.0*q + vec2(8.3,2.8)+0.126*time); \
+    return fbm(p +1.0*r + 0.0* time); \
+} \
+\
+const vec3 color1 = vec3(0.101961,0.619608,0.666667); \
+const vec3 color2 = vec3(0.666667,0.666667,0.498039); \
+const vec3 color3 = vec3(0,0,0.164706); \
+const vec3 color4 = vec3(0.666667,1,1); \
+\
+void main() { \
+    vec2 q; \
+    vec2 r; \
+    vec2 c = 1000.0 * gl_FragCoord.xy / resolution.xy; \
+    float f = pattern( c * 0.01, q, r); \
+    vec3 col = mix( color1, color2, clamp( (f*f) * 4.0,0.0,1.0)); \
+    col = color2; \
+    col = mix(col,color3,clamp(length(q),0.0,1.0)); \
+    col = mix(col,color4,clamp(length(r.x),0.0,1.0)); \
+    gl_FragColor =  vec4((0.2*f*f*f+0.6*f*f+0.5*f)*col,1.0); \
+}"
+
+// --------------------------------------------------
+// Blobbies - by @P_Malin
+fragsTitles[4] = "Blobbies By @P_Malin"
+fragShaders[4] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+\
+float k_PI = 3.141592654; \
+float k_MoveSpeed = 0.5; \
+float k_BlobSize = 0.5; \
+float k_OrbitRadius = 0.5; \
+\
+vec2 GetRandom2( in vec2 vInput ){ \
+    vec2 temp1 = vInput * vec2(17.1232, 33.32432); \
+    vec2 temp2 = vInput * vec2(34.32432, 12.9742); \
+    vec2 temp3 = vec2(sin(temp1.x) + sin(temp2.y), sin(temp1.y) + sin(temp2.x)) * 121.1231; \
+    return fract(temp3); \
+} \
+\
+vec2 GetOffset2( in vec2 vInput ){ \
+    return vec2(sin(vInput.x * k_PI * 2.0), cos(vInput.y * k_PI * 2.0)); \
+} \
+\
+float BlobTexture( in vec2 vPos ){ \
+    float fLen = length(vPos) / k_BlobSize; \
+    return max(1.0 - fLen, 0.0); \
+} \
+\
+float GetBlobValue( in vec2 vPosition, in vec2 vTileOffset ){ \
+    vec2 vTilePos = floor(vPosition - vTileOffset); \
+\
+    vec2 vRandom = GetRandom2(vTilePos); \
+    vec2 vTime2d = vec2(time, time * 0.92312) * k_MoveSpeed; \
+\
+    vec2 vBlobPos = GetOffset2(vRandom + vTime2d) * k_OrbitRadius; \
+\
+    vec2 vSubTilePos = fract(vPosition) + vTileOffset; \
+\
+    return BlobTexture(vSubTilePos - vBlobPos); \
+} \
+\
+vec3 GetColour( in vec2 vPixelPosition ){ \
+    vec2 vPosition = vPixelPosition; \
+\
+    float fValue = 0.0; \
+\
+    fValue += GetBlobValue( vPosition, vec2( 0.0, 0.0 ) ); \
+    fValue += GetBlobValue( vPosition, vec2( -1.0, 0.0 ) ); \
+    fValue += GetBlobValue( vPosition, vec2( 0.0, -1.0 ) ); \
+    fValue += GetBlobValue( vPosition, vec2( -1.0, -1.0 ) ); \
+\
+    fValue = max(fValue, 0.0); \
+    fValue = 1.0 - abs(0.7 - fValue); \
+    fValue = max(fValue, 0.0); \
+\
+    fValue = pow(fValue, 1.5); \
+\
+    vec3 cColA = vec3(1.0, 0., 0.4); \
+    vec3 cColB = vec3(0., 0.0, 0.0); \
+\
+    return cColA * fValue + cColB * (1.0 - fValue); \
+} \
+\
+void main( void ) { \
+    vec3 vOutputColour = GetColour(gl_FragCoord.xy * ( mouse.x / 8.0 )); \
+    gl_FragColor = vec4( vOutputColour, 1.0 ); \
+}"
+
+// --------------------------------------------------
+// Blobs with nice gradient - by @paulofalcao
+fragsTitles[5] = "Blobs with nice gradient By @paulofalcao"
+fragShaders[5] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+\
+float makePoint(float x,float y,float fx,float fy,float sx,float sy,float t){ \
+    float xx=x+sin(t*fx)*sx; \
+    float yy=y+cos(t*fy)*sy; \
+    return 1.0/sqrt(xx*xx+yy*yy); \
+} \
+\
+vec3 gu(vec4 a,vec4 b,float f){ \
+    return mix(a.xyz,b.xyz,(f-a.w)*(1.0/(b.w-a.w))); \
+} \
+\
+vec3 grad(float f){ \
+    vec4 c01=vec4(0.0,0.0,0.0,0.00); \
+    vec4 c02=vec4(0.5,0.0,0.0,0.50); \
+    vec4 c03=vec4(1.0,0.0,0.0,0.55); \
+    vec4 c04=vec4(1.0,1.0,0.0,0.80); \
+    vec4 c05=vec4(1.0,1.0,1.0,1.00); \
+    return (f<c02.w)?gu(c01,c02,f):(f<c03.w)?gu(c02,c03,f):(f<c04.w)?gu(c03,c04,f):gu(c04,c05,f); \
+} \
+\
+void main( void ) { \
+    vec2 p=(gl_FragCoord.xy/resolution.x)*2.0-vec2(1.0,resolution.y/resolution.x); \
+\
+    p=p*2.0; \
+\
+    float x=p.x; \
+    float y=p.y; \
+\
+    float a=makePoint(x,y,3.3,2.9,0.3,0.3,time); \
+    a=a+makePoint(x,y,1.9,2.0,0.4,0.4,time); \
+    a=a+makePoint(x,y,0.8,0.7,0.4,0.5,time); \
+    a=a+makePoint(x,y,2.3,0.1,0.6,0.3,time); \
+    a=a+makePoint(x,y,0.8,1.7,0.5,0.4,time); \
+    a=a+makePoint(x,y,0.3,1.0,0.4,0.4,time); \
+    a=a+makePoint(x,y,1.4,1.7,0.4,0.5,time); \
+    a=a+makePoint(x,y,1.3,2.1,0.6,0.3,time); \
+    a=a+makePoint(x,y,1.8,1.7,0.5,0.4,time); \
+    a=a+makePoint(x,y,1.2,1.9,0.3,0.3,time); \
+    a=a+makePoint(x,y,0.7,2.7,0.4,0.4,time); \
+    a=a+makePoint(x,y,1.4,0.6,0.4,0.5,time); \
+    a=a+makePoint(x,y,2.6,0.4,0.6,0.3,time); \
+    a=a+makePoint(x,y,0.7,1.4,0.5,0.4,time); \
+    a=a+makePoint(x,y,0.7,1.7,0.4,0.4,time); \
+    a=a+makePoint(x,y,0.8,0.5,0.4,0.5,time); \
+    a=a+makePoint(x,y,1.4,0.9,0.6,0.3,time); \
+    a=a+makePoint(x,y,0.7,1.3,0.5,0.4,time); \
+    a=a+makePoint(x,y,3.7,0.3,0.3,0.3,time); \
+    a=a+makePoint(x,y,1.9,1.3,0.4,0.4,time); \
+    a=a+makePoint(x,y,0.8,0.9,0.4,0.5,time); \
+    a=a+makePoint(x,y,1.2,1.7,0.6,0.3,time); \
+    a=a+makePoint(x,y,0.3,0.6,0.5,0.4,time); \
+    a=a+makePoint(x,y,0.3,0.3,0.4,0.4,time); \
+    a=a+makePoint(x,y,1.4,0.8,0.4,0.5,time); \
+    a=a+makePoint(x,y,0.2,0.6,0.6,0.3,time); \
+    a=a+makePoint(x,y,1.3,0.5,0.5,0.4,time); \
+\
+    vec3 a1=grad(a/128.0); \
+\
+    gl_FragColor = vec4(a1.x,a1.y,a1.z,1.0); \
+}"
+
+// --------------------------------------------------
+// Color Slowdive
+fragsTitles[6] = "Color Slowdive"
+fragShaders[6] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time; \
+uniform vec2 mouse; \
+uniform vec2 resolution; \
+\
+void main( void ) { \
+    vec2 position = ( gl_FragCoord.xy / resolution.xy ) + mouse / 4.0; \
+\
+    float color = 0.0; \
+    color += sin( position.x * cos( time / 197.0 ) * 80.0 ) + cos( position.y * cos( time / 150.0 ) * 10.0 ); \
+    color += sin( position.y * sin( time / 10.0 ) * 40.0 ) + cos( position.x * sin( time / 25.0 ) * 40.0 ); \
+    color += sin( position.x * sin( time / 5.0 ) * 10.0 ) + sin( position.y * sin( time / 35.0 ) * 80.0 ); \
+    color *= sin( time / 10.0 ) * 0.5; \
+\
+    gl_FragColor = vec4( vec3( color, color * 0.5, sin( color + time / 3.0 ) * 0.75 ), 1.0 ); \
+\
+}"
+
+// --------------------------------------------------
+// Hole
+fragsTitles[7] = "Hole"
+fragShaders[7] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform vec2 resolution;\
+uniform float time;\
+\
+void main(void){\
+    vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / resolution.xy;\
+    float a = time*40.0;\
+    float d,e,f,g=1.0/40.0,h,i,r,q;\
+    e=400.0*(p.x*0.5+0.5);\
+    f=400.0*(p.y*0.5+0.5);\
+    i=200.0+sin(e*g+a/150.0)*20.0;\
+    d=200.0+cos(f*g/2.0)*18.0+cos(e*g)*7.0;\
+    r=sqrt(pow(i-e,2.0)+pow(d-f,2.0));\
+    q=f/r;\
+    e=(r*cos(q))-a/2.0;f=(r*sin(q))-a/2.0;\
+    d=sin(e*g)*176.0+sin(e*g)*164.0+r;\
+    h=((f+d)+a/2.0)*g;\
+    i=cos(h+r*p.x/1.3)*(e+e+a)+cos(q*g*6.0)*(r+h/3.0);\
+    h=sin(f*g)*144.0-sin(e*g)*212.0*p.x;\
+    h=(h+(f-e)*q+sin(r-(a+h)/7.0)*10.0+i/4.0)*g;\
+    i+=cos(h*2.3*sin(a/350.0-q))*184.0*sin(q-(r*4.3+a/12.0)*g)+tan(r*g+h)*184.0*cos(r*g+h);\
+    i=mod(i/5.6,256.0)/64.0;\
+    if(i<0.0) i+=4.0;\
+    if(i>=2.0) i=4.0-i;\
+    d=r/350.0;\
+    d+=sin(d*d*8.0)*0.52;\
+    f=(sin(a*g)+1.0)/2.0;\
+    gl_FragColor=vec4(vec3(f*i/1.6,i/2.0+d/13.0,i)*d*p.x+vec3(i/1.3+d/8.0,i/2.0+d/18.0,i)*d*(1.0-p.x),1.0);\
+}"
+
+// --------------------------------------------------
+// 2D NoiseMap
+fragsTitles[8] = "2D NoiseMap"
+fragShaders[8] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform vec2 resolution;\
+uniform float time;\
+\
+void main(void){\
+    float x = gl_FragCoord.x;\
+    float y = gl_FragCoord.y;\
+    float mov0 = x+y+cos(sin(time)*2.)*100.+sin(x/100.)*1000.;\
+    float mov1 = y / resolution.y / 0.2 + time;\
+    float mov2 = x / resolution.x / 0.2;\
+    float c1 = abs(sin(mov1+time)/2.+mov2/2.-mov1-mov2+time);\
+    float c2 = abs(sin(c1+sin(mov0/1000.+time)+sin(y/40.+time)+sin((x+y)/100.)*3.));\
+    float c3 = abs(sin(c2+cos(mov1+mov2+c2)+cos(mov2)+sin(x/1000.)));\
+    gl_FragColor = vec4(c3,c3,c3,1.0);\
+}"
+
+// --------------------------------------------------
+// Cloud Noise
+fragsTitles[9] = "Cloud Noise"
+fragShaders[9] = " \
+#version 120\n \
+#extension GL_ARB_texture_rectangle : enable\n \
+\
+uniform float time;\
+uniform vec2 mouse;\
+uniform vec2 resolution;\
+\
+vec3 mod289(vec3 x) {\
+    return x - floor(x * (1.0 / 289.0)) * 289.0;\
+}\
+\
+vec2 mod289(vec2 x) {\
+    return x - floor(x * (1.0 / 289.0)) * 289.0;\
+}\
+\
+vec3 permute(vec3 x) {\
+    return mod289(((x*34.0)+1.0)*x);\
+}\
+\
+float snoise(vec2 v){\
+    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);\
+\
+    vec2 i  = floor(v + dot(v, C.yy) );\
+    vec2 x0 = v -   i + dot(i, C.xx);\
+\
+    vec2 i1;\
+   \
+    i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);\
+\
+    vec4 x12 = x0.xyxy + C.xxzz;\
+    x12.xy -= i1;\
+\
+    i = mod289(i);\
+    vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));\
+\
+    vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);\
+    m = m*m ;\
+    m = m*m ;\
+\
+    vec3 x = 2.0 * fract(p * C.www) - 1.0;\
+    vec3 h = abs(x) - 0.5;\
+    vec3 ox = floor(x + 0.5);\
+    vec3 a0 = x - ox;\
+\
+    m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );\
+\
+    vec3 g;\
+    g.x  = a0.x  * x0.x  + h.x  * x0.y;\
+    g.yz = a0.yz * x12.xz + h.yz * x12.yw;\
+    return 130.0 * dot(m, g);\
+}\
+\
+void main( void ) {\
+    vec2 p = ( gl_FragCoord.xy / resolution.xy );\
+    p = (p * 2.0 - 1.0) * vec2(800, 600);\
+    p += mouse * 8196.0;\
+    float z = 84.0;\
+\
+    float v = snoise(p * 0.002 + z + 0.05 * time);\  p += 1017.0;\
+    v += 0.5 * snoise(p * 0.004 - 0.2 * time);\
+    v += 0.125 * snoise(p * 0.008 + 0.0001 * v * time);\
+    v = 0.15 * v + 0.7;\
+\
+    gl_FragColor = vec4(v);\
+}"
+

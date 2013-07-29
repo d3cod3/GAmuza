@@ -1,0 +1,97 @@
+
+/* 
+   
+ GAmuza 0431 examples 
+ ---------------------
+ Shaders/waterColors.ga
+ 
+ Shaders examples from ofxFx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows a water effect shader
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber 		= ofVideoGrabber()
+
+grayscale 	= ofxGrayscale()
+gBlur		= ofxGaussianBlur()
+normals		= ofxNormals()
+disp			= ofxDisplacePixels()
+
+width = 640
+heigth = 480
+
+bDrawVideo = false
+bDrawNormals = false
+bDrawField = false
+bCapture = true
+
+function setup()
+    	grabber:setDeviceID(0)
+	grabber:initGrabber(width,heigth)
+	
+	grayscale:allocate(width,heigth)
+	gBlur:allocate(width,heigth)
+	gBlur:setRadius(10)
+	gBlur:setPasses(10)
+	normals:allocate(width,heigth)
+	disp:allocate(width,heigth)
+end
+
+function update()
+	grabber:update()
+	if grabber:isFrameNew() then
+    		grayscale:setTexture(grabber:getTextureReference(),0)
+    		grayscale:update()
+    		gBlur:setTexture(grayscale:getTextureReference(),0)
+    		gBlur:update()
+    		normals:setTexture(gBlur:getTextureReference(),0)
+    		normals:update()
+    	end
+    	
+    	if bCapture then
+    		disp:getBackBuffer():beginFbo()
+    		ofSetColor(255)
+    		grabber:draw(0,0)
+    		disp:getBackBuffer():endFbo()
+    		
+    		bCapture = false
+    	end
+    	
+    	disp:setTexture(normals:getTextureReference(),0)
+    	disp:update()
+    	
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+
+	ofSetColor(255)
+	if bDrawVideo then
+        grabber:draw(0,0,OUTPUT_W,OUTPUT_H)
+        ofSetColor(255,200)
+    	end
+    	disp:draw(0,0,OUTPUT_W,OUTPUT_H)
+    	
+    	if bDrawNormals then
+    		ofSetColor(255)
+    		normals:draw(0,0,OUTPUT_W,OUTPUT_H)
+    	end
+end 
+
+function mouseMoved()
+	gBlur:setRadius(ofMap(gaMouseX(),0,OUTPUT_W,0,10,true));
+    	gBlur:setPasses(ofMap(gaMouseY(),0,OUTPUT_H,0,10,true))
+end
+
+function keyReleased()
+	if gaKey() == string.byte('v') then
+		bDrawVideo = not bDrawVideo
+	elseif gaKey() == string.byte('n') then
+		bDrawNormals = not bDrawNormals
+	elseif gaKey() == string.byte('c') then
+		bCapture = true
+	end
+end

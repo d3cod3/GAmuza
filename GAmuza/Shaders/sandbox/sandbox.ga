@@ -1,0 +1,132 @@
+
+/* 
+   
+ GAmuza 0431 examples 
+ ---------------------
+ Shaders/sandbox.ga
+ 
+ Shaders examples from ofxFX addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows how to use shaders written
+ on the fly.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+sandbox = ofxFXObject()
+
+bloom = ofxBloom()
+gBlur = ofxGaussianBlur()
+bokeh = ofxBokeh()
+glow = ofxGlow()
+unsharp = ofxBlur()
+oldTv = ofxOldTv()
+
+actualFrag = 0
+selection = -1
+beat = 0.0
+title = ""
+
+function setup()
+	bloom:allocate(640,480)
+	gBlur:allocate(640,480)
+	bokeh:allocate(640,480)
+	glow:allocate(640,480)
+	unsharp:allocate(640,480)
+	oldTv:allocate(640,480)
+	
+	sandbox:allocate(640,480,GL_RGB)
+	sandbox:setCode(fragShaders[actualFrag])
+end
+
+function update()
+	sandbox:update();
+	
+	if selection == 0 then
+		bloom:setTexture(sandbox:getTextureReference(),0)
+		bloom:update()
+	elseif selection == 1 then
+		gBlur:setRadius(math.sin(beat)*10)
+		gBlur:setTexture(sandbox:getTextureReference(),0)
+		gBlur:update()
+	elseif selection == 2 then
+		bokeh:setRadius(math.abs(math.sin(beat)*5))
+		bokeh:setTexture(sandbox:getTextureReference(),0)
+		bokeh:update()
+	elseif selection == 3 then
+		glow:setRadius(math.sin(beat)*15)
+		glow:setTexture(sandbox:getTextureReference(),0)
+		glow:update()
+	elseif selection == 4 then
+		unsharp:setFade(math.sin(beat))
+		unsharp:setTexture(sandbox:getTextureReference(),0)
+		unsharp:update()
+	elseif selection == 5 then
+		oldTv:setTexture(sandbox:getTextureReference(),0)
+		oldTv:update()
+	end
+	
+	beat += 1/40
+    	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	ofSetColor(255)
+    	if selection == 0 then
+		bloom:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = "with bloom filter"
+	elseif selection == 1 then
+		gBlur:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = string.format("with gaussianBlur filter | radius:%f",math.sin(beat)*10)
+	elseif selection == 2 then
+		bokeh:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = string.format("with bokeh filter | radius:%f",math.abs(math.sin(beat))*5)
+	elseif selection == 3 then
+		glow:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = string.format("with glow filter | radius:%f",math.sin(beat)*15)
+	elseif selection == 4 then
+		unsharp:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = string.format("with unsharp filter | fade:%f",math.sin(beat))
+	elseif selection == 5 then
+		oldTv:draw(0,0,OUTPUT_W,OUTPUT_H)
+		title = "with oldtv filter"
+	else
+		title = ""	
+		sandbox:draw(0,0,OUTPUT_W,OUTPUT_H)
+	end
+	
+	ofDrawBitmapString(string.format("%s %s",fragsTitles[actualFrag],title),20,20)
+	
+end
+
+function keyReleased()
+	testkey = gaKey()
+	if gaKey() == OF_KEY_UP then
+		actualFrag += 1
+	elseif gaKey() == OF_KEY_DOWN then
+		actualFrag -= 1
+	elseif gaKey() == OF_KEY_LEFT then
+		selection -= 1
+	elseif gaKey() == OF_KEY_RIGHT then
+		selection += 1
+	end
+	
+	if actualFrag >= totalFrags then
+		actualFrag = 0
+	elseif actualFrag < 0 then
+		actualFrag = totalFrags-1
+	end
+	
+	sandbox:setCode(fragShaders[actualFrag])
+	
+	if selection >= 6 then
+		selection = -1
+	elseif selection < -1 then
+		selection = 5
+	end
+	
+end
+

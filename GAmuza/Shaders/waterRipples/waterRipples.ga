@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0431 examples 
+ ---------------------
+ Shaders/waterRipples.ga
+ 
+ Shaders examples from ofxFx addon
+ <https://github.com/patriciogonzalezvivo/ofxFX>; 
+ this example shows a water ripples effect
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+rip = ofxRipples()
+bounce = ofxBounce()
+back = ofImage()
+
+function setup()
+    	back:loadImage(gaImportFile("fondo.jpg"))
+    	
+    	rip:allocate(640,480)
+    	bounce:allocate(640,480)
+    	
+    	bounce:setTexture(back:getTextureReference(),1)
+end
+
+function update()
+	rip:beginFx(0)
+	ofFill()
+	ofSetColor(ofNoise(ofGetElapsedTimeMillis()) * 255 * 5, 255)
+	ofEllipse(gaMouseX(),gaMouseY(), 10,10)
+	rip:endFx(0)
+	rip:update()
+	
+	bounce:setTexture(rip:getTextureReference(),0)
+    	bounce:update()
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+
+	ofSetColor(255)
+	rip:draw(0,0,640,480)
+	ofDrawBitmapString(string.format("ripples shader damping = %f",rip.damping), 15,15)
+	
+	bounce:draw(640,0,640,480)
+	ofDrawBitmapString("bounce shader", 640+15,15)
+end 
+
+function mouseDragged()
+	rip.damping = ofMap(gaMouseY(), 0,OUTPUT_H, 0.9, 1.0, true)
+end

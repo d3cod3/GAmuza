@@ -13,29 +13,31 @@
  
 */
 
-oldTv = ofx.oldTv()
-cam = of.texture()
+oldTv = ofxOldTv()
+grabber = ofVideoGrabber()
+
+captureW = 640
+captureH = 480
 
 function setup()
-	cam:allocate(CAPTURE_W,CAPTURE_H,GL_RGB)
-	oldTv:allocate(OUTPUT_W,OUTPUT_H)
+	grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+	oldTv:allocate(captureW,captureH)
+	oldTv:setPasses(6)
 end
 
 function update()
-	cam = ga.cameraTexture(0)
-	oldTv:setRows(ga.mouseX()/OUTPUT_W)
-	oldTv:setBrightness(1.0)
+	grabber:update()
+    	if grabber:isFrameNew() then
+    		oldTv:setTexture(grabber:getTextureReference(),0)
+    		oldTv:update()
+    	end
 end
 
 function draw()
-	ga.background(0.0,1.0)
+	gaBackground(0.0,1.0)
     
-	oldTv:beginFx()
-		of.setColor(255)
-		cam:draw(0,0,OUTPUT_W,OUTPUT_H)
-	oldTv:endFx(true)
-
-	of.enableAlphaBlending()
-	oldTv:draw(0,0)
-	of.disableAlphaBlending()
+    	ofSetColor(255)
+    	oldTv:draw(0,0,OUTPUT_W,OUTPUT_H)
+	
 end

@@ -1,11 +1,11 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0431 examples 
  ---------------------
  Shaders/mask.ga
  
- Shaders examples from ofx.fx addon
+ Shaders examples from ofxFx addon
  <https://github.com/patriciogonzalezvivo/ofxFX>; 
  this example shows the mask effect.
  
@@ -15,17 +15,17 @@
 
 maskFx = ofxMask()
 top = ofImage()
-bottom = ofImage()
 mask = ofImage()
 
 function setup()
-    top:loadImage(gaImportFile("misteryMen0.jpg"))
-    mask:loadImage(gaImportFile("horizontalMask.png"))
-    mask:resize(top.width,top.height)
-    bottom:loadImage(gaImportFile("misteryMen1.jpg"))
-    maskFx:allocate(top.width,top.height)
-    maskFx:setTexture(mask:getTextureReference(),0)
-    maskFx:setTexture(top:getTextureReference(),1)
+    	top:loadImage(gaImportFile("misteryMen.jpg"))
+    	mask:loadImage(gaImportFile("mask.png"))
+    	mask:resize(top.width,top.height)
+    	maskFx:allocate(top.width,top.height)
+ 	// tex0 -> Mask
+    	maskFx:setTexture(mask:getTextureReference(),0)
+    	// tex1 -> masking Image
+    	maskFx:setTexture(top:getTextureReference(),1)
 end
 
 function update()
@@ -38,10 +38,7 @@ function draw()
 	ofPushMatrix()
 	ofTranslate(OUTPUT_W/2 - top.width/2, OUTPUT_H/2 - top.height/2,0)
 	
-	// draw the base image
 	ofSetColor(255)
-	bottom:draw(0,0)
-	
 	maskFx:draw(0,0,top.width,top.height)
 	ofPopMatrix()
 end
