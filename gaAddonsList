@@ -20,7 +20,7 @@ ofxGenerative
 ofxHttpUtils
 ofxIpVideoGrabber
 ofxJitterNetworkSender
-oofKinect
+ofxKinect
 ofxLua
 ofxMidi
 ofxMissing

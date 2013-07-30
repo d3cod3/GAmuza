@@ -14,6 +14,8 @@
  
 */
 
+grabber = ofVideoGrabber()
+
 font = ofTrueTypeFont()
 frames = {}
 image = ofImage()
@@ -25,11 +27,17 @@ _angle = 0
 exportFolder = gaDataPath("export/")
 
 function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(320,240)
 	font:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),24,true,false,true)
 end
 
 function update()
-	//image:setFromPixels(gaCameraPixelsRef(0))
+	grabber:update()
+    	if grabber:isFrameNew() then
+    		image:setFromPixels(grabber:getPixelsRef())
+    	end
+	
 	_angle = _angle + 1    
 end
 
