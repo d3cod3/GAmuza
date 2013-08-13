@@ -1,0 +1,76 @@
+
+/* 
+   
+ GAmuza 0428 examples 
+ ---------------------
+ Video/videoGrabber.ga
+ 
+ The basic video grabber from OF.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+flowSolver = ofxOpticalFlowLK()
+col = ofFloatColor(1.0,1.0,1.0,1.0)
+pos = ofVec3f(0,0,0)
+vel = ofVec3f(0,0,0)
+
+
+width = 640
+height = 480
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(width,height)
+	flowSolver:setup(width/2,height/2, 0.5, 1, 10, 1, 7, 1.5, false, false)
+end
+
+function update()
+    	grabber:update()
+    	if grabber:isFrameNew() then
+    		flowSolver:update(grabber)
+    	end
+    	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+	
+	ofSetColor(255)
+	scaleW = (OUTPUT_H/grabber:getHeight())*grabber:getWidth()
+	
+    	ofPushMatrix()	
+    	xTrans = OUTPUT_W/2 - scaleW/2
+    	ofTranslate(xTrans,0,0)
+    	
+    	grabber:draw(0,0,scaleW, OUTPUT_H)
+    	
+    	velMesh = ofMesh()
+    	velMesh:setMode(OF_PRIMITIVE_LINES)
+    	
+    	for i=0,((width/2)*(height/2))-1, 30 do 
+		pixelX = math.ceil(i%(height/2))
+		pixelY = math.ceil(i/(height/2))
+		vel = flowSolver:getVelAtPixel(pixelX,pixelY)
+		//vX = vel.x * 10
+		//vY = vel.y * 10
+		if vel:length() > 1 then
+			//ofLine(pixelX/(width/2) * OUTPUT_W, pixelY/(height/2) * OUTPUT_H, (pixelX/(width/2) * OUTPUT_W) + vX, (pixelY/(height/2) * OUTPUT_H) + vY)
+			pos:set(pixelX/(width/2) * OUTPUT_W,pixelY/(height/2) * OUTPUT_H,0)
+			col:set(1.0,0.65)
+			velMesh:addColor(col)
+			velMesh:addVertex(pos)
+			col:set(1.0,0.0)
+			velMesh:addColor(col)
+			velMesh:addVertex(pos+vel * 10)
+		end
+	end
+	ofPushStyle()
+	ofEnableAlphaBlending()
+    	velMesh:draw()
+    	ofPopStyle()
+    	ofPopMatrix()
+    
+end 

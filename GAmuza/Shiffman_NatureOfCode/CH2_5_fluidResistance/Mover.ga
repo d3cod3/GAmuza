@@ -1,0 +1,56 @@
+/*
+
+  Forces (Gravity and Fluid Resistence) with Vectors 
+  by Daniel Shiffman.  
+  
+  Demonstration of multiple force acting on bodies (Mover class)
+  Bodies experience gravity continuously
+  Bodies experience fluid resistance when in "water"
+
+*/
+class 'Mover'
+
+// constructor
+function Mover:__init(m,x,y)
+	// location, velocity, and acceleration
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	// Mass is tied to size
+	self.mass = m
+end
+
+// Newton's 2nd law: F = M * A
+// or A = F / M
+function Mover:applyForce(force)
+	local f = ofVec2f(0,0)
+	f = force/self.mass
+	self.acceleration += f
+end
+
+// Custom method for updating the variables
+function Mover:update()
+	// Velocity changes according to acceleration
+	self.velocity += self.acceleration
+	// Location changes by velocity
+	self.location += self.velocity
+	// We must clear acceleration each frame
+	self.acceleration *= 0
+end 
+
+// Custom method for drawing the object
+function Mover:display()
+	ofSetColor(0,127)
+	ofFill()
+	ofSetLineWidth(2)
+ 	ofCircle(self.location.x,self.location.y,self.mass*16)
+	ofNoFill()
+	ofCircle(self.location.x,self.location.y,self.mass*16)
+end
+
+function Mover:checkEdges()
+	if self.location.y > OUTPUT_H then
+		self.velocity.y *= -0.9 // A little dampening when hitting the bottom
+		self.location.y = OUTPUT_H
+	end
+end

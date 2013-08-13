@@ -1,0 +1,55 @@
+/**
+ * Forces (Gravity and Fluid Resistence) with Vectors 
+ * by Daniel Shiffman.  
+ * 
+ * Demonstration of multiple force acting on bodies (Mover class)
+ * Bodies experience gravity continuously
+ * Bodies experience fluid resistance when in "water"
+ */
+ 
+ // Liquid class
+class 'Liquid'
+
+// constructor
+function Liquid:__init(x,y,w,h,c)
+	// Liquid is a rectangle
+	self.x = x
+	self.y = y
+	self.w = w
+	self.h = h
+	// Coefficient of drag
+	self.c = c
+end
+
+// Is the Mover in the Liquid?
+function Liquid:contains(m)
+	l = ofVec2f()
+	l = m.location
+	if l.x > self.x and l.x < self.x+self.w and l.y > self.y and l.y < self.y+self.h then
+		return true
+	else
+		return false
+	end
+end
+
+function Liquid:drag(m)
+	// Magnitude is coefficient * speed squared
+	speed = m.velocity:length()
+	dragMagnitude = self.c*speed*speed
+
+	// Direction is inverse of velocity
+	dragForce = ofVec2f()
+	dragForce = m.velocity
+	dragForce *= -1
+
+	// Scale according to magnitude
+	dragForce:normalize()
+	dragForce *= dragMagnitude
+	return dragForce
+end
+
+function Liquid:display()
+	ofSetColor(50)
+	ofRect(self.x,self.y,self.w,self.h)
+end
+

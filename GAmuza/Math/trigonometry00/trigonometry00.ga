@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 0431 examples 
+ ---------------------
+ Math/trigonometry00.ga
+ 
+ First of a series of examples about trigonometry.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// variable angle
+theta = 0
+
+// position
+circleX = OUTPUT_W/2
+circleY = OUTPUT_H/2
+
+// radius
+rad = 170
+
+function setup()
+
+end
+
+function update()
+	diffx = gaMouseX() - circleX
+	diffy = gaMouseY() - circleY
+	
+	_length = math.sqrt(math.pow(diffx,2) + math.pow(diffy,2))
+	
+	theta = math.atan2(diffy,diffx)
+	
+end
+
+function draw()
+    gaBackground(0.97,0.1)
+    
+    ofSetColor(0)
+    ofCircle(circleX,circleY,3)
+    
+    posX = circleX + rad * math.cos(theta)
+    posY = circleY + rad * math.sin(theta)
+    
+    ofSetColor(255,0,255)
+    ofCircle(posX, posY,6)
+    
+end
+

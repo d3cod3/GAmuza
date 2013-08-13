@@ -1,0 +1,32 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH1_8_motionAcceleration.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mover = Mover()
+
+function setup()
+    	
+end
+
+function update()
+    	mover:update()
+    	mover:checkEdges()
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	mover:display()
+end

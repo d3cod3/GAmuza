@@ -1,0 +1,40 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH1_6_vectorNormalize.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mouse = ofVec2f()
+center = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+
+function setup()
+    	
+end
+
+function update()
+    	mouse:set(gaMouseX(),gaMouseY())
+    	mouse -= center
+    	
+    	mouse:normalize()
+    	mouse *= 150
+end
+
+function draw()
+    	gaBackground(0.9,0.6)
+	
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofNoFill()
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofLine(0,0,mouse.x,mouse.y)
+end

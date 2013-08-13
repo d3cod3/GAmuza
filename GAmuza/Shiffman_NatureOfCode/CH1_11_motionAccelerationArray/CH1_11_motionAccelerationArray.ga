@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH1_10_motionAcceleration.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mouse = ofVec2f()
+mover = {}
+numMovers = 20
+
+function setup()
+    	for i=0,numMovers-1 do
+    		mover[i] = Mover()
+    	end
+end
+
+function update()
+	mouse:set(gaMouseX(),gaMouseY())
+	for i=0,numMovers-1 do
+    		mover[i]:update()
+    	end
+    	
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	for i=0,numMovers-1 do
+    		mover[i]:display()
+    	end
+end

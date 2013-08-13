@@ -1,0 +1,66 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_5_fluidResistance.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+liquid = Liquid(0, OUTPUT_H/2, OUTPUT_W, OUTPUT_H/2, 0.1)
+mover = {}
+maxMovers = 11
+gravity = ofVec2f()
+
+function setup()
+	ofSetCircleResolution(50)
+    	resetSystem()
+end
+
+function update()
+	for i=0, maxMovers-1 do
+		
+		// Is the Mover in the liquid?
+    		if liquid:contains(mover[i]) then
+      		// Calculate drag force
+      		dragF = ofVec2f()
+      		dragF = liquid:drag(mover[i]);
+      		// Apply drag force to Mover
+      		mover[i]:applyForce(dragF);
+		end
+	
+		gravity:set(0,0.4*mover[i].mass)
+		
+		mover[i]:applyForce(gravity)
+    		mover[i]:update()
+    		mover[i]:checkEdges()
+    	end
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+    	
+    	// Draw water
+  	liquid:display()
+	
+	for i=0, maxMovers-1 do
+		mover[i]:display()
+	end
+end
+
+function mousePressed()
+	resetSystem()
+end
+
+function resetSystem()
+	for i=0, maxMovers-1 do
+    		mover[i] = Mover(ofRandom(1.5,3),40 + i*80,0)
+    	end
+end

@@ -1,0 +1,40 @@
+
+// ---------------------------------------------------
+class 'Mover'
+
+// constructor
+function Mover:__init() 
+	self.location = ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+	self.velocity = ofVec2f(ofRandom(-6,6),ofRandom(-6,6))
+end
+
+// Custom method for updating the variables
+function Mover:update()
+	self.location += self.velocity
+end 
+
+// Custom method for drawing the object
+function Mover:display()
+	ofSetColor(127)
+	ofSetLineWidth(2)
+ 	ofCircle(self.location.x,self.location.y,48)
+	ofNoFill()
+	ofSetColor(0)
+	ofCircle(self.location.x,self.location.y,48)
+end
+
+function Mover:checkEdges()
+	if self.location.x > OUTPUT_W then
+		self.location.x = 0
+	end
+	if self.location.x < 0 then
+		self.location.x = OUTPUT_W
+	end
+
+	if self.location.y > OUTPUT_H then
+		self.location.y = 0
+	end
+	if self.location.y < 0 then
+		self.location.y = OUTPUT_H
+	end
+end

@@ -1,0 +1,37 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_1_forces.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mover = Mover()
+wind = ofVec2f(0.01,0)
+gravity = ofVec2f(0,0.03)
+
+function setup()
+    	
+end
+
+function update()
+	mover:applyForce(wind)
+	mover:applyForce(gravity)
+    	
+    	mover:update()
+    	mover:checkEdges()
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	mover:display()
+end

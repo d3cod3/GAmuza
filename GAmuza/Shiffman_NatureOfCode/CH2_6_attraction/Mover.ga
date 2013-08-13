@@ -1,0 +1,46 @@
+-------------------------------------
+-- Mover Class
+
+class 'Mover'
+
+function Mover:__init()
+    	self.loc = ofVec2f(400,50)
+    	self.vel = ofVec2f(0,0)
+    	self.acc = ofVec2f(0,0)
+	self.mass = 1
+end
+
+function Mover:applyForce(force)
+    	f = ofVec2f()
+    	f = force / self.mass
+    	self.acc += f
+end
+
+function Mover:update()
+    	self.vel += self.acc
+    	self.loc += self.vel
+    	self.acc *= 0
+end
+
+function Mover:display()
+    ofSetColor(0)
+    ofNoFill()
+    ofCircle(self.loc.x,self.loc.y,16)
+    ofSetColor(175,200)
+    ofFill()
+    ofCircle(self.loc.x,self.loc.y,16)
+end
+
+function Mover:checkEdges()
+    if self.loc.x > OUTPUT_W then
+        self.loc.x = 0
+    elseif self.loc.x < 0 then
+        self.loc.x = OUTPUT_W
+    end
+
+    if self.loc.y > OUTPUT_H then
+        self.loc.y = OUTPUT_H
+        self.vel.y *= -1
+    end
+end
+

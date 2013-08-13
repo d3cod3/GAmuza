@@ -1,0 +1,58 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_8_mutualAttraction.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+mover = {}
+numMovers = 10
+attractor = Attractor()
+force = ofVec2f()
+
+function setup()
+	ofSetCircleResolution(50)
+	for i=0,numMovers do
+		mover[i] = Mover(ofRandom(0.1,2),ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+	end
+end
+
+function update()
+
+	attractor:drag()
+	attractor:hover(gaMouseX(),gaMouseY())
+	
+	for i=0,numMovers do
+		force = attractor:attract(mover[i])
+		mover[i]:applyForce(force)
+		mover[i]:update()
+	end
+	
+end
+
+function draw()
+	gaBackground(1.0,0.1)
+
+	attractor:display()
+	for i=0,numMovers do
+		mover[i]:display()
+	end
+end
+
+function mousePressed()
+	attractor:clicked(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	attractor:stopDragging()
+end
