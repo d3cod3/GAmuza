@@ -245,11 +245,12 @@
 			++x;
 		}
 		
-		currRange.length = x -currRange.location;
+		currRange.length = x - currRange.location;
 		
 		// Open identifier, comment etc.? Make sure we include the whole range.
-		if( rangeMode != nil )
+		if( rangeMode != nil ){
 			currRange = NSUnionRange( currRange, effectiveRange );
+        }
 		
 		// Actually recolor the changed part:
 		[self recolorRange: currRange inView:textView];

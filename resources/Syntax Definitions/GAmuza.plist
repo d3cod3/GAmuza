@@ -3188,7 +3188,7 @@
 				<real>0.5</real>
 			</array>
 			<key>Start</key>
-			<string>--</string>
+			<string>// </string>
 			<key>Type</key>
 			<string>OneLineComment</string>
 		</dict>
