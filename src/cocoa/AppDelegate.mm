@@ -35,6 +35,46 @@
 }
 
 //------------------------------------------------------------------------------
+- (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename{
+    
+    return [self processFile:filename];
+}
+
+//------------------------------------------------------------------------------
+- (BOOL)processFile:(NSString *)file{
+    // open arbitrary file
+    NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", file];
+    NSURL *url = [NSURL URLWithString:tvarFilename];
+    
+    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+    
+    GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+    NSString* directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+     
+    // add sketch files (if we have)
+    NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
+    NSEnumerator            *enm = [contents objectEnumerator];
+    NSString                *importFile;
+    NSString                *mainFile = [[[currentDoc fileURL] absoluteString] lastPathComponent];
+     
+    while ((importFile = [enm nextObject])){
+        // eliminate from listing hidden files and .DS_Store files
+        if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
+            continue;
+        }
+        if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
+            NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", directoryName, importFile];
+            NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
+            if (fileContent != NULL) {
+                GASketchFile* doc = [[GASketchFile alloc] init];
+                [currentDoc addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+            }
+        }
+    }
+    return YES;
+}
+
+//------------------------------------------------------------------------------
 - (void) applicationDidFinishLaunching: (NSNotification*) notification {
     
     //fire up ofxNSWindower
@@ -1243,7 +1283,7 @@
         gapp->receiveScript(text);
 	
         // save file if isn't
-        [currentDoc saveGAAll:sender];
+        //[currentDoc saveGAAll:sender];
     }
 }
 
