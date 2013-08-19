@@ -1,0 +1,22 @@
+
+class 'Spring'
+
+function Spring:__init(x,y,l)
+
+end
+
+function Spring:connect(b)
+
+end
+
+function Spring:constrainLength(b,min,max)
+
+end
+
+function Spring:display()
+
+end
+
+function Spring:displayLine(b)
+
+end

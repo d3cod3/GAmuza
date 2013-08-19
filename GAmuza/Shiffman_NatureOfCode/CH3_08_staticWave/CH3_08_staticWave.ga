@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_08_staticWave.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+theta = 0
+aVelocity = 0.01
+
+function setup()
+    	
+end
+
+function update()
+	
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	ofSetColor(0)
+	ofNoFill()
+	ofBeginShape()
+	for i=0,OUTPUT_W-1,2 do
+		y = ofMap(math.sin(theta),-1,1,0,OUTPUT_H,true)
+		ofVertex(i,y)
+		theta += aVelocity
+	end
+	ofEndShape(false)
+	
+end

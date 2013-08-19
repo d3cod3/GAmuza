@@ -1,0 +1,34 @@
+// ---------------------------------------------------
+class 'Oscillator'
+
+// constructor
+function Oscillator:__init()
+	self.theta = ofVec2f(0,0)
+	self.velocity = ofVec2f(ofRandom(-0.05,0.05),ofRandom(-0.05,0.05))
+	self.amplitude = ofVec2f(ofRandom(20,OUTPUT_W/2),ofRandom(20,OUTPUT_H/2))
+end
+
+// Custom method for updating the variables
+function Oscillator:oscillate()
+	self.theta += self.velocity
+end 
+
+// Custom method for drawing the object
+function Oscillator:display()
+
+	x = math.sin(self.theta.x)*self.amplitude.x
+	y = math.sin(self.theta.y)*self.amplitude.y
+	
+	ofFill()
+	ofSetColor(127,127)
+	ofSetLineWidth(2)
+	ofPushMatrix()
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofLine(0,0,x,y)
+ 	ofCircle(x,y,32)
+	ofNoFill()
+	ofSetColor(0)
+	ofCircle(x,y,32)
+	ofPopMatrix()
+end
+

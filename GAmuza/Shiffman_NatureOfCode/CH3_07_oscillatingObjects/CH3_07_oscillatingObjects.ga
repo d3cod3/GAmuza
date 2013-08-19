@@ -1,0 +1,38 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_07_oscillatingObjects.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+numOscillators = 10
+oscillators = {}
+
+function setup()
+    	for i=0, numOscillators do
+    		oscillators[i] = Oscillator()
+    	end
+end
+
+function update()
+	
+end
+
+function draw()
+    	gaBackground(0.9,0.05)
+	
+	for i=0, numOscillators do
+    		oscillators[i]:oscillate()
+    		oscillators[i]:display()
+    	end
+	
+end

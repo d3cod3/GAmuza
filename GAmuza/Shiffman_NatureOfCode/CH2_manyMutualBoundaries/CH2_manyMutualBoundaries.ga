@@ -37,6 +37,7 @@ function update()
 				mover[i]:applyForce(force)
 			end
 		end
+		mover[i]:boundaries()
 		mover[i]:update()
 	end
 	

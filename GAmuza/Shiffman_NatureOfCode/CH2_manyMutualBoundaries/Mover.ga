@@ -25,10 +25,10 @@ end
 function Mover:display()
     	ofSetColor(0)
     	ofNoFill()
-    	ofCircle(self.loc.x,self.loc.y,16)
+    	ofCircle(self.loc.x,self.loc.y,self.mass*16)
     	ofSetColor(175,200)
     	ofFill()
-    	ofCircle(self.loc.x,self.loc.y,16)
+    	ofCircle(self.loc.x,self.loc.y,self.mass*16)
 end
 
 function Mover:attract(m)
@@ -42,5 +42,26 @@ function Mover:attract(m)
 	strength = (g * self.mass * m.mass) / math.pow(dist,2)
 	f *= strength
 	return f
+end
+
+function Mover:boundaries()
+	d = 50
+	frc = ofVec2f(0,0)
+	if self.loc.x < d then
+		frc.x = 1
+	elseif self.loc.x > OUTPUT_W-d then
+		frc.x = -1
+	end
+
+	if self.loc.y < d then
+		frc.y = 1
+	elseif self.loc.y > OUTPUT_H-d then
+		frc.y = -1
+	end
+
+	frc:normalize()
+	frc *= 0.1
+
+	self:applyForce(frc)
 end
 

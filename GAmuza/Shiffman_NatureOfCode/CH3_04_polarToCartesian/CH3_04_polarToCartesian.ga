@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_04_polarToCartesian.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Convert a polar coordinate (r,theta) to cartesian (x,y):  
+ x = r * cos(theta)
+ y = r * sin(theta)
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+r = OUTPUT_H*0.35
+theta = 0
+x = 0
+y = 0
+
+function setup()
+    	
+end
+
+function update()
+	// Convert polar to cartesian
+	x = r * math.cos(theta)
+	y = r * math.sin(theta)
+	
+	// Increase the angle over time
+  	theta += 0.02
+end
+
+function draw()
+    	gaBackground(0.9,0.05)
+	
+	ofSetColor(0)
+	// Translate the origin point to the center of the screen
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofNoFill()
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofLine(0,0,x,y)
+	ofCircle(x,y,48)
+	ofFill()
+	ofSetColor(127)
+	ofCircle(x,y,48)
+	
+end

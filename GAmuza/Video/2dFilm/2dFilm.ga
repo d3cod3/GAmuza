@@ -18,15 +18,15 @@ currentPixels = ofPixels()
 frameCache = {}
 frameCount = 0
 
-camW = 160
-camH = 120
+camW = 80
+camH = 60
 
 cols = math.floor(OUTPUT_W/camW)
 rows = math.floor(OUTPUT_H/camH)
 maxFrames = cols*rows
 
 function setup()
-	grabber:setDeviceID(0)
+	grabber:setDeviceID(1)
 	grabber:initGrabber(camW,camH)
 	
 	currentFrame:allocate(camW,camH,GL_RGB)

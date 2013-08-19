@@ -1,0 +1,41 @@
+
+class 'Mover'
+
+function Mover:__init(x,y)
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f()
+	self.acceleration = ofVec2f()
+	self.mass = 24
+	// Arbitrary damping to simulate friction / drag
+	self.damping = 0.98
+	// For mouse interaction
+	self.dragOffset = ofVec2f()
+	self.dragging = false
+end
+
+// Standard Euler integration
+function Mover:update()
+
+end
+
+// Newton's law: F = M * A
+function Mover:applyForce(force)
+
+end
+
+function Mover:display()
+
+end
+
+// The methods below are for mouse interaction
+function Mover:clicked(mx,my)
+
+end
+
+function Mover:stopDragging()
+
+end
+
+function Mover:drag(mx,my)
+
+end

@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_05_asteroids.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mover = Mover(OUTPUT_W/2,100)
+spring = Spring(OUTPUT_W/2,10,200)
+gravity = ofVec2f(0,2)
+
+function setup()
+
+end
+
+function update()
+	mover:applyForce(gravity)
+	spring:connect(mover)
+	spring:constrainLength(mover,30,200)
+	
+	mover:update()
+	mover:drag(gaMouseX(),gaMouseY())
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	spring:displayLine(mover)
+    	mover:display()
+    	spring:display()
+    
+    	ofSetColor(0)
+    	ofDrawBitmapString("click on bob to drag",20,OUTPUT_H-15)
+end
+
+function mousePressed()
+	mover:clicked(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	mover:stopDragging()
+end

@@ -1,0 +1,30 @@
+-------------------------------------
+-- Attractor Class
+
+class 'Attractor'
+
+function Attractor:__init()
+    self.mass = 20
+    self.loc = ofVec3f(0,0,0)
+    self.g = 3.4
+end
+
+function Attractor:attract(mover)
+    force = ofVec3f()
+    force = self.loc - mover.loc
+    d = force:length()
+    d = ofClamp(d,5.0,25.0)
+    force:normalize()
+    strength = (self.g*self.mass*mover.mass) / math.pow(d,2)
+    force = force * strength
+    return force
+end
+
+function Attractor:display()
+    	ofSetColor(255)
+    	ofNoFill()
+	ofPushMatrix()
+	ofTranslate(self.loc.x,self.loc.y,self.loc.z)
+    	ofSphere(self.mass*6)
+	ofPopMatrix()
+end

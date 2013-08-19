@@ -15,7 +15,7 @@
  
 */
 
-model = ofxModelLoader3D()
+model = ofx3DModelLoader()
 
 function setup()
 
@@ -59,8 +59,8 @@ function draw()
 	// lets tumble the world with the mouse
     	ofPushMatrix()
     	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
-    	ofRotateX(-ga.mouseX()/OUTPUT_W * 360)
-    	ofRotateY(ga.mouseX()/OUTPUT_W * 360)
+    	ofRotateX(-gaMouseX()/OUTPUT_W * 360)
+    	ofRotateY(gaMouseX()/OUTPUT_W * 360)
     	ofTranslate(-OUTPUT_W/2,-OUTPUT_H/2,0)
     		model:draw()
     	ofPopMatrix()

@@ -1,0 +1,41 @@
+-------------------------------------
+-- Mover Class
+
+class 'Mover' 
+
+function Mover:__init(m,x,y,z)
+    self.mass = m
+    self.loc = ofVec3f(x,y,z)
+    self.vel = ofVec3f(1,0,0)
+    self.acc = ofVec3f(0,0,0)
+end
+
+function Mover:applyForce(force)
+    f = ofVec3f()
+    f = force / self.mass
+    self.acc = self.acc + f
+end
+
+function Mover:update()
+    self.vel += self.acc
+    self.loc += self.vel
+    self.acc *= 0
+end
+
+function Mover:display()
+    	ofSetColor(255)
+    	ofNoFill()
+	ofPushMatrix()
+	ofTranslate(self.loc.x,self.loc.y,self.loc.z)
+    	ofSphere(self.mass*2)
+	ofPopMatrix()
+end
+
+function Mover:checkEdges()
+    if self.loc.x > OUTPUT_W then
+        self.loc.x = 0
+    elseif self.loc.x < 0 then
+        self.loc.x = OUTPUT_W
+    end
+end 
+

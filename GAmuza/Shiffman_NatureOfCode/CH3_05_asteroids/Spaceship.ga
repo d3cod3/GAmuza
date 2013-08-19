@@ -1,0 +1,87 @@
+
+class 'Spaceship'
+
+function Spaceship:__init()
+	// All of our regular motion stuff
+	self.location = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	// Arbitrary damping to slow down ship
+	self.damping = 0.995
+	self.topspeed = 9
+	// Variable for heading!
+	self.heading = 0
+	 // Size
+	self.r = 16
+	// Are we thrusting (to color boosters)
+	self.thrusting = false
+end
+
+// Standard Euler integration
+function Spaceship:update()
+	self.velocity += self.acceleration
+	self.velocity *= self.damping
+	self.velocity:limit(self.topspeed)
+	self.location += self.velocity
+	self.acceleration *= 0
+end
+
+// Newton's law: F = M * A
+function Spaceship:applyForce(force)
+	f = force
+	self.acceleration += f
+end
+
+function Spaceship:turn(a)
+	self.heading += a
+end
+
+function Spaceship:thrust()
+	_angle = self.heading - PI/2
+	force = ofVec2f(math.cos(_angle),math.sin(_angle))
+	force *= 0.1
+	self:applyForce(force)
+	// To draw booster
+	self.thrusting = true
+end
+
+function Spaceship:wrapEdges()
+	buffer = self.r*2
+	if self.location.x > OUTPUT_W+buffer then
+		self.location.x = -buffer
+	elseif self.location.x < - buffer then
+		self.location.x = OUTPUT_W+buffer
+	end
+
+	if self.location.y > OUTPUT_H+buffer then
+		self.location.y = -buffer
+	elseif self.location.y < - buffer then
+		self.location.y = OUTPUT_H+buffer
+	end
+end
+
+// Draw the ship
+function Spaceship:display()
+	ofSetRectMode(OF_RECTMODE_CENTER)
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y+self.r,0)
+	ofRotate(ofRadToDeg(self.heading))
+	if self.thrusting then
+		ofSetColor(255,0,0)
+	else
+		ofSetColor(175)
+	end
+	// Booster rockets
+	ofRect(-self.r/2,self.r,self.r/3,self.r/2)
+    	ofRect(self.r/2,self.r,self.r/3,self.r/2)
+	// A triangle
+	ofSetColor(75)
+    	ofBeginShape();
+    	ofVertex(-self.r,self.r);
+    	ofVertex(0,-self.r);
+    	ofVertex(self.r,self.r);
+    	ofEndShape(true);
+	ofPopMatrix()
+
+	self.thrusting = false
+end

@@ -1,0 +1,44 @@
+
+// Attractor Class
+class 'Attractor'
+
+function Attractor:__init()
+    	self.mass = 60
+	self.G = 0.4
+    	self.loc = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+end
+
+function Attractor:attract(mover)
+    	force = ofVec2f()
+	// Calculate direction of force
+    	force = self.loc - mover.loc
+	// Distance between objects
+    	d = force:length()
+	// Limiting the distance to eliminate "extreme" results
+	// for very close or very far objects
+    	d = ofClamp(d,5.0,25.0)
+	// Normalize vector (distance doesn't matter here,
+	// we just want this vector for direction)
+    	force:normalize()
+	// Calculate gravitional force magnitude
+    	strength = (self.G*self.mass*mover.mass) / math.pow(d,2)
+	// Get force vector --> magnitude * direction
+    	force *= strength
+    	return force
+end
+
+function Attractor:display()
+    	ofSetColor(0)
+	ofSetLineWidth(2)
+    	ofNoFill()
+    	ofCircle(self.loc.x,self.loc.y,self.mass*2)
+    	ofFill()
+    	if self.dragging then
+        	ofSetColor(50)
+    	elseif self.rollover then
+        	ofSetColor(100)
+    	else
+        	ofSetColor(175,200)
+    	end
+    	ofCircle(self.loc.x,self.loc.y,self.mass*2)
+end

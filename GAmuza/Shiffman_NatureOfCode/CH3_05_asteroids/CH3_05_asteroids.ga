@@ -1,0 +1,47 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_05_asteroids.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ship = Spaceship()
+
+function setup()
+    	
+end
+
+function update()
+	ship:update()
+	ship:wrapEdges()
+	
+	if gaKey() == string.byte('z') or gaKey() == string.byte('Z') then
+		ship:thrust()
+	end
+end
+
+function draw()
+    	gaBackground(0.9,0.3)
+	
+	ship:display()
+	
+	ofSetColor(0)
+	ofDrawBitmapString("left right arrows to turn, z to thrust",20,OUTPUT_H-15)
+end
+
+function keyPressed()
+	if gaKey() == OF_KEY_LEFT then
+		ship:turn(-0.3)
+	elseif gaKey() == OF_KEY_RIGHT then
+		ship:turn(0.3)
+	end
+end
