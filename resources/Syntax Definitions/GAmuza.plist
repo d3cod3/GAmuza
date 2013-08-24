@@ -1185,6 +1185,7 @@
 				<string>grabShapeUp</string>
 				<string>grabShapeDragged</string>
 				<string>getWorld</string>
+				<string>getBody</string>
 				<string>getBodyCount</string>
 				<string>getJointCount</string>
 				<string>enableGrabbing</string>

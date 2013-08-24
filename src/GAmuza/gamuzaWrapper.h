@@ -2672,6 +2672,8 @@ class ofGamuzaWrapper{
          class_<b2World>("b2World")
          .def(constructor<const b2Vec2&,bool>()),
          
+         class_<b2Body>("b2Body"),
+         
          ///////////////////////////////
          // ofxBox2d
          class_<ofxBox2d>("ofxBox2d")
@@ -2709,6 +2711,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isBody)
          .def("isFixed", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isFixed)
          .def("getWorld", (b2World*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getBody)
          .def("create", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::create)
          .def("setBounce", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setBounce)
          .def("setDensity", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setDensity)
@@ -2921,6 +2924,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isBody)
          .def("isFixed", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isFixed)
          .def("getWorld", (b2World*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getBody)
          .def("create", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::create)
          .def("setBounce", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setBounce)
          .def("setDensity", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setDensity)
@@ -2970,6 +2974,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isBody)
          .def("isFixed", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isFixed)
          .def("getWorld", (b2World*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getBody)
          .def("create", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::create)
          .def("setBounce", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setBounce)
          .def("setDensity", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setDensity)
