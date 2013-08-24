@@ -1,0 +1,33 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_03_particleSystem.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+origin = ofVec2f(OUTPUT_W/2,50)
+ps = ParticleSystem(origin)
+
+function setup()
+	
+end
+
+function update()
+	ps:addParticle()
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	ps:run()
+    
+end

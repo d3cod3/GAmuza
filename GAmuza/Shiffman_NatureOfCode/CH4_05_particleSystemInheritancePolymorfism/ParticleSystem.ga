@@ -1,0 +1,28 @@
+
+class 'ParticleSystem'
+
+function ParticleSystem:__init(location)
+	self.startPos = ofVec2f(location.x,location.y)
+	self.particles = {}
+	self.index = 0
+end
+
+function ParticleSystem:addParticle()
+	r = ofRandom(1)
+	if r < 0.5 then
+		table.insert(self.particles,self.index,Particle(self.startPos))
+	else
+		table.insert(self.particles,self.index,Confetti(self.startPos))
+	end
+	
+	self.index += 1
+end
+
+function ParticleSystem:run()
+	for k,v in pairs(self.particles) do
+    		self.particles[k]:run()
+    		if self.particles[k]:isDead() then
+    			self.particles[k] = nil
+    		end
+    	end
+end

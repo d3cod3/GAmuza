@@ -1,0 +1,17 @@
+
+class 'Boundary'
+
+
+function Boundary:__init(_x,_y,_w,_h)
+	self.x = _x
+	self.y = _y
+	self.w = _w
+	self.h = _h
+	self.body = ofxBox2dRect()
+	self.body:setup(box2d:getWorld(),_x,_y,self.w/2,self.h/2)
+end
+
+function Boundary:display()
+	ofSetColor(0)
+	ofRect(self.x,self.y,self.w,self.h)
+end

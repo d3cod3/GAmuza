@@ -1,0 +1,49 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH5_00_collisionsEqualMass.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Collisions -- Elastic, Equal Mass, Two objects only
+ 
+ Based off of Chapter 9: Resolving Collisions
+ Mathematics and Physics for Programmers by Danny Kodicek
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+ground = ofVec2f(1,0)
+
+moverA = Mover(ofVec2f(ofRandom(2,9),ofRandom(-15,15)),ofVec2f(10,10))
+moverB = Mover(ofVec2f(-12,10),ofVec2f(150,150))
+
+showVectors = true
+
+function setup()
+	ofSetCircleResolution(50)
+end
+
+function update()
+    	
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	moverA:go()
+	moverB:go()
+	
+	// Note this function will ONLY WORK with two objects
+  	// Needs to be revised in the case of an array of objects
+  	moverA:collideEqualMass(moverB)
+end
+
+function mousePressed()
+	showVectors = not showVectors
+end

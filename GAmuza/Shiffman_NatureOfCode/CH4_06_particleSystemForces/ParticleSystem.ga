@@ -1,0 +1,28 @@
+
+class 'ParticleSystem'
+
+function ParticleSystem:__init(location)
+	self.startPos = ofVec2f(location.x,location.y)
+	self.particles = {}
+	self.index = 0
+end
+
+function ParticleSystem:addParticle()
+	table.insert(self.particles,self.index,Particle(self.startPos))
+	self.index += 1
+end
+
+function ParticleSystem:applyForce(f)
+	for k,v in pairs(self.particles) do
+		self.particles[k]:applyForce(f)
+	end
+end
+
+function ParticleSystem:run()
+	for k,v in pairs(self.particles) do
+    		self.particles[k]:run()
+    		if self.particles[k]:isDead() then
+    			self.particles[k] = nil
+    		end
+    	end
+end

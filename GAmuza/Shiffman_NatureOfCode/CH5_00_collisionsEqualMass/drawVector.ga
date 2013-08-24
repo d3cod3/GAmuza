@@ -1,0 +1,13 @@
+
+function drawVector(v,loc,scayl)
+	ofPushMatrix()
+	arrowSize = 4
+	ofTranslate(loc.x,loc.y,0)
+	ofSetColor(0)
+	ofRotate(-v:angle(ground)) // heading2D -->  -v:angle(ofVec2f(1,0))
+	len = v:length()*scayl
+	ofLine(0,0,len,0)
+	ofLine(len,0,len-arrowSize,arrowSize/2)
+	ofLine(len,0,len-arrowSize,-arrowSize/2)
+	ofPopMatrix()
+end

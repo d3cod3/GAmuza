@@ -1,0 +1,39 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_07_particleSystemForcesRepeller.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+startPos = ofVec2f(OUTPUT_W/2,50)
+system = ParticleSystem(startPos)
+repeller = Repeller(OUTPUT_W/2 - 20, OUTPUT_H/2)
+
+gravity = ofVec2f(0,0.4)
+
+function setup()
+	
+end
+
+function update()
+	system:addParticle()
+	
+	system:applyForce(gravity)
+	system:applyRepeller(repeller)
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	repeller:display()
+    	system:run()
+end 

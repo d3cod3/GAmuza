@@ -1,0 +1,51 @@
+
+class 'Box'
+
+function Box:__init(x,y)
+	self.w = ofRandom(16,48)
+	self.h = ofRandom(16,48)
+	self.body = ofxBox2dRect()
+	self.body:setPhysics(1,0.5,0.3)
+	// Box2D considers the width and height of a
+	// rectangle to be the distance from the
+	// center to the edge (so half of what we
+	// normally think of as width or height.)
+	self.body:setup(box2d:getWorld(),x,y,self.w/2,self.h/2)
+	self.lifespan = 255
+	self.decaying = ofRandom(1,3)
+end
+
+function Box:update()
+	self.lifespan -= self.decaying
+end
+
+function Box:run()
+	self:update()
+	self:display()
+end
+
+function Box:display()
+	pos = self.body:getPosition()
+	a = self.body:getRotation()
+
+	ofPushMatrix()
+	ofTranslate(pos.x,pos.y,0)
+	ofRotate(-a)
+	ofFill()
+	ofSetColor(127)
+	ofRect(0,0,self.w,self.h)
+	ofNoFill()
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofRect(0,0,self.w,self.h)
+	ofPopMatrix()
+end
+
+function Box:isDead()
+	if self.lifespan < 0.8 then
+		self.body:destroy()
+		return true
+	else
+		return false
+	end
+end

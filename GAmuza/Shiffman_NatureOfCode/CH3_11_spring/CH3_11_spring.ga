@@ -3,7 +3,7 @@
    
  GAmuza 0428 examples
  ---------------------
- Shiffman_NatureOfCode/CH3_05_asteroids.ga
+ Shiffman_NatureOfCode/CH3_11_spring.ga
  
  This example is one of the series of GAmuza adaptation to
  Daniel Shiffman <Nature of Code> book examples.
@@ -25,14 +25,14 @@ end
 function update()
 	mover:applyForce(gravity)
 	spring:connect(mover)
-	spring:constrainLength(mover,30,200)
+	spring:constrainLength(mover,30,400)
 	
 	mover:update()
 	mover:drag(gaMouseX(),gaMouseY())
 end
 
 function draw()
-    	gaBackground(0.0,1.0)
+    	gaBackground(1.0,1.0)
     
     	spring:displayLine(mover)
     	mover:display()

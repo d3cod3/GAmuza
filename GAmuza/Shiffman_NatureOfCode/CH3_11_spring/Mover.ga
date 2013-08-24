@@ -3,39 +3,63 @@ class 'Mover'
 
 function Mover:__init(x,y)
 	self.location = ofVec2f(x,y)
-	self.velocity = ofVec2f()
-	self.acceleration = ofVec2f()
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
 	self.mass = 24
 	// Arbitrary damping to simulate friction / drag
 	self.damping = 0.98
 	// For mouse interaction
-	self.dragOffset = ofVec2f()
+	self.dragOffset = ofVec2f(0,0)
 	self.dragging = false
 end
 
 // Standard Euler integration
 function Mover:update()
-
+	self.velocity += self.acceleration
+	self.velocity *= self.damping
+	self.location += self.velocity
+	self.acceleration *= 0
 end
 
 // Newton's law: F = M * A
 function Mover:applyForce(force)
-
+	f = ofVec2f()
+	f = force
+	f /= self.mass
+	self.acceleration += f
 end
 
 function Mover:display()
-
+	ofNoFill()
+	ofSetColor(0)
+	ofSetLineWidth(4)
+	ofCircle(self.location.x,self.location.y,self.mass*2)
+	ofFill()
+	if self.dragging then
+		ofSetColor(50)
+	else
+		ofSetColor(175)
+	end
+	ofCircle(self.location.x,self.location.y,self.mass*2)
 end
 
 // The methods below are for mouse interaction
 function Mover:clicked(mx,my)
-
+	d = ofDist(mx,my, self.location.x,self.location.y)
+	if d < self.mass then
+		self.dragging = true
+		self.dragOffset.x = self.location.x - mx
+		self.dragOffset.y = self.location.y - my
+	end
 end
 
 function Mover:stopDragging()
-
+	self.dragging = false
 end
 
 function Mover:drag(mx,my)
-
+	if self.dragging then
+		self.location.x = mx + self.dragOffset.x
+		self.location.y = my + self.dragOffset.y
+	end
 end

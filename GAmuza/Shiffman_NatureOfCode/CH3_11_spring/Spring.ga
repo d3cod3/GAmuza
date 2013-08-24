@@ -2,21 +2,54 @@
 class 'Spring'
 
 function Spring:__init(x,y,l)
-
+	self.anchor = ofVec2f(x,y)
+	self.len = l
+	self.k = 0.2
 end
 
 function Spring:connect(b)
-
+	// Vector pointing from anchor to bob location
+	force = ofVec2f()
+	force = b.location-self.anchor
+	d = force:length()
+	// Stretch is difference between current distance and rest length
+	stretch = d - self.len
+	// Calculate force according to Hooke's Law
+	// F = k * stretch
+	force:normalize()
+	force *= -1*self.k*stretch
+	b:applyForce(force)
 end
 
+// Constrain the distance between bob and anchor between min and max
 function Spring:constrainLength(b,min,max)
-
+	dir = ofVec2f()
+	dir = b.location - self.anchor
+	d = dir:length()
+	if d < min then
+		dir:normalize()
+		dir *= min
+		// Reset location and stop from moving (not realistic physics)
+		b.location = self.anchor + dir
+		b.velocity *= 0
+	elseif d > max then
+		dir:normalize()
+		dir *= max
+		// Reset location and stop from moving (not realistic physics)
+		b.location = self.anchor + dir
+		b.velocity *= 0
+	end
 end
 
 function Spring:display()
-
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofSetRectMode(OF_RECTMODE_CENTER)
+	ofRect(self.anchor.x,self.anchor.y, 10, 10)
 end
 
 function Spring:displayLine(b)
-
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofLine(b.location.x, b.location.y, self.anchor.x, self.anchor.y)
 end
