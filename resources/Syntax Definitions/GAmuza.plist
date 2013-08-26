@@ -1177,6 +1177,8 @@
 				<string>ofxArcText</string>
 				<string>getCharacterWidth</string>
 				<string>b2World</string>
+				<string>b2Vec2</string>
+				<string>Set</string>
 				<string>ofxBox2d</string>
 				<string>init</string>
 				<string>setFPS</string>

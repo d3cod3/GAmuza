@@ -2674,6 +2674,11 @@ class ofGamuzaWrapper{
          
          class_<b2Body>("b2Body"),
          
+         class_<b2Vec2>("b2Vec2")
+         .def(constructor<float32,float32>())
+         .def("Set", (void(b2Vec2::*)(float32,float32)) &b2Vec2::Set),
+         
+         
          ///////////////////////////////
          // ofxBox2d
          class_<ofxBox2d>("ofxBox2d")
@@ -2853,8 +2858,7 @@ class ofGamuzaWrapper{
          .def("isAlive", (bool(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::isAlive)
          .def("destroy", (void(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::destroy)
          
-         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
-         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
+         .def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,float,float,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
          .def("getJoint", (b2RevoluteJoint*(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getJoint)
          .def("getLowerLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getLowerLimit)
          .def("getUpperLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getUpperLimit)

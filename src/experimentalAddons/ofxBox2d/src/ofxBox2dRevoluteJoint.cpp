@@ -67,6 +67,29 @@ void ofxBox2dRevoluteJoint::setup(b2World *w, b2Body *body1, b2Body *body2, b2Ve
 }
 
 //----------------------------------------
+void ofxBox2dRevoluteJoint::setup(b2World *w, b2Body *body1, b2Body *body2, float anchorX, float anchorY,float motorSpeed, float maxMotorTorque, bool bEnableMotor, bool bCollideConnected){
+    
+    setWorld(w);
+    
+    b2Vec2 anchor;
+    anchor.Set(anchorX,anchorY);
+    
+    b2RevoluteJointDef jointDef;
+	jointDef.Initialize(body1, body2, anchor);
+	jointDef.collideConnected	= bCollideConnected;
+    jointDef.lowerAngle         = -0.25 * TWO_PI;
+    jointDef.upperAngle         = 0.25 * TWO_PI;
+    jointDef.enableLimit        = true;
+    jointDef.motorSpeed         = motorSpeed;
+    jointDef.maxMotorTorque     = maxMotorTorque;
+    jointDef.enableMotor        = bEnableMotor;
+    
+	joint						= (b2RevoluteJoint*)world->CreateJoint(&jointDef);
+    
+    alive = true;
+}
+
+//----------------------------------------
 b2RevoluteJoint* ofxBox2dRevoluteJoint::getJoint(){
     return joint;
 }
