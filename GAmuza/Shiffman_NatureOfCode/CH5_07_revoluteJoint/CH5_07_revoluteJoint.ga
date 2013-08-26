@@ -1,0 +1,64 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH5_07_revoluteJoint.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+
+particles = {}
+index = 0
+
+box2d = ofxBox2d()
+
+
+function setup()
+    	box2d:init()
+    	box2d:setGravity(0,10)
+    	box2d:createBounds(0,-100,OUTPUT_W,OUTPUT_H*2)
+    	box2d:setFPS(30)
+    	// box2d:registerGrabbing()
+    	box2d:disableGrabbing()
+    	
+    	windmill = Windmill(OUTPUT_W/2,OUTPUT_H-105)
+end
+
+function update()
+	box2d:update()
+	if ofRandom(1) < 0.1 then
+		table.insert(particles,index,Particle(ofRandom(OUTPUT_W/2 - 100,OUTPUT_W/2 + 100),-20,ofRandom(4,8)))
+		index += 1
+	end
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+    	ofSetRectMode(OF_RECTMODE_CENTER)
+    	
+    	for k,v in pairs(particles) do
+    		if particles[k]:isDead() then
+    			particles[k] = nil
+    		else
+    			particles[k]:display()
+    		end
+    	end
+    	
+    	windmill:display()
+    	
+    	ofSetColor(0)
+    	//ofDrawBitmapString(tostring(windmill.joint:getAngle()),20,20)
+	
+end
+
+function mouseReleased()
+	windmill:toggleMotor()
+end

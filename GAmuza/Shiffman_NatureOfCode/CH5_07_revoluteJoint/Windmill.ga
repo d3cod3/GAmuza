@@ -1,0 +1,27 @@
+
+class 'Windmill'
+
+function Windmill:__init(x,y)
+	self.boxA = Box(x,y-80,270,10,false)
+	self.boxB = Box(x,y,10,190,true)
+	self.joint = ofxBox2dRevoluteJoint()
+	self.joint:setup(box2d:getWorld(),self.boxA.body:getBody(),self.boxB.body:getBody(),self.boxB.body:getPosition().x,self.boxB.body:getPosition().y,TWO_PI,1000,true,false)
+
+end
+
+function Windmill:toggleMotor()
+	self.joint:setEnableMotor(not self:motorOn())
+end
+
+function Windmill:motorOn()
+	return self.joint:isMotorEnabled()
+end
+
+function Windmill:display()
+	self.boxA:display()
+	self.boxB:display()
+
+	anchor = self.boxA.body:getPosition()
+	ofSetColor(205)
+	ofCircle(anchor.x,anchor.y,8)
+end
