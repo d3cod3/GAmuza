@@ -89,9 +89,9 @@ public:
 	void		touchMoved(ofTouchEventArgs &touch);
 	void		touchUp(ofTouchEventArgs &touch);
 #else
-	void		mousePressed(ofMouseEventArgs &e);
-	void		mouseDragged(ofMouseEventArgs &e);
-	void		mouseReleased(ofMouseEventArgs &e);
+	void		mousePressed(float x, float y);
+	void		mouseDragged(float x, float y);
+	void		mouseReleased(float x, float y);
 #endif
 	
 	void		registerGrabbing();
