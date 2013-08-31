@@ -1,0 +1,60 @@
+
+class 'FlowField'
+
+function FlowField:__init(r)
+	self.resolution = r
+	self.cols = math.ceil(OUTPUT_W/r)
+	self.rows = math.ceil(OUTPUT_H/r)
+	self.field = {}
+	for i=0,self.cols do
+		self.field[i] = {}
+		for j=0,self.rows do
+			self.field[i][j] = ofVec2f(0,0)
+		end
+	end
+	self:reset()
+end
+
+
+function FlowField:reset()
+	// Reseed random so we get a new flow field every time
+	noiseSeed = ofRandom(100000)
+	xoff = noiseSeed
+	for i=0,self.cols do
+		yoff = noiseSeed
+		for j=0,self.rows do
+			theta = ofMap(ofNoise(xoff,yoff),0,1,0,PI,true)
+			// Polar to cartesian coordinate transformation to get x and y components of the vector
+			self.field[i][j]:set(math.cos(theta),math.sin(theta))
+			yoff += 0.1
+		end
+		xoff += 0.1
+	end
+end
+
+function FlowField:display()
+	for i=0,self.cols do
+		for j=0, self.rows do
+			self:drawVector(self.field[i][j],i*self.resolution,j*self.resolution,self.resolution-2)
+		end
+	end
+end
+
+function FlowField:drawVector(v,x,y,scayl)
+	ofPushMatrix()
+	arrowSize = 4
+	ofTranslate(x,y,0)
+	ofSetColor(0,100)
+	ofRotate(-v:angle(ground)) // heading2D -->  -v:angle(ofVec2f(1,0))
+	len = v:length()*scayl
+	ofLine(0,0,len,0)
+	ofLine(len,0,len-arrowSize,arrowSize/2)
+	ofLine(len,0,len-arrowSize,-arrowSize/2)
+	ofPopMatrix()
+end
+
+function FlowField:lookup(vec)
+	column = math.ceil(ofClamp(vec.x/self.resolution,0,self.cols-1))
+	row = math.ceil(ofClamp(vec.y/self.resolution,0,self.rows-1))
+	return self.field[column][row]
+end

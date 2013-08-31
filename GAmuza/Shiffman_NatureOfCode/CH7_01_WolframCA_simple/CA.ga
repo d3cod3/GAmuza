@@ -1,0 +1,111 @@
+
+class 'CA'
+
+function CA:__init()
+	self.ruleset = {}
+	self.ruleDim = 8
+	self:setRule(0,1,0,1,1,0,1,0)
+
+	self.cells = {}
+	self.generation = 0
+	self.w = 4
+
+	for i=0, math.ceil(OUTPUT_W/self.w) do
+		// We arbitrarily start with just the middle cell having a state of "1"
+		if i == math.floor(math.ceil(OUTPUT_W/self.w)/2) then
+			table.insert(self.cells,i,1)
+		else
+			table.insert(self.cells,i,0)
+		end
+	end
+	
+end
+
+// The process of creating the new generation
+function CA:generate()
+	// First we create an empty array for the new values
+	nextGen = {}
+	i = 1
+	table.insert(nextGen,0,0)
+	for k,v in pairs(self.cells) do
+		if k > 0 and k < table.getn(self.cells) then
+			left = self.cells[k-1]
+			me = self.cells[k]
+			right = self.cells[k+1]
+			table.insert(nextGen,i,self:rules(left,me,right))
+			i += 1
+		end
+	end
+	table.insert(nextGen,i,0)
+
+	self.cells = nextGen
+	self.generation += 1
+end
+
+// This is the easy part, just draw the cells
+function CA:display()
+	for k,v in pairs(self.cells) do
+		if self.cells[k] == 1 then
+			ofSetColor(0)
+		else
+			ofSetColor(255)
+		end
+		ofRect(k*self.w,self.generation*self.w,self.w,self.w)
+	end
+end
+
+// Implementing the Wolfram rules
+// Could be improved and made more concise,
+// but here we can explicitly see what is going on for each case
+function CA:rules(a,b,c)
+	if a == 1 and b == 1 and c == 1 then
+		return self.ruleset[0]
+    	elseif a == 1 and b == 1 and c == 0 then
+		return self.ruleset[1]
+    	elseif a == 1 and b == 0 and c == 1 then 
+		return self.ruleset[2]
+    	elseif a == 1 and b == 0 and c == 0 then 
+		return self.ruleset[3]
+    	elseif a == 0 and b == 1 and c == 1 then 
+		return self.ruleset[4]
+    	elseif a == 0 and b == 1 and c == 0 then 
+		return self.ruleset[5]
+    	elseif a == 0 and b == 0 and c == 1 then 
+		return self.ruleset[6]
+    	elseif a == 0 and b == 0 and c == 0 then 
+		return self.ruleset[7]
+    	else 
+		return 0
+	end
+end 
+
+function CA:setRule(r1,r2,r3,r4,r5,r6,r7,r8)
+	self.ruleset = nil
+	self.ruleset = {}
+	table.insert(self.ruleset,0,r1)
+	table.insert(self.ruleset,1,r2)
+	table.insert(self.ruleset,2,r3)
+	table.insert(self.ruleset,3,r4)
+	table.insert(self.ruleset,4,r5)
+	table.insert(self.ruleset,5,r6)
+	table.insert(self.ruleset,6,r7)
+	table.insert(self.ruleset,7,r8)
+end
+
+function CA:randomizeRule()
+	self.ruleset = nil
+	self.ruleset = {}
+	for i=0, self.ruleDim-1 do
+		r = ofRandomuf()
+		if r < 0.5 then
+			table.insert(self.ruleset,i,0)
+		else
+			table.insert(self.ruleset,i,1)
+		end
+	end 
+end
+
+function CA:reset()
+	self:randomizeRule()
+	self.generation = 0
+end

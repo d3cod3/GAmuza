@@ -1,0 +1,94 @@
+
+class 'Vehicle'
+
+function Vehicle:__init(x,y)
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 12
+	self.maxSpeed = 12
+	self.maxForce = 7.9
+	self.steeringForce = 0.8
+
+end
+
+function Vehicle:update()
+	self:borders()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+	// Reset acceleration to 0 each cycle
+	self.acceleration *= 0
+end
+
+function Vehicle:applyForce(force)
+	// We could add mass here if we want A = F / M
+	self.acceleration += force
+end
+
+function Vehicle:separate(v)
+	desiredSeparation = self.r*3
+	sum = ofVec2f(0,0)
+	count = 0
+	// For every boid in the system, check if it's too close
+	for k,j in pairs(v) do
+		d = ofDist(self.location.x,self.location.y,v[k].location.x,v[k].location.y)
+		// If the distance is greater than 0 and less than an arbitrary amount (0 when you are yourself)
+		if d > 0 and d < desiredSeparation then
+			// Calculate vector pointing away from neighbor
+			diff = ofVec2f(0,0)
+			diff = self.location - v[k].location
+			diff:normalize()
+			diff /= d
+			sum += diff
+			count += 1
+		end
+	end
+	// Average -- divide by how many
+	if count > 0 then
+		sum /= count
+		sum:normalize()
+		sum *= self.maxSpeed
+		steer = ofVec2f()
+		steer = sum - self.velocity
+		steer:limit(self.steeringForce)
+		self:applyForce(steer)
+	end
+end
+
+function Vehicle:borders()
+	if self.location.x < -self.r then
+		self.location.x = OUTPUT_W+self.r
+	end
+	if self.location.y < -self.r then
+		self.location.y = OUTPUT_H+self.r
+	end
+	if self.location.x > OUTPUT_W+self.r then
+		self.location.x = -self.r
+	end
+	if self.location.y > OUTPUT_H+self.r then
+		self.location.y = -self.r
+	end
+end
+
+// Draw a triangle rotated in the direction of velocity
+function Vehicle:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(127)
+	ofFill()
+	ofCircle(0,0,self.r)
+	ofSetColor(0)
+	ofNoFill()
+	ofCircle(0,0,self.r)
+	ofLine(0,0,0,-self.r)
+	ofPopMatrix()
+end
+
+

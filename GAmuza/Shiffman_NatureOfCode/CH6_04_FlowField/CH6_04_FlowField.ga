@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_04_FlowField.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+
+flowfield = FlowField(40)
+vehicles = {}
+numVehicles = 120
+
+function setup()
+	for i=0, numVehicles do
+		table.insert(vehicles,i, Vehicle(ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H)),ofRandom(12,25),ofRandom(4.1,8.5)))
+	end
+end
+
+function update()
+	// Call the appropriate steering behaviors for our agents
+    	for k,v in pairs(vehicles) do
+    		vehicles[k]:follow(flowfield)
+    		vehicles[k]:run()
+    	end
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// draw the flowfield
+    	flowfield:display()
+    	// draw the vehicles
+    	for k,v in pairs(vehicles) do
+    		vehicles[k]:display()
+    	end
+end
+
+function mouseReleased()
+	flowfield:reset()
+end
+

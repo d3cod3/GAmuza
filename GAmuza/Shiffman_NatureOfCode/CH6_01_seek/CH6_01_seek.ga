@@ -1,0 +1,50 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_01_seek.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Implements Craig Reynold's autonomous steering behaviors
+ See: http://www.red3d.com/cwr/
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+mouse = ofVec2f(0,0)
+
+v = Vehicle(OUTPUT_W/2,OUTPUT_H/2)
+
+function setup()
+
+end
+
+function update()
+	mouse:set(gaMouseX(),gaMouseY())
+	
+	// Call the appropriate steering behaviors for our agents
+    	v:seek(mouse)
+    	v:update()
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	// Draw an ellipse at the mouse location
+    	ofSetColor(0)
+    	ofNoFill()
+    	ofSetLineWidth(2)
+    	ofCircle(gaMouseX(),gaMouseY(),48)
+    	
+    	// draw the vehicle
+    	v:display()
+    	
+end
+

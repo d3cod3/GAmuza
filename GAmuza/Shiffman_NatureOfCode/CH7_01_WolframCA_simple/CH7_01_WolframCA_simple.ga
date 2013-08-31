@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH7_01_WolframCA_simple.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Simple demonstration of a Wolfram 1-dimensional cellular automata
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ca = CA()
+
+function setup()
+
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,0.0)
+    
+    	ca:display()
+    
+    	if ca.generation < math.ceil(OUTPUT_H/ca.w) then
+    		ca:generate()
+    	end
+end 
+
+function mouseReleased()
+	ca:reset()
+end

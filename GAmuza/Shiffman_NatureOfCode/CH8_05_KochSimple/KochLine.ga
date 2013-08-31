@@ -1,0 +1,59 @@
+
+// Koch Curve
+// Daniel Shiffman <http://www.shiffman.net>
+
+// A class to describe one line segment in the fractal
+// Includes methods to calculate midPVectors along the line according to the Koch algorithm
+class 'KochLine'
+
+function KochLine:__init(a,b)
+	self.start = ofVec2f(a.x,a.y)
+	self.fine = ofVec2f(b.x,b.y)
+end
+
+function KochLine:display()
+	ofSetColor(0)
+	ofLine(self.start.x,self.start.y,self.fine.x,self.fine.y)
+end
+
+function KochLine:kochA()
+	return self.start
+end
+
+// This is easy, just 1/3 of the way
+function KochLine:kochB()
+	v = ofVec2f()
+	v = self.fine - self.start
+	v /= 3
+	v += self.start
+	return v
+end
+
+// More complicated, have to use a little trig to figure out where this vector is!
+function KochLine:kochC()
+	a = ofVec2f()
+	a = self.start 	// Start at the beginning
+
+	v = ofVec2f()
+	v = self.fine - self.start
+	v /= 3
+	a += v			// Move to point B
+
+	v:rotate(-60) // Rotate 60 degrees
+	a += v
+	
+	return a
+end
+
+// Easy, just 2/3 of the way
+function KochLine:kochD()
+	v = ofVec2f()
+	v = self.fine - self.start
+	v *= 2/3
+	v += self.start
+	return v
+end
+
+function KochLine:kochE()
+	return self.fine
+end

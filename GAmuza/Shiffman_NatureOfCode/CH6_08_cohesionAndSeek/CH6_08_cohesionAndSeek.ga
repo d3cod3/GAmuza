@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_08_cohesionAndSeek.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+
+cars = {}
+numV = 20
+index = numV
+
+function setup()
+	for i=0,numV do
+		table.insert(cars,i,Vehicle(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H)))
+	end
+end
+
+function update()
+	// Call the appropriate steering behaviors for our agents
+	for k,v in pairs(cars) do
+    		cars[k]:update()
+    		cars[k]:applyBehaviors(cars)
+    	end
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// draw the vehicles
+    	for k,v in pairs(cars) do
+    		cars[k]:display()
+    	end
+end
+
+function mouseDragged()
+	if index < 60 then
+		table.insert(cars,index,Vehicle(gaMouseX(),gaMouseY()))
+		index += 1
+	end
+end

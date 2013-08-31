@@ -19,6 +19,7 @@ randomVector = ofVec2f(ofRandomuf(),ofRandomuf())
 ground = ofVec2f(1,0)
 mouse = ofVec2f(0,0)
 center = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+centeredMouse = ofVec2f(0,0)
 
 function setup()
     	
@@ -29,11 +30,16 @@ function update()
 end
 
 function draw()
-    	gaBackground(0.9,0.1)
+    	gaBackground(0.9,0.3)
     	
     	drawVector(randomVector,center,200)
     	
-    	drawVector(mouse-center,center,1)
+    	centeredMouse = mouse-center
+    	drawVector(centeredMouse,center,1)
+    	
+    	phi = math.abs(centeredMouse:angle(randomVector))
+    	ofSetColor(0)
+    	ofDrawBitmapString(string.format("%f degrees\n %f radians",phi,ofDegToRad(phi)),40,40)
     	
 end
 

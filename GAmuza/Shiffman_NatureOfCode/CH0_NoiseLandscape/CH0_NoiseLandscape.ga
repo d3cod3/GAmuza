@@ -1,0 +1,40 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_NoiseLandscape.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+theta = 0
+land = Landscape(80,OUTPUT_W,OUTPUT_W)
+
+function setup()
+
+end
+
+function update()
+	land:calculate()
+	theta += 0.0025
+end
+
+function draw()
+    gaBackground(1.0,1.0)
+    
+    ofPushMatrix()
+    ofTranslate(OUTPUT_W/2,OUTPUT_H/2,-300)
+    ofRotateX(ofRadToDeg(PI/3))
+    ofRotateZ(ofRadToDeg(theta))
+    land:render()
+    ofPopMatrix()
+    
+end
+

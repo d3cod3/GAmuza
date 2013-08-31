@@ -1,0 +1,46 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_02_recursion.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+	ofSetCircleResolution(50)
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	ofSetColor(255)
+    	ofNoFill()
+    	drawCircle(OUTPUT_W/2,OUTPUT_H/2,OUTPUT_W/2)
+end
+
+// Very simple function that draws one circle 
+// and recursively calls itself
+function drawCircle(x,y,r)
+	ofCircle(x,y,r/2)
+	
+	// Exit condition, stop when radius is too small
+	if r > 2	then
+		// Call the function inside the function! (recursion!)
+    		drawCircle(x + r/2,y,r/2)
+    		drawCircle(x - r/2,y,r/2)
+	end
+	
+end
+

@@ -1,0 +1,90 @@
+
+class 'Vehicle'
+
+function Vehicle:__init(l,ms,mf)
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 6
+	self.maxSpeed = ms
+	self.maxForce = mf
+	self.steeringForce = 1.8
+
+end
+
+function Vehicle:run()
+	self:update()
+	self:borders()
+end
+
+function Vehicle:update()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+	// Reset acceleration to 0 each cycle
+	self.acceleration *= 0
+end
+
+function Vehicle:applyForce(force)
+	// We could add mass here if we want A = F / M
+	self.acceleration += force
+end
+
+// Implementing Reynolds' flow field following algorithm
+// http://www.red3d.com/cwr/steer/FlowFollow.html
+function Vehicle:follow(field)
+	// What is the vector at that spot in the flow field?
+	desired = ofVec2f()
+	desired = field:lookup(self.location)
+	
+	// Scale it up by maxSpeed
+	desired *= self.maxSpeed
+
+	// Steering = Desired minus velocity
+	steer = ofVec2f()
+	steer = desired - self.velocity
+	steer:limit(self.steeringForce)
+	self:applyForce(steer)
+end
+
+function Vehicle:borders()
+	if self.location.x < -self.r then
+		self.location.x = OUTPUT_W+self.r
+	end
+	if self.location.y < -self.r then
+		self.location.y = OUTPUT_H+self.r
+	end
+	if self.location.x > OUTPUT_W+self.r then
+		self.location.x = -self.r
+	end
+	if self.location.y > OUTPUT_H+self.r then
+		self.location.y = -self.r
+	end
+end
+
+// Draw a triangle rotated in the direction of velocity
+function Vehicle:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(0)
+	ofNoFill()
+	self:drawVehicle()
+	ofSetColor(127)
+	ofFill()
+	self:drawVehicle()
+	ofPopMatrix()
+end
+
+function Vehicle:drawVehicle()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end

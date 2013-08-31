@@ -1,0 +1,61 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_06_pathFollowing.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Demonstration of Craig Reynolds' "Wandering" behavior
+ See: http://www.red3d.com/cwr/
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+
+_path = Path()
+
+car1 = Vehicle(ofVec2f(0,OUTPUT_H/2),8,2.05)
+car2 = Vehicle(ofVec2f(0,OUTPUT_H/2),12,4.9)
+
+function setup()
+	newPath()
+end
+
+function update()
+	// Call the appropriate steering behaviors for our agents
+    	car1:run()
+    	car2:run()
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// draw the path
+    	_path:display()
+    	// draw the vehicles
+    	car1:follow(_path)
+    	car2:follow(_path)
+    	car1:display()
+    	car2:display()
+end
+
+function newPath()
+	_path:reset()
+	_path:addPoint(0,OUTPUT_H/2)
+	_path:addPoint(ofRandom(0,OUTPUT_W/2),ofRandom(OUTPUT_H/2,OUTPUT_H/3))
+	_path:addPoint(ofRandom(OUTPUT_W/2,OUTPUT_W-100),ofRandom(OUTPUT_H/2,OUTPUT_H/3))
+	_path:addPoint(OUTPUT_W,OUTPUT_H/2)
+	_path:addPoint(0,OUTPUT_H/2)
+end
+
+function mousePressed()
+	newPath()
+end
+

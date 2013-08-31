@@ -1,0 +1,102 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_09_flockingBox2D.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Demonstration of Craig Reynolds Flocking behavior
+ See: http://www.red3d.com/cwr/
+ Rules: Cohesion, Separation, Alignment
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gui = ofxControlPanel()
+viewGui = true
+
+swt = 1.5
+awt = 1
+cwt = 1
+maxSpeed = 20
+maxForce = 10
+
+flock = Flock()
+numBoids = 70
+
+box2d = ofxBox2d()
+
+function setup()
+	gui:setup(0,10,480,OUTPUT_H)
+	gui:addPanel(1)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("FLOCKING GUI")
+	gui:addSlider("SEPARATION",swt,1,10,false)
+	gui:addSlider("ALIGNMENT",awt,0.5,2,false)
+	gui:addSlider("COHESION",cwt,0.5,2,false)
+	gui:addSlider("MAXSPEED",maxSpeed,1,20,false)
+	gui:addSlider("MAXFORCE",maxForce,1,10,false)
+	
+	gui:loadSettings(gaImportFile("guiSettings.xml"))
+	
+	box2d:init()
+    	box2d:setGravity(0,0)
+    	box2d:setFPS(30)
+    	box2d:enableGrabbing()
+
+	for i=0, numBoids do
+		flock:addBoid(Boid(OUTPUT_W/2,ofRandom(OUTPUT_H)))
+	end
+end
+
+function update()
+	gui:update()
+	swt = gui:getValueF("SEPARATION")
+	awt = gui:getValueF("ALIGNMENT")
+	cwt = gui:getValueF("COHESION")
+	maxSpeed = gui:getValueF("MAXSPEED")
+	maxForce = gui:getValueF("MAXFORCE")
+	
+	box2d:update()
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    ofSetRectMode(OF_RECTMODE_CENTER)
+    flock:run()
+    
+    ofSetRectMode(OF_RECTMODE_CORNER)
+    if viewGui then
+    		gui:draw()
+    	end
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+	box2d:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	gui:mousePressed()
+	box2d:mousePressed(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	gui:mouseReleased()
+	box2d: mouseReleased(gaMouseX(),gaMouseY())
+end
+
+function keyReleased()
+	if gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	elseif gaKey() == string.byte('g') then
+		viewGui = not viewGui
+	end
+end

@@ -1,0 +1,219 @@
+
+// Boid class
+// Methods for Separation, Cohesion, Alignment added
+class 'Boid'
+
+function Boid:__init(x,y)
+	self.w = 12
+	self.h = 12
+	self.body = ofxBox2dRect()
+	self.body:setPhysics(1,0.5,0.3)
+	// Box2D considers the width and height of a
+	// rectangle to be the distance from the
+	// center to the edge (so half of what we
+	// normally think of as width or height.)
+	self.body:setup(box2d:getWorld(),x,y, self.w/2, self.h/2)
+	self.body:setVelocity(0,0)
+end
+
+function Boid:run(boids)
+	self:flock(boids)
+	self:borders()
+	self:render()
+end
+
+// We accumulate a new acceleration each time based on three rules
+function Boid:flock(boids)
+	sep = self:separate(boids)	// Separation
+	ali = self:align(boids)		// Alignment
+	coh = self:cohesion(boids)	// Cohesion
+	// Arbitrarily weight these forces
+	sep *= swt
+	ali *= awt
+	coh *= cwt
+	// Add the force vectors to acceleration
+	pos = self.body:getPosition()
+	self.body:addForce(sep,1.0)
+	self.body:addForce(ali,1.0)
+	self.body:addForce(coh,1.0)
+end
+
+function Boid:seek(target)
+	pos = self.body:getPosition()
+	desired = ofVec2f()
+	desired = target - pos
+
+	desired:normalize()
+	desired *= maxSpeed
+
+	vel = self.body:getVelocity()
+	steer = ofVec2f()
+	steer = desired - vel
+
+	len = steer:length()
+	if len > maxForce then
+		steer:normalize()
+		steer *= maxForce
+	end
+
+	return steer
+end
+
+function Boid:render()
+	pos = self.body:getPosition()
+	a = self.body:getRotation()
+
+	ofPushMatrix()
+	ofTranslate(pos.x, pos.y,0)
+	ofRotate(-a)
+	ofSetColor(245)
+	ofFill()
+	ofRect(0,0,self.w,self.h)
+	ofPopMatrix()
+end
+
+function Boid:borders()
+	loc = self.body:getPosition()
+	vel = self.body:getVelocity()
+	a = self.body:getRotation()
+	
+	if loc.x < -self.w then
+		self.body:destroy()
+		self.body = ofxBox2dRect()
+		self.body:setPhysics(1,0.5,0.3)
+		self.body:setup(box2d:getWorld(),OUTPUT_W+self.w,loc.y, self.w/2, self.h/2)
+		self.body:setVelocity(vel)
+	end
+	if loc.y < -self.w then
+		self.body:destroy()
+		self.body = ofxBox2dRect()
+		self.body:setPhysics(1,0.5,0.3)
+		self.body:setup(box2d:getWorld(),loc.x,OUTPUT_H+self.w,self.w/2,self.h/2)
+		self.body:setVelocity(vel)
+	end
+	if loc.x > OUTPUT_W+self.w then
+		self.body:destroy()
+		self.body = ofxBox2dRect()
+		self.body:setPhysics(1,0.5,0.3)
+		self.body:setup(box2d:getWorld(),-self.w,loc.y,self.w/2,self.h/2)
+		self.body:setVelocity(vel)
+	end
+	if loc.y > OUTPUT_H+self.w then
+		self.body:destroy()
+		self.body = ofxBox2dRect()
+		self.body:setPhysics(1,0.5,0.3)
+		self.body:setup(box2d:getWorld(),loc.x,-self.w,self.w/2,self.h/2)
+		self.body:setVelocity(vel)
+	end
+end
+
+// Separation
+// Method checks for nearby boids and steers away
+function Boid:separate(boids)
+	desiredSeparation = 30
+	steer = ofVec2f(0,0)
+	count = 0
+	// For every boid in the system, check if it's too close
+	locA = self.body:getPosition()
+	for k,v in pairs(boids) do
+		locB = boids[k].body:getPosition()
+		d = locA:distance(locB)
+		// If the distance is greater than 0 and less than an arbitrary amount 
+		// (0 when you are yourself)
+		if d > 0 and d < desiredSeparation then
+			// Calculate vector pointing away from neighbor
+			diff = ofVec2f()
+			diff = locA - locB
+			diff:normalize()
+			diff /= d		// Weight by distance
+			steer += diff
+			count += 1	// Keep track of how many
+		end
+	end 
+	// Average -- divide by how many
+	if count > 0 then
+		steer /= count
+	end
+
+	// As long as the vector is greater than 0
+	if steer:length() > 0 then
+		// Implement Reynolds: Steering = Desired - Velocity
+		steer:normalize()
+		steer *= maxSpeed
+		vel = self.body:getVelocity()
+		steer -= vel
+		len = steer:length()
+		if len > maxForce then
+			steer:normalize()
+			steer *= maxForce
+		end
+	end
+	return steer
+end
+
+// Alignment
+// For every nearby boid in the system, calculate the average velocity
+function Boid:align(boids)
+	neighborDist = 50
+	steer = ofVec2f(0,0)
+	count = 0
+	locA = self.body:getPosition()
+	for k,v in pairs(boids) do
+		locB = boids[k].body:getPosition()
+		d = locA:distance(locB)
+		// If the distance is greater than 0 and less than an arbitrary amount 
+		// (0 when you are yourself)
+		if d > 0 and d < neighborDist then
+			// Calculate vector pointing away from neighbor
+			velB = boids[k].body:getVelocity()
+			steer += velB
+			count += 1	// Keep track of how many
+		end
+	end
+
+	if count > 0 then
+		steer /= count
+	end
+
+	// As long as the vector is greater than 0
+	if steer:length() > 0 then
+		// Implement Reynolds: Steering = Desired - Velocity
+		steer:normalize()
+		steer *= maxSpeed
+		vel = self.body:getVelocity()
+		steer -= vel
+		len = steer:length()
+		if len > maxForce then
+			steer:normalize()
+			steer *= maxForce
+		end
+	end
+	return steer
+end
+
+// Cohesion
+// For the average location (i.e. center) of all nearby boids
+// calculate steering vector towards that location
+function Boid:cohesion(boids)
+	neighborDist = 50
+	// Start with empty vector to accumulate all locations
+	sum = ofVec2f(0,0)
+	count = 0
+	locA = self.body:getPosition()
+	for k,v in pairs(boids) do
+		locB = boids[k].body:getPosition()
+		d = locA:distance(locB)
+		// If the distance is greater than 0 and less than an arbitrary amount 
+		// (0 when you are yourself)
+		if d > 0 and d < neighborDist then
+			// Calculate vector pointing away from neighbor
+			sum += locB
+			count += 1	// Keep track of how many
+		end
+	end
+	if count > 0 then
+		sum /= count
+		return self:seek(sum) // Steer towards the location
+	end
+	return sum
+end

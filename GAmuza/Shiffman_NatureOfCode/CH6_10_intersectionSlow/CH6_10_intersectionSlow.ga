@@ -1,0 +1,56 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_10_intersectionSlow.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ The old way to do intersection tests, look how slow!!
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+totalThings = 1000
+
+a = {}
+
+function setup()
+	for i=0, totalThings do
+		table.insert(a,i,Thing(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H)))
+	end
+end
+
+function update()
+	for k,v in pairs(a) do
+		a[k].highlight = false
+		for h,r in pairs(a) do
+			// As long as its not the same one
+			if k != h then
+				// Check to see if they are touching
+        			// (We could do many other things here besides just intersection tests, such
+        			// as apply forces, etc.)
+        			d = ofDist(a[k].x,a[k].y,a[h].x,a[h].y)
+        			if d < a[k].r/2 + a[h].r/2 then
+        				a[k].highlight = true
+        			end
+			end
+		end
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	for k,v in pairs(a) do
+    		a[k]:move()
+    		a[k]:render()
+    	end
+    
+end
+

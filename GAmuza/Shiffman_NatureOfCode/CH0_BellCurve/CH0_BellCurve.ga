@@ -1,0 +1,57 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_BellCurve.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+heights = {}
+e = 2.71828183
+m = 0
+
+function setup()
+	for i=0,OUTPUT_W do
+		heights[i] = 0
+	end
+end
+
+function update()
+	// standard deviation based on mouseX
+	sd = ofMap(gaMouseX(),0,OUTPUT_W,0.4,2,true)
+	for i=0,OUTPUT_W do
+		xcoord = ofMap(i,0,OUTPUT_W,-3,3,true)
+		// square root of 2 * PI
+		sqPi = math.sqrt(TWO_PI)
+		//-(x - mu)^2
+		xmsq = -1*(xcoord-m)*(xcoord-m)
+		// variance (standard deviation squared)
+		sdsq = sd*sd
+		// P(x) function
+		heights[i] = (1 / (sd*sqPi)) * (math.pow(e,xmsq/sdsq))
+	end
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	ofNoFill()
+    	ofSetColor(0)
+    
+    	ofBeginShape()
+    	for i=0, OUTPUT_W-1 do
+    		xx = i
+    		yy = ofMap(heights[i],0,1,OUTPUT_H-20,20,true)
+    		ofVertex(xx,yy)
+    	end
+    	ofEndShape(false)
+end
+

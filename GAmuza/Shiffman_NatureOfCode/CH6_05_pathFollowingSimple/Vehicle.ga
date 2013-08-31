@@ -1,0 +1,147 @@
+
+class 'Vehicle'
+
+function Vehicle:__init(l,ms,mf)
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(ms,0)
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 6
+	self.maxSpeed = ms
+	self.maxForce = mf
+	self.steeringForce = 2.8
+
+end
+
+function Vehicle:run()
+	self:update()
+	self:borders()
+end
+
+function Vehicle:update()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+end
+
+function Vehicle:applyForce(force)
+	// We could add mass here if we want A = F / M
+	self.acceleration += force
+end
+
+// This function implements Craig Reynolds' path following algorithm
+// http://www.red3d.com/cwr/steer/PathFollow.html
+function Vehicle:follow(p)
+	// Predict location 25 (arbitrary choice) frames ahead
+	predict = ofVec2f()
+	predict = self.velocity
+	predict:normalize()
+	predict *= 25
+	predictLoc = ofVec2f()
+	predictLoc = self.location + predict
+
+	// Look at the line segment
+	a = p._start
+	b = p._end
+
+	// Get the normal point to that line
+	normalPoint = self:getNormalPoint(predictLoc,a,b)
+
+	// Find target point a little further ahead of normal
+	dir = ofVec2f()
+	dir = b-a
+	dir:normalize()
+	dir *= self.velocity
+	target = ofVec2f()
+	target = normalPoint+dir
+
+	// How far away are we from the path?
+	dist = ofDist(predictLoc.x,predictLoc.y,normalPoint.x,normalPoint.y)
+	if dist > p.radius then
+		self:seek(target)
+	end
+
+	ofSetColor(0)
+	ofLine(self.location.x,self.location.y,predictLoc.x,predictLoc.y)
+	ofFill()
+	ofCircle(predictLoc.x,predictLoc.y,4)
+	// Draw normal location
+	ofLine(predictLoc.x,predictLoc.y,normalPoint.x,normalPoint.y)
+	ofCircle(normalPoint.x,normalPoint.y,4)
+	if dist > p.radius then
+		ofSetColor(255,0,0)
+	else
+		ofSetColor(0)
+	end
+	ofCircle(target.x+dir.x,target.y+dir.y,8)
+end
+
+// A method that calculates and applies a steering force towards a target
+// STEER = DESIRED MINUS VELOCITY
+function Vehicle:seek(target)
+	desired = ofVec2f()
+	desired = target - self.location
+
+	// If the magnitude of desired equals 0, skip out of here
+	// (We could optimize this to check if x and y are 0 to avoid mag() square root
+	if desired:length() == 0 then
+		self:applyForce(ofVec2f(0,0))
+	end
+
+	// Normalize desired and scale to maximum speed
+	desired:normalize()
+	desired *= self.maxSpeed
+	// Steering = Desired minus Velocity
+	steer = ofVec2f()
+	steer = desired - self.velocity
+	steer:limit(self.maxForce)
+	self:applyForce(steer)
+
+end
+
+function Vehicle:getNormalPoint(p,a,b)
+	ap = ofVec2f(p.x-a.x,p.y-a.y)
+	ab = ofVec2f(b.x-a.x,b.y-a.y)
+	ab:normalize()
+	ab *= ap:dot(ab)
+	normalPoint = ofVec2f()
+	normalPoint = a + ab
+	return normalPoint
+end
+
+function Vehicle:borders()
+	if self.location.x < -self.r then
+		self.location.x = OUTPUT_W+self.r
+		self.acceleration *= 0
+	end
+	if self.location.x > OUTPUT_W+self.r then
+		self.location.x = -self.r
+		self.acceleration *= 0
+	end
+end 
+
+// Draw a triangle rotated in the direction of velocity
+function Vehicle:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(0)
+	ofNoFill()
+	self:drawVehicle()
+	ofSetColor(127)
+	ofFill()
+	self:drawVehicle()
+	ofPopMatrix()
+end
+
+function Vehicle:drawVehicle()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end

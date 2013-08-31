@@ -1,0 +1,186 @@
+
+// Boid class
+// Methods for Separation, Cohesion, Alignment added
+class 'Boid'
+
+function Boid:__init(x,y)
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f(ofRandomf(),ofRandomf())
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 3
+	self.maxSpeed = 12
+	self.maxForce = 5.9
+	self.steeringForce = 0.8
+end
+
+function Boid:run(boids)
+	self:flock(boids)
+	self:update()
+	self:borders()
+	self:render()
+end
+
+function Boid:applyForce(force)
+	// We could add mass here if we want A = F / M
+    	self.acceleration += force
+end
+
+// We accumulate a new acceleration each time based on three rules
+function Boid:flock(boids)
+	sep = self:separate(boids)	// Separation
+	ali = self:align(boids)		// Alignment
+	coh = self:cohesion(boids)	// Cohesion
+	// Arbitrarily weight these forces
+	sep *= 1.5
+	ali *= 1
+	coh *= 1
+	// Add the force vectors to acceleration
+	self:applyForce(sep)
+	self:applyForce(ali)
+	self:applyForce(coh)
+end
+
+function Boid:update()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+	// Reset acceleration to 0 each cycle
+	self.acceleration *= 0
+end
+
+function Boid:seek(target)
+	desired = ofVec2f()
+	desired = target - self.location
+
+	desired:normalize()
+	desired *= self.maxSpeed
+	steer = ofVec2f()
+	steer = desired - self.velocity
+	steer:limit(self.steeringForce)
+
+	return steer
+end
+
+function Boid:render()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(0)
+	ofFill()
+	self:drawVehicle()
+	ofPopMatrix()
+end
+
+function Boid:drawVehicle()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+
+function Boid:borders()
+	if self.location.x < -self.r then
+		self.location.x = OUTPUT_W+self.r
+	end
+	if self.location.y < -self.r then
+		self.location.y = OUTPUT_H+self.r
+	end
+	if self.location.x > OUTPUT_W+self.r then
+		self.location.x = -self.r
+	end
+	if self.location.y > OUTPUT_H+self.r then
+		self.location.y = -self.r
+	end
+end
+
+// Separation
+// Method checks for nearby boids and steers away
+function Boid:separate(boids)
+	desiredSeparation = 25
+	steer = ofVec2f()
+	count = 0
+	// For every boid in the system, check if it's too close
+	for k,v in pairs(boids) do
+		d = self.location:distance(boids[k].location)
+		// If the distance is greater than 0 and less than an arbitrary amount 
+		// (0 when you are yourself)
+		if d > 0 and d < desiredSeparation then
+			// Calculate vector pointing away from neighbor
+			diff = ofVec2f()
+			diff = self.location - boids[k].location
+			diff:normalize()
+			diff /= d		// Weight by distance
+			steer += diff
+			count += 1	// Keep track of how many
+		end
+	end 
+	// Average -- divide by how many
+	if count > 0 then
+		steer /= count
+	end
+
+	// As long as the vector is greater than 0
+	if steer:length() > 0 then
+		// Implement Reynolds: Steering = Desired - Velocity
+		steer:normalize()
+		steer *= self.maxSpeed
+		steer -= self.velocity
+		steer:limit(self.steeringForce)
+	end
+	return steer
+end
+
+// Alignment
+// For every nearby boid in the system, calculate the average velocity
+function Boid:align(boids)
+	neighborDist = 50
+	sum = ofVec2f(0,0)
+	count = 0
+	for k,v in pairs(boids) do
+		d = self.location:distance(boids[k].location)
+		if d > 0 and d < neighborDist then
+			sum += boids[k].velocity
+			count += 1
+		end
+	end
+	if count > 0 then
+		sum /= count
+		sum:normalize()
+		sum *= self.maxSpeed
+		steer = ofVec2f()
+		steer = sum - self.velocity
+		steer:limit(self.steeringForce)
+		return steer
+	else
+		return ofVec2f(0,0)
+	end
+end
+
+// Cohesion
+// For the average location (i.e. center) of all nearby boids
+// calculate steering vector towards that location
+function Boid:cohesion(boids)
+	neighborDist = 50
+	// Start with empty vector to accumulate all locations
+	sum = ofVec2f(0,0)
+	count = 0
+	for k,v in pairs(boids) do
+		d = self.location:distance(boids[k].location)
+		if d > 0 and d < neighborDist then
+			sum += boids[k].location	// Add location
+			count += 1
+		end
+	end
+	if count > 0 then
+		sum /= count
+		return self:seek(sum) // Steer towards the location
+	else
+		return ofVec2f(0,0)
+	end
+end

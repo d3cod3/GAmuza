@@ -1,0 +1,49 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_RandomDistribution.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+randomCounts = {}
+numCounts = 20
+w = OUTPUT_W/numCounts
+
+function setup()
+	ofSeedRandom()
+	for i=0, numCounts-1 do
+		randomCounts[i] = 0
+	end
+end
+
+function update()
+	index = math.floor(ofRandom(numCounts))
+	randomCounts[index] += 2
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	ofSetLineWidth(2)
+    	ofSetColor(0)
+    	ofNoFill()
+    	for x=0,numCounts-1 do
+    		ofRect(x*w,OUTPUT_H-randomCounts[x],w-1,randomCounts[x])
+    	end
+    	ofSetColor(127)
+    	ofFill()
+    	for x=0,numCounts-1 do
+    		ofRect(x*w,OUTPUT_H-randomCounts[x],w-1,randomCounts[x])
+    	end
+    
+end
+
