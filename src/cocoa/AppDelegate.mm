@@ -1211,28 +1211,32 @@
     NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", [GAExampleFiles objectAtIndex:[sender tag]]];
     NSURL *url = [NSURL URLWithString:tvarFilename];
     
-    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+    GAMultiTextDocument * prevcurrentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
     
-    GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
-    NSString* directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
-    
-    // add sketch files (if we have)
-    NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
-    NSEnumerator            *enm = [contents objectEnumerator];
-    NSString                *importFile;
-    NSString                *mainFile = [[[currentDoc fileURL] absoluteString] lastPathComponent];
-    
-    while ((importFile = [enm nextObject])){
-        // eliminate from listing hidden files and .DS_Store files
-        if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
-            continue;
-        }
-        if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
-            NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", directoryName, importFile];
-            NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
-            if (fileContent != NULL) {
-                GASketchFile* doc = [[GASketchFile alloc] init];
-                [currentDoc addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+    if(![[[prevcurrentDoc fileURL] absoluteString] isEqualToString:tvarFilename]){
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+        
+        GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+        NSString* directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+        
+        // add sketch files (if we have)
+        NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
+        NSEnumerator            *enm = [contents objectEnumerator];
+        NSString                *importFile;
+        NSString                *mainFile = [[[currentDoc fileURL] absoluteString] lastPathComponent];
+        
+        while ((importFile = [enm nextObject])){
+            // eliminate from listing hidden files and .DS_Store files
+            if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
+                continue;
+            }
+            if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
+                NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", directoryName, importFile];
+                NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
+                if (fileContent != NULL) {
+                    GASketchFile* doc = [[GASketchFile alloc] init];
+                    [currentDoc addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+                }
             }
         }
     }
@@ -1243,28 +1247,32 @@
     NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", [GASketchbookFiles objectAtIndex:[sender tag]]];
     NSURL *url = [NSURL URLWithString:tvarFilename];
     
-    [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+    GAMultiTextDocument * prevcurrentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
     
-    GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
-    NSString* directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
-    
-    // add sketch files (if we have)
-    NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
-    NSEnumerator            *enm = [contents objectEnumerator];
-    NSString                *importFile;
-    NSString                *mainFile = [[[currentDoc fileURL] absoluteString] lastPathComponent];
-    
-    while ((importFile = [enm nextObject])){
-        // eliminate from listing hidden files and .DS_Store files
-        if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
-            continue;
-        }
-        if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
-            NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", directoryName, importFile];
-            NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
-            if (fileContent != NULL) {
-                GASketchFile* doc = [[GASketchFile alloc] init];
-                [currentDoc addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+    if(![[[prevcurrentDoc fileURL] absoluteString] isEqualToString:tvarFilename]){
+        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+        
+        GAMultiTextDocument * currentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
+        NSString* directoryName = [[[[[currentDoc fileURL] absoluteString] stringByDeletingPathExtension] substringFromIndex:5] stringByDeletingLastPathComponent];
+        
+        // add sketch files (if we have)
+        NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryName error:NULL];
+        NSEnumerator            *enm = [contents objectEnumerator];
+        NSString                *importFile;
+        NSString                *mainFile = [[[currentDoc fileURL] absoluteString] lastPathComponent];
+        
+        while ((importFile = [enm nextObject])){
+            // eliminate from listing hidden files and .DS_Store files
+            if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
+                continue;
+            }
+            if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
+                NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", directoryName, importFile];
+                NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
+                if (fileContent != NULL) {
+                    GASketchFile* doc = [[GASketchFile alloc] init];
+                    [currentDoc addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+                }
             }
         }
     }
@@ -1287,28 +1295,32 @@
         NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", [oPan filename]];
         NSURL *url = [NSURL URLWithString:tvarFilename];
         
-        // add GAmuza document
-        [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
+        GAMultiTextDocument * prevcurrentDoc = (GAMultiTextDocument*)[[NSDocumentController sharedDocumentController] currentDocument];
         
-        NSString* directoryName = [[oPan directory] lastPathComponent];
-        if ([ [[[oPan filename] lastPathComponent] stringByDeletingPathExtension] isEqualToString:directoryName]) {
-            // add sketch files (if we have)
-            NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[oPan directory] error:NULL];
-            NSEnumerator            *enm = [contents objectEnumerator];
-            NSString                *importFile;
-            NSString                *mainFile = [[oPan filename] lastPathComponent];
+        if(![[[prevcurrentDoc fileURL] absoluteString] isEqualToString:tvarFilename]){
+            // add GAmuza document
+            [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
             
-            while ((importFile = [enm nextObject])){
-                // eliminate from listing hidden files and .DS_Store files
-                if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
-                    continue;
-                }
-                if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
-                    NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", [oPan directory], importFile];
-                    NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
-                    if (fileContent != NULL) {
-                        GASketchFile* doc = [[GASketchFile alloc] init];
-                        [[[NSDocumentController sharedDocumentController] currentDocument] addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+            NSString* directoryName = [[oPan directory] lastPathComponent];
+            if ([ [[[oPan filename] lastPathComponent] stringByDeletingPathExtension] isEqualToString:directoryName]) {
+                // add sketch files (if we have)
+                NSArray                 *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[oPan directory] error:NULL];
+                NSEnumerator            *enm = [contents objectEnumerator];
+                NSString                *importFile;
+                NSString                *mainFile = [[oPan filename] lastPathComponent];
+                
+                while ((importFile = [enm nextObject])){
+                    // eliminate from listing hidden files and .DS_Store files
+                    if([importFile hasPrefix:@"."] || [importFile rangeOfString:@".DS_Store"].location != NSNotFound){
+                        continue;
+                    }
+                    if ([[importFile pathExtension] isEqualToString:@"ga"] && [importFile isEqualToString:mainFile] == NO){
+                        NSString *actualFilePath = [NSString stringWithFormat:@"%@/%@", [oPan directory], importFile];
+                        NSString *fileContent = [[NSString alloc] initWithContentsOfFile:actualFilePath encoding:NSUTF8StringEncoding error:NULL];
+                        if (fileContent != NULL) {
+                            GASketchFile* doc = [[GASketchFile alloc] init];
+                            [[[NSDocumentController sharedDocumentController] currentDocument] addDocument:doc withName:[importFile stringByDeletingPathExtension] andCode:fileContent];
+                        }
                     }
                 }
             }

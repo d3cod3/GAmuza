@@ -1844,6 +1844,11 @@
 				<string>gaDrawYAxis</string>
 				<string>gaDrawZAxis</string>
 				<string>gaGaussianFn</string>
+				<string>gaKinectTracking</string>
+				<string>getDepthTexture</string>
+				<string>getAccelX</string>
+				<string>getAccelY</string>
+				<string>getAccelZ</string>
 				<string>gaTimelineSetup</string>
 				<string>gaTimelineSetPageName</string>
 				<string>gaTimelineSetCurrentPage</string>
