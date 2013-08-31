@@ -43,6 +43,8 @@ void gaTimeline::setup(){
 	ofAddListener(timeline.events().bangFired, this, &gaTimeline::bangFired);
     
     lastBangTime = ofGetElapsedTimeMillis();
+    
+     isON = false;
 }
 
 //--------------------------------------------------------------
@@ -51,13 +53,19 @@ void gaTimeline::update() {
     if((ofGetElapsedTimeMillis() - lastBangTime) > 10){
         actualBang = "";
     }
-
 }
 
 //--------------------------------------------------------------
 void gaTimeline::draw() {
-    ofBackground(255*.15);
-	timeline.draw();
+    if(isON){
+        ofBackground(255*.15);
+        timeline.draw();
+    }
+}
+
+//--------------------------------------------------------------
+void gaTimeline::setModuleON(bool onOff){
+    isON = onOff;
 }
 
 //--------------------------------------------------------------

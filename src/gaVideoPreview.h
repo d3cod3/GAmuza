@@ -31,6 +31,8 @@ public:
     void setFboDim(int w, int h);
     void setPreviewDim(int w, int h);
     void getPreview(ofFbo p);
+    
+    void setModuleON(bool onOff); 
 	
 	
     ofTexture				previewFbo;
@@ -41,5 +43,7 @@ public:
     float                   fboDrawingH;
     float                   fboDrawingPosX;
     float                   fboDrawingPosY;
+    
+    bool                    isON;
 	
 };

@@ -16,6 +16,11 @@
 }
 
 //------------------------------------------------------------------------------
+- (BOOL)restoreWindowWithIdentifier:(NSString *)identifier state:(NSCoder *)state completionHandler:(void (^)(NSWindow *, NSError *))completionHandler{
+    return NO;
+}
+
+//------------------------------------------------------------------------------
 - (void)terminateSplashWindow:(NSTimer *)timer {
     [_splash orderOut:self];
     
@@ -345,6 +350,46 @@
         x++;
         
     }
+    
+    // Remove all old menu items from our menu:
+    /*NSMenuItem          *foundItem  = [[NSApp mainMenu] findItemWithTarget:NULL andAction:@selector(openItemFromSketchbookFolder:)];
+	NSMenuItem          *currMItem = foundItem;
+    NSMenu              *syntaxMenu = [foundItem menu];
+	double				currItemNum = [syntaxMenu indexOfItem: currMItem];
+    NSMenuItem          *thisFile   = NULL;
+	
+	while( [currMItem action] == @selector(openItemFromSketchbookFolder:)){
+		[syntaxMenu removeItem: currMItem];
+		if( currItemNum < [syntaxMenu numberOfItems] )
+			currMItem = [syntaxMenu itemAtIndex: currItemNum];
+		else
+			break;
+	}
+    
+    // Populate Examples menu
+    int x = 0;
+    NSFileManager *fileManager = [[[NSFileManager alloc] init] autorelease];
+    NSURL *directoryURL = [NSURL URLWithString:path];
+    NSArray *keys = [NSArray arrayWithObject:NSURLIsDirectoryKey];
+    NSDirectoryEnumerator *enumerator = [fileManager enumeratorAtURL:directoryURL includingPropertiesForKeys:keys options:0 errorHandler:NULL];
+    
+    for (NSURL *url in enumerator) {
+        NSString *actualPath = [[url absoluteString] substringFromIndex:16];
+        NSString *mainSketch = [actualPath lastPathComponent];
+        NSString *sketchFolder = [[actualPath stringByDeletingLastPathComponent] lastPathComponent];
+        if([[mainSketch stringByDeletingPathExtension] isEqualToString:sketchFolder]){
+            NSLog(@"%@ - %@",actualPath,mainSketch);
+            [GASketchbookFiles addObject:actualPath];
+            
+            thisFile = [[NSMenuItem alloc] initWithTitle:sketchFolder action:@selector(openItemFromSketchbookFolder:) keyEquivalent:@""];
+            [thisFile setRepresentedObject:actualPath];
+            [thisFile setTag:x];
+            [syntaxMenu addItem:thisFile];
+            
+        }
+        x++;
+    }*/
+    
 }
 
 //------------------------------------------------------------------------------
@@ -1035,10 +1080,12 @@
 -(IBAction) toggleArduinoModule:(id)sender{
     if(isArduinoModuleON){
         isArduinoModuleON = false;
+        gaARM->setModuleON(false);
         [gaARMWindow->getWindow() orderOut:self];
         [sender setState: NSOffState];
     }else{
         isArduinoModuleON = true;
+        gaARM->setModuleON(true);
         [gaARMWindow->getWindow() makeKeyAndOrderFront:self];
         [sender setState: NSOnState];
     }
@@ -1046,11 +1093,13 @@
 
 -(IBAction) toggleAudioModule:(id)sender{
     if(isAudioModuleON){
+        gaAM->setModuleON(false);
         isAudioModuleON = false;
         [gaAMWindow->getWindow() orderOut:self];
         [sender setState: NSOffState];
     }else{
         isAudioModuleON = true;
+        gaAM->setModuleON(true);
         [gaAMWindow->getWindow() makeKeyAndOrderFront:self];
         [sender setState: NSOnState];
     }
@@ -1059,10 +1108,12 @@
 -(IBAction) toggleTimelinePanel:(id)sender{
     if(isTimelineON){
         isTimelineON = false;
+        gaTL->setModuleON(false);
         [gaTLWindow->getWindow() orderOut:self];
         [sender setState: NSOffState];
     }else{
         isTimelineON = true;
+        gaTL->setModuleON(true);
         [gaTLWindow->getWindow() makeKeyAndOrderFront:self];
         [sender setState: NSOnState];
     }
@@ -1071,10 +1122,12 @@
 -(IBAction) togglePreviewWindow:(id)sender{
     if(isPreviewON){
         isPreviewON = false;
+        gaVP->setModuleON(false);
         [gaVPWindow->getWindow() orderOut:self];
         [sender setState: NSOffState];
     }else{
         isPreviewON = true;
+        gaVP->setModuleON(true);
         [gaVPWindow->getWindow() makeKeyAndOrderFront:self];
         [sender setState: NSOnState];
     }

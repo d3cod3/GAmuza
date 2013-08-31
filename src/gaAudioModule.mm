@@ -9,6 +9,8 @@ gaAudioModule::gaAudioModule(int windowW, int windowH){
     winW = windowW;
     winH = windowH;
     
+     isON = false;
+    
 }
 
 //--------------------------------------------------------------
@@ -58,18 +60,25 @@ void gaAudioModule::update(){
             thisVolumes[i] = gapp->inputAudioCH[i]._osc_chVolume;
             thisPitches[i] = gapp->inputAudioCH[i]._s_chPitch;
         }
-        updateGui();
-        gui->update();
+        if(isON){
+            updateGui();
+            gui->update();
+        }
     }
 }
 
 //--------------------------------------------------------------
 void gaAudioModule::draw() {
-    ofBackground(20);
-    if(moduleStarted){
+    if(moduleStarted && isON){
+        ofBackground(20);
         gui->draw(audioInputChannels);
         drawGui();
     }
+}
+
+//--------------------------------------------------------------
+void gaAudioModule::setModuleON(bool onOff){
+    isON = onOff;
 }
 
 //--------------------------------------------------------------

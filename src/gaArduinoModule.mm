@@ -10,6 +10,8 @@ gaArduinoModule::gaArduinoModule(int windowW, int windowH){
     winW = windowW;
     winH = windowH;
     
+    isON = false;
+    
 }
 
 //--------------------------------------------------------------
@@ -71,16 +73,24 @@ void gaArduinoModule::update() {
     for(unsigned int i=2;i<14;i++){
         digitalPinValuesInput[i-2] = gapp->digitalPinValuesInput[i-2];
     }
-    
-    updateGui();
-    gui.update();
+    if(isON){
+        updateGui();
+        gui.update();
+    }
 }
 
 //--------------------------------------------------------------
 void gaArduinoModule::draw() {
-    ofBackground(20);
-	gui.draw(1);
-    drawGui();
+    if(isON){
+        ofBackground(20);
+        gui.draw(1);
+        drawGui();
+    }
+}
+
+//--------------------------------------------------------------
+void gaArduinoModule::setModuleON(bool onOff){
+    isON = onOff;
 }
 
 //--------------------------------------------------------------
