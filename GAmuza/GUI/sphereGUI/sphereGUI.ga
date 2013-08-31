@@ -1,0 +1,111 @@
+
+/* 
+   
+ GAmuza 0.4.2 examples 
+ ---------------------
+ GUI/sphereGUI.ga
+ 
+ Another example about the internal live coding GUI.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gui = ofxControlPanel()
+viewGui = true
+red = 0
+green = 0
+blue = 0
+alpha = 0
+dim = 0
+res = 1
+wire = true
+aX = 0
+aY = 0
+aZ = 0
+
+// lights
+ambient = ofFloatColor(1.0,1.0,1.0,1.0)
+light = ofLight()
+
+function setup()
+	gui:setup(0,10,480,OUTPUT_H)
+	gui:addPanel(1)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("SPHERE CONTROL GUI")
+	gui:addSlider("RED",red,0,255,false)
+	gui:addSlider("GREEN",green,0,255,false)
+	gui:addSlider("BLUE",blue,0,255,false)
+	gui:addSlider("ALPHA",alpha,0,255,false)
+	gui:addSlider("DIAMETER",dim,10,1000,false)
+	gui:addSlider("RESOLUTION",res,1,70,true)
+	gui:addSlider("ROTATE X",aX,0,360,false)
+	gui:addSlider("ROTATE Y",aY,0,360,false)
+	gui:addSlider("ROTATE Z",aZ,0,360,false)
+	gui:addToggle("WIREFRAME",wire)
+	
+	gui:loadSettings(gaImportFile("guiSettings.xml"))
+end
+
+function update()
+	gui:update()
+	red = gui:getValueF("RED")
+	green = gui:getValueF("GREEN")
+	blue = gui:getValueF("BLUE")
+	alpha = gui:getValueF("ALPHA")
+	dim = gui:getValueF("DIAMETER")
+	res = gui:getValueF("RESOLUTION")
+	wire = gui:getValueB("WIREFRAME")
+	aX = gui:getValueF("ROTATE X")
+	aY = gui:getValueF("ROTATE Y")
+	aZ = gui:getValueF("ROTATE Z")
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	ofSetSphereResolution(res)
+    	
+    	light:enable()
+    	light:setAmbientColor(ambient)
+    
+    	ofPushMatrix()
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    	ofRotateX(aX)
+    	ofRotateY(aY)
+    	ofRotateZ(aZ)
+    	if wire then
+    		ofNoFill()
+    	else
+    		ofFill()
+    	end
+    	ofSetColor(red,green,blue,alpha)
+    	ofSphere(dim)
+    	ofDrawAxis(OUTPUT_H/4)
+    	ofPopMatrix()
+    
+    	if viewGui then
+    		gui:draw()
+    	end
+    	light:disable()
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+end
+
+function mousePressed()
+	gui:mousePressed()
+end
+
+function mouseReleased()
+	gui:mouseReleased()
+end
+
+function keyReleased()
+	if gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	elseif gaKey() == string.byte('g') then
+		viewGui = not viewGui
+	end
+end
