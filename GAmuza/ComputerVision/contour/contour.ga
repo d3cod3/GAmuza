@@ -23,7 +23,7 @@ captureHeight = 240
 
 function setup()
     camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
-    camPanel:setup(0,captureWidth,captureHeight)
+    camPanel:setup(camID,captureWidth,captureHeight)
 	
     cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
@@ -37,16 +37,11 @@ end
 function draw()
 	gaBackground(0.0,0.8)
 	
-    // draw the live image from device
-    ofSetColor(255)
+    	// draw the live image from device
+    	ofSetColor(255)
 	scaleH = OUTPUT_H
 	scaleW = scaleH* captureWidth / captureHeight
-    cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
-    
-	// draw blobs
-	ofSetLineWidth(3)
-	ofNoFill()
-	ofSetColor(31,165,210)
+    	cam:draw(OUTPUT_W/2 - scaleW/2,0,scaleW,scaleH)
 		
 	ofPushMatrix()
 	ofTranslate(OUTPUT_W/2 - scaleW/2,0,0)

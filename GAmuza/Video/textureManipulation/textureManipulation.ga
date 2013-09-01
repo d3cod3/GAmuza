@@ -1,0 +1,74 @@
+
+/* 
+   
+ GAmuza 0432 examples 
+ ---------------------
+ Video/textureManipulation.ga
+ 
+ This shows how to share data between different image classes,
+ ofImage, ofTexture, ofPixels.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+pixels = ofPixels()
+texture = ofTexture()
+imageMirror = ofImage()
+image = ofImage()
+
+captureW = 320
+captureH = 240
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+	
+	texture:allocate(captureW,captureH,GL_RGB)
+	pixels:allocate(captureW,captureH,OF_PIXELS_RGB)
+	image:allocate(captureW,captureH,OF_IMAGE_COLOR)
+	imageMirror:allocate(captureW,captureH,OF_IMAGE_COLOR)
+end
+
+function update()
+	// update the video grabber
+    	grabber:update()
+    	
+    
+    	if grabber:isFrameNew() then
+    		// get the grabber pixels
+    		pixels = grabber:getPixelsRef()
+    		// copy the pixels to a ofTexture
+    		texture:loadData(pixels)
+    		// modify the pixels
+    		pixels:mirror(false,true)
+    		// copy the pixels to an ofImage
+    		imageMirror:setFromPixels(pixels)
+    		// rewrite the texture to pixels
+    		texture:readToPixels(pixels)
+    		// copy the pixels to an ofImage
+    		image:setFromPixels(pixels)
+    	end
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    // draw the camera
+    	ofSetColor(255)
+    	ofDrawBitmapString("ofVideoGrabber",20,20)
+    	grabber:draw(20,40)
+    	
+    	// draw the texture
+    	ofDrawBitmapString("ofVideoGrabber->ofPixels->ofTexture",360,20)
+    	texture:draw(360,40)
+    	
+    	// draw the image
+    	ofDrawBitmapString("ofPixels->ofTexture->ofImage",20,320)
+    	image:draw(20,340)
+    	// draw the mirror image
+    	ofDrawBitmapString("ofPixels->ofTexture->ofPixels->ofImage",360,320)
+    	imageMirror:draw(360,340)
+end
+

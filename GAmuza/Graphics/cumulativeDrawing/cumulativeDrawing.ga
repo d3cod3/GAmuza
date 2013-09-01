@@ -61,6 +61,8 @@ function keyReleased()
 			angles[i] *= 0.98
 		end
 	else
+		numAngles = 0
+		angles = nil
 		angles = {}
 		currentPosition:set(300,300,0)
 	end

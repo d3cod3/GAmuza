@@ -13,12 +13,13 @@
 
 kinectPanel = gaKinectTracking()
 drawGUI = true
+kinectDevID = 0
 
 //kinectImage = ofTexture()
 
 function setup()
 	//kinectPanel:setGuiSettingsFile(gaDataPath("kinectTrackingSettings.xml"))
-	kinectPanel:setup(0,true,true,1)
+	kinectPanel:setup(kinectDevID,true,true,1)
 	
 	//kinectImage:allocate(captureWidth,captureHeight,GL_RGB)
 end

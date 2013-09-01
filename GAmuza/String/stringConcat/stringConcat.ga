@@ -1,0 +1,53 @@
+
+/* 
+   
+ GAmuza 0428 examples 
+ ---------------------
+ String/stringConcat.ga
+ 
+ One of a series of examples about string manipulation and analysis.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+output = ""
+notas = {"DO","RE","MI","FA","SOL","LA","SI"}
+space = " "
+b = "#"
+endl = "\n"
+lineNum = 1
+
+function setup()
+
+end
+
+function update()
+	rS = ofRandomuf()
+	rB = ofRandomuf()
+	rE = ofRandomuf()
+	noteN = math.floor(ofRandom(1,7))
+	if rS < 0.9 then
+		output = output .. space .. notas[noteN]
+	else
+		output = output .. notas[noteN]
+	end
+	if rB < 0.3 then
+		output = output .. b
+	end
+	if rE < 0.1 then
+		output = output .. endl
+		lineNum += 1
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    
+    	ofSetColor(255)
+    	if lineNum < 30 then
+    		ofDrawBitmapString(tostring(output),20,20)
+    	else
+    		ofDrawBitmapString(tostring(output),20,20 - (lineNum-30)*13)
+    	end
+end

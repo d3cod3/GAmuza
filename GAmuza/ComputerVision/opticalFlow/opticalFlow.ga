@@ -25,7 +25,7 @@ opticalFlowRows = math.ceil(captureHeight/OPTICAL_FLOW_ROWS_STEP)
 
 function setup()
     camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
-    camPanel:setup(0,captureWidth,captureHeight)
+    camPanel:setup(camID,captureWidth,captureHeight)
 	
     cam:allocate(captureWidth,captureHeight,GL_RGB)
 end
