@@ -1,0 +1,81 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_01_GA_Goethe_fancyFitness.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Genetic Algorithm, Evolving Goethe
+ Demonstration of using a genetic algorithm to perform a search
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+font32 = ofTrueTypeFont()
+font16 = ofTrueTypeFont()
+font14 = ofTrueTypeFont()
+font12 = ofTrueTypeFont()
+startTime = ofGetElapsedTimeMillis()
+printLog = true
+elapsed = 0
+// the last words of Goethe: "More Light!"
+target = "Mehr Licht!"
+popMax = 150
+mutationRate = 0.01
+
+// Create a populatio with a target phrase, mutation rate, and population max
+population = Population(target,mutationRate,popMax)
+
+function setup()
+	font32:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),32, true, false)
+	font16:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),16, true, false)
+	font14:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),14, true, false)
+	font12:loadFont(gaImportFile("Anonymous_Pro_B.ttf"),12, true, false)
+end
+
+function update()
+	if not population:isFinished() then
+		// Generate mating pool
+  		population:naturalSelection()
+  		//Create next generation
+  		population:generate()
+  		// Calculate fitness
+  		population:calcFitness()
+  		
+  		elapsed = (ofGetElapsedTimeMillis()-startTime)/1000
+  	end
+ 
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	displayInfo() 
+end
+
+function displayInfo()
+	// Display current status of populationation
+	answer = population:getBest()
+	if answer == target then
+		population.finished = true
+	end
+	
+	ofSetColor(0)
+	font16:drawString("Best phrase:",20,30)
+	font32:drawString(answer,20,75)
+	
+	font14:drawString("Total generations: " .. population:getGenerations(),20,140)
+	font14:drawString("Average fitness: " .. population:getAverageFitness(),20,155)
+	font14:drawString("Total population: " .. popMax,20,170)
+	font14:drawString("Mutation rate: " .. mutationRate,20,185)
+	font14:drawString("Time elapsed (s): " .. elapsed,20,200)
+	
+	font12:drawString("All phrases:\n\n" .. population:allPhrases(),650,30)
+	
+end

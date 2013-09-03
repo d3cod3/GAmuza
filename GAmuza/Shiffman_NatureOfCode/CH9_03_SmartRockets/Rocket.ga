@@ -1,0 +1,131 @@
+
+// Rocket class -- this is just like our Boid / Particle class
+// the only difference is that it has DNA & fitness
+class 'Rocket'
+
+function Rocket:__init(l,_dna)
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	self.r = 4
+	self.recordDist = 10000
+	self.finishTime = 0
+	self.fitness = 0
+	self.dna = _dna
+	self.geneCounter = 0
+	self.hitTarget = false 		// Am I stuck on an obstacle?
+	self.hitObstacle = false 	// Did I reach the target
+end
+
+// FITNESS FUNCTION 
+// distance = distance from target
+// finish = what order did i finish (first, second, etc. . .)
+// f(distance,finish) =   (1.0f / finish^1.5) * (1.0f / distance^6);
+// a lower finish is rewarded (exponentially) and/or shorter distance to target (exponetially)
+function Rocket:computeFitness()
+	if self.recordDist < 1 then
+		self.recordDist = 1
+	end
+	// Reward finishing faster and getting close
+    	self.fitness = (1/(self.finishTime*self.recordDist))
+	// Make the function exponential
+    	self.fitness = math.pow(self.fitness,8)
+	if self:stopped() then
+		self.fitness *= 0.1
+	end
+	if self.hitTarget then
+		self.fitness *= 2
+	end
+end
+
+function Rocket:run(obs)
+	if not self.hitTarget and not self:stopped() then
+		self:applyForce(self.dna.genes[self.geneCounter])
+		self.geneCounter = (self.geneCounter+1) % table.getn(self.dna.genes)
+		self:update()
+		// If I hit an edge or an obstacle
+      	self:obstacles(obs)
+	end
+	if not self.hitObstacle then
+		self:display()
+	end
+end
+
+// Did I make it to the target?
+function Rocket:checkTarget()
+	d = self.location:distance(target.location)
+	if d < self.recordDist then
+		self.recordDist = d
+	end
+	if target:contains(self.location) and not self.hitTarget then
+		self.hitTarget = true
+	elseif not self.hitTarget then
+		self.finishTime += 1
+	end
+end
+
+function Rocket:obstacles(obs)
+	for k,v in pairs(obs) do
+		if obs[k]:contains(self.location) then
+			self.hitObstacle = true
+		end
+	end
+end
+
+function Rocket:applyForce(f)
+	self.acceleration += f
+end
+
+function Rocket:update()
+	self.velocity += self.acceleration
+	self.location += self.velocity
+	self.acceleration *= 0
+end
+
+function Rocket:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	ofRotate(-theta)
+	self:drawRocket()
+	ofPopMatrix()
+	
+end
+
+function Rocket:drawRocket()
+	// Thrusters
+	ofSetColor(0)
+	ofFill()
+	ofSetRectMode(OF_RECTMODE_CENTER)
+	ofRect(-self.r/2,self.r*2,self.r/2,self.r)
+	ofRect(self.r/2,self.r*2,self.r/2,self.r)
+	// Rocket body
+	if self.hitTarget then
+		ofSetColor(250,0,0)
+	else
+		ofSetColor(175)
+	end
+	ofFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+	ofSetColor(0)
+	ofNoFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+
+function Rocket:getDNA()
+	return self.dna
+end
+
+function Rocket:stopped()
+	return self.hitObstacle
+end
+

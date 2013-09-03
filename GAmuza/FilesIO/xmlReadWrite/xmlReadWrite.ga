@@ -45,9 +45,13 @@ function draw()
     	gaBackground(red,green,blue,1.0)
     
    	ofNoFill()
-    	ofSetColor(255)
+    	
     	for i=0,numBars-1 do
+    		ofSetColor(255)
     		ofRect(w*i,OUTPUT_H,w,-OUTPUT_H*bars[i])
+    		ofSetColor(0)
+    		h = OUTPUT_H*(1-bars[i]) - 10
+    		ofDrawBitmapString(tostring(bars[i]),w*i,h)
     	end
 end
 

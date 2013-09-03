@@ -1,0 +1,73 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_02_SmartRockets_superbasic.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Each Rocket's DNA is an array of PVectors
+ Each vector acts as a force for each frame of animation
+ Imagine an booster on the end of the rocket that can point in any direction
+ and fire at any strength every frame
+
+ The Rocket's fitness is a function of how close it gets to the target as well as how fast it gets there
+
+ This example is inspired by Jer Thorp's Smart Rockets
+ http://www.blprnt.com/smartrockets/
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// Timer for cycle of generation
+lifeCounter = 0
+// How long should each generation live
+lifetime = 200
+
+target = ofVec2f(OUTPUT_W/2,40)
+ground = ofVec2f(1,0)
+
+popMax = 50
+mutationRate = 0.01
+// Create a population with a mutation rate and population max
+population = Population(mutationRate,popMax)
+
+function setup()
+	ofSetCircleResolution(50)
+end
+
+function update()
+ 	
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	ofSetColor(0)
+    	ofCircle(target.x,target.y,20)
+    	
+    	if lifeCounter < lifetime then
+ 		population:live()
+ 		lifeCounter += 1
+ 	else
+ 		lifeCounter = 0
+ 		population:calcFitness()
+ 		population:naturalSelection()
+ 		population:reproduction()
+ 	end
+ 	
+ 	ofSetColor(0)
+ 	ofDrawBitmapString("Generation #: " .. population:getGenerations(),20,28)
+ 	ofDrawBitmapString("Cycles left: " .. (lifetime-lifeCounter),20,36)
+    	 
+end
+
+function mouseReleased()
+	target:set(gaMouseX(),gaMouseY())
+end
+
