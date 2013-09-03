@@ -924,6 +924,7 @@
 				<string>alignToHorz</string>
 				<string>alignToVert</string>
 				<string>alignTo</string>
+				<string>inside</string>
 				<string>growToInclude</string>
 				<string>getIntersection</string>
 				<string>getUnion</string>

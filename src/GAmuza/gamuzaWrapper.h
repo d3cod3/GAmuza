@@ -274,7 +274,7 @@ class ofGamuzaWrapper{
          def("ofNextPow2", (int(*)(int)) &ofNextPow2),
 		 def("ofNormalize", &ofNormalize),
 		 def("ofMap", (float(*)(float,float,float,float,float,bool)) &ofMap),
-         def("ofMap", &map5),
+         def("ofMap", (float(*)(float,float,float,float,float)) &ofMap5),
 		 def("ofClamp", &ofClamp),
 		 def("ofLerp", &ofLerp),
 		 def("ofDist", &ofDist),
@@ -1943,10 +1943,10 @@ class ofGamuzaWrapper{
          .def("alignTo", (void(ofRectangle::*)(const ofPoint&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
-         //.def("inside", (const bool(ofRectangle::*)(const ofPoint&)) &ofRectangle::inside)
-         //.def("inside", (const bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::inside)
-		 //.def("inside", (const bool(ofRectangle::*)(float,float)) &ofRectangle::inside)
-         //.def("inside", (const bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofPoint&)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::inside)
+		 .def("inside", (bool(ofRectangle::*)(float,float)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::inside)
          //.def("intersects", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::intersects)
          //.def("intersects", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::intersects)
          .def("growToInclude", (void(ofRectangle::*)(float,float)) &ofRectangle::growToInclude)
@@ -5991,7 +5991,6 @@ class ofGamuzaWrapper{
 	static void background(int r, int g, int b)                             {ofBackground(r, g, b);}
     static void setColor1(int gray)                                         {ofSetColor(gray,gray,gray);}
     static void setColor2(int gray, int alpha)                              {ofSetColor(gray,gray,gray,alpha);}
-    static void map5(float v,float iMin,float iMax,float oMin,float oMax)   {ofMap(v,iMin,iMax,oMin,oMax,false);}
     
     /// ofTrueTypeFont
 	static void loadFont2(ofTrueTypeFont* font, string filename, int fontsize) {
