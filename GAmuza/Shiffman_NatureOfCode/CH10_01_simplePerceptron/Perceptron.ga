@@ -2,8 +2,49 @@
 // Perceptron Class
 class 'Perceptron' 
 
+// Perceptron is created with n weights and learning constant
 function Perceptron:__init(n,_c)
 	self.weights = {}
-	
+	self.c = _c
+	// Start with random weights
+	for i=0,n do
+		self.weights[i] = ofRandomf()
+	end
 end
 
+// Function to train the Perceptron
+// Weights are adjusted based on "desired" answer
+function Perceptron:train(inp,desired)
+	// Guess the result
+	guess = self:feedforward(inp)
+	// Compute the factor for changing the weight based on the error
+    	// Error = desired output - guessed output
+    	// Note this can only be 0, -2, or 2
+    	// Multiply by learning constant
+	err = desired - guess
+	// Adjust weights based on weightChange * input
+	for i=0,table.getn(self.weights)-1 do
+		self.weights[i] += self.c * err * inp[i]
+	end
+end
+
+// Guess -1 or 1 based on input values
+function Perceptron:feedforward(inp)
+	s = 0
+	for i=0,table.getn(self.weights)-1 do
+		s += inp[i] * self.weights[i]
+	end
+	return self:activate(s)
+end
+
+function Perceptron:activate(sum)
+	if sum > 0 then
+		return 1
+	else
+		return -1
+	end
+end
+
+function Perceptron:getWeights()
+	return self.weights
+end

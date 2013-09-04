@@ -18,16 +18,72 @@
  
 */
 
+// A list of points we will use to "train" the perceptron
+training = {}
+numTraining = 2000
 
+// A Perceptron object
+// The perceptron has 3 inputs -- x, y, and bias
+// Second value is "Learning Constant"
+// Learning Constant is low just because it's fun to watch
+// this is not necessarily optimal
+neuron = Perceptron(3,0.00001)
+
+// We will train the perceptron with one "Point" object at a time
+count = 0
+
+// Coordinate space
+xmin = -OUTPUT_W/2
+ymin = -OUTPUT_H/2
+xmax = OUTPUT_W/2
+ymax = OUTPUT_H/2
 
 function setup()
-
+	 // Create a random set of training points and calculate the "known" answer
+	 for i=0, numTraining do
+	 	x = ofRandom(xmin,xmax)
+	 	y = ofRandom(ymin,ymax)
+	 	answer = 1
+	 	if y < f(x) then answer = -1 end
+	 	training[i] = Trainer(x,y,answer)
+	 end
 end
 
 function update()
-
+	// Train the Perceptron with one "training" point at a time
+  	neuron:train(training[count].inputs,training[count].answer)
+  	count = (count + 1) % table.getn(training)
 end
 
 function draw()
-    gaBackground(0.0,1.0)
+    	gaBackground(1.0,1.0)
+    	
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+    	
+    	// draw the line
+    	ofSetLineWidth(5)
+    	ofSetColor(127)
+    	ofLine(xmin,f(xmin),xmax,f(xmax))
+    	
+    	// Draw the line based on the current weights
+  	// Formula is weights[0]*x + weights[1]*y + weights[2] = 0
+    	ofSetLineWidth(1)
+    	ofSetColor(0)
+    	w = neuron:getWeights()
+    	ofLine(xmin,(-w[2] - w[0]*xmin)/w[1],xmax,(-w[2] - w[0]*xmax)/w[1])
+    	
+    	// Draw all the points based on what the Perceptron would "guess"
+  	// Does not use the "known" correct answer
+  	for i=0,count-1 do
+  		g = neuron:feedforward(training[i].inputs)
+  		if g > 0 then ofNoFill() else ofFill() end
+  		ofCircle(training[i].inputs[0],training[i].inputs[1],8)
+  	end
+    	
 end
+
+// The function to describe a line
+function f(x)
+	return 0.4*x + 1
+end
+

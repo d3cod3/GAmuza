@@ -1,0 +1,14 @@
+
+class 'Neuron'
+
+function Neuron:__init()
+
+end
+
+function Neuron:addConnection(C)
+
+end
+
+function Neuron:display()
+
+end
