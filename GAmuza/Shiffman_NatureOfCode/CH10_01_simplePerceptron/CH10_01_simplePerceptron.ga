@@ -1,0 +1,31 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH10_01_simplePerceptron.ga
+ 
+ See: http://en.wikipedia.org/wiki/Perceptron
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Code based on text "Artificial Intelligence", George Luger
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+
+end
+
+function update()
+
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+end

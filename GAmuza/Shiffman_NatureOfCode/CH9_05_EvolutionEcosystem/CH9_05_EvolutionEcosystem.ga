@@ -1,0 +1,38 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_05_EvolutionEcosystem.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// World starts with 20 creatures
+// and 20 pieces of food
+world = World(20)
+
+function setup()
+
+end
+
+function update()
+	
+end
+
+function draw()
+    gaBackground(1.0,1.0)
+    
+    world:run()
+end
+
+function mouseReleased()
+	world:born(gaMouseX(),gaMouseY())
+end
+

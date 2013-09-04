@@ -74,7 +74,7 @@ function draw()
     	
     	if lifeCycle < lifetime then
  		population:live(obstacles)
- 		if population:targetReached() and lifeCounter < recordTime then
+ 		if population:targetReached() and lifeCycle < recordTime then
  			recordTime = lifeCycle
  		end
  		lifeCycle += 1
@@ -90,10 +90,5 @@ function draw()
  	ofDrawBitmapString("Cycles left: " .. (lifetime-lifeCycle),20,36)
  	ofDrawBitmapString("Record cycles: " .. recordTime,20,54)
     	 
-end
-
-function mouseReleased()
-	target.location:set(gaMouseX(),gaMouseY())
-	recordTime = lifetime
 end
 

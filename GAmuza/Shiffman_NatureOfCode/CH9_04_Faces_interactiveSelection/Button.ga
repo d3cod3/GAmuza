@@ -1,0 +1,60 @@
+
+class 'Button'
+
+function Button:__init(x,y,w,h,s)
+	self.r = ofRectangle(x,y,w,h)
+	self.txt = s
+	self.clickedON = false
+	self.rolloverON = false
+end
+
+// Draw rectangle and text based on whether rollover or clicked
+function Button:display()
+	ofSetRectMode(OF_RECTMODE_CORNER)
+	ofSetColor(0)
+	ofNoFill()
+	ofRect(self.r:getX(),self.r:getY(),self.r.width,self.r.height)
+	if self.rolloverON then
+		ofSetColor(127)
+		ofFill()
+		ofRect(self.r:getX(),self.r:getY(),self.r.width,self.r.height)
+	end
+	if self.clickedON then
+		ofSetColor(0)
+		ofFill()
+		ofRect(self.r:getX(),self.r:getY(),self.r.width,self.r.height)
+	end
+	b = 0
+	if self.clickedON then
+		b = 255
+	elseif self.rolloverON then
+		b = 50
+	else
+		b = 0
+	end
+	ofSetColor(0)
+	ofDrawBitmapString(self.txt,self.r:getX() + 10,self.r:getY() + 14)
+	
+end
+
+// Methods to check rollover, clicked, or released (must be called from appropriate
+// Places in draw, mousePressed, mouseReleased
+
+function Button:rollover(mx,my)
+	if self.r:inside(mx,my) then
+		self.rolloverON = true
+	else
+		self.rolloverON = false
+	end
+	return self.rolloverON
+end
+
+function Button:clicked(mx,my)
+	if self.r:inside(mx,my) then
+		self.clickedON = true
+	end
+end
+
+function Button:released()
+	self.clickedON = false
+end

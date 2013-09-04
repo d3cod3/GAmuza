@@ -1,0 +1,32 @@
+
+class 'DNA'
+
+function DNA:__init()
+	self.genes = {}
+	for i=0,1 do
+		self.genes[i] = ofRandomuf()
+	end
+end
+
+function DNA:initWithGenes(newgenes)
+	self.genes = nil
+	self.genes = {}
+	self.genes = newgenes
+end
+
+function DNA:copy()
+	newGenes = {}
+	newGenes = self.genes
+
+	dna = DNA()
+	dna:initWithGenes(newGenes)
+	return dna
+end
+
+function DNA:mutate(m)
+	for i=0, table.getn(self.genes) do
+		if ofRandomuf() < m then
+			self.genes[i] = ofRandomuf()
+		end
+	end
+end
