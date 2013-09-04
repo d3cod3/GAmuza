@@ -1,0 +1,13 @@
+
+// A class to describe a training point
+// Has an x and y, a "bias" (1) and known output
+// Could also add a variable for "guess" but not required here
+class 'Trainer'
+
+function Trainer:__init(x,y,a)
+	self.inputs = {}
+	self.inputs[0] = x
+	self.inputs[1] = y
+	self.inputs[2] = 1 // bias
+	self.answer = a
+end

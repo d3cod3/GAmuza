@@ -1,0 +1,9 @@
+
+// Perceptron Class
+class 'Perceptron' 
+
+function Perceptron:__init(n,_c)
+	self.weights = {}
+	
+end
+
