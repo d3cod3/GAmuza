@@ -16,6 +16,7 @@
 	if (self = [super initWithCoder:aDecoder])
 	{
 		[self initLineMargin: [self frame]];
+        [self setAutomaticTextReplacementEnabled:false];
 	}
     
     return self;
@@ -26,6 +27,7 @@
     if (self = [super initWithFrame:frame])
     {
 		[self initLineMargin: frame];
+        [self setAutomaticTextReplacementEnabled:false];
     }
 	
     return self;
