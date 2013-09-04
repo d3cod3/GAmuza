@@ -418,14 +418,18 @@
 }
 
 -(IBAction) saveGAAll:(id)sender{
-    // save Main File
-    [self saveToURL:[self fileURL] ofType:@"GAmuza Source Code" forSaveOperation:NSSaveOperation error:nil];
+    if([self fileURL] != NULL){
+        // save Main File
+        [self saveToURL:[self fileURL] ofType:@"GAmuza Source Code" forSaveOperation:NSSaveOperation error:nil];
     
-    // Save the other sketch files (if any)
-    NSMutableSet* _temp = sketchFiles;
-    NSArray* groupsArray = [_temp allObjects];
-    for(GASketchFile* document in groupsArray){
-        [self saveGAFile:document withName:document.filename];
+        // Save the other sketch files (if any)
+        NSMutableSet* _temp = sketchFiles;
+        NSArray* groupsArray = [_temp allObjects];
+        for(GASketchFile* document in groupsArray){
+            [self saveGAFile:document withName:document.filename];
+        }
+    }else{
+        [self saveGADocument:sender];
     }
 }
 
