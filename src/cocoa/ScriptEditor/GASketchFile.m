@@ -596,8 +596,19 @@
         if( !vColor )
             vColor = [[vCurrComponent objectForKey: @"Color"] colorValue];
         
+        if( [vComponentType isEqualToString: @"BlockComment"] )
+        {
+            [self colorCommentsFrom: [vCurrComponent objectForKey: @"Start"]
+                                 to: [vCurrComponent objectForKey: @"End"] inString: vString
+                          withColor: vColor andMode: vComponentName];
+        }
+        else if( [vComponentType isEqualToString: @"OneLineComment"] )
+        {
+            [self colorOneLineComment: [vCurrComponent objectForKey: @"Start"]
+                             inString: vString withColor: vColor andMode: vComponentName];
+        }
         
-        if( [vComponentType isEqualToString: @"Constants"] )
+        else if( [vComponentType isEqualToString: @"Constants"] )
         {
             NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
             if( !vIdents )
@@ -644,7 +655,7 @@
                      andEscapeChar: [vCurrComponent objectForKey: @"EscapeChar"]];
         }
         
-        else if( [vComponentType isEqualToString: @"BlockComment"] )
+        if( [vComponentType isEqualToString: @"BlockComment"] )
         {
             [self colorCommentsFrom: [vCurrComponent objectForKey: @"Start"]
                                  to: [vCurrComponent objectForKey: @"End"] inString: vString
@@ -861,7 +872,7 @@
         // Look for start of one-line comment:
         [vScanner scanUpToString: startCh intoString: nil];
         vStartOffs = [vScanner scanLocation];
-        if( ![vScanner scanString:startCh intoString:nil]  || [[s string] characterAtIndex: (vStartOffs -1)] == vStartChar)
+        if( ![vScanner scanString:startCh intoString:nil]) //   || [[s string] characterAtIndex: (vStartOffs -1)] == vStartChar
             NS_VOIDRETURN;
         
         // Look for associated line break:

@@ -630,20 +630,23 @@
         NSString*   vColorKeyName = [@"SyntaxColoring:Color:" stringByAppendingString: vComponentName];
         NSColor*	vColor = [[vPrefs arrayForKey: vColorKeyName] colorValue];
         
-        if( !vColor ){
+        if( !vColor )
             vColor = [[vCurrComponent objectForKey: @"Color"] colorValue];
-        }
         
-        if( [vComponentType isEqualToString: @"BlockComment"] ){
+        if( [vComponentType isEqualToString: @"BlockComment"] )
+        {
             [self colorCommentsFrom: [vCurrComponent objectForKey: @"Start"]
                                  to: [vCurrComponent objectForKey: @"End"] inString: vString
                           withColor: vColor andMode: vComponentName];
-            
-        }else if( [vComponentType isEqualToString: @"OneLineComment"] ){
+        }
+        else if( [vComponentType isEqualToString: @"OneLineComment"] )
+        {
             [self colorOneLineComment: [vCurrComponent objectForKey: @"Start"]
                              inString: vString withColor: vColor andMode: vComponentName];
-            
-        }else if( [vComponentType isEqualToString: @"Constants"] ){
+        }
+        
+        else if( [vComponentType isEqualToString: @"Constants"] )
+        {
             NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
             if( !vIdents )
                 vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
@@ -656,35 +659,49 @@
                     vIdentCharset = [NSCharacterSet characterSetWithCharactersInString: vCsStr];
                 
                 NSEnumerator*	vItty = [vIdents objectEnumerator];
-                while( vCurrIdent = [vItty nextObject] ){
-                    [self colorIdentifier: vCurrIdent inString: vString withColor: vColor andMode: vComponentName charset: vIdentCharset];
-                }
-            }
-            
-        }else if( [vComponentType isEqualToString: @"Keywords"] ){
-            NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
-            if( !vIdents )
-                vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
-            if( vIdents )
-            {
-                NSCharacterSet*		vIdentCharset = nil;
-                NSString*			vCurrIdent = nil;
-                NSString*			vCsStr = [vCurrComponent objectForKey: @"Charset"];
-                if( vCsStr )
-                    vIdentCharset = [NSCharacterSet characterSetWithCharactersInString: vCsStr];
-                
-                NSEnumerator*	vItty = [vIdents objectEnumerator];
-                while( vCurrIdent = [vItty nextObject] ){
+                while( vCurrIdent = [vItty nextObject] )
                     [self colorIdentifier: vCurrIdent inString: vString withColor: vColor
                                   andMode: vComponentName charset: vIdentCharset];
-                }
             }
-            
-        }else if( [vComponentType isEqualToString: @"String"] ){
+        }
+        else if( [vComponentType isEqualToString: @"Keywords"] )
+        {
+            NSArray* vIdents = [vCurrComponent objectForKey: @"Keywords"];
+            if( !vIdents )
+                vIdents = [[NSUserDefaults standardUserDefaults] objectForKey: [@"SyntaxColoring:Keywords:" stringByAppendingString: vComponentName]];
+            if( vIdents )
+            {
+                NSCharacterSet*		vIdentCharset = nil;
+                NSString*			vCurrIdent = nil;
+                NSString*			vCsStr = [vCurrComponent objectForKey: @"Charset"];
+                if( vCsStr )
+                    vIdentCharset = [NSCharacterSet characterSetWithCharactersInString: vCsStr];
+                
+                NSEnumerator*	vItty = [vIdents objectEnumerator];
+                while( vCurrIdent = [vItty nextObject] )
+                    [self colorIdentifier: vCurrIdent inString: vString withColor: vColor
+                                  andMode: vComponentName charset: vIdentCharset];
+            }
+        }
+        // Strings
+        else if( [vComponentType isEqualToString: @"String"] )
+        {
             [self colorStringsFrom: [vCurrComponent objectForKey: @"Start"]
                                 to: [vCurrComponent objectForKey: @"End"]
                           inString: vString withColor: vColor andMode: vComponentName
                      andEscapeChar: [vCurrComponent objectForKey: @"EscapeChar"]];
+        }
+        
+        if( [vComponentType isEqualToString: @"BlockComment"] )
+        {
+            [self colorCommentsFrom: [vCurrComponent objectForKey: @"Start"]
+                                 to: [vCurrComponent objectForKey: @"End"] inString: vString
+                          withColor: vColor andMode: vComponentName];
+        }
+        else if( [vComponentType isEqualToString: @"OneLineComment"] )
+        {
+            [self colorOneLineComment: [vCurrComponent objectForKey: @"Start"]
+                             inString: vString withColor: vColor andMode: vComponentName];
         }
     }
     
@@ -888,7 +905,7 @@
         // Look for start of one-line comment:
         [vScanner scanUpToString: startCh intoString: nil];
         vStartOffs = [vScanner scanLocation];
-        if( ![vScanner scanString:startCh intoString:nil] || [[s string] characterAtIndex: (vStartOffs -1)] == vStartChar)
+        if( ![vScanner scanString:startCh intoString:nil]) //  || [[s string] characterAtIndex: (vStartOffs -1)] == vStartChar
             NS_VOIDRETURN;
         
         // Look for associated line break:

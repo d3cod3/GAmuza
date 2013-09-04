@@ -1,5 +1,6 @@
 function
 class
+__init
 and
 break
 do
