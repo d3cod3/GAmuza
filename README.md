@@ -187,7 +187,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
  * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)
 
-
+[![GAmuza](http://gamuza.d3cod3.org/graphics/kinectModule.jpg)](http://www.gamuza.cc)
 
  * TIMELINE
 
