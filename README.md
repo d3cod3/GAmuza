@@ -24,7 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Download
 
-Last Release - GAmuza 0432 [here][http://gamuza.d3cod3.org/download/GAmuza-0432-OSX.zip]
+Last Release - GAmuza 0432 [here](http://gamuza.d3cod3.org/download/GAmuza-0432-OSX.zip)
 
 Older versions [here](http://gamuza.d3cod3.org/download/)
 
@@ -205,6 +205,11 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 
 # Version history
+
+## v1.0  |  Rel. 0432
+
+* Fixed wrapper
+* general bug fixing
 
 ## v1.0  |  Rel. 0431
 
