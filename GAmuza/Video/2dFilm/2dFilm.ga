@@ -1,0 +1,76 @@
+
+/*
+   
+ GAmuza 0431 examples
+ ---------------------
+ Video/2dFilm.ga
+ 
+ This example shows how to create a 2d movie matrix from
+ camera frames.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+currentFrame = ofTexture()
+currentPixels = ofPixels()
+frameCache = {}
+frameCount = 0
+
+camW = 80
+camH = 60
+
+cols = math.floor(OUTPUT_W/camW)
+rows = math.floor(OUTPUT_H/camH)
+maxFrames = cols*rows
+
+function setup()
+	grabber:setDeviceID(1)
+	grabber:initGrabber(camW,camH)
+	
+	currentFrame:allocate(camW,camH,GL_RGB)
+	currentPixels:allocate(camW,camH,OF_PIXELS_RGB)
+end
+
+function update()
+	grabber:update()
+	if grabber:isFrameNew() then
+	
+		currentFrame = grabber:getTextureReference()
+		currentFrame:readToPixels(currentPixels)
+		frameCache[frameCount] = ofImage()
+		frameCache[frameCount]:allocate(camW,camH,OF_IMAGE_COLOR)
+		frameCache[frameCount]:setFromPixels(currentPixels)
+		
+		if frameCount > maxFrames then
+			frameCount = maxFrames
+		else
+			frameCount += 1
+		end
+		
+		if frameCount > 0 then
+			for i=1,frameCount-1 do
+				frameCache[i-1] = frameCache[i]
+			end
+		end
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	c = 0
+    	r = 0
+    	for i=0, table.getn(frameCache)-1 do
+    		ofSetColor(255)
+    		frameCache[i]:draw(c*camW,r*camH,camW,camH)
+    		
+    		c += 1
+    		if c == cols then
+    			c = 0
+    			r += 1
+    		end
+    	end
+    	
+end

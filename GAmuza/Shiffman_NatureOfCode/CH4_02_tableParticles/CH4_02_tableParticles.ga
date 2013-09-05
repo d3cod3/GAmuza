@@ -1,0 +1,48 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_02_tableParticles.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+startPos = ofVec2f(OUTPUT_W/2,50)
+particles = {}
+index = 0
+deadParticles = 0
+
+function setup()
+	
+end
+
+function update()
+	table.insert(particles,index,Particle(startPos))
+	index += 1
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	for k,v in pairs(particles) do
+    		particles[k]:run()
+    		if particles[k]:isDead() then
+    			particles[k] = nil
+    			deadParticles += 1
+    		end
+    	end 
+    	
+    	ofSetColor(0)
+    	ofDrawBitmapString(string.format("Actual Particles: %i",index),20,OUTPUT_H-50)
+    	ofDrawBitmapString(string.format("Dead Particles: %i", deadParticles),20,OUTPUT_H-30)
+    	
+    	ofDrawBitmapString(string.format("Live Particles: %i", index-deadParticles),20,20)
+    
+end

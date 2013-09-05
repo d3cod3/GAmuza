@@ -291,6 +291,9 @@ public:
     
     vector<ofxAUPlugin*>    auPlugins;
     vector<string*>         gamuzaAUList;
+    
+    ofQTKitGrabber          fakeAudioTrack;
+    vector<string>          gamuzaAudioCodecsList;
 	
     gaDsp					gamuzaDSP;
     gaAmplifier				gamuzaAMP;

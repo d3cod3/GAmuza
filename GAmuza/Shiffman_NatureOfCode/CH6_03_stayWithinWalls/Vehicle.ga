@@ -1,0 +1,104 @@
+
+class 'Vehicle'
+
+function Vehicle:__init(x,y)
+	self.trail = {}
+	self.index = 0
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f(ofRandom(-2,6),ofRandom(-4,-2))
+	self.velocity *= 5
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 12
+	self.maxSpeed = 12
+	self.maxForce = 7.9
+	self.steeringForce = 0.8
+
+	self.startTrail = 0
+	self.endTrail = 100
+end
+
+function Vehicle:update()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+	// Reset acceleration to 0 each cycle
+	self.acceleration *= 0
+
+	// update trail
+	table.insert(self.trail,self.index,ofVec2f(self.location.x, self.location.y))
+	self.index += 1
+	if self.index > 100 then
+		self.trail[self.startTrail] = nil
+		self.startTrail += 1
+		self.endTrail += 1
+	end
+end
+
+function Vehicle:applyForce(force)
+	// We could add mass here if we want A = F / M
+	self.acceleration += force
+end
+
+function Vehicle:boundaries()
+	desired = nil
+
+	if self.location.x < wallsMargin then
+		desired = ofVec2f(self.maxSpeed,self.velocity.y)
+	elseif self.location.x > OUTPUT_W-wallsMargin then
+		desired = ofVec2f(-self.maxSpeed,self.velocity.y)
+	end
+
+	if self.location.y < wallsMargin then
+		desired = ofVec2f(self.velocity.x,self.maxSpeed)
+	elseif self.location.y > OUTPUT_H-wallsMargin then
+		desired = ofVec2f(self.velocity.x,-self.maxSpeed)
+	end
+
+	// Steering = Desired minus velocity
+	if desired != nil then
+		desired:normalize()
+		desired *= self.maxSpeed
+		steer = ofVec2f()
+		steer = desired - self.velocity
+		steer:limit(self.steeringForce)
+		self:applyForce(steer)
+	end
+end
+
+// Draw a triangle rotated in the direction of velocity
+function Vehicle:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofSetColor(0)
+	ofNoFill()
+	ofBeginShape()
+	for k=self.startTrail,self.endTrail-1 do
+    		if self.trail[k] != nil then
+    			ofVertex(self.trail[k].x,self.trail[k].y)
+    		end
+    	end
+	ofEndShape(false)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(0)
+	ofNoFill()
+	self:drawVehicle()
+	ofSetColor(127)
+	ofFill()
+	self:drawVehicle()
+	ofPopMatrix()
+end
+
+function Vehicle:drawVehicle()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+

@@ -1,0 +1,125 @@
+
+class 'Vehicle'
+
+function Vehicle:__init(x,y)
+	self.location = ofVec2f(x,y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	
+	self.r = 12
+	self.wanderTheta = 0
+	self.maxSpeed = 12
+	self.maxForce = 7.9
+	self.steeringForce = 0.8
+
+end
+
+function Vehicle:update()
+	self:borders()
+	// Update velocity
+	self.velocity += self.acceleration
+	// Limit speed
+	self.velocity:limit(self.maxSpeed)
+	self.location += self.velocity
+	// Reset acceleration to 0 each cycle
+	self.acceleration *= 0
+end
+
+function Vehicle:applyForce(force)
+	// We could add mass here if we want A = F / M
+	self.acceleration += force
+end
+
+function Vehicle:wander()
+	wanderR = 25	// Radius for our "wander circle"
+    	wanderD = 80	// Distance for our "wander circle"
+    	change = 0.3
+	self.wanderTheta += ofRandom(-change,change)
+	
+
+	// Now we have to calculate the new location to steer towards on the wander circle
+	circleLoc = ofVec2f()
+	circleLoc = self.velocity
+	circleLoc:normalize()
+	circleLoc *= wanderD
+	circleLoc += self.location
+
+	// We need to know the heading to offset wanderTheta
+	h = ofDegToRad(self.velocity:angle(ground))
+
+	circleOffset = ofVec2f(wanderR*math.cos(self.wanderTheta-h),wanderR*math.sin(self.wanderTheta-h))
+	target = ofVec2f(circleLoc.x + math.abs(circleOffset.x),circleLoc.y + math.abs(circleOffset.y))
+	self:seek(target)
+
+	self:drawWanderStuff(self.location,circleLoc,target,wanderR)
+
+end
+
+// A method that calculates and applies a steering force towards a target
+// STEER = DESIRED MINUS VELOCITY
+function Vehicle:seek(target)
+	// A vector pointing from the location to the target
+	desired = ofVec2f()
+	desired = target - self.location
+	
+	// Normalize desired and scale to maximum speed
+	desired:normalize()
+	desired *= self.maxSpeed
+
+	// Steering = Desired minus velocity
+	steer = ofVec2f()
+	steer = desired - self.velocity
+	steer:limit(self.steeringForce)
+
+	self:applyForce(steer)
+end
+
+function Vehicle:borders()
+	if self.location.x < -self.r then
+		self.location.x = OUTPUT_W+self.r
+	end
+	if self.location.y < -self.r then
+		self.location.y = OUTPUT_H+self.r
+	end
+	if self.location.x > OUTPUT_W+self.r then
+		self.location.x = -self.r
+	end
+	if self.location.y > OUTPUT_H+self.r then
+		self.location.y = -self.r
+	end
+end
+
+// Draw a triangle rotated in the direction of velocity
+function Vehicle:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x, self.location.y,0)
+	ofRotate(-theta)
+	ofSetColor(0)
+	ofNoFill()
+	self:drawVehicle()
+	ofSetColor(127)
+	ofFill()
+	self:drawVehicle()
+	ofPopMatrix()
+end
+
+function Vehicle:drawVehicle()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+
+function Vehicle:drawWanderStuff(loc,c,target,rad)
+	ofNoFill()
+	ofSetColor(0)
+	ofCircle(c.x,c.y,rad)
+	ofFill()
+	ofCircle(target.x,target.y,4)
+	ofLine(self.location.x,self.location.y,c.x,c.y)
+	ofLine(c.x,c.y,target.x,target.y)
+end
+

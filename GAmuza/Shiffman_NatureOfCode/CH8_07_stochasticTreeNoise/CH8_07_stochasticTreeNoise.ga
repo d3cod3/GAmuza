@@ -1,0 +1,128 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_05_stochasticTreeNoise.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Renders a simple tree-like structure via recursion
+ Angles and number of branches are random
+ with angles fluctuating with Perlin noise
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+angles = {}
+lenB = {}
+forN = {}
+index = 0
+angleIndex = 0
+fornIndex = 0
+isFinished = true
+
+noiseTime = {}
+noiseStep = {}
+noiseOffset = {}
+wind = 0.4
+
+function setup()
+	randomTree()
+end
+
+function update()
+	for k,v in pairs(noiseOffset) do
+		noiseOffset[k] = ofMap(ofNoise(noiseTime[k]),0.15,0.85,-PI*wind,PI*wind,true)
+		noiseTime[k] += noiseStep[k]
+	end
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+    
+    	ofPushMatrix()
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H,0)
+    	if isFinished then
+    		branch(OUTPUT_H/3,0,0,255)
+    	end
+    	ofPopMatrix()
+    	ofSetColor(255)
+    	ofDrawBitmapString("Click mouse to generate a new tree",20,OUTPUT_H-20)
+end
+
+function randomAngles(len)
+	isFinished = false
+	len *= 0.7
+	if len > 10 then
+		angles[angleIndex] = nil
+		angles[angleIndex] = {}
+		lenB[angleIndex] = nil
+		lenB[angleIndex] = {}
+		n = math.ceil(ofRandom(1,2))
+		forN[fornIndex] = n
+		for i=0,n-1 do
+			angles[angleIndex] = ofRandom(-60,60)
+			lenB[angleIndex] = ofRandomf()*7
+			noiseTime[angleIndex] = ofRandom(100000)
+			noiseStep[angleIndex] = ofRandom(0.01,0.04)
+			noiseOffset[angleIndex] = 0
+			angleIndex += 1
+			randomAngles(len)
+		end
+		fornIndex += 1
+	end
+end
+
+function branch(len,ind,fi,alpha)
+	// Each branch will be 2/3rds the size of the previous one
+	sw = ofMap(len,2,OUTPUT_H/3,0.1,30,true)
+	red = ofMap(len,2,OUTPUT_H/3,7,0,true)
+	green = ofMap(len,2,OUTPUT_H/3,48,0,true)
+	blue = ofMap(len,2,OUTPUT_H/3,27,0,true)
+	ofSetColor(red,green,blue,alpha)
+	ofSetLineWidth(sw)
+	ofLine(0,0,0,-len-lenB[ind])
+	// Move to the end of that line
+	ofTranslate(0,-len-lenB[ind],0)
+	
+	len *= 0.7
+	alpha *= 0.97
+	// All recursive functions must have an exit condition!!!!
+  	if len > 10 then
+  		for i=0, forN[fi]-1 do
+  			ofPushMatrix()
+  			ofRotate(angles[ind]+noiseOffset[ind])
+  			branch(len,ind,fi,alpha)
+  			ofPopMatrix()
+  			ind += 1
+  		end
+  		fi += 1
+  	end
+end
+
+function randomTree()
+	noiseTime = nil
+	noiseTime = {}
+	noiseStep = nil
+	noiseStep = {}
+	noiseOffset = nil
+	noiseOffset = {}
+	wind = ofRandomuf()
+	
+	angles = nil
+	angles = {}
+	angleIndex = 0
+	fornIndex = 0
+	randomAngles(OUTPUT_H/3)
+	isFinished = true
+end
+
+function mouseReleased()
+	randomTree()
+end
+

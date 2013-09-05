@@ -1,0 +1,71 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_09_additiveWave.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+xspacing = 8
+w = OUTPUT_W+16
+maxY = math.ceil(w/xspacing)
+maxwaves = 5
+
+theta = 0
+amplitude = {}
+dx = {}
+yValues = {}
+
+function setup()
+    	for i=0, maxwaves-1 do
+		amplitude[i] = ofRandom(10,30)
+		period = ofRandom(100,300)
+		dx[i] = (TWO_PI/period) * xspacing
+	end
+end
+
+function update()
+	calcWave()
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+     renderWave()
+end
+
+function calcWave()
+	theta += 0.02
+	
+	for i=0, maxY-1 do
+		yValues[i] = 0
+	end
+	
+	for j=0, maxwaves-1 do
+		tX = theta
+		for i=0, maxY-1 do
+			// Every other wave is cosine instead of sine
+			if j%2 == 0 then
+				yValues[i] += math.sin(tX)*amplitude[j]
+			else
+				yValues[i] += math.cos(tX)*amplitude[j]
+			end
+			tX += dx[j]
+		end
+	end
+end
+
+function renderWave()
+	ofSetColor(255,50)
+	for i=0, maxY-1 do
+		ofCircle(i*xspacing,OUTPUT_H/2+yValues[i],16)
+	end
+end

@@ -1,0 +1,47 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_04_spiral.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+r = 0
+theta = 0
+x = 0
+y = 0
+
+function setup()
+    	
+end
+
+function update()
+	// Convert polar to cartesian
+	x = r * math.cos(theta)
+	y = r * math.sin(theta)
+	
+	// Increase the angle over time
+  	theta += 0.02
+end
+
+function draw()
+    	gaBackground(0.9,0.01)
+	
+	ofSetColor(0)
+	ofSetColor(0)
+	ofCircle(x + OUTPUT_W/2,y + OUTPUT_H/2,16)
+	
+	// Increment the angle
+  	theta += 0.1
+  	// Increment the radius
+  	r += 0.5
+	
+end

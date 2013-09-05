@@ -1,0 +1,42 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_04_CantorSet.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+function setup()
+	ofSetCircleResolution(50)
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	ofSetColor(0)
+    	cantor(0,200,OUTPUT_W)
+end
+
+function cantor(x,y,len)
+	if len >= 1 then
+		ofLine(x,y,x+len,y)
+		// Go down to next y position
+		y += 60
+		// Draw 2 more lines 1/3rd the length (without the middle section)
+		cantor(x,y,len/3)
+		cantor(x+ len*2/3,y,len/3)
+	end
+end
+

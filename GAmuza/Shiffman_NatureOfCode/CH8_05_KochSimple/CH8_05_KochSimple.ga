@@ -1,0 +1,69 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_05_KochSimple.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Renders a simple fractal, the Koch curve
+ Each recursive level drawn in sequence
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+lines = {}
+index = 0
+from = ofVec2f(0,OUTPUT_H/2 + 150)
+to = ofVec2f(OUTPUT_W,OUTPUT_H/2 + 150)
+
+function setup()
+	table.insert(lines,0,KochLine(from,to))
+	
+	for i=0,4 do
+		generate()
+	end
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	for k,v in pairs(lines) do
+    		lines[k]:display()
+    	end
+    
+end
+
+function generate()
+	_next = {}
+	index = 0
+	for k,v in pairs(lines) do
+    		// Calculate 5 koch vectors (done for us by the line object)
+    		_a = lines[k]:kochA()
+    		_b = lines[k]:kochB()
+    		_c = lines[k]:kochC()
+    		_d = lines[k]:kochD()
+    		_e = lines[k]:kochE()
+    		// Make line segments between all the vectors and add them
+    		table.insert(_next,index,KochLine(_a,_b))
+    		index += 1
+    		table.insert(_next,index,KochLine(_b,_c))
+    		index += 1
+    		table.insert(_next,index,KochLine(_c,_d))
+    		index += 1
+    		table.insert(_next,index,KochLine(_d,_e))
+    		index += 1
+    	end 
+	lines = nil
+	lines = {}
+	lines = _next
+end

@@ -1,0 +1,35 @@
+
+// A collection of food in the world
+class 'Food'
+
+function Food:__init(num)
+	self.food = {}
+	for i=0,num do
+		self.food[i] = ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+	end
+end
+
+function Food:add(l)
+	table.insert(self.food,table.getn(self.food),l)
+end
+
+function Food:run()
+	ofSetRectMode(OF_RECTMODE_CENTER)
+	for i=0,table.getn(self.food) do
+		ofSetColor(0)
+		ofNoFill()
+		ofRect(self.food[i].x,self.food[i].y,8,8)
+		ofSetColor(175)
+		ofFill()
+		ofRect(self.food[i].x,self.food[i].y,8,8)
+	end
+	// There's a small chance food will appear randomly
+	if ofRandomuf() < 0.001 then
+		l = ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+		table.insert(self.food,table.getn(self.food),l)
+	end
+end
+
+function Food:getFood()
+	return self.food
+end

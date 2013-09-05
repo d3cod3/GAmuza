@@ -1,0 +1,83 @@
+
+// Creature class
+class 'Bloop'
+
+function Bloop:__init(l,_dna)
+	self.location = l
+	self.dna = _dna
+	self.health = 200 // life timer
+	self.xoff = ofRandom(10000)
+	self.yoff = ofRandom(10000)
+	self.maxspeed = ofMap(self.dna.genes[0],0,1,15,0)
+	self.r = ofMap(self.dna.genes[0],0,1,4,50)
+end
+
+function Bloop:run()
+	self:update()
+	self:borders()
+	self:display()
+end
+
+// A bloop can find food and eat it 
+function Bloop:eat(f)
+	// Are we touching any food objects?
+	for i=table.getn(f.food),0,-1 do
+		if f.food[i] != nil then
+			d = self.location:distance(f.food[i])
+			// If we are, juice up our strength!
+			if d < self.r/2 then
+				self.health += 100
+				table.remove(f.food,i)
+			end
+		end
+	end
+end
+
+// At any moment there is a teeny, tiny chance a bloop will reproduce
+function Bloop:reproduce()
+	// asexual reproduction
+	if ofRandomuf() < 0.0005 then
+		childDNA = self.dna:copy()
+		childDNA:mutate(0.01)
+		bloop = Bloop(self.location,childDNA)
+		return bloop
+	else
+		return nil
+	end
+end
+
+function Bloop:update()
+	// Simple movement based on perlin noise
+	vx = ofMap(ofNoise(self.xoff),0.15,0.85,-self.maxspeed,self.maxspeed)
+	vy = ofMap(ofNoise(self.yoff),0.15,0.85,-self.maxspeed,self.maxspeed)
+	velocity = ofVec2f(vx,vy)
+	self.xoff += 0.01
+	self.yoff += 0.01
+
+	self.location += velocity
+	// Death always looming
+    	self.health -= 0.2
+end
+
+function Bloop:borders()
+	if self.location.x < -self.r then self.location.x = OUTPUT_W +self.r end
+    	if self.location.y < -self.r then self.location.y = OUTPUT_H +self.r end
+    	if self.location.x > OUTPUT_W+self.r then self.location.x = -self.r end
+    	if self.location.y > OUTPUT_H+self.r then self.location.y = -self.r end
+end
+
+function Bloop:display()
+	ofSetColor(0,self.health)
+	ofNoFill()
+	ofCircle(self.location.x,self.location.y,self.r/2)
+	ofFill()
+	ofCircle(self.location.x,self.location.y,self.r/2)
+end
+
+function Bloop:dead()
+	if self.health < 0.0 then
+		return true
+	else
+		return false
+	end
+end

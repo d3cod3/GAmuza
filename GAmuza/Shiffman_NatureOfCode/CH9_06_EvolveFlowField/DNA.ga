@@ -1,0 +1,52 @@
+
+// DNA is an array of vectors
+
+class 'DNA'
+
+// Constructor (makes a DNA of random vectors) 
+function DNA:__init(num)
+	// The genetic sequence 
+	self.genes = {}
+	
+	for i=0,num do
+		t = ofRandom(TWO_PI)
+		self.genes[i] = ofVec2f(math.cos(t),math.sin(t))
+	end
+end 
+
+// Constructor #2, creates the instance based on an existing array
+function DNA:initWithGenes(newgenes)
+	self.genes = {}
+	self.genes = newgenes
+end
+
+// Crossover 
+function DNA:crossover(partner)
+	// A new child 
+	child = {}
+	midPoint = math.floor(ofRandom(table.getn(self.genes)))
+
+	for i=0,table.getn(self.genes) do
+		if i > midPoint then
+			child[i] = self.genes[i]
+		else
+			child[i] = partner.genes[i]
+		end
+	end
+
+	newGenes = DNA(1)
+	newGenes:initWithGenes(child)
+	return newGenes
+	
+end
+
+// Based on a mutation probability, picks a new random character 
+function DNA:mutate(mutationRate)
+	for i=0,table.getn(self.genes) do
+		if ofRandomuf() < mutationRate then
+			t = ofRandom(TWO_PI)
+			self.genes[i] = ofVec2f(math.cos(t),math.sin(t))
+		end
+	end
+end
+

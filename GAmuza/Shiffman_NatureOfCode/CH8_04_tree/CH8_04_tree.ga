@@ -1,0 +1,64 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_04_tree.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Renders a simple tree-like structure via recursion
+ Branching angle calculated as a function of horizontal mouse location
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+theta = ofRandom(0,HALF_PI)
+
+function setup()
+	
+end
+
+function update()
+	theta = ofMap(gaMouseX(),0,OUTPUT_W,0,90,true)
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    
+    	ofTranslate(OUTPUT_W/2,OUTPUT_H,0)
+    	ofSetColor(0)
+    	branch(OUTPUT_H/3)
+end
+
+function branch(len)
+	// Each branch will be 2/3rds the size of the previous one
+	sw = ofMap(len,2,120,1,10,true)
+	ofSetLineWidth(sw)
+	ofLine(0,0,0,-len)
+	// Move to the end of that line
+	ofTranslate(0,-len,0)
+	
+	len *= 0.66
+	// All recursive functions must have an exit condition!!!!
+  	// Here, ours is when the length of the branch is 2 pixels or less
+  	if len > 2 then
+  		// Save the current state of transformation (i.e. where are we now)
+  		ofPushMatrix()
+  		ofRotate(theta)
+  		branch(len)
+  		// Whenever we get back here, we "pop" in order to restore the previous matrix state
+  		ofPopMatrix()
+  		
+  		// Repeat the same thing, only branch off to the "left" this time!
+  		ofPushMatrix()
+  		ofRotate(-theta)
+  		branch(len)
+  		ofPopMatrix()
+  	end
+end
+

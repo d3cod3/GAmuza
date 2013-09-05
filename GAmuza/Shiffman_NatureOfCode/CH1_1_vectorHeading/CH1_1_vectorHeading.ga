@@ -1,0 +1,61 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH1_1_vectorHeading.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+randomVector = ofVec2f(ofRandomuf(),ofRandomuf())
+
+ground = ofVec2f(1,0)
+mouse = ofVec2f(0,0)
+center = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+centeredMouse = ofVec2f(0,0)
+
+function setup()
+    	
+end
+
+function update()
+    	mouse:set(gaMouseX(),gaMouseY())
+end
+
+function draw()
+    	gaBackground(0.9,0.3)
+    	
+    	drawVector(randomVector,center,200)
+    	
+    	centeredMouse = mouse-center
+    	drawVector(centeredMouse,center,1)
+    	
+    	phi = math.abs(centeredMouse:angle(randomVector))
+    	ofSetColor(0)
+    	ofDrawBitmapString(string.format("%f degrees\n %f radians",phi,ofDegToRad(phi)),40,40)
+    	
+end
+
+function mousePressed()
+	randomVector:set(ofRandomf(),ofRandomf())
+end
+
+function drawVector(v,loc,scayl)
+	ofPushMatrix()
+	arrowSize = 4
+	ofTranslate(loc.x,loc.y,0)
+	ofSetColor(0)
+	ofRotate(-v:angle(ground)) // heading2D -->  -v:angle(ofVec2f(1,0))
+	len = v:length()*scayl
+	ofLine(0,0,len,0)
+	ofLine(len,0,len-arrowSize,arrowSize/2)
+	ofLine(len,0,len-arrowSize,-arrowSize/2)
+	ofPopMatrix()
+end

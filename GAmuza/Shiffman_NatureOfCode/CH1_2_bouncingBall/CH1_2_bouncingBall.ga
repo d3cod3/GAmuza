@@ -1,0 +1,45 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH1_2_bouncingBall.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+location = ofVec3f(100,100,0)
+velocity = ofVec3f(2.5,5,0)
+
+function setup()
+    	
+end
+
+function update()
+    	location += velocity
+    	
+    	if location.x > OUTPUT_W or location.x < 0 then
+    		velocity.x *= -1
+    	end
+    	
+    	if location.y > OUTPUT_H or location.y < 0 then
+    		velocity.y *= -1
+    	end
+end
+
+function draw()
+    	gaBackground(0.9,0.01)
+	
+	ofSetColor(175)
+	ofCircle(location.x,location.y,16)
+	ofNoFill()
+	ofSetColor(0)
+	ofCircle(location.x,location.y,16)
+    	
+end

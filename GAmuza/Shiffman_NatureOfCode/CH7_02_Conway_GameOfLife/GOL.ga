@@ -1,0 +1,69 @@
+
+class 'GOL'
+
+function GOL:__init()
+	self.w = 18
+	self.board = {}
+	self.cols = math.ceil(OUTPUT_W/self.w)
+	self.rows = math.ceil(OUTPUT_H/self.w)
+
+	self:reset()
+end
+
+function GOL:reset()
+	self.board = nil
+	self.board = {}
+	for i=0, self.cols do
+		self.board[i] = {}
+		for j=0, self.rows do
+			self.board[i][j] = Cell(i*self.w,j*self.w,self.w)
+		end
+	end
+end
+
+// The process of creating the new generation
+function GOL:generate()
+	for i=0, self.cols do
+		for j=0, self.rows do
+			self.board[i][j]:savePrevious()
+		end
+	end 
+
+	// Loop through every spot in our 2D array and check spots neighbors
+	for x=0, self.cols do
+		for y=0, self.rows do
+			// Add up all the states in a 3x3 surrounding grid
+			neighbors = 0
+			for i=-1,1 do
+				for j=-1,1 do
+					neighbors += self.board[(x+i+self.cols)%self.cols][(y+j+self.rows)%self.rows].previous
+				end
+			end
+
+			// A little trick to subtract the current cell's state since
+			// we added it in the above loop
+			neighbors -= self.board[x][y].previous				
+			// Rules of Life
+			// Loneliness
+			if self.board[x][y].state == 1 and neighbors < 2 then
+				self.board[x][y]:newState(0)
+			// Overpopulation
+			elseif self.board[x][y].state == 1 and neighbors > 3 then
+				self.board[x][y]:newState(0)
+			// Reproduction
+			elseif self.board[x][y].state == 0 and neighbors == 3 then
+				self.board[x][y]:newState(1)
+			// else do nothing!
+			end
+		end
+	end
+end
+
+function GOL:display()
+	for i=0, self.cols do
+		for j=0, self.rows do
+			self.board[i][j]:display()
+		end
+	end
+end
+

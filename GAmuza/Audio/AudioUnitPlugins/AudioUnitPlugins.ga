@@ -1,0 +1,59 @@
+
+/*
+   
+ GAmuza 0431 examples
+ ---------------------
+ Audio/AudioUnitPlugins.ga
+ 
+ This is a basic example showing how to load and use
+ the AU plugin insede GAmuza;
+ just open the Logger in Tools and take a look
+ at your AU plugins available in the system.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+function setup()
+    // a simple sine oscillator
+    gaWave(GA_SINE,220)
+    
+    // add two AU plugin in cascade
+    auAddPlugin("Apple: AUGraphicEQ")
+    auAddPlugin("Apple: AUDistortion")
+    
+    // init the buffer
+    for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
+    
+end
+
+function update()
+	gaWaveVolume(0,0.2)
+	
+	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
+	
+end
+
+function draw()
+	gaBackground(0.0,0.9)
+	
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
+	
+end

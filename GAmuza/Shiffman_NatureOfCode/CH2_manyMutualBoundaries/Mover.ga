@@ -1,0 +1,67 @@
+-------------------------------------
+-- Mover Class
+
+class 'Mover'
+
+function Mover:__init(m,x,y)
+    	self.loc = ofVec2f(x,y)
+    	self.vel = ofVec2f(1,0)
+    	self.acc = ofVec2f(0,0)
+	self.mass = m
+end
+
+function Mover:applyForce(force)
+    	f = ofVec2f()
+    	f = force / self.mass
+    	self.acc += f
+end
+
+function Mover:update()
+    	self.vel += self.acc
+    	self.loc += self.vel
+    	self.acc *= 0
+end
+
+function Mover:display()
+    	ofSetColor(0)
+    	ofNoFill()
+    	ofCircle(self.loc.x,self.loc.y,self.mass*16)
+    	ofSetColor(175,200)
+    	ofFill()
+    	ofCircle(self.loc.x,self.loc.y,self.mass*16)
+end
+
+function Mover:attract(m)
+	f = ofVec2f()
+	f = self.loc - m.loc
+	dist = f:length()
+	dist = ofClamp(dist,5.0,25.0)
+	f:normalize()
+
+	strength = ofVec2f()
+	strength = (g * self.mass * m.mass) / math.pow(dist,2)
+	f *= strength
+	return f
+end
+
+function Mover:boundaries()
+	d = 50
+	frc = ofVec2f(0,0)
+	if self.loc.x < d then
+		frc.x = 1
+	elseif self.loc.x > OUTPUT_W-d then
+		frc.x = -1
+	end
+
+	if self.loc.y < d then
+		frc.y = 1
+	elseif self.loc.y > OUTPUT_H-d then
+		frc.y = -1
+	end
+
+	frc:normalize()
+	frc *= 0.1
+
+	self:applyForce(frc)
+end
+

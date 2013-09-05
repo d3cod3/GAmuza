@@ -1,0 +1,56 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_4_forcesNoFriction.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mover = {}
+maxMovers = 5
+wind = ofVec2f(0.03,0)
+gravity = ofVec2f()
+friction = ofVec2f()
+c = 0.25
+
+function setup()
+	ofSetCircleResolution(50)
+	ofSeedRandom(1)
+    	for i=0, maxMovers-1 do
+    		mover[i] = Mover(ofRandom(1,4),ofRandom(OUTPUT_W),0)
+    	end
+end
+
+function update()
+	for i=0, maxMovers-1 do
+		gravity:set(0,0.7*mover[i].mass)
+		
+		friction = mover[i].velocity
+		friction *= -1
+		friction:normalize()
+		friction *= c
+		
+		//mover[i]:applyForce(friction)
+		mover[i]:applyForce(wind)
+		mover[i]:applyForce(gravity)
+    	
+    		mover[i]:update()
+    		mover[i]:checkEdges()
+    	end
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+	
+	for i=0, maxMovers-1 do
+		mover[i]:display()
+	end
+end

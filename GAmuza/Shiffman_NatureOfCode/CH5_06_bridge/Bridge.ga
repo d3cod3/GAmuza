@@ -1,0 +1,31 @@
+
+class 'Bridge'
+
+function Bridge:__init(l,n)
+	self.particles = {}
+	self.totLength = l
+	self.numPoints = n
+
+	box2DWorldScaling = 30
+	len = math.ceil(self.totLength/self.numPoints)
+
+	for i=0,self.numPoints do
+		if i == 0 or i == self.numPoints then
+			p = Particle(i*len,OUTPUT_H/4,4,true)
+		else
+			p = Particle(i*len,OUTPUT_H/4,4,false)
+		end
+		table.insert(self.particles,i,p)
+		
+		if i > 0 then
+			djt = ofxBox2dDistanceJoint()
+			djt:setup(box2d:getWorld(),self.particles[i-1].body:getBody(),self.particles[i].body:getBody(),len/box2DWorldScaling,0,0,true)
+		end
+	end
+end 
+
+function Bridge:display()
+	for k,v in pairs(self.particles) do
+    		self.particles[k]:display()
+    	end
+end

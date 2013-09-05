@@ -1,0 +1,46 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_SimpleProbability.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+prob = 0
+r = 0
+x = 0
+y = 0
+d = 10
+
+function setup()
+
+end
+
+function update()
+	prob = gaMouseX()/OUTPUT_W
+	r = ofRandomuf()
+	
+	x = (x+(d*2))%OUTPUT_W
+	if x == 0 then
+		y = (y+(d*2))%OUTPUT_W
+	end
+end
+
+function draw()
+    	gaBackground(0.0,0.01)
+    	
+    	if r < prob then
+    		ofSetColor(255)
+    		ofCircle(x,y,d)
+    	end
+    
+end
+

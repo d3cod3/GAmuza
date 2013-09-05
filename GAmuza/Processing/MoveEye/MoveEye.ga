@@ -1,0 +1,43 @@
+
+/*
+
+GAmuza port to Processing examples [http://www.processing.org]
+
+Move Eye.
+by Simon Greenwold. 
+
+The camera lifts up (controlled by mouseY) while looking at the same point.
+
+*/
+
+lights = ofLight()
+diffuse = ofFloatColor(1.0,1.0,1.0,0.4)
+cam = ofCamera()
+centerPos = ofVec3f(0,0,0)
+upPos = ofVec3f(0,1,0)
+eyePos = ofVec3f()
+
+function setup()
+	
+end
+
+function draw()
+	gaBackground(0.0,1.0)
+	
+	eyePos:set(30,gaMouseY(),220)
+	cam:setPosition(eyePos)
+	cam:lookAt(centerPos, upPos)
+	
+	lights:enable()
+	lights:setDiffuseColor(diffuse)
+    	
+	cam:beginCamera(ofGetCurrentViewport())
+    	ofSetColor(255)
+    	ofBox(90)
+    	ofLine(-100, 0, 0, 100, 0, 0)
+  	ofLine(0, -100, 0, 0, 100, 0)
+  	ofLine(0, 0, -100, 0, 0, 100)
+    	cam:endCamera()
+    	
+    	lights:disable()
+end

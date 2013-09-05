@@ -1,0 +1,91 @@
+
+// Rocket class -- this is just like our Boid / Particle class
+// the only difference is that it has DNA & fitness
+class 'Rocket'
+
+function Rocket:__init(l,_dna)
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	self.r = 4
+	self.fitness = 0
+	self.dna = _dna
+	self.geneCounter = 0
+	self.hitTarget = false
+end
+
+function Rocket:computeFitness()
+	d = self.location:distance(target)
+	self.fitness = math.pow(1/d,2)
+end
+
+function Rocket:run()
+	self:checkTarget()
+	if not self.hitTarget then
+		self:applyForce(self.dna.genes[self.geneCounter])
+		self.geneCounter = (self.geneCounter+1) % table.getn(self.dna.genes)
+		self:update()
+	end
+	self:display()
+end
+
+function Rocket:checkTarget()
+	d = self.location:distance(target)
+	if d < 12 then
+		self.hitTarget = true
+	end
+end
+
+function Rocket:applyForce(f)
+	self.acceleration += f
+end
+
+function Rocket:update()
+	self.velocity += self.acceleration
+	self.location += self.velocity
+	self.acceleration *= 0
+end
+
+function Rocket:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	ofRotate(-theta)
+	self:drawRocket()
+	ofPopMatrix()
+	
+end
+
+function Rocket:drawRocket()
+	// Thrusters
+	ofSetColor(0)
+	ofFill()
+	ofSetRectMode(OF_RECTMODE_CENTER)
+	ofRect(-self.r/2,self.r*2,self.r/2,self.r)
+	ofRect(self.r/2,self.r*2,self.r/2,self.r)
+	// Rocket body
+	if self.hitTarget then
+		ofSetColor(250,0,0)
+	else
+		ofSetColor(175)
+	end
+	ofFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+	ofSetColor(0)
+	ofNoFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+
+function Rocket:getDNA()
+	return self.dna
+end
+

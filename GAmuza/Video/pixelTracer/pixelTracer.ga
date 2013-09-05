@@ -1,0 +1,67 @@
+
+/*
+   
+ GAmuza 0431 examples
+ ---------------------
+ Video/pixelTracer.ga
+ 
+ This example shows how to delay live video from camera
+ using a frame cache.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+currentFrame = ofImage()
+frameCache = {}
+frameCount = 0
+
+camW = 320
+camH = 240
+
+border = 25
+traceDelay = 2
+traceLength = 600
+traceFade = 192
+
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(camW,camH)
+end
+
+function update()
+	grabber:update()
+	if grabber:isFrameNew() then
+		currentFrame:setFromPixels(grabber:getPixelsRef())
+		currentFrame:mirror(false,true)
+		frameCache[frameCount] = ofImage()
+		frameCache[frameCount] = currentFrame
+		frameCount += 1
+		if table.getn(frameCache) > traceLength*traceDelay then
+			frameCount = 0
+		end
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	ofSetColor(255)
+    	
+    	currentFrame:draw(border,border,640,480)
+    	
+    	cCount = 0
+    	for i=0,table.getn(frameCache)-1 do
+    		if cCount%traceDelay == 0 then
+    			ofSetColor(255,traceFade*(cCount/table.getn(frameCache)))
+    			frameCache[i]:draw(border,border,640,480)
+    		end
+    		cCount += 1
+    	end
+    	
+    	ofNoFill()
+	ofSetColor(0,255,0)
+	ofRect(border,border,640,480)
+    	
+end

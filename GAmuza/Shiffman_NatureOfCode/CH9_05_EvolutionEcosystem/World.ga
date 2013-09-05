@@ -1,0 +1,44 @@
+
+// The World we live in
+// Has bloops and food
+class 'World'
+
+function World:__init(num)
+	self.bloops = {}
+	self.food = Food(num)
+	for i=0,num do
+		l = ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+		self.bloops[i] = Bloop(l,DNA())
+	end
+end
+
+function World:born(x,y)
+	l = ofVec2f(x,y)
+	table.insert(self.bloops,table.getn(self.bloops),Bloop(l,DNA()))
+end
+
+function World:run()
+	// Deal with food
+	self.food:run()
+
+	for i=table.getn(self.bloops),0,-1 do
+		if self.bloops[i] != nil then
+			self.bloops[i]:run()
+			self.bloops[i]:eat(self.food)
+			
+			// Perhaps this bloop would like to make a baby? 
+			child = self.bloops[i]:reproduce()
+			if child != nil then
+				table.insert(self.bloops,table.getn(self.bloops),child)
+			end
+			
+			// If it's dead, kill it and make food
+			if self.bloops[i]:dead() then
+				self.food:add(self.bloops[i].location)
+				table.remove(self.bloops,i)
+			end
+		end
+	end
+	
+end
+

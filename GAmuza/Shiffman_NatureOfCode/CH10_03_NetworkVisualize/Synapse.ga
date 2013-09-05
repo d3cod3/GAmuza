@@ -1,0 +1,17 @@
+
+class 'Synapse'
+
+function Synapse:__init(from,to,w)
+	// Connection is from Neuron A to B
+	self.a = from
+	self.b = to
+	// Connection has a weight
+	self.weight = w
+end
+
+// Drawn as a line
+function Synapse:display()
+	ofSetColor(200,10,10,self.weight*255)
+	ofSetLineWidth(self.weight*6)
+	ofLine(self.a.location.x,self.a.location.y,self.b.location.x,self.b.location.y)
+end

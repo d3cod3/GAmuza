@@ -1,0 +1,38 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_09_additiveBlending.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+baseImg = ofImage()
+startPos = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+system = ParticleSystem(0,startPos,baseImg)
+
+function setup()
+	baseImg:loadImage(gaImportFile("texture.png"))
+	
+end
+
+function update()
+	for i=0,9 do
+		system:addParticle()
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	ofEnableBlendMode(OF_BLENDMODE_ADD)
+    	
+    	system:run()
+end 

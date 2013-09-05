@@ -1,0 +1,15 @@
+
+class 'Rule'
+
+function Rule:__init(_a,_b)
+	self.a = _a
+	self.b = _b
+end
+
+function Rule:getA()
+	return self.a
+end
+
+function Rule:getB()
+	return self.b
+end

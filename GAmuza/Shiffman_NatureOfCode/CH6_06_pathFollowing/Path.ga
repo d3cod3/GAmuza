@@ -1,0 +1,40 @@
+
+class 'Path'
+
+function Path:__init()
+	self.points = {}
+	self.radius = 20
+	self.index = 0
+end
+
+function Path:addPoint(x,y)
+	p = ofVec2f(x,y)
+	table.insert(self.points,self.index,p)
+	self.index += 1
+end
+
+function Path:reset()
+	for k,v in pairs(self.points) do
+		self.points[k] = nil
+	end
+	self.index = 0
+end
+
+function Path:display()
+	ofSetLineWidth(self.radius*2)
+	ofSetColor(0,100)
+	ofNoFill()
+	ofBeginShape()
+	for k=0,table.getn(self.points)-1 do
+		ofVertex(self.points[k].x,self.points[k].y)
+	end
+	ofEndShape(false)
+
+	ofSetLineWidth(1)
+	ofSetColor(0)
+	ofBeginShape()
+	for k=0,table.getn(self.points)-1 do
+		ofVertex(self.points[k].x,self.points[k].y)
+	end
+	ofEndShape(false)
+end

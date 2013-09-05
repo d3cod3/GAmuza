@@ -6,6 +6,8 @@
 //
 
 #pragma once
+#include "ofMain.h"
+#include "Box2D.h"
 #include "ofxBox2dBaseJoint.h"
 #include "ofxBox2dUtils.h"
 
@@ -24,6 +26,9 @@ class ofxBox2dRevoluteJoint : public ofxBox2dBaseJoint {
         void    setup(b2World*, b2Body *body1, b2Body *body2, b2Vec2 anchor,
                       float lowerLimitRadian, float upperLimitRadian, bool bEnableLimit,
                       float motorSpeed, float maxMotorTorque, bool bEnableMotor, bool bCollideConnected);
+    
+        void    setup(b2World*, b2Body *body1, b2Body *body2, float anchorX, float anchorY,
+                  float motorSpeed, float maxMotorTorque, bool bEnableMotor, bool bCollideConnected);
     
         b2RevoluteJoint*   getJoint();
     

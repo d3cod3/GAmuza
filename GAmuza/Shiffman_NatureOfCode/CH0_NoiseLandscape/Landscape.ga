@@ -1,0 +1,46 @@
+
+class 'Landscape'
+
+function Landscape:__init(_scl,_w,_h)
+	self.scl = _scl
+	self.w = _w
+	self.h = _h
+	self.cols = math.ceil(self.w/self.scl)
+	self.rows = math.ceil(self.h/self.scl)
+	self.z = {}
+	for i=0,self.cols-1 do
+		self.z[i] = {}
+	end
+	self.zoff = 0
+end
+
+function Landscape:calculate()
+	xoff = 0
+	for i=0,self.cols-1 do
+		yoff = 0
+		for j=0,self.rows-1 do
+			self.z[i][j] = ofMap(ofNoise(xoff,yoff,self.zoff),0.15,0.85,-120,120,true)
+			yoff += 0.1
+		end
+		xoff += 0.1
+	end
+	self.zoff += 0.01
+end
+
+function Landscape:render()
+	ofSetColor(0)
+	ofNoFill()
+	for i=0,self.cols-2 do
+		for j=0,table.getn(self.z[i])-2 do
+			ofPushMatrix()
+			ofBeginShape()
+			ofTranslate(i*self.scl - self.w/2,j*self.scl - self.h/2,0)
+			ofVertex(0,0,self.z[i][j])
+			ofVertex(self.scl,0,self.z[i+1][j])
+			ofVertex(self.scl,self.scl,self.z[i+1][j+1])
+			ofVertex(0,self.scl,self.z[i][j+1])
+			ofEndShape(true)
+			ofPopMatrix()
+		end
+	end
+end

@@ -1,0 +1,94 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_06_EvolveFlowField.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ This example produces an obstacle course with a start and finish
+ Virtual "creatures" are rewarded for making it closer to the finish
+
+ Each creature's DNA is a "flowfield" of PVectors that
+ determine steering vectors for each cell on the screen
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// DNA needs one vector for every spot on the grid 
+// (it's like a pixel array, but with vectors instead of colors)
+gridscale = 24
+dnasize = (OUTPUT_W / gridscale) * (OUTPUT_H / gridscale)
+
+// Global maxforce and maxspeed (hmmm, could make this part of DNA??)
+maxspeed = 4.0
+maxforce = 1.0
+
+// Timer for cycle of generation
+lifeCycle = 0
+// How long should each generation live
+lifetime = OUTPUT_W/2
+// Fastest time to target
+recordTime = lifetime
+
+diam = 24
+target = Obstacle(OUTPUT_W-diam-diam/2,OUTPUT_H/2-diam/2,diam,diam)
+start = Obstacle(diam/2,OUTPUT_H/2-diam/2,diam,diam)
+ground = ofVec2f(1,0)
+
+popMax = 500
+mutationRate = 0.05
+// Create a population with a mutation rate and population max
+population = Population(mutationRate,popMax)
+
+obstacles = {}
+
+function setup()
+	ofSetCircleResolution(50)
+	table.insert(obstacles,0,Obstacle(OUTPUT_W/4,40,10, OUTPUT_H-80))
+	table.insert(obstacles,1,Obstacle(OUTPUT_W/2,0,10, OUTPUT_H/2-10))
+	table.insert(obstacles,2,Obstacle(OUTPUT_W/2, OUTPUT_H-OUTPUT_H/2+10,10, OUTPUT_H/2-10))
+	table.insert(obstacles,3,Obstacle(2* OUTPUT_W/3, OUTPUT_H/2-OUTPUT_H/8,10, OUTPUT_H/4))
+end
+
+function update()
+ 	
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// Draw the start and target locations
+ 	start:display()
+ 	target:display()
+ 	
+ 	// Draw the obstacles
+ 	for k,v in pairs(obstacles) do
+ 		obstacles[k]:display()
+ 	end
+    	
+    	if lifeCycle < lifetime then
+ 		population:live(obstacles)
+ 		if population:targetReached() and lifeCycle < recordTime then
+ 			recordTime = lifeCycle
+ 		end
+ 		lifeCycle += 1
+ 	else
+ 		lifeCycle = 0
+ 		population:calcFitness()
+ 		population:naturalSelection()
+ 		population:generate()
+ 	end
+ 	
+ 	ofSetColor(0)
+ 	ofDrawBitmapString("Generation #: " .. population:getGenerations(),20,28)
+ 	ofDrawBitmapString("Cycles left: " .. (lifetime-lifeCycle),20,36)
+ 	ofDrawBitmapString("Record cycles: " .. recordTime,20,54)
+    	 
+end
+

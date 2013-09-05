@@ -1,0 +1,43 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_04_systemOfSystems.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+systems = {}
+index = 0
+mousePos = ofVec2f()
+
+function setup()
+	
+end
+
+function update()
+	for k,v in pairs(systems) do
+		systems[k]:addParticle()
+	end
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	for k,v in pairs(systems) do
+    		systems[k]:run()
+    	end
+end 
+
+function mousePressed()
+	mousePos:set(gaMouseX(),gaMouseY())
+	table.insert(systems,index,ParticleSystem(mousePos))
+	index += 1
+end

@@ -1,0 +1,69 @@
+
+// ---------------------------------------------------
+class 'Pendulum'
+
+// constructor
+function Pendulum:__init(o,r)
+	self.origin = o
+	self.r = r // length of arm
+	self.location = ofVec2f(0,0)
+	
+	self.aVelocity = 0
+	self.aAcceleration = 0
+	self.theta = PI/4
+	self.damping = 0.995
+
+	self.ballR = 48
+
+	self.dragging = false
+end
+
+function Pendulum:go()
+	self:update()
+	self:drag()
+	self:display()
+end
+
+function Pendulum:update()
+	// As long as we aren't dragging the pendulum, let it swing!
+	if not dragging then
+		self.aAcceleration = (-1*gravity / self.r) * math.sin(self.theta)
+		self.aVelocity += self.aAcceleration
+		self.aVelocity *= self.damping
+		self.theta += self.aVelocity
+	end
+end
+
+function Pendulum:display()
+	self.location:set(self.r*math.sin(self.theta),self.r*math.cos(self.theta))
+	self.location += self.origin
+
+	ofSetColor(0)
+	ofLine(self.origin.x,self.origin.y,self.location.x,self.location.y)
+	if self.dragging then
+		ofSetColor(0)
+	else
+		ofSetColor(175)
+	end
+	ofCircle(self.location.x,self.location.y,self.ballR)
+end
+
+function Pendulum:clicked(mx,my)
+	d = ofDist(mx, my, self.location.x, self.location.y)
+	if d < self.ballR then
+		self.dragging = true
+	end
+end
+
+function Pendulum:stopDragging()
+	self.aVelocity = 0
+	self.dragging = false
+end
+
+function Pendulum:drag()
+	if self.dragging then
+		diff = ofVec2f()
+		diff = self.origin - mouse
+		self.theta = math.atan2(-1*diff.y,diff.x) - ofDegToRad(90)
+	end
+end

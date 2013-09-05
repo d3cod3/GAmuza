@@ -1,0 +1,36 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_01_singleParticle.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+startPos = ofVec2f(OUTPUT_W/2,20)
+p = Particle(startPos)
+
+function setup()
+
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,0.01)
+    
+    	p:run()
+    	if p:isDead() then
+    		p = Particle(startPos)
+    	end
+    
+end

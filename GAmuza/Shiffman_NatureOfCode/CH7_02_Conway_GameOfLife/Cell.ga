@@ -1,0 +1,36 @@
+
+class 'Cell'
+
+function Cell:__init(_x,_y,_w)
+	self.x = _x
+	self.y = _y
+	self.w = _w
+
+	self.state = math.floor(ofRandom(2))
+	self.previous = self.state
+end
+
+function Cell:savePrevious()
+	self.previous = self.state
+end
+
+function Cell:newState(s)
+	self.state = s
+end
+
+function Cell:display()
+	ofFill()
+	if self.previous == 0 and self.state == 1 then
+		ofSetColor(0,0,255)
+	elseif self.state == 1 then
+		ofSetColor(0)
+	elseif self.previous == 1 and self.state == 0 then
+		ofSetColor(255,0,0)
+	else
+		ofSetColor(255)
+	end
+	ofRect(self.x,self.y,self.w,self.w)
+	ofNoFill()
+	ofSetColor(0)
+	ofRect(self.x,self.y,self.w,self.w)
+end

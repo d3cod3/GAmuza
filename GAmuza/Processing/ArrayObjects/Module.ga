@@ -1,0 +1,38 @@
+
+// ---------------------------------------------------
+class 'Module'
+
+// constructor
+function Module:__init(xOff, yOff, xTemp, yTemp, speedTemp, tempUnit) 
+	self.xOffset = xOff
+	self.yOffset = yOff
+	self.posX = xTemp
+	self.posY = yTemp
+	self.speed = speedTemp
+	self.unit = tempUnit
+
+	self.xDirection = 1
+	self.yDirection = 1
+end
+
+// Custom method for updating the variables
+function Module:update()
+	self.posX = self.posX + (self.speed*self.xDirection)
+
+	if self.posX >= self.unit or self.posX <= 0  then
+		self.xDirection *= -1
+		self.posX += 1*self.xDirection
+		self.posY += 1*self.yDirection
+	end
+	if self.posY >= self.unit or self.posY <= 0 then
+		self.yDirection *= -1
+		self.posY += 1*self.yDirection
+	end
+end 
+
+// Custom method for drawing the object
+function Module:draw()
+	ofSetColor(255)
+ 	ofCircle(self.xOffset+self.posX,self.yOffset+self.posY,6)
+end
+

@@ -1,0 +1,47 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_05_harmonicMotion.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+theta = 0
+aVelocity = 0.03
+amplitude = 360
+x = 0
+
+function setup()
+    	
+end
+
+function update()
+	x = amplitude * math.cos(theta)
+	
+	theta += aVelocity
+end
+
+function draw()
+    	gaBackground(0.9,0.05)
+	
+	ofSetColor(0)
+	// Translate the origin point to the center of the screen
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofNoFill()
+	ofSetLineWidth(2)
+	ofSetColor(0)
+	ofLine(0,0,x,0)
+	ofCircle(x,0,20)
+	ofFill()
+	ofSetColor(127)
+	ofCircle(x,0,20)
+	
+end

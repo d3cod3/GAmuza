@@ -8,7 +8,7 @@ function Attractor:__init()
     self.loc = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
     self.dragging = false
     self.rollover = false
-    self.drag = ofVec2f(0,0)
+    self.dragOffset = ofVec2f(0,0)
 end
 
 function Attractor:attract(mover)
@@ -37,15 +37,15 @@ function Attractor:display()
     ofCircle(self.loc.x,self.loc.y,self.mass)
 end
 
-function Attractor:isClicked(mx,my)
+function Attractor:clicked(mx,my)
     d = ofDist(mx,my,self.loc.x,self.loc.y)
     if d < self.mass then
         self.dragging = true
-        self.drag:set(self.loc.x - mx,self.loc.y - my)
+        self.dragOffset:set(self.loc.x - mx,self.loc.y - my)
     end
 end
 
-function Attractor:isRollover(mx,my)
+function Attractor:hover(mx,my)
     d = ofDist(mx,my,self.loc.x,self.loc.y)
     if d < self.mass then
         self.rollover = true
@@ -60,7 +60,7 @@ end
 
 function Attractor:drag()
     if self.dragging then
-        self.loc:set(gaMouseX() + self.drag.x,gaMouseY() + self.drag.y)
+        self.loc:set(gaMouseX() + self.dragOffset.x,gaMouseY() + self.dragOffset.y)
     end
 end
 -------------------------------------

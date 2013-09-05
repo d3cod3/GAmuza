@@ -1,0 +1,77 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH5_06_bridge.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+index = 0
+boxes = {}
+
+box2d = ofxBox2d()
+
+function setup()
+    	box2d:init()
+    	box2d:setGravity(0,10)
+    	box2d:createBounds(0,0,OUTPUT_W,OUTPUT_H*2)
+    	box2d:setFPS(30)
+    	box2d:enableGrabbing()
+    	
+    	bridge = Bridge(OUTPUT_W,OUTPUT_W/10)
+end
+
+function update()
+	box2d:update()
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+    	ofSetRectMode(OF_RECTMODE_CENTER)
+    	
+    	for k,v in pairs(boxes) do
+    		if boxes[k]:isDead() then
+    			boxes[k] = nil
+    		else
+    			boxes[k]:display()
+    		end
+    	end
+    	
+    	bridge:display()
+	
+end
+
+function mouseDragged()
+	box2d:mouseDragged(gaMouseX(),gaMouseY())
+end
+
+function mousePressed()
+	box2d:mousePressed(gaMouseX(),gaMouseY())
+	
+	table.insert(boxes,index,Box(gaMouseX(),gaMouseY()))
+	index += 1
+end
+
+function mouseReleased()
+	box2d: mouseReleased(gaMouseX(),gaMouseY())
+end
+
+function mouseMoved()
+	for k,v in pairs(boxes) do
+    		if boxes[k] != nil then
+    			if boxes[k]:inside() then
+    				boxes[k].redPressed = 200
+    			else
+    				boxes[k].redPressed = 0
+    			end
+    		end
+    	end
+end

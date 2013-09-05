@@ -1,0 +1,144 @@
+
+// Rocket class -- this is just like our Boid / Particle class
+// the only difference is that it has DNA & fitness
+class 'Rocket'
+
+function Rocket:__init(l,_dna)
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(0,0)
+	self.acceleration = ofVec2f(0,0)
+	self.r = 3
+	self.dna = _dna
+	self.stopped = false
+	self.finish = 100000
+	self.recordDist = OUTPUT_W
+	self.fitness = 0
+	
+end
+
+// FITNESS FUNCTION 
+// distance = distance from target
+// finish = what order did i finish (first, second, etc. . .)
+// f(distance,finish) =   (1.0f / finish^1.5) * (1.0f / distance^6);
+// a lower finish is rewarded (exponentially) and/or shorter distance to target (exponetially)
+function Rocket:computeFitness()
+	d = self.recordDist
+	if d < diam/2 then
+		d = 1.0
+	end
+	// Reward finishing faster and getting close
+    	self.fitness = (1.0/math.pow(self.finish,1.5)) * (1/(math.pow(d,6)))
+end
+
+function Rocket:setFinish(f)
+	self.finish = f
+end
+
+// Run in relation to all the obstacles
+// If I'm stuck, don't bother updating or checking for intersection
+function Rocket:run(obs)
+	if not self.stopped then
+		self:update()
+		if self:borders() or self:obstacles(obs) then
+			self.stopped = true
+		end
+	end
+	self:display()
+end
+
+// Did I hit an edge?
+function Rocket:borders()
+	if self.location.x < 0 or self.location.y < 0 or self.location.x > OUTPUT_W or self.location.y > OUTPUT_H then
+		return true
+	else
+		return false
+	end
+end
+
+// Did I make it to the target?
+function Rocket:finished()
+	d = ofDist(self.location.x,self.location.y,target.r:getX(),target.r:getY())
+	if d < self.recordDist then
+		self.recordDist = d
+	end
+	if target:contains(self.location) then
+		self.stopped = true
+		return true
+	end
+	return false
+end
+
+function Rocket:obstacles(obs)
+	for k,v in pairs(obs) do
+		if obs[k]:contains(self.location) then
+			return true
+		end
+	end 
+	return false
+end
+
+function Rocket:update()
+	if not self:finished() then
+		x = math.ceil(self.location.x/gridscale)
+		y = math.ceil(self.location.y/gridscale)
+		x = ofClamp(x,0,OUTPUT_W/gridscale-1)
+		y = ofClamp(y,0,OUTPUT_H/gridscale-1)
+
+		// Get the steering vector out of our genes in the right spot
+      	// We could do (desired - velocity) to be more in line with the Reynolds flow field following
+		self.acceleration += self.dna.genes[math.floor(x+y*OUTPUT_W/gridscale)]
+
+		self.acceleration *= maxforce
+		self.velocity += self.acceleration
+		self.velocity:limit(maxspeed)
+		self.location += self.velocity
+		self.acceleration *= 0
+	end
+end
+
+function Rocket:display()
+	theta = self.velocity:angle(ground) - ofRadToDeg(PI/2)
+
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	ofRotate(-theta)
+	self:drawRocket()
+	ofPopMatrix()
+	
+end
+
+function Rocket:drawRocket()
+	// Rocket body
+	if self:finished() then
+		ofSetColor(250,0,0)
+	else
+		ofSetColor(175)
+	end
+	ofFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+	ofSetLineWidth(1)
+	ofSetColor(0)
+	ofNoFill()
+	ofBeginShape()
+	ofVertex(0, -self.r*2)
+	ofVertex(-self.r, self.r*2)
+	ofVertex(self.r, self.r*2)
+	ofEndShape(true)
+end
+
+function Rocket:getFitness()
+	return self.fitness
+end
+
+function Rocket:getDNA()
+	return self.dna
+end
+
+function Rocket:getStopped()
+	return self.stopped
+end
+

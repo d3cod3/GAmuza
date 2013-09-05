@@ -1,0 +1,50 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH10_03_NetworkVisualize.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ A static drawing of a Neural Network
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// Create the Network object
+network = Network(OUTPUT_W/2,OUTPUT_H/2)
+// Create a bunch of Neurons
+a = Neuron(-OUTPUT_W/3,0)
+b = Neuron(0,75)
+c = Neuron(0,-75)
+d = Neuron(OUTPUT_W/3,0)
+
+function setup()
+	ofSetCircleResolution(50)
+	// connect neurons
+	network:connect(a,b)
+	network:connect(a,c)
+	network:connect(b,d)
+	network:connect(c,d)
+	// Add them to the Network
+	network:addNeuron(a)
+	network:addNeuron(b)
+	network:addNeuron(c)
+	network:addNeuron(d)
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	// Draw the Network
+  	network:display()
+end
+

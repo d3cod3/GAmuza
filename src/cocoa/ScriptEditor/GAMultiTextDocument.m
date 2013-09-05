@@ -249,8 +249,8 @@
     
     // remove the view from the tab item
     NSTabViewItem* tabViewItem = [tabView tabViewItemAtIndex: [tabView indexOfTabViewItemWithIdentifier: ctrl]];
-    [tabViewItem setView: nil];
     [tabView removeTabViewItem:tabViewItem];
+    [tabViewItem setView: nil];
     
     // remove the control from the view controllers set
     [SFviewControllers removeObject: ctrl];
@@ -260,7 +260,8 @@
     for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:NULL]) {
         if ([[filename stringByDeletingPathExtension] isEqualToString:docToRemove.filename]) {
             NSString *fullPath = [directoryPath stringByAppendingPathComponent:filename];
-            [[NSFileManager defaultManager] removeItemAtPath:fullPath error:nil];
+            //NSLog(@"%@",fullPath);
+            [[NSFileManager defaultManager] removeItemAtPath:fullPath error:NULL];
             break;
         }
     }
@@ -417,14 +418,18 @@
 }
 
 -(IBAction) saveGAAll:(id)sender{
-    // save Main File
-    [self saveToURL:[self fileURL] ofType:@"GAmuza Source Code" forSaveOperation:NSSaveOperation error:nil];
+    if([self fileURL] != NULL){
+        // save Main File
+        [self saveToURL:[self fileURL] ofType:@"GAmuza Source Code" forSaveOperation:NSSaveOperation error:nil];
     
-    // Save the other sketch files (if any)
-    NSMutableSet* _temp = sketchFiles;
-    NSArray* groupsArray = [_temp allObjects];
-    for(GASketchFile* document in groupsArray){
-        [self saveGAFile:document withName:document.filename];
+        // Save the other sketch files (if any)
+        NSMutableSet* _temp = sketchFiles;
+        NSArray* groupsArray = [_temp allObjects];
+        for(GASketchFile* document in groupsArray){
+            [self saveGAFile:document withName:document.filename];
+        }
+    }else{
+        [self saveGADocument:sender];
     }
 }
 

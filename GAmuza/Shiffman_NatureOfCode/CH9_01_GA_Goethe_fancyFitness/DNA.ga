@@ -1,0 +1,70 @@
+
+//   A class to describe a psuedo-DNA, i.e. genotype
+//   Here, a virtual organism's DNA is an array of character.
+//   Functionality:
+//       convert DNA into a string 
+//       calculate DNA's "fitness"
+//       mate DNA with another set of DNA 
+//       mutate DNA
+
+class 'DNA'
+
+// Constructor (makes a random DNA)
+function DNA:__init(num)
+	// The genetic sequence
+	self.genes = {}
+	self.fitness = 0
+	
+	for i=0,num do
+		self.genes[i] = string.char(math.floor(ofRandom(32,128)))
+	end
+end
+
+// Converts character array to a String
+function DNA:getPhrase()
+	p = ""
+	for i=1,table.getn(self.genes) do
+		p = p .. self.genes[i]
+	end
+	return p
+end
+
+// Fitness function (returns floating point % of "correct" characters)
+function DNA:computeFitness(target)
+	score = 0
+	for i=0,table.getn(self.genes) do
+		if self.genes[i] == string.sub(target,i,i) then
+			score += 1
+		end
+	end
+	// fancy fitness HERE
+	self.fitness = math.pow(2,score)
+end
+
+// Crossover
+function DNA:crossover(partner)
+	// A new child
+	child = DNA(table.getn(self.genes))
+	midPoint = math.floor(ofRandom(table.getn(self.genes)))
+
+	for i=0,table.getn(self.genes) do
+		if i > midPoint then
+			child.genes[i] = self.genes[i]
+		else
+			child.genes[i] = partner.genes[i]
+		end
+	end
+
+	return child
+	
+end
+
+// Based on a mutation probability, picks a new random character
+function DNA:mutate(mutationRate)
+	for i=0,table.getn(self.genes) do
+		if ofRandomuf() < mutationRate then
+			self.genes[i] =string.char(math.floor(ofRandom(32,128)))
+		end
+	end
+end
+

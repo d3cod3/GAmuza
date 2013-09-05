@@ -1,0 +1,88 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_03_SmartRockets.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Each Rocket's DNA is an array of PVectors
+ Each vector acts as a force for each frame of animation
+ Imagine an booster on the end of the rocket that can point in any direction
+ and fire at any strength every frame
+
+ The Rocket's fitness is a function of how close it gets to the target as well as how fast it gets there
+
+ This example is inspired by Jer Thorp's Smart Rockets
+ http://www.blprnt.com/smartrockets/
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// Timer for cycle of generation
+lifeCounter = 0
+// How long should each generation live
+lifetime = 300
+// Fastest time to target
+recordTime = lifetime
+
+target = Obstacle(OUTPUT_W/2 - 12,44,24,24)
+ground = ofVec2f(1,0)
+
+popMax = 150
+mutationRate = 0.01
+// Create a population with a mutation rate and population max
+population = Population(mutationRate,popMax)
+
+obstacles = {}
+
+function setup()
+	ofSetCircleResolution(50)
+	table.insert(obstacles,0,Obstacle(OUTPUT_W/2 - OUTPUT_W/6,300,OUTPUT_W/3,10))
+end
+
+function update()
+ 	
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	if lifeCounter < lifetime then
+ 		population:live(obstacles)
+ 		if population:targetReached() and lifeCounter < recordTime then
+ 			recordTime = lifeCounter
+ 		end
+ 		lifeCounter += 1
+ 	else
+ 		lifeCounter = 0
+ 		population:calcFitness()
+ 		population:naturalSelection()
+ 		population:reproduction()
+ 	end
+ 	
+ 	// Draw the target
+ 	target:display()
+ 	
+ 	// Draw the obstacles
+ 	for k,v in pairs(obstacles) do
+ 		obstacles[k]:display()
+ 	end
+ 	
+ 	ofSetColor(0)
+ 	ofDrawBitmapString("Generation #: " .. population:getGenerations(),20,28)
+ 	ofDrawBitmapString("Cycles left: " .. (lifetime-lifeCounter),20,36)
+ 	ofDrawBitmapString("Record cycles: " .. recordTime,20,54)
+    	 
+end
+
+function mouseReleased()
+	target.location:set(gaMouseX(),gaMouseY())
+	recordTime = lifetime
+end
+

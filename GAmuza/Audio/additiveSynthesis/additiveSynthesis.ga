@@ -1,0 +1,58 @@
+
+/*
+   
+ GAmuza 0431 examples
+ ---------------------
+ Audio/additiveSynthesis.ga
+ 
+ A basic example of additive synthesis
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+function setup()
+    gaWave(GA_SINE,gaNToF(LA_3))
+    gaWave(GA_SINE,gaNToF(LA_1))
+    gaWave(GA_SINE,gaNToF(LA_2))
+    
+    gaWaveVolume(0,0.7)
+    gaWaveVolume(1,0.7)
+    gaWaveVolume(2,0.7)
+    
+    // init the buffer
+    for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
+    
+end
+
+function update()
+	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
+end 
+
+function draw()
+	gaBackground(0.0,0.9)
+	
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
+end
+
+function mouseDragged()
+	gaWaveFrequency(0,ofMap(gaMouseX(),0,OUTPUT_W,60,4000,true))
+	gaWaveFrequency(2,ofMap(gaMouseY(),0,OUTPUT_H,60,4000,true))
+end

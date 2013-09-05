@@ -35,6 +35,8 @@ public:
     
     void restart();
     
+    void setModuleON(bool onOff);
+    
     ofxControlPanel             *gui;
     simpleColor					gamuzaMainColor;
     simpleColor					gamuzaWhiteColor;
@@ -48,5 +50,7 @@ public:
     bool                        moduleStarted;
     float                       *thisVolumes;
     float                       *thisPitches;
+    
+    bool                        isON;
 	
 };

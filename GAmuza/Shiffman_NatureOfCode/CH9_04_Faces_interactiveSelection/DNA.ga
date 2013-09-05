@@ -1,0 +1,43 @@
+
+class 'DNA'
+
+// Constructor (makes a random DNA) 
+function DNA:__init()
+	self.genes = {}
+	self.len = 20
+	// DNA is random floating point values between 0 and 1
+	for i=0,self.len-1 do
+		self.genes[i] = ofRandomuf()
+	end
+end
+
+function DNA:initWithGenes(newgenes)
+	self.genes = nil
+	self.genes = {}
+	self.genes = newgenes
+end
+
+// Crossover
+// Creates new DNA sequence from two
+function DNA:crossover(partner)
+	child = {}
+	crossover = math.floor(ofRandom(table.getn(self.genes)))
+	for i=0,self.len-1 do
+		if i > crossover then
+			child[i] = self.genes[i]
+		else
+			child[i] = partner.genes[i]
+		end
+	end
+	newGenes = DNA()
+	newGenes:initWithGenes(child)
+	return newGenes
+end
+
+function DNA:mutate(m)
+	for i=0,self.len-1 do
+		if ofRandomuf() < m then
+			self.genes[i] = ofRandomuf()
+		end
+	end 
+end

@@ -1,0 +1,43 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_01_angularMotionn.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+theta = 0
+aVelocity = 0
+aAcceleration = 0.01
+
+function setup()
+    	ofSetCircleResolution(50)
+end
+
+function update()
+	theta += aVelocity
+	aVelocity += aAcceleration
+end
+
+function draw()
+    	gaBackground(0.9,0.1)
+	ofSetLineWidth(2)
+	
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofRotate(theta)
+	
+	ofNoFill()
+	ofSetColor(0)
+	ofLine(-60,0,60,0)
+	ofCircle(60,0,16,16)
+	ofCircle(-60,0,16,16)
+    	
+end

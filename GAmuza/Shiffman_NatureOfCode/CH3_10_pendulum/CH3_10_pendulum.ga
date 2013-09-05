@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH3_10_pendulum.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ A simple pendulum simulation
+ Given a pendulum with an angle theta (0 being the pendulum at rest) and a radius r
+ we can use sine to calculate the angular component of the gravitational force.
+
+ Gravity Force = Mass * Gravitational Constant;
+ Pendulum Force = Gravity Force * sine(theta)
+ Angular Acceleration = Pendulum Force / Mass = gravitational acceleration * sine(theta)
+
+ Note this is an ideal world scenario with no tension in the 
+ pendulum arm, a more realistic formula might be:
+ Angular Acceleration = (g / R) * sine(theta)
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+mouse = ofVec2f()
+pos = ofVec2f(OUTPUT_W/2,0)
+p = Pendulum(pos,275)
+gravity = 0.9
+
+function setup()
+    	
+end
+
+function update()
+	mouse:set(gaMouseX(),gaMouseY())
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+     p:go()
+end
+
+function mousePressed()
+	p:clicked(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	p:stopDragging()
+end

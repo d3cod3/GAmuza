@@ -1,0 +1,79 @@
+
+// -------------------------------------------------------
+function class(base, __init)
+   local c = {}    // a new class instance
+   if not __init and type(base) == 'function' then
+      __init = base
+      base = nil
+   elseif type(base) == 'table' then
+    // our new class is a shallow copy of the base class!
+      for i,v in pairs(base) do
+         c[i] = v
+      end
+      c._base = base
+   end
+   // the class will be the metatable for all its objects,
+   // and they will look up their methods in it.
+   c.__index = c
+
+   // expose a constructor which can be called by <classname>(<args>)
+   local mt = {}
+   mt.__call = function(class_tbl, ...)
+   local obj = {}
+   setmetatable(obj,c)
+   if __init then
+      __init(obj,...)
+   else 
+      // make sure that any stuff from the base class is initialized!
+      if base and base.__init then
+      base.__init(obj, ...)
+      end
+   end
+   return obj
+   end
+   c. __init = __init
+   c.is_a = function(self, klass)
+      local m = getmetatable(self)
+      while m do 
+         if m == klass then return true end
+         m = m._base
+      end
+      return false
+   end
+   setmetatable(c, mt)
+   return c
+end
+// -------------------------------------------------------
+
+class 'Confetti'
+
+Confetti = class(Particle)
+
+function Confetti:__init(pos)
+	Particle.__init(self,pos)
+end
+
+function Confetti:run()
+	Particle.update(self)
+	self:display()
+end
+
+// Override the display method
+function Confetti:display()
+	ofSetColor(0,self.lifespan)
+	ofSetLineWidth(2)
+	ofNoFill()
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	theta = ofMap(self.location.x,0,OUTPUT_H,0,360,true)
+	ofRotate(theta*2)
+	ofRect(0,0,12,12)
+	ofSetColor(127, self.lifespan)
+	ofFill()
+	ofRect(0,0,12,12)
+	ofPopMatrix()
+end
+
+function Confetti:isDead()
+	Particle.isDead(self)
+end

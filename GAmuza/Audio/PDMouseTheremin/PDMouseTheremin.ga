@@ -1,0 +1,56 @@
+
+/* 
+   
+ GAmuza 0432 examples 
+ ---------------------
+ Audio/PDMouseTheremin.ga
+ 
+ A mouse theremin with PD example.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+function setup()
+	// init the buffer
+    for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
+	
+	pdStop()
+	pdOpenPatch(gaDataPath("theremin.pd"))
+	pdStart()
+	pdComputeAudio(true)
+end
+
+function update()
+	// update audio output buffer
+	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
+	
+	pdSendFloat("frequency",ofMap(gaMouseY(),0,OUTPUT_H,20,12000))
+	pdSendFloat("volume",ofMap(gaMouseY(),0,OUTPUT_H,0,1))
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    ofPushMatrix()
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
+	ofPopMatrix()
+end
+

@@ -39,6 +39,8 @@ public:
     
     void restart();
     
+    void setModuleON(bool onOff);
+    
     ofxControlPanel             gui;
     simpleColor					gamuzaMainColor;
     simpleColor					gamuzaWhiteColor;
@@ -55,5 +57,7 @@ public:
     
     int                         *analogPinValues;
     int                         *digitalPinValuesInput;
+    
+    bool                        isON;
 	
 };

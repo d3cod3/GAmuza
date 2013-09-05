@@ -1,0 +1,82 @@
+
+// A class to describe a population of faces
+// this hasn't changed very much from example to example
+class 'Population'
+
+function Population:__init(m,num)
+	self.mutationRate = m
+	self.population = {}
+	self.matingPool = {}
+	self.generations = 0
+
+	for i=0,num-1 do
+		self.population[i] = Face(DNA(),50+i*75,60)
+	end
+end
+
+function Population:display()
+	for i=0,table.getn(self.population) do
+		self.population[i]:display()
+	end
+end
+
+function Population:rollover(mx,my)
+	for i=0,table.getn(self.population) do
+		self.population[i]:rollover(mx,my)
+	end
+end
+
+// Generate a mating pool
+function Population:naturalSelection()
+	self.matingPool = nil
+	self.matingPool = {}
+	
+	maxFitness = self:getMaxFitness()
+
+	// Based on fitness, each member will get added to the mating pool a certain number of times
+    	// a higher fitness = more entries to mating pool = more likely to be picked as a parent
+    	// a lower fitness = fewer entries to mating pool = less likely to be picked as a parent
+	index = 0
+	for i=0,table.getn(self.population) do
+		tempFitness = ofMap(self.population[i]:getFitness(),0, maxFitness,0,1)
+		n = math.ceil(tempFitness*100)
+		for j=0,n do
+			table.insert(self.matingPool,index,self.population[i])
+			index += 1
+		end
+	end
+end
+
+// Create a new generation 
+function Population:reproduction()
+	// Refill the population with children from the mating pool
+	for i=0,table.getn(self.population) do
+		m = math.floor(ofRandom(table.getn(self.matingPool)))
+		d = math.floor(ofRandom(table.getn(self.matingPool)))
+		mom = self.matingPool[m]
+		dad = self.matingPool[d]
+		momGenes = mom:getDNA()
+		dadGenes = dad:getDNA()
+		child = momGenes:crossover(dadGenes)
+		child:mutate(self.mutationRate)
+		loacation = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+		self.population[i] = Face(child,50+i*75,60)
+	end
+	self.generations += 1
+end
+
+function Population:getGenerations()
+	return self.generations
+end
+
+// Find highest fitness for the population
+function Population:getMaxFitness()
+	maxFitness = 0
+	for i=0,table.getn(self.population) do
+		if self.population[i].fitness > maxFitness then
+			maxFitness = self.population[i].fitness
+		end
+	end
+	return maxFitness
+end
+

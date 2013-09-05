@@ -1,0 +1,30 @@
+
+class 'Network'
+
+function Network:__init(x,y)
+	// The Network has a list of neurons
+	self.neurons = {}
+	self.index = 0
+	self.location = ofVec2f(x,y)
+end
+
+function Network:addNeuron(n)
+	table.insert(self.neurons,self.index,n)
+	self.index += 1
+end
+
+function Network:connect(a,b)
+	syn = Synapse(a,b,ofRandomuf())
+	a:addConnection(syn)
+end
+
+function Network:display()
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	if self.index > 0 then
+		for i=0, table.getn(self.neurons) do
+			self.neurons[i]:display()
+		end
+	end
+	ofPopMatrix()
+end

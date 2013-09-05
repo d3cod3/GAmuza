@@ -1,0 +1,57 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH2_manyAttraction3D.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+lights = ofLight()
+diffuse = ofFloatColor(1.0,1.0,1.0,0.4)
+
+g = 1
+NUM_MOVERS = 10
+movers = {}
+a = Attractor()
+force = ofVec3f()
+theta = 0
+
+function setup()
+	ofSetSphereResolution(8)
+	for i=0,NUM_MOVERS-1 do
+		movers[i] = Mover(ofRandom(3,12),ofRandom(-OUTPUT_W/2,OUTPUT_W/2),ofRandom(-OUTPUT_H/2,OUTPUT_H/2),ofRandom(-200,100))
+    	end
+end
+
+function update()
+    	for i=0,NUM_MOVERS-1 do
+		force = a:attract(movers[i])
+		movers[i]:applyForce(force)
+		movers[i]:update()
+	end
+	
+	theta -= 0.3
+end
+
+function draw()
+	gaBackground(0.0,0.9)
+	
+	lights:enable()
+	lights:setDiffuseColor(diffuse)
+
+	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+	ofRotateY(theta)
+	a:display()
+
+	for i=0,NUM_MOVERS-1 do
+		movers[i]:display()
+	end
+end

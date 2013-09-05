@@ -1,0 +1,45 @@
+
+// An LSystem has a starting sentence
+// An a ruleset
+// Each generation recursively replaces characteres in the sentence
+// Based on the rulset
+class 'LSystem'
+
+function LSystem:__init(axiom,r)
+	self.sentence = axiom
+	self.ruleset = r
+	self.generation = 0
+end
+
+function LSystem:generate()
+	nextGen = ""
+	// For every character in the sentence
+	for c in string.gmatch(self.sentence,".") do
+		// What is the character
+		curr = c
+		// We will replace it with itself unless it matches one of our rules
+		_replace = curr
+		 // Check every rule
+		for k,v in pairs(self.ruleset) do
+			rul = self.ruleset[k]:getA()
+			// if we match the Rule, get the replacement String out of the Rule
+			if rul == curr then
+				_replace = self.ruleset[k]:getB()
+				break
+			end
+		end
+		// Append replacement String
+		nextGen = nextGen .. _replace
+	end
+	// Replace sentence
+	self.sentence = nextGen
+	self.generation += 1
+end
+
+function LSystem:getSentence()
+	return self.sentence
+end
+
+function LSystem:getGeneration()
+	return self.generation
+end

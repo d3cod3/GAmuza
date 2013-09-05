@@ -10,6 +10,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <AppKit/AppKit.h>
+#import <AppKit/NSApplication.h>
 
 #import "ZipFile.h"
 #import "ZipException.h"
@@ -105,6 +106,7 @@
 
 - (void)sendGALog:(NSString *)msg;
 
+- (BOOL)processFile:(NSString *)file;
 
 // -----------------------------------------------------------------------------
 //	Menu Actions

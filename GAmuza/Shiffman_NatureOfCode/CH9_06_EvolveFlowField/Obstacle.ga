@@ -1,0 +1,26 @@
+
+// A class for an obstacle, just a simple rectangle that is drawn
+// and can check if a Rocket touches it
+
+// Also using this class for target location
+class 'Obstacle'
+
+function Obstacle:__init(x,y,_w,_h)
+	self.r = ofRectangle(x,y,_w,_h)
+end
+
+function Obstacle:display()
+	ofSetColor(0)
+	ofFill()
+	ofSetLineWidth(2)
+	ofSetRectMode(OF_RECTMODE_CORNER)
+	ofRect(self.r:getX(),self.r:getY(),self.r.width,self.r.height)
+end
+
+function Obstacle:contains(spot)
+	if self.r:inside(spot.x,spot.y) then
+		return true
+	else
+		return false
+	end
+end

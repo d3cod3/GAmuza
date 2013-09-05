@@ -1,0 +1,53 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH9_04_Faces_interactiveSelection.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+popmax = 10;
+mutationRate = 0.05
+population = Population(mutationRate,popmax)
+
+button = Button(15,150,200,20, "evolve new generation")
+
+function setup()
+
+end
+
+function update()
+
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// Display the faces
+    	population:display()
+    	population:rollover(gaMouseX(),gaMouseY())
+    	
+    	// display some text
+    	ofSetColor(0)
+    	ofDrawBitmapString("Generation #:" .. population:getGenerations(),15,190)
+    	
+    	// Display the button
+  	button:display()
+  	button:rollover(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	button:released()
+	if button.rolloverON then
+		population:naturalSelection()
+		population:reproduction()
+	end
+end

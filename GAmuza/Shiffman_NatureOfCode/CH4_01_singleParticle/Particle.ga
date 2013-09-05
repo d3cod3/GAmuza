@@ -1,0 +1,43 @@
+
+// Simple Particle System
+// Daniel Shiffman <http://www.shiffman.net>
+
+// A simple Particle class
+
+class 'Particle'
+
+function Particle:__init(pos)
+	self.location = ofVec2f(pos.x,pos.y)
+	self.velocity = ofVec2f(ofRandomf(),ofRandom(-2,0))
+	self.acceleration = ofVec2f(0,0.08)
+	self.lifespan = 255
+end
+
+function Particle:run()
+	self:update()
+	self:display()
+end
+
+function Particle:update()
+	self.velocity += self.acceleration
+	self.location += self.velocity
+	self.lifespan -= 2.0
+end
+
+function Particle:display()
+	ofSetColor(0,self.lifespan)
+	ofSetLineWidth(2)
+	ofNoFill()
+	ofCircle(self.location.x,self.location.y,12)
+	ofSetColor(127, self.lifespan)
+	ofFill()
+	ofCircle(self.location.x,self.location.y,12)
+end
+
+function Particle:isDead()
+	if self.lifespan < 0.8 then
+		return true
+	else
+		return false
+	end
+end

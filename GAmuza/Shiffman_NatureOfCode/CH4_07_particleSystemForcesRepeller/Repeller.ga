@@ -1,0 +1,25 @@
+
+class 'Repeller'
+
+function Repeller:__init(x,y)
+	// Gravitational Constant
+	self.G = 1000
+	self.location = ofVec2f(x,y)
+	self.r = 10
+end
+
+function Repeller:display()
+	ofSetColor(0)
+	ofCircle(self.location.x,self.location.y,48,48)
+end
+
+function Repeller:repel(p)
+	dir = ofVec2f()
+	dir = self.location - p.location
+	d = dir:length()
+	dir:normalize()
+	d = ofClamp(d,5,100)
+	force = -1 * self.G / (d*d)
+	dir *= force
+	return dir
+end

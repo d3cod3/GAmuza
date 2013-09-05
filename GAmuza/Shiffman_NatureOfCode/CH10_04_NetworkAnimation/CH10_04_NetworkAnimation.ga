@@ -1,0 +1,87 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH10_04_NetworkAnimation.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ A static drawing of a Neural Network
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+// Create the Network object
+network = Network(OUTPUT_W/2,OUTPUT_H/2)
+// Create a bunch of Neurons
+a = Neuron(-OUTPUT_W/2 + 50,0)
+b = Neuron(-200,0)
+c = Neuron(0,75)
+c1 = Neuron(0,175)
+c2 = Neuron(0,275)
+d = Neuron(0,-75)
+e = Neuron(200,0)
+f = Neuron(OUTPUT_W/2 - 50,0)
+
+// TIME VARIABLES
+actualTime = 0
+lastReset = ofGetElapsedTimeMillis()
+wait = 300
+semaphore = true
+
+function setup()
+	ofSetCircleResolution(50)
+	// connect neurons
+	network:connect(a,b,1)
+	network:connect(b,c,ofRandomuf())
+	network:connect(b,c1,ofRandomuf())
+	network:connect(b,c2,ofRandomuf())
+	network:connect(b,d,ofRandomuf())
+	network:connect(c,e,ofRandomuf())
+	network:connect(c1,e,ofRandomuf())
+	network:connect(d,e,ofRandomuf())
+	network:connect(c2,f,ofRandomuf())
+	network:connect(e,f,1)
+	// Add them to the Network
+	network:addNeuron(a)
+	network:addNeuron(b)
+	network:addNeuron(c)
+	network:addNeuron(c1)
+	network:addNeuron(c2)
+	network:addNeuron(d)
+	network:addNeuron(e)
+	network:addNeuron(f)
+end
+
+function update()
+	network:update()
+	
+	actualTime = ofGetElapsedTimeMillis() - lastReset
+	
+	if actualTime > wait then
+		semaphore = true
+	end
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	// Draw the Network
+  	network:display()
+  	
+  	// Every 3 seconds feed in an input
+  	if ofGetSeconds()%3 == 0 and semaphore then
+  		lastReset = ofGetElapsedTimeMillis()
+  		semaphore = false
+  		network:feedforward(ofRandomuf())
+  	end
+  	
+end
+
+function mouseReleased()
+	network:feedforward(ofRandomuf())
+end

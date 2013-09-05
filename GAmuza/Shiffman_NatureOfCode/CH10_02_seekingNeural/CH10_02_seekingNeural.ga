@@ -1,0 +1,64 @@
+
+/* 
+   
+ GAmuza 0432 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH10_02_seekingNeural.ga
+ 
+ See: http://en.wikipedia.org/wiki/Perceptron
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+
+goal = ofVec2f(OUTPUT_W/2,OUTPUT_H/2)
+targets = {}
+numTargets = 8
+
+v = Vehicle(numTargets,ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+
+function setup()
+	makeTargets()
+end
+
+function update()
+	v:steer(targets)
+	v:update()
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	
+    	// Draw a rectangle to show the Vehicle's goal
+    	ofSetColor(0)
+    	ofRect(goal.x,goal.y,36,36)
+    	
+    	// Draw the targets
+    	for i=0,numTargets-1 do
+    		ofSetColor(0,100)
+    		ofCircle(targets[i].x,targets[i].y,30)
+    	end
+	    	
+    	v:display()
+    	
+end
+
+function mouseReleased()
+	makeTargets()
+end
+
+function makeTargets()
+	targets = nil
+	targets = {}
+	for i=0,numTargets-1 do
+		targets[i] = ofVec2f(ofRandom(OUTPUT_W),ofRandom(OUTPUT_H))
+	end
+end
+

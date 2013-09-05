@@ -1,0 +1,37 @@
+
+class 'Pair'
+
+function Pair:__init(x,y)
+	self.p1 = Particle(x,y)
+	self.p2 = Particle(x+ofRandomf(),y+ofRandomf())
+
+	self.len = 3
+	self.djt = ofxBox2dDistanceJoint()
+	self.djt:setup(box2d:getWorld(),self.p1.body:getBody(),self.p2.body:getBody(),self.len,3,0.1,true)
+end
+
+function Pair:display()
+	pos1 = self.p1.body:getPosition()
+	pos2 = self.p2.body:getPosition()
+
+	ofNoFill()
+	ofSetColor(0)
+	ofSetLineWidth(2)
+	ofLine(pos1.x,pos1.y,pos2.x,pos2.y)
+
+	self.p1:display()
+	self.p2:display()
+end
+
+function Pair:isDead()
+	pos1 = self.p1.body:getPosition()
+	pos2 = self.p2.body:getPosition()
+	if pos1.y > OUTPUT_H + self.p1.r*2 and pos2.y > OUTPUT_H + self.p2.r*2 then
+		self.p1.body:destroy()
+		self.p2.body:destroy()
+		return true
+	else
+		return false
+	end
+
+end

@@ -21,6 +21,9 @@ void gamuzaMain::setupAudio(){
     // Audio Unit AU plugins setup
     ofxAUPlugin::init(audioSamplingRate,audioBufferSize);
     gamuzaAUList = ofxAUPlugin::getPluginsList();
+    
+    // Audio Codecs listing
+    gamuzaAudioCodecsList = fakeAudioTrack.listAudioCodecs();
 	
     // Sound Stream Init
 	soundStream.setInDeviceID(audioInDevID);
@@ -52,6 +55,14 @@ void gamuzaMain::setupAudio(){
     for(unsigned int i = 0; i < gamuzaAUList.size(); i++){
         string _t = *gamuzaAUList[i];
         sprintf(_tempString,"  %i - %s",i,_t.c_str());
+        sendGALog(_tempString);
+        sendGALog(" ");
+    }
+    sendGALog(" ");
+    sendGALog(" AUDIO CODECS AVAILABLE");
+    sendGALog(" ");
+    for(unsigned int i = 0; i < gamuzaAudioCodecsList.size(); i++){
+        sprintf(_tempString,"  %s",gamuzaAudioCodecsList[i].c_str());
         sendGALog(_tempString);
         sendGALog(" ");
     }

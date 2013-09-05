@@ -8,6 +8,8 @@ gaVideoPreview::gaVideoPreview(){
     fboH        = 240;
     previewW    = 320;
     previewH    = 240;
+    
+    isON = false;
 }
 
 //--------------------------------------------------------------
@@ -137,14 +139,24 @@ void gaVideoPreview::update() {
 }
 
 //--------------------------------------------------------------
-void gaVideoPreview::draw() {
-	ofBackground(0);
-    ofSetColor(255,255,255);
-	previewFbo.draw(fboDrawingPosX,fboDrawingPosY,fboDrawingW,fboDrawingH);
+void gaVideoPreview::draw(){
+    if(isON){
+        ofBackground(0);
+        ofSetColor(255,255,255);
+        previewFbo.draw(fboDrawingPosX,fboDrawingPosY,fboDrawingW,fboDrawingH);
+    }
 }
 
+//--------------------------------------------------------------
+void gaVideoPreview::setModuleON(bool onOff){
+    isON = onOff;
+}
+
+//--------------------------------------------------------------
 void gaVideoPreview::getPreview(ofFbo p){
-    previewFbo = p.getTextureReference();
+    if(isON){
+        previewFbo = p.getTextureReference();
+    }
 }
 
 //--------------------------------------------------------------

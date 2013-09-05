@@ -1,0 +1,41 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_09_flocking.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Demonstration of Craig Reynolds Flocking behavior
+ See: http://www.red3d.com/cwr/
+ Rules: Cohesion, Separation, Alignment
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+
+flock = Flock()
+numBoids = 70
+
+function setup()
+	for i=0, numBoids do
+		flock:addBoid(Boid(OUTPUT_W/2,ofRandom(OUTPUT_H)))
+	end
+end
+
+function update()
+	
+end
+
+function draw()
+    gaBackground(1.0,1.0)
+    
+    flock:run()
+end
+

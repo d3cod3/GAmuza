@@ -23,7 +23,7 @@ captureHeight = 240
 
 function setup()
     camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
-    camPanel:setup(0,captureWidth,captureHeight)
+    camPanel:setup(camID,captureWidth,captureHeight)
 	
     cam:allocate(captureWidth,captureHeight,GL_RGB)
 end

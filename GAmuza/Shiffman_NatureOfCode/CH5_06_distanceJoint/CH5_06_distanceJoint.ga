@@ -1,0 +1,62 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH5_06_distanceJoint.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+couples = {}
+index = 0
+
+boundaries = {}
+
+box2d = ofxBox2d()
+
+
+function setup()
+    	box2d:init()
+    	box2d:setGravity(0,10)
+    	box2d:createBounds(0,0,OUTPUT_W,OUTPUT_H*2)
+    	box2d:setFPS(30)
+    	//box2d:registerGrabbing()
+    	box2d:disableGrabbing()
+    	
+    	table.insert(boundaries,0,Boundary(OUTPUT_W/4,OUTPUT_H-35,OUTPUT_W/2-50,10))
+    	table.insert(boundaries,1,Boundary(3 * OUTPUT_W/4,OUTPUT_H-80,OUTPUT_W/2-50,10))
+end
+
+function update()
+	box2d:update()
+end
+
+function draw()
+    	gaBackground(0.9,1.0)
+    	ofSetRectMode(OF_RECTMODE_CENTER)
+    	
+    	for k,v in pairs(boundaries) do
+    		boundaries[k]:display()
+    	end
+    	
+    	for k,v in pairs(couples) do
+    		if couples[k]:isDead() then
+    			couples[k] = nil
+    		else
+    			couples[k]:display()
+    		end
+    	end
+	
+end
+
+function mouseReleased()
+	table.insert(couples,index,Pair(gaMouseX(),gaMouseY()))
+	index += 1
+end

@@ -274,7 +274,7 @@ class ofGamuzaWrapper{
          def("ofNextPow2", (int(*)(int)) &ofNextPow2),
 		 def("ofNormalize", &ofNormalize),
 		 def("ofMap", (float(*)(float,float,float,float,float,bool)) &ofMap),
-         def("ofMap", &map5),
+         def("ofMap", (float(*)(float,float,float,float,float)) &ofMap5),
 		 def("ofClamp", &ofClamp),
 		 def("ofLerp", &ofLerp),
 		 def("ofDist", &ofDist),
@@ -1943,10 +1943,10 @@ class ofGamuzaWrapper{
          .def("alignTo", (void(ofRectangle::*)(const ofPoint&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
-         //.def("inside", (const bool(ofRectangle::*)(const ofPoint&)) &ofRectangle::inside)
-         //.def("inside", (const bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::inside)
-		 //.def("inside", (const bool(ofRectangle::*)(float,float)) &ofRectangle::inside)
-         //.def("inside", (const bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofPoint&)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::inside)
+		 .def("inside", (bool(ofRectangle::*)(float,float)) &ofRectangle::inside)
+         //.def("inside", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::inside)
          //.def("intersects", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::intersects)
          //.def("intersects", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::intersects)
          .def("growToInclude", (void(ofRectangle::*)(float,float)) &ofRectangle::growToInclude)
@@ -2613,10 +2613,10 @@ class ofGamuzaWrapper{
          .def("removeTag", (void(ofxXmlSettings::*)(const string&,int)) &ofxXmlSettings::removeTag)
          .def("tagExists", (bool(ofxXmlSettings::*)(const string&,int)) &ofxXmlSettings::tagExists)
          .def("clear", (void(ofxXmlSettings::*)(void)) &ofxXmlSettings::clear)
-         .def("getValue", (int(ofxXmlSettings::*)(const string&,int,int)) &ofxXmlSettings::getValue)
+         //.def("getValue", (int(ofxXmlSettings::*)(const string&,int,int)) &ofxXmlSettings::getValue)
          .def("getValue", (double(ofxXmlSettings::*)(const string&,double,int)) &ofxXmlSettings::getValue)
          .def("getValue", (string(ofxXmlSettings::*)(const string&,const string&,int)) &ofxXmlSettings::getValue)
-         .def("setValue", (int(ofxXmlSettings::*)(const string&,int,int)) &ofxXmlSettings::setValue)
+         //.def("setValue", (int(ofxXmlSettings::*)(const string&,int,int)) &ofxXmlSettings::setValue)
          .def("setValue", (int(ofxXmlSettings::*)(const string&,double,int)) &ofxXmlSettings::setValue)
          .def("setValue", (int(ofxXmlSettings::*)(const string&,const string&,int)) &ofxXmlSettings::setValue)
          .def("pushTag", (bool(ofxXmlSettings::*)(const string&,int)) &ofxXmlSettings::pushTag)
@@ -2672,6 +2672,13 @@ class ofGamuzaWrapper{
          class_<b2World>("b2World")
          .def(constructor<const b2Vec2&,bool>()),
          
+         class_<b2Body>("b2Body"),
+         
+         class_<b2Vec2>("b2Vec2")
+         .def(constructor<float32,float32>())
+         .def("Set", (void(b2Vec2::*)(float32,float32)) &b2Vec2::Set),
+         
+         
          ///////////////////////////////
          // ofxBox2d
          class_<ofxBox2d>("ofxBox2d")
@@ -2679,6 +2686,9 @@ class ofGamuzaWrapper{
          .def("init", (void(ofxBox2d::*)(void)) &ofxBox2d::init)
          .def("setFPS", (void(ofxBox2d::*)(float)) &ofxBox2d::setFPS)
          .def("registerGrabbing", (void(ofxBox2d::*)(void)) &ofxBox2d::registerGrabbing)
+         .def("mousePressed", (void(ofxBox2d::*)(float,float)) &ofxBox2d::mousePressed)
+         .def("mouseDragged", (void(ofxBox2d::*)(float,float)) &ofxBox2d::mouseDragged)
+         .def("mouseReleased", (void(ofxBox2d::*)(float,float)) &ofxBox2d::mouseReleased)
          .def("grabShapeDown", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeDown)
          .def("grabShapeUp", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeUp)
          .def("grabShapeDragged", (void(ofxBox2d::*)(float,float)) &ofxBox2d::grabShapeDragged)
@@ -2709,6 +2719,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isBody)
          .def("isFixed", (bool(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::isFixed)
          .def("getWorld", (b2World*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::getBody)
          .def("create", (void(ofxBox2dCircle::*)(void)) &ofxBox2dCircle::create)
          .def("setBounce", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setBounce)
          .def("setDensity", (void(ofxBox2dCircle::*)(float)) &ofxBox2dCircle::setDensity)
@@ -2850,8 +2861,7 @@ class ofGamuzaWrapper{
          .def("isAlive", (bool(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::isAlive)
          .def("destroy", (void(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::destroy)
          
-         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
-         //.def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,b2Vec2,float,float,bool,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
+         .def("setup", (void(ofxBox2dRevoluteJoint::*)(b2World*,b2Body*,b2Body*,float,float,float,float,bool,bool)) &ofxBox2dRevoluteJoint::setup)
          .def("getJoint", (b2RevoluteJoint*(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getJoint)
          .def("getLowerLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getLowerLimit)
          .def("getUpperLimit", (float(ofxBox2dRevoluteJoint::*)(void)) &ofxBox2dRevoluteJoint::getUpperLimit)
@@ -2921,6 +2931,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isBody)
          .def("isFixed", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isFixed)
          .def("getWorld", (b2World*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getBody)
          .def("create", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::create)
          .def("setBounce", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setBounce)
          .def("setDensity", (void(ofxBox2dPolygon::*)(float)) &ofxBox2dPolygon::setDensity)
@@ -2970,6 +2981,7 @@ class ofGamuzaWrapper{
          .def("isBody", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isBody)
          .def("isFixed", (bool(ofxBox2dRect::*)(void)) &ofxBox2dRect::isFixed)
          .def("getWorld", (b2World*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getWorld)
+         .def("getBody", (b2Body*(ofxBox2dRect::*)(void)) &ofxBox2dRect::getBody)
          .def("create", (void(ofxBox2dRect::*)(void)) &ofxBox2dRect::create)
          .def("setBounce", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setBounce)
          .def("setDensity", (void(ofxBox2dRect::*)(float)) &ofxBox2dRect::setDensity)
@@ -5979,7 +5991,6 @@ class ofGamuzaWrapper{
 	static void background(int r, int g, int b)                             {ofBackground(r, g, b);}
     static void setColor1(int gray)                                         {ofSetColor(gray,gray,gray);}
     static void setColor2(int gray, int alpha)                              {ofSetColor(gray,gray,gray,alpha);}
-    static void map5(float v,float iMin,float iMax,float oMin,float oMax)   {ofMap(v,iMin,iMax,oMin,oMax,false);}
     
     /// ofTrueTypeFont
 	static void loadFont2(ofTrueTypeFont* font, string filename, int fontsize) {

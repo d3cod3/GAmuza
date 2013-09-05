@@ -1,0 +1,23 @@
+
+class 'Thing'
+
+function Thing:__init(_x,_y)
+	self.x = _x
+	self.y = _y
+	self.highlight = false
+	self.r = ofRandom(8) + 1
+end
+
+function Thing:move()
+	self.x += ofRandomf()
+	self.y += ofRandomf()
+end
+
+function Thing:render()
+	if self.highlight then
+		ofSetColor(255)
+	else
+		ofSetColor(100)
+	end
+	ofCircle(self.x,self.y,self.r)
+end

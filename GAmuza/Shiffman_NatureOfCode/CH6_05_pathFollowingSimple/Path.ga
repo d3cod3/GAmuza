@@ -1,0 +1,18 @@
+
+class 'Path'
+
+function Path:__init()
+	self._start = ofVec2f(0,OUTPUT_H/3)
+	self._end = ofVec2f(OUTPUT_W,1.2*OUTPUT_H/3)
+	self.radius = 20
+end
+
+function Path:display()
+	ofSetLineWidth(self.radius*2)
+	ofSetColor(0,100)
+	ofLine(self._start.x,self._start.y,self._end.x,self._end.y)
+
+	ofSetLineWidth(1)
+	ofSetColor(0)
+	ofLine(self._start.x,self._start.y,self._end.x,self._end.y)
+end

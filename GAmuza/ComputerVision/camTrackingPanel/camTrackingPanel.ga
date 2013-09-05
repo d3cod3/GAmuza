@@ -15,13 +15,14 @@ camPanel = gaCameraTracking()
 drawGUI = true
 captureWidth = 320
 captureHeight = 240
+camID = 0
 
 runningBlobs = 0
 cam = ofTexture()
 
 function setup()
 	camPanel:setGuiSettingsFile(gaDataPath("camTrackingSettings.xml"))
-	camPanel:setup(0,captureWidth,captureHeight)
+	camPanel:setup(camID,captureWidth,captureHeight)
 	
 	cam:allocate(captureWidth,captureHeight,GL_RGB)
 end

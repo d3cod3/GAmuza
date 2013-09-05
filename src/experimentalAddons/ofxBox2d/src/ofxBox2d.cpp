@@ -76,9 +76,9 @@ void ofxBox2d::registerGrabbing() {
 	ofAddListener(ofEvents().touchMoved, this, &ofxBox2d::touchMoved);
 	ofAddListener(ofEvents().touchUp, this, &ofxBox2d::touchUp);
 #else
-	ofAddListener(ofEvents().mousePressed, this, &ofxBox2d::mousePressed);
-	ofAddListener(ofEvents().mouseDragged, this, &ofxBox2d::mouseDragged);
-	ofAddListener(ofEvents().mouseReleased, this, &ofxBox2d::mouseReleased);
+	//ofAddListener(ofEvents().mousePressed, this, &ofxBox2d::mousePressed);
+	//ofAddListener(ofEvents().mouseDragged, this, &ofxBox2d::mouseDragged);
+	//ofAddListener(ofEvents().mouseReleased, this, &ofxBox2d::mouseReleased);
 #endif
 }
 
@@ -93,14 +93,14 @@ void ofxBox2d::touchUp(ofTouchEventArgs &touch) {
 	grabShapeUp(touch.x, touch.y);
 }
 #else
-void ofxBox2d::mousePressed(ofMouseEventArgs &e) {
-	grabShapeDown(e.x, e.y);
+void ofxBox2d::mousePressed(float x, float y) {
+	grabShapeDown(x, y);
 }
-void ofxBox2d::mouseDragged(ofMouseEventArgs &e) {
-	grabShapeDragged(e.x, e.y);
+void ofxBox2d::mouseDragged(float x, float y) {
+	grabShapeDragged(x, y);
 }
-void ofxBox2d::mouseReleased(ofMouseEventArgs &e) {
-	grabShapeUp(e.x, e.y);
+void ofxBox2d::mouseReleased(float x, float y) {
+	grabShapeUp(x, y);
 }
 #endif
 

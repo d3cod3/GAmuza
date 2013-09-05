@@ -8,7 +8,7 @@
  This example is one of the series of GAmuza adaptation to
  Daniel Shiffman <Nature of Code> book examples.
  
- More info: <http://www.shiffman.net/teaching/nature/>
+ More info: <http://natureofcode.com/>
  
  created by n3m3da | www.d3cod3.org
  
@@ -19,6 +19,7 @@ g = 1
 NUM_MOVERS = 20
 movers = {}
 a = Attractor()
+force = ofVec2f()
 
 function setup()
 	ofSetCircleResolution(50)
@@ -28,6 +29,8 @@ function setup()
 end
 
 function update()
+	a:drag()
+	a:hover(gaMouseX(),gaMouseY())
     	for i=0,NUM_MOVERS-1 do
 		for j=0,NUM_MOVERS-1 do
 			if i != j then
@@ -37,11 +40,9 @@ function update()
 			end
 		end
 
-		attraction = ofVec2f()
-		attraction = a:attract(movers[i])
-		movers[i]:applyForce(attraction)
+		force = a:attract(movers[i])
+		movers[i]:applyForce(force)
 		movers[i]:update()
-		movers[i]:checkEdges()
 	end
 end
 
@@ -53,4 +54,12 @@ function draw()
 	for i=0,NUM_MOVERS-1 do
 		movers[i]:display()
 	end
+end
+
+function mousePressed()
+	a:clicked(gaMouseX(),gaMouseY())
+end
+
+function mouseReleased()
+	a:stopDragging()
 end

@@ -1,0 +1,86 @@
+
+// The class for our "face", contains DNA sequence, fitness value, position on screen
+
+// Fitness Function f(t) = t (where t is "time" mouse rolls over face)
+class 'Face'
+
+function Face:__init(_dna,_x,_y)
+	self.dna = _dna
+	self.x = _x
+	self.y = _y
+	self.fitness = 1
+	self.wh = 70
+	self.rolloverON = false
+	self.r = ofRectangle(self.x-self.wh/2,self.y-self.wh/2,self.wh,self.wh)
+end
+
+function Face:display()
+	// We are using the face's DNA to pick properties for this face
+    	// such as: head size, color, eye position, etc.
+    	// Now, since every gene is a floating point between 0 and 1, we map the values
+	r          = ofMap(self.dna.genes[0],0,1,0,70)
+	c          = ofColor(self.dna.genes[1]*255,self.dna.genes[2]*255,self.dna.genes[3]*255,255)
+	eye_y      = ofMap(self.dna.genes[4],0,1,0,5)
+	eye_x      = ofMap(self.dna.genes[5],0,1,0,10)
+	eye_size   = ofMap(self.dna.genes[5],0,1,0,10)
+	eyecolor   = ofColor(self.dna.genes[4]*255,self.dna.genes[5]*255,self.dna.genes[6]*255,255)
+	mouthColor = ofColor(self.dna.genes[7]*255,self.dna.genes[8]*255,self.dna.genes[9]*255,255)
+	mouth_y    = ofMap(self.dna.genes[5],0,1,0,25)
+	mouth_x    = ofMap(self.dna.genes[5],0,1,-25,25)
+	mouthw     = ofMap(self.dna.genes[5],0,1,0,50)
+	mouthh     = ofMap(self.dna.genes[5],0,1,0,10)
+
+	ofPushMatrix()
+	ofTranslate(self.x,self.y,0)
+	ofFill()
+	
+	// Draw the head
+    	ofSetColor(c)
+    	ofCircle(0,0,r/2)
+
+	// Draw the eyes
+    	ofSetColor(eyecolor)
+    	ofSetRectMode(OF_RECTMODE_CENTER)
+    	ofRect(-eye_x, -eye_y, eye_size, eye_size)
+    	ofRect( eye_x, -eye_y, eye_size, eye_size)
+
+	// Draw the mouth
+	ofSetColor(mouthColor)
+	ofRect(mouth_x, mouth_y, mouthw, mouthh)
+
+	// Draw the bounding box
+	if self.rolloverON then
+		ofSetColor(0,70)
+		ofFill()
+	else
+		ofSetColor(70)
+		ofNoFill()
+	end
+	ofRect(0, 0, self.wh, self.wh)
+	ofPopMatrix()
+
+	// Display fitness value
+	if self.rolloverON then
+		ofSetColor(0)
+	else
+		ofSetColor(70)
+	end
+	ofDrawBitmapString(tostring(self.fitness),self.x,self.y+55)
+end
+
+function Face:getFitness()
+	return self.fitness
+end
+
+function Face:getDNA()
+	return self.dna
+end
+
+function Face:rollover(mx,my)
+	if self.r:inside(mx,my) then
+		self.rolloverON = true
+		self.fitness += 0.25
+	else
+		self.rolloverON = false
+	end
+end

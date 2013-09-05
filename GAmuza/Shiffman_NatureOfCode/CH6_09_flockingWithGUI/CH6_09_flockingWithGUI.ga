@@ -1,0 +1,91 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_09_flockingWithGUI.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Demonstration of Craig Reynolds Flocking behavior
+ See: http://www.red3d.com/cwr/
+ Rules: Cohesion, Separation, Alignment
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gui = ofxControlPanel()
+viewGui = true
+
+swt = 2
+awt = 1
+cwt = 1
+maxSpeed = 12
+maxForce = 0.8
+
+ground = ofVec2f(1,0)
+
+flock = Flock()
+numBoids = 70
+
+function setup()
+	gui:setup(0,10,480,OUTPUT_H)
+	gui:addPanel(1)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("FLOCKING GUI")
+	gui:addSlider("SEPARATION",swt,1,10,false)
+	gui:addSlider("ALIGNMENT",awt,0.5,2,false)
+	gui:addSlider("COHESION",cwt,0.5,2,false)
+	gui:addSlider("MAXSPEED",maxSpeed,1,20,false)
+	gui:addSlider("MAXFORCE",maxForce,0.1,0.9,false)
+	
+	gui:loadSettings(gaImportFile("guiSettings.xml"))
+
+	for i=0, numBoids do
+		flock:addBoid(Boid(OUTPUT_W/2,ofRandom(OUTPUT_H)))
+	end
+end
+
+function update()
+	gui:update()
+	swt = gui:getValueF("SEPARATION")
+	awt = gui:getValueF("ALIGNMENT")
+	cwt = gui:getValueF("COHESION")
+	maxSpeed = gui:getValueF("MAXSPEED")
+	maxForce = gui:getValueF("MAXFORCE")
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+    
+    flock:run()
+    
+    if viewGui then
+    		gui:draw()
+    	end
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+end
+
+function mousePressed()
+	gui:mousePressed()
+end
+
+function mouseReleased()
+	gui:mouseReleased()
+end
+
+function keyReleased()
+	if gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	elseif gaKey() == string.byte('g') then
+		viewGui = not viewGui
+	end
+end

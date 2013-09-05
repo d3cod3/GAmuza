@@ -402,8 +402,6 @@
 		20A7DD1E176E4E9C00BD44CA /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7DD1D176E4E9C00BD44CA /* AudioUnit.framework */; };
 		20A7DD20176E4EBB00BD44CA /* CoreAudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20A7DD1F176E4EBB00BD44CA /* CoreAudioKit.framework */; };
 		20AED8141737CF6800F8306E /* TransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 20AED8131737CF6800F8306E /* TransparentView.m */; };
-		20B0CA43174386EB00D51E76 /* BWToolkitFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
-		20B0CA44174386FC00D51E76 /* BWToolkitFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */; };
 		20CAD35C1790163D001038ED /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 20CAD35B1790163D001038ED /* videos */; };
 		20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 20D08F57178CAC7200036639 /* dsa_pub.pem */; };
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
@@ -537,7 +535,6 @@
 			files = (
 				BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */,
 				2053CE2717390092002624E5 /* Syphon.framework in CopyFiles */,
-				20B0CA44174386FC00D51E76 /* BWToolkitFramework.framework in CopyFiles */,
 				20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1454,7 +1451,6 @@
 		20A7DD1F176E4EBB00BD44CA /* CoreAudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioKit.framework; path = ../../../../../../../../System/Library/Frameworks/CoreAudioKit.framework; sourceTree = "<group>"; };
 		20AED8121737CF6800F8306E /* TransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransparentView.h; sourceTree = "<group>"; };
 		20AED8131737CF6800F8306E /* TransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransparentView.m; sourceTree = "<group>"; };
-		20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BWToolkitFramework.framework; path = System/Library/Frameworks/BWToolkitFramework.framework; sourceTree = SDKROOT; };
 		20CAD35B1790163D001038ED /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; name = videos; path = bundle/videos; sourceTree = "<group>"; };
 		20D08F57178CAC7200036639 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		20D2435D173EAF4B0064A64B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = System/Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
@@ -1674,7 +1670,6 @@
 				20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */,
 				20EE1E411740F5460067DC29 /* CoreData.framework in Frameworks */,
 				20EE1E431740F5500067DC29 /* Foundation.framework in Frameworks */,
-				20B0CA43174386EB00D51E76 /* BWToolkitFramework.framework in Frameworks */,
 				202E60F4175A504000C53CFC /* libsndfile.a in Frameworks */,
 				202E6209175AC84B00C53CFC /* Accelerate.framework in Frameworks */,
 				202E620B175AC86100C53CFC /* OpenAL.framework in Frameworks */,
@@ -4251,7 +4246,6 @@
 		20B0CA451743870900D51E76 /* custom frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				20B0CA42174386EB00D51E76 /* BWToolkitFramework.framework */,
 				20D2435D173EAF4B0064A64B /* Sparkle.framework */,
 			);
 			name = "custom frameworks";

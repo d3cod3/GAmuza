@@ -1,0 +1,54 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH0_MultipleProbability.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+p1 = 0.05
+p2 = 0.8 + p1
+num = 0
+x = 0
+y = 0
+d = 20
+
+function setup()
+
+end
+
+function update()
+	num = ofRandomuf()
+	
+	x = (x+d)%OUTPUT_W
+	if x == 0 then
+		y = (y+d)%OUTPUT_W
+	end
+end
+
+function draw()
+    	gaBackground(0.0,0.003)
+    	
+    	ofFill()
+    	if num < p1 then
+    		ofSetColor(255)
+    	elseif num < p2 then
+    		ofSetColor(150)
+    	else
+    		ofSetColor(0)
+    	end
+    	ofRect(x,y,d,d)
+    	ofNoFill()
+    	ofSetColor(255)
+    	ofRect(x,y,d,d)
+    
+end
+

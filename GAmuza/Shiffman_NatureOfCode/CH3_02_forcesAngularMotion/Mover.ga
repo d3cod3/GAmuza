@@ -1,0 +1,48 @@
+-------------------------------------
+-- Mover Class
+
+class 'Mover'
+
+function Mover:__init(m,x,y)
+    	self.loc = ofVec2f(x,y)
+    	self.vel = ofVec2f(ofRandomf(),ofRandomf())
+    	self.acc = ofVec2f(0,0)
+	self.mass = m
+
+	self.theta = 0
+	self.aVelocity = 0
+	self.aAcceleration = 0
+end
+
+function Mover:applyForce(force)
+    	f = ofVec2f()
+    	f = force / self.mass
+    	self.acc += f
+end
+
+function Mover:update()
+    	self.vel += self.acc
+    	self.loc += self.vel
+
+	self.aAcceleration = self.acc.x/10
+	self.aVelocity += self.aAcceleration
+	self.aVelocity = ofClamp(self.aVelocity,-1.9,1.9)
+	self.theta += self.aVelocity
+
+    	self.acc *= 0
+end
+
+function Mover:display()
+    	ofSetColor(0)
+    	ofNoFill()
+
+	ofPushMatrix()
+	ofTranslate(self.loc.x,self.loc.y,0)
+	ofRotate(self.theta*10)
+    	ofRect(0,0,self.mass*16,self.mass*16)
+    	ofSetColor(175,200)
+    	ofFill()
+    	ofRect(0,0,self.mass*16,self.mass*16)
+	ofPopMatrix()
+end
+

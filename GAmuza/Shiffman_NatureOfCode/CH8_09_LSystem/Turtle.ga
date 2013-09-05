@@ -1,0 +1,38 @@
+
+class 'Turtle'
+
+function Turtle:__init(s,l,t)
+	self.todo = s
+	self.len = l
+	self.theta = t
+end
+
+function Turtle:render()
+	ofSetColor(0,175)
+	for c in string.gmatch(self.todo,".") do
+		if c == "F" or c == "G" then
+			ofLine(0,0,self.len,0)
+			ofTranslate(self.len,0,0)
+		elseif c == "+" then
+			ofRotate(self.theta)
+		elseif c == "-" then
+			ofRotate(-self.theta)
+		elseif c == "[" then
+			ofPushMatrix()
+		elseif c == "]" then
+			ofPopMatrix()
+		end
+	end
+end
+
+function Turtle:setLen(l)
+	self.len = l
+end
+
+function Turtle:changeLen(percent)
+	self.len *= percent
+end
+
+function Turtle:setToDo(s)
+	self.todo = s
+end

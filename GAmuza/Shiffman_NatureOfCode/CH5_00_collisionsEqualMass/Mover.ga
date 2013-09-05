@@ -1,0 +1,92 @@
+
+// ---------------------------------------------------
+class 'Mover'
+
+// constructor
+function Mover:__init(v,l) 
+	self.location = ofVec2f(l.x,l.y)
+	self.velocity = ofVec2f(v.x,v.y)
+	self.bounce = 1.0
+	self.r = 50
+	self.colliding = false
+end
+
+function Mover:go()
+	self:update()
+	self:borders()
+	self:display()
+end
+
+// Custom method for updating the variables
+function Mover:update()
+	self.location += self.velocity
+end 
+
+function Mover:borders()
+	if self.location.x > OUTPUT_W then
+		self.velocity.x *= -self.bounce
+		self.location.x = OUTPUT_W
+	end
+	if self.location.x < 0 then
+		self.velocity.x *= -self.bounce
+		self.location.x = 0
+	end
+
+	if self.location.y > OUTPUT_H then
+		self.velocity.y *= -self.bounce
+		self.location.y = OUTPUT_H
+	end
+	if self.location.y < 0 then
+		self.velocity.y *= -self.bounce
+		self.location.y = 0
+	end
+end
+
+// Custom method for drawing the object
+function Mover:display()
+	ofFill()
+	ofSetColor(127)
+	ofSetLineWidth(2)
+ 	ofCircle(self.location.x,self.location.y,self.r*2)
+	ofNoFill()
+	ofSetColor(0)
+	ofCircle(self.location.x,self.location.y,self.r*2)
+	if showVectors then
+		drawVector(self.velocity,self.location,10)
+	end
+end
+
+function Mover:collideEqualMass(other)
+	d = ofDist(self.location.x,self.location.y,other.location.x,other.location.y)
+	sumR = self.r + other.r
+	// Are they colliding?
+	if not self.colliding and d < sumR*2 then
+		// Yes, make new velocities!
+		self.colliding = true
+		// Direction of one object another
+		n = ofVec2f()
+		n = other.location - self.location
+		n:normalize()
+		
+		// Difference of velocities so that we think of one object as stationary
+		u = ofVec2f()
+		u = self.velocity - other.velocity
+		// Separate out components -- one in direction of normal
+		un = componentVector(u,n)
+		// Other component
+		u -= un
+		// These are the new velocities plus the velocity of the object we consider as stastionary
+		self.velocity = u + other.velocity
+		other.velocity = un + other.velocity
+	elseif d > sumR then
+		self.colliding = false
+	end
+end
+
+
+function componentVector(vector,directionVector)
+	directionVector:normalize()
+	directionVector *= vector:dot(directionVector)
+	return directionVector
+end
+

@@ -1,0 +1,47 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH6_03_stayWithinWalls.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ Implements Craig Reynold's autonomous steering behaviors
+ See: http://www.red3d.com/cwr/
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ground = ofVec2f(1,0)
+wallsMargin = 125
+
+v = Vehicle(OUTPUT_W/2,OUTPUT_H/2)
+
+function setup()
+
+end
+
+function update()
+	// Call the appropriate steering behaviors for our agents
+    	v:boundaries()
+    	v:update()
+end
+
+function draw()
+    	gaBackground(1.0,1.0)
+    	ofSetRectMode(OF_RECTMODE_CENTER)
+    
+    	// Draw boundaries
+    	ofSetColor(0)
+    	ofNoFill()
+    	ofRect(OUTPUT_W/2,OUTPUT_H/2,OUTPUT_W - wallsMargin/2, OUTPUT_H - wallsMargin/2)
+    	
+    	// draw the vehicle
+    	v:display()
+end
+

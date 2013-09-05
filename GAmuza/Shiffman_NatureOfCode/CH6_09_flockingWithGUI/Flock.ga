@@ -1,0 +1,21 @@
+
+// Flock class
+// Does very little, simply manages the ArrayList of all the boids
+class 'Flock'
+
+function Flock:__init()
+	self.boids = {}
+	self.index = 0
+end
+
+function Flock:run()
+	for k,v in pairs(self.boids) do
+		// Passing the entire list of boids to each boid individually
+		self.boids[k]:run(self.boids)
+	end
+end
+
+function Flock:addBoid(b)
+	table.insert(self.boids,self.index,b)
+	self.index += 1
+end

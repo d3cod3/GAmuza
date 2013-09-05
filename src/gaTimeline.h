@@ -41,10 +41,14 @@ public:
     void cutTimeline();
     void pasteTimeline();
     
+    void setModuleON(bool onOff);
+    
     ofxTimeline timeline;
     string      actualBang;
     int         lastBangTime;
     
     int scrW, scrH;
+    
+    bool isON;
 	
 };

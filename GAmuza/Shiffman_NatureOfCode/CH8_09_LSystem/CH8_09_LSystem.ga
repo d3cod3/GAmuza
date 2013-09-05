@@ -1,0 +1,51 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH8_09_LSystem.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+ruleset = {}
+lsys = nil
+turtle = nil
+counter = 0
+
+function setup()
+	ruleset[0] = Rule("F","FF+[+F-F-F]-[-F+F+F]")
+	lsys = LSystem("F",ruleset)
+	turtle = Turtle(lsys:getSentence(),OUTPUT_H/3,25)
+end
+
+function update()
+
+end
+
+function draw()
+    gaBackground(1.0,1.0)
+    
+    ofSetColor(0)
+    ofTranslate(OUTPUT_W/2,OUTPUT_H,0)
+    ofRotate(-90)
+    turtle:render()
+end
+
+function mousePressed()
+	if counter < 5 then
+		ofPushMatrix()
+		lsys:generate()
+		turtle:setToDo(lsys:getSentence())
+		turtle:changeLen(0.5)
+		ofPopMatrix()
+		counter += 1
+	end
+end
+

@@ -1,0 +1,53 @@
+
+/* 
+   
+ GAmuza 0428 examples
+ ---------------------
+ Shiffman_NatureOfCode/CH4_08_particleSystemSmoke.ga
+ 
+ This example is one of the series of GAmuza adaptation to
+ Daniel Shiffman <Nature of Code> book examples.
+ 
+ More info: <http://natureofcode.com/>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+baseImg = ofImage()
+ground = ofVec2f(1,0)
+startPos = ofVec2f(OUTPUT_W/2,OUTPUT_H - 135)
+
+wind = ofVec2f(0,0)
+
+function setup()
+	baseImg:loadImage(gaImportFile("texture.png"))
+	system = ParticleSystem(0,startPos,baseImg)
+end
+
+function update()
+	dx = ofMap(gaMouseX(),0,OUTPUT_W,-0.2,0.2,true)
+	wind:set(dx,0)
+	system:applyForce(wind)
+	system:addParticle()
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	system:run()
+    	
+    	drawVector(wind,ofVec2f(OUTPUT_W/2,50),500)
+end
+
+function drawVector(v,loc,scayl)
+	ofPushMatrix()
+	arrowSize = 4
+	ofTranslate(loc.x,loc.y,0)
+	ofSetColor(255)
+	ofRotate(v:angle(ground))
+	len = v:length()*scayl
+	ofLine(0,0,len,0)
+	ofLine(len,0,len-arrowSize,arrowSize/2)
+	ofLine(len,0,len-arrowSize,-arrowSize/2)
+	ofPopMatrix()
+end

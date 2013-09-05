@@ -1,0 +1,27 @@
+
+class 'Neuron'
+
+function Neuron:__init(x,y)
+	// Neuron has a location
+	self.location = ofVec2f(x,y)
+	// Neuron has a list of connections (synapse)
+	self.connections = {}
+	self.index = 0
+end
+
+// Add a Connection
+function Neuron:addConnection(syn)
+	table.insert(self.connections,self.index,syn)
+	self.index += 1
+end
+
+// Draw Neuron as a circle
+function Neuron:display()
+	ofSetColor(0)
+	ofCircle(self.location.x,self.location.y,16)
+
+	// Draw all its connections
+	for i=0,table.getn(self.connections) do
+		self.connections[i]:display()
+	end
+end
