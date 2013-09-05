@@ -1,0 +1,51 @@
+
+class 'Network'
+
+function Network:__init(x,y)
+	// The Network has a list of neurons
+	self.neurons = {}
+	self.ni = 0
+	// The Network now keeps a duplicate list of all Connection objects.
+  	// This makes it easier to draw everything in this class
+	self.connections = {}
+	self.ci = 0
+	self.location = ofVec2f(x,y)
+end
+
+function Network:addNeuron(n)
+	table.insert(self.neurons,self.ni,n)
+	self.ni += 1
+end
+
+function Network:connect(a,b,w)
+	syn = Synapse(a,b,w)
+	a:addConnection(syn)
+	// Also add the Connection here
+	table.insert(self.connections,self.ci,syn)
+	self.ci += 1
+end
+
+// Sending an input to the first Neuron
+// We should do something better to track multiple inputs
+function Network:feedforward(_input)
+	start = self.neurons[0]
+	start:feedforward(_input)
+end
+
+function Network:update()
+	for i=0,table.getn(self.connections) do
+		self.connections[i]:update()
+	end
+end
+
+function Network:display()
+	ofPushMatrix()
+	ofTranslate(self.location.x,self.location.y,0)
+	for i=0,table.getn(self.neurons) do
+		self.neurons[i]:display()
+	end
+	for i=0,table.getn(self.connections) do
+		self.connections[i]:display()
+	end
+	ofPopMatrix()
+end

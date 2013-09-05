@@ -1,0 +1,50 @@
+
+class 'Synapse'
+
+function Synapse:__init(from,to,w)
+	// Connection is from Neuron A to B
+	self.a = from
+	self.b = to
+	// Connection has a weight
+	self.weight = w
+	// Variables to track the animation
+	self.sending = false
+	self.sender = ofVec2f(0,0)
+	// Need to store the output for when its time to pass along
+	self.output = 0
+end
+
+// The Connection is active
+function Synapse:feedforward(val)
+	self.output = val*self.weight
+	self.sender:set(self.a.location.x,self.a.location.y)
+	self.sending = true
+end
+
+// Update traveling sender
+function Synapse:update()
+	if self.sending then
+		self.sender.x += (self.b.location.x - self.sender.x)*0.1
+		self.sender.y += (self.b.location.y - self.sender.y)*0.1
+		d = self.sender:distance(self.b.location)
+		// If we've reached the end
+		if d < 1 then
+			self.b:feedforward(self.output)
+			self.sending = false
+		end
+	end
+end
+
+// Drawn as a line
+function Synapse:display()
+	ofSetColor(0)
+	ofSetLineWidth(1 + self.weight*6)
+	ofLine(self.a.location.x,self.a.location.y,self.b.location.x,self.b.location.y)
+
+	if self.sending then
+		ofSetColor(0)
+		ofSetLineWidth(1)
+		ofCircle(self.sender.x,self.sender.y,16)
+	end
+end
+

@@ -1,0 +1,128 @@
+
+/* 
+   
+ GAmuza 0432 examples 
+ ---------------------
+ Audio/PDPitchShifter.ga
+ 
+ PitchShifter is a simple live audio pitch shifter example.
+ 
+ Original example made for Golan Levin &
+ the CMU Studio for Creative Inquiry
+ 
+ see http://flong.com/
+ &   http://studiofrocreativeinquiry.com/
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+gui = ofxControlPanel()
+viewGui = true
+mix = 0
+_transpose = 0
+inGain = 0
+outGain = 0
+volume = 0
+
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+function setup()
+
+	// GUI setup
+	gui:setup(0,10,480,OUTPUT_H)
+	gui:addPanel(1)
+	gui:setWhichPanel(0)
+	gui:setWhichColumn(0)
+	gui:addLabel("PITCH SHIFTER")
+	gui:addSlider("MIX",mix,0.0,1.0,false)
+	gui:addSlider("TRANSPOSE",_transpose,-12,12,false)
+	gui:addSlider("INPUT_GAIN",inGain,0.0,1.0,false)
+	gui:addSlider("OUTPUT_GAIN",outGain,0.0,1.0,false)
+	gui:addSlider("VOLUME",volume,0.0,1.0,false)
+	
+	gui:loadSettings(gaImportFile("guiSettings.xml"))
+	
+	// init the buffer
+    for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
+	
+	pdStop()
+	pdOpenPatch(gaDataPath("pd/_main.pd"))
+	pdStart()
+	pdComputeAudio(true)
+end
+
+function update()
+
+	// GUI update
+	gui:update()
+	mix = gui:getValueF("MIX")
+	_transpose = gui:getValueF("TRANSPOSE")
+	inGain = gui:getValueF("INPUT_GAIN")
+	outGain = gui:getValueF("OUTPUT_GAIN")
+	volume = gui:getValueF("VOLUME")
+
+	// PD send message to patch
+	sendPDMessage("mix",mix) // 0 - 1
+	sendPDMessage("transpose",_transpose) // -12 - 12
+	sendPDMessage("inGain",inGain) // 0 - 1
+	sendPDMessage("outGain",outGain) // 0 - 1
+	pdSendFloat("volume",volume)
+
+	// update audio output buffer
+	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
+end
+
+function draw()
+	gaBackground(0.1,1.0)
+	
+	ofPushMatrix()
+	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
+	ofPopMatrix()
+	
+	if viewGui then
+    		gui:draw()
+    	end
+	
+end
+
+function sendPDMessage(m,v)
+	pdStartMessage()
+	pdSendFloat(m,v)
+	pdFinishList("TO_PD")
+end
+
+function mouseDragged()
+	gui:mouseDragged()
+end
+
+function mousePressed()
+	gui:mousePressed()
+end
+
+function mouseReleased()
+	gui:mouseReleased()
+end
+
+function keyReleased()
+	if gaKey() == string.byte('s') then
+		gui:saveSettings(gaImportFile("guiSettings.xml"))
+	elseif gaKey() == string.byte('g') then
+		viewGui = not viewGui
+	end
+end

@@ -1,11 +1,11 @@
 
 /* 
    
- GAmuza 0428 examples 
+ GAmuza 0432 examples 
  ---------------------
- Audio/helloPureData.ga
+ Audio/PDMouseTheremin.ga
  
- The empty GAmuza script (you can start from here).
+ A mouse theremin with PD example.
  
  created by n3m3da | www.d3cod3.org
  
@@ -17,27 +17,31 @@ stretch = OUTPUT_W/(dim-1)
 zeroOffset = OUTPUT_H/4
 
 function setup()
-	
 	// init the buffer
     for i = 0, dim - 1 do
 		outputBuffer[i] = 0.0 
 	end
 	
-	//pdAddToSearchPath("pd")
-	pdOpenPatch(gaDataPath("pd/sineWave.pd"))
+	pdStop()
+	pdOpenPatch(gaDataPath("theremin.pd"))
 	pdStart()
 	pdComputeAudio(true)
 end
 
 function update()
+	// update audio output buffer
 	for i = 0, dim - 1 do
 		outputBuffer[i] = gaGetOutputBuffer(i) 
 	end
+	
+	pdSendFloat("frequency",ofMap(gaMouseY(),0,OUTPUT_H,20,12000))
+	pdSendFloat("volume",ofMap(gaMouseY(),0,OUTPUT_H,0,1))
 end
 
 function draw()
-	gaBackground(0.2,1.0)
-	
+    gaBackground(0.0,1.0)
+    
+    ofPushMatrix()
 	ofTranslate(0,OUTPUT_H/2,0)
 	// draw Audio Scope
 	ofSetColor(255)
@@ -47,5 +51,6 @@ function draw()
 		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
 	end
 	ofEndShape(false)
-	
+	ofPopMatrix()
 end
+

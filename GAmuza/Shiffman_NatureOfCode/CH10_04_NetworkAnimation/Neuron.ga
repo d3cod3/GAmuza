@@ -1,0 +1,57 @@
+
+class 'Neuron'
+
+function Neuron:__init(x,y)
+	// Neuron has a location
+	self.location = ofVec2f(x,y)
+	// Neuron has a list of connections (synapse)
+	self.connections = {}
+	self.index = 0
+	// We now track the inputs and sum them
+	self.sum = 0
+	// The Neuron's size can be animated
+	self.r = 32
+end
+
+// Add a Connection
+function Neuron:addConnection(syn)
+	table.insert(self.connections,self.index,syn)
+	self.index += 1
+end
+
+// Receive an input
+function Neuron:feedforward(inp)
+	if self.index > 0 then
+		// Accumulate it
+		self.sum += inp
+		// Activate it?
+		if self.sum > 1 then
+			self:fire()
+			self.sum = 0 // reset the sum
+		end
+	end
+end 
+
+// The Neuron fires
+function Neuron:fire()
+	self.r = 64
+
+	// We send the output through all connections
+	for i=0,table.getn(self.connections) do
+		self.connections[i]:feedforward(self.sum)
+	end
+end
+
+// Draw Neuron as a circle
+function Neuron:display()
+	b = ofMap(self.sum,0,1,255,0)
+	ofSetColor(b)
+	ofFill()
+	ofCircle(self.location.x,self.location.y,self.r/2)
+	ofSetColor(0)
+	ofNoFill()
+	ofCircle(self.location.x,self.location.y,self.r/2)
+
+	// Size shrinks down back to original dimensions
+	self.r = ofLerp(self.r,32,0.1)
+end
