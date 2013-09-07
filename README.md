@@ -24,7 +24,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Download
 
+<<<<<<< HEAD
 Last Release - GAmuza 0432 [here](http://gamuza.d3cod3.org/download/GAmuza-0432-OSX.zip)
+=======
+Last Release - GAmuza 0432 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0432-OSX.zip)
+>>>>>>> master
 
 Older versions [here](http://gamuza.d3cod3.org/download/)
 
@@ -187,7 +191,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
  * COMPUTER VISION from Kinect 	(wrapped within a class and available from code)
 
-
+[![GAmuza](http://gamuza.d3cod3.org/graphics/kinectModule.jpg)](http://www.gamuza.cc)
 
  * TIMELINE
 
