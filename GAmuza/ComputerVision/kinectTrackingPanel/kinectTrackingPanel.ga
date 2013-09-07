@@ -15,18 +15,16 @@ kinectPanel = gaKinectTracking()
 drawGUI = true
 kinectDevID = 0
 
-//kinectImage = ofTexture()
+kinectImage = ofTexture()
 
 function setup()
-	//kinectPanel:setGuiSettingsFile(gaDataPath("kinectTrackingSettings.xml"))
-	kinectPanel:setup(kinectDevID,true,true,1)
+	kinectPanel:setGuiSettingsFile(gaDataPath("kinectTrackingSettings.xml"))
+	kinectPanel:setup(kinectDevID,false,true,1)
 	
-	//kinectImage:allocate(captureWidth,captureHeight,GL_RGB)
 end
 
 function update()
-	//cam = camPanel:getCameraTextureMod()
-	//runningBlobs = camPanel:getNumBlobs()
+	kinectImage = kinectPanel:getCameraTexture()
     	kinectPanel:update()
 end
 
@@ -34,10 +32,10 @@ function draw()
     	gaBackground(0.1,1.0)
     	
     	// draw the live image from device
-	//ofSetColor(255)
-	//scaleH = OUTPUT_H
-	//scaleW = scaleH* captureWidth / captureHeight
-    	//cam:draw(OUTPUT_W/2 - scaleW/2,0, scaleW,scaleH)
+	ofSetColor(255)
+	scaleH = OUTPUT_H
+	scaleW = scaleH* 640 / 480
+    	kinectImage:draw(OUTPUT_W/2 - scaleW/2,0, scaleW,scaleH)
     	
     	ofSetColor(255)
     	if drawGUI then

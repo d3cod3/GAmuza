@@ -221,14 +221,14 @@ void gaKinectTracking::setupDevice(int _id, bool _ir, bool videoImage, int _ledS
     gui.setup("KINECT TRACKING MODULE",0,20,1200,720);
 	gui.setDraggable(false);
     
-    gui.setBackgroundColor(simpleColor(20, 20, 20, 255));
+    gui.setBackgroundColor(simpleColor(20, 20, 20, 165));
     gui.setOutlineColor(simpleColor(0,0,0,255));
     sprintf(temp," KINECT DEVICE[%i] - %s",devID,kinect.getSerial().c_str());
     gui.addPanel(temp, 5);
     gui.setWhichPanel(temp);
     
     gui.setBackgroundColor(simpleColor(90, 90, 90, 255));
-    gui.setOutlineColor(simpleColor(0,0,0,255));
+    gui.setOutlineColor(simpleColor(20,20,20,125));
     gui.setWhichColumn(0);
     //////////////////////////////////////////////
     gui.setTextColor(gamuzaWhiteColor,gamuzaMarkColor);
@@ -536,7 +536,7 @@ void gaKinectTracking::drawGUI(){
     gui.draw(1);
     ofEnableAlphaBlending();
     ofFill();
-    glColor4f(0.0,1.0,0.0,1.0);
+    glColor4f(1.0,0.3,0.0,0.6);
     ofRect(gui.panelTabs[0].x+1, gui.panelTabs[0].y+1, gui.panelTabs[0].width-2, gui.panelTabs[0].height-2);
     ofDisableAlphaBlending();
     //////////////////////////////////////////////////
