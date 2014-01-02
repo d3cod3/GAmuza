@@ -24,6 +24,7 @@
 - (void)terminateSplashWindow:(NSTimer *)timer {
     [_splash orderOut:self];
     
+    isMouseON           = true;
     isPreviewON         = false;
     isTimelineON        = false;
     isAudioModuleON     = false;
@@ -1360,6 +1361,16 @@
 -(IBAction) toggleGAmuzaFullscreen: (id)sender{
     gappWindow->toggleFullscreen();
 	gapp->gamuzaFullscreen(gappWindow->getActualScreen());
+}
+
+-(IBAction) toggleHideCursor:(id)sender{
+    if(isMouseON){
+        isMouseON = false;
+        gappWindow->hideCursor();
+    }else{
+        isMouseON = true;
+        gappWindow->showCursor();
+    }
 }
 
 ///////////////////////////////////////////// MAPPING

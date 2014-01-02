@@ -879,6 +879,15 @@
 									<reference key="NSOnImage" ref="756751024"/>
 									<reference key="NSMixedImage" ref="908425081"/>
 								</object>
+								<object class="NSMenuItem" id="882382110">
+									<reference key="NSMenu" ref="902136516"/>
+									<string key="NSTitle">Toggle Show/Hide Cursor</string>
+									<string key="NSKeyEquiv">p</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
 								<object class="NSMenuItem" id="591365471">
 									<reference key="NSMenu" ref="902136516"/>
 									<string key="NSTitle">Toggle Full Screen</string>
@@ -5684,6 +5693,14 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleHideCursor:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="882382110"/>
+					</object>
+					<int key="connectionID">1697</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">makeKeyAndOrderFront:</string>
 						<reference key="source" ref="717770335"/>
 						<reference key="destination" ref="767662390"/>
@@ -7133,6 +7150,7 @@ wGw</bytes>
 							<reference ref="591365471"/>
 							<reference ref="239399211"/>
 							<reference ref="951275327"/>
+							<reference ref="882382110"/>
 						</array>
 						<reference key="parent" ref="17249581"/>
 					</object>
@@ -9455,6 +9473,11 @@ wGw</bytes>
 						<reference key="object" ref="821977525"/>
 						<reference key="parent" ref="494248233"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1696</int>
+						<reference key="object" ref="882382110"/>
+						<reference key="parent" ref="902136516"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9837,6 +9860,7 @@ wGw</bytes>
 				<string key="1689.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1690.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1693.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1696.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9948,7 +9972,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1695</int>
+			<int key="maxID">1697</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -9993,6 +10017,7 @@ wGw</bytes>
 						<string key="toggleArduinoModule:">id</string>
 						<string key="toggleAudioModule:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
+						<string key="toggleHideCursor:">id</string>
 						<string key="togglePreviewWindow:">id</string>
 						<string key="toggleTimelinePanel:">id</string>
 						<string key="undoOnTimeline:">id</string>
@@ -10144,6 +10169,10 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="toggleGAmuzaFullscreen:">
 							<string key="name">toggleGAmuzaFullscreen:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleHideCursor:">
+							<string key="name">toggleHideCursor:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="togglePreviewWindow:">

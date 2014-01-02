@@ -93,7 +93,7 @@
 		[sourceCode release];
 		sourceCode = nil;
 	}else{
-        [textView setString:@"/*\n \n GAmuza empty sketch\n \n*/\n\nfunction setup()\n\nend\n\nfunction update()\n\nend\n\nfunction draw()\n    gaBackground(0.0,1.0)\nend"];
+        [textView setString:@"/*\n \n GAmuza empty sketch\n \n*/\n\nfunction setup()\n\nend\n\nfunction update()\n\nend\n\nfunction draw()\n     gaBackground(0.0,1.0)\nend"];
 		[sourceCode release];
 		sourceCode = nil;
     }

@@ -158,6 +158,9 @@
 		2031C9B81747EE4800057AFF /* GASketchFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2031C9B61747EE4800057AFF /* GASketchFileViewController.m */; };
 		204296E5174E8D9100957DFF /* overflowImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 204296E3174E8D9100957DFF /* overflowImage.tiff */; };
 		204296E6174E8D9100957DFF /* overflowImagePressed.tif in Resources */ = {isa = PBXBuildFile; fileRef = 204296E4174E8D9100957DFF /* overflowImagePressed.tif */; };
+		20491EBE187023F6007B453C /* ofxOAuth.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20491EB8187023F6007B453C /* ofxOAuth.cpp */; };
+		20491ED41870270E007B453C /* ofxJSONElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20491ED21870270E007B453C /* ofxJSONElement.cpp */; };
+		20491ED918702813007B453C /* ofxTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20491ED518702813007B453C /* ofxTwitter.cpp */; };
 		204CC52A1752825600C2CCF5 /* gaAutocompletion.txt in Resources */ = {isa = PBXBuildFile; fileRef = 204CC5291752825600C2CCF5 /* gaAutocompletion.txt */; };
 		2053CE161738FCA3002624E5 /* Syphon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2053CE0C1738FCA3002624E5 /* Syphon.framework */; };
 		2053CE171738FCA3002624E5 /* SyphonNameboundClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2053CE0F1738FCA3002624E5 /* SyphonNameboundClient.m */; };
@@ -301,9 +304,6 @@
 		20784BAD1732D6380098ABF0 /* ofxEasingQuint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AE61732D6370098ABF0 /* ofxEasingQuint.cpp */; };
 		20784BAE1732D6380098ABF0 /* ofxEasingSine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AE81732D6370098ABF0 /* ofxEasingSine.cpp */; };
 		20784BAF1732D6380098ABF0 /* ofxTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AEA1732D6370098ABF0 /* ofxTween.cpp */; };
-		20784BB01732D6380098ABF0 /* ofxTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AEE1732D6370098ABF0 /* ofxTwitter.cpp */; };
-		20784BB11732D6380098ABF0 /* Tweet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AF01732D6370098ABF0 /* Tweet.cpp */; };
-		20784BB21732D6380098ABF0 /* TwitterDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784AF21732D6370098ABF0 /* TwitterDelegate.cpp */; };
 		20784BB31732D6380098ABF0 /* ofxVectorField.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20784B241732D6370098ABF0 /* ofxVectorField.cpp */; };
 		20784BC31732D65B0098ABF0 /* ofxNSWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20784BB91732D65B0098ABF0 /* ofxNSWindow.mm */; };
 		20784BC41732D65B0098ABF0 /* ofxNSWindower.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20784BBC1732D65B0098ABF0 /* ofxNSWindower.mm */; };
@@ -314,6 +314,7 @@
 		20784CF717330E650098ABF0 /* libluabind.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20784CB31732D78C0098ABF0 /* libluabind.a */; };
 		20784CF817330E670098ABF0 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20784CB11732D78C0098ABF0 /* liblua.a */; };
 		20893553177A30220000D45F /* gaArduinoModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 20893552177A30220000D45F /* gaArduinoModule.mm */; };
+		20985BC31871E4F300BEAE70 /* VerifierCallbackServer in Resources */ = {isa = PBXBuildFile; fileRef = 20985BC21871E4F300BEAE70 /* VerifierCallbackServer */; };
 		20995B621737221E00EE85C2 /* gamuza04_splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 20995B601737221000EE85C2 /* gamuza04_splash.png */; };
 		20995B651737237A00EE85C2 /* SplashWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 20995B641737237A00EE85C2 /* SplashWindow.m */; };
 		2099AA621742B85B00973FA1 /* GAMultiTextDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2099AA611742B85B00973FA1 /* GAMultiTextDocument.m */; };
@@ -406,6 +407,13 @@
 		20D08F58178CAC7200036639 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 20D08F57178CAC7200036639 /* dsa_pub.pem */; };
 		20D2435E173EAF4B0064A64B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
 		20D2435F173EC2820064A64B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 20D2435D173EAF4B0064A64B /* Sparkle.framework */; };
+		20D255641870BC240034F499 /* json_internalarray.inl in Resources */ = {isa = PBXBuildFile; fileRef = 20D2555C1870BC240034F499 /* json_internalarray.inl */; };
+		20D255651870BC240034F499 /* json_internalmap.inl in Resources */ = {isa = PBXBuildFile; fileRef = 20D2555D1870BC240034F499 /* json_internalmap.inl */; };
+		20D255661870BC240034F499 /* json_reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D2555E1870BC240034F499 /* json_reader.cpp */; };
+		20D255671870BC240034F499 /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D255601870BC240034F499 /* json_value.cpp */; };
+		20D255681870BC240034F499 /* json_valueiterator.inl in Resources */ = {isa = PBXBuildFile; fileRef = 20D255611870BC240034F499 /* json_valueiterator.inl */; };
+		20D255691870BC240034F499 /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D255621870BC240034F499 /* json_writer.cpp */; };
+		20D2556A1870BC240034F499 /* sconscript in Resources */ = {isa = PBXBuildFile; fileRef = 20D255631870BC240034F499 /* sconscript */; };
 		20D9173617667F9700368963 /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D9173517667F9700368963 /* PreferencesController.m */; };
 		20DA4ED51744F9EE00B507F6 /* GASketchFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 20DA4ED31744F9EE00B507F6 /* GASketchFile.m */; };
 		20DECD9A175E22C2009F07F0 /* libqrencode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DECD99175E22C2009F07F0 /* libqrencode.a */; };
@@ -850,6 +858,34 @@
 		2031C9B61747EE4800057AFF /* GASketchFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GASketchFileViewController.m; path = ScriptEditor/GASketchFileViewController.m; sourceTree = "<group>"; };
 		204296E3174E8D9100957DFF /* overflowImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = overflowImage.tiff; sourceTree = "<group>"; };
 		204296E4174E8D9100957DFF /* overflowImagePressed.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = overflowImagePressed.tif; sourceTree = "<group>"; };
+		20491EA5187023F6007B453C /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
+		20491EA6187023F6007B453C /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
+		20491EA7187023F6007B453C /* curlrules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlrules.h; sourceTree = "<group>"; };
+		20491EA8187023F6007B453C /* curlver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlver.h; sourceTree = "<group>"; };
+		20491EA9187023F6007B453C /* easy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = easy.h; sourceTree = "<group>"; };
+		20491EAA187023F6007B453C /* mprintf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mprintf.h; sourceTree = "<group>"; };
+		20491EAB187023F6007B453C /* multi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = multi.h; sourceTree = "<group>"; };
+		20491EAC187023F6007B453C /* stdcheaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdcheaders.h; sourceTree = "<group>"; };
+		20491EAD187023F6007B453C /* typecheck-gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "typecheck-gcc.h"; sourceTree = "<group>"; };
+		20491EB3187023F6007B453C /* oauth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oauth.h; sourceTree = "<group>"; };
+		20491EB8187023F6007B453C /* ofxOAuth.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOAuth.cpp; sourceTree = "<group>"; };
+		20491EB9187023F6007B453C /* ofxOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOAuth.h; sourceTree = "<group>"; };
+		20491EBA187023F6007B453C /* ofxOAuthVerifierCallbackInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOAuthVerifierCallbackInterface.h; sourceTree = "<group>"; };
+		20491EBB187023F6007B453C /* ofxOAuthVerifierCallbackServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOAuthVerifierCallbackServer.h; sourceTree = "<group>"; };
+		20491EC91870270E007B453C /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		20491ECA1870270E007B453C /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		20491ECB1870270E007B453C /* features.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = features.h; sourceTree = "<group>"; };
+		20491ECC1870270E007B453C /* forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = forwards.h; sourceTree = "<group>"; };
+		20491ECD1870270E007B453C /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		20491ECE1870270E007B453C /* reader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reader.h; sourceTree = "<group>"; };
+		20491ECF1870270E007B453C /* value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = value.h; sourceTree = "<group>"; };
+		20491ED01870270E007B453C /* writer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = writer.h; sourceTree = "<group>"; };
+		20491ED21870270E007B453C /* ofxJSONElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxJSONElement.cpp; sourceTree = "<group>"; };
+		20491ED31870270E007B453C /* ofxJSONElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxJSONElement.h; sourceTree = "<group>"; };
+		20491ED518702813007B453C /* ofxTwitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTwitter.cpp; sourceTree = "<group>"; };
+		20491ED618702813007B453C /* ofxTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTwitter.h; sourceTree = "<group>"; };
+		20491ED718702813007B453C /* ofxTwitterSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTwitterSearch.h; sourceTree = "<group>"; };
+		20491ED818702813007B453C /* ofxTwitterTweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTwitterTweet.h; sourceTree = "<group>"; };
 		204CC5291752825600C2CCF5 /* gaAutocompletion.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = gaAutocompletion.txt; path = resources/gaAutocompletion.txt; sourceTree = "<group>"; };
 		2053CE0C1738FCA3002624E5 /* Syphon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Syphon.framework; sourceTree = "<group>"; };
 		2053CE0E1738FCA3002624E5 /* SyphonNameboundClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SyphonNameboundClient.h; sourceTree = "<group>"; };
@@ -1300,12 +1336,6 @@
 		20784AE91732D6370098ABF0 /* ofxEasingSine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingSine.h; sourceTree = "<group>"; };
 		20784AEA1732D6370098ABF0 /* ofxTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTween.cpp; sourceTree = "<group>"; };
 		20784AEB1732D6370098ABF0 /* ofxTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTween.h; sourceTree = "<group>"; };
-		20784AEE1732D6370098ABF0 /* ofxTwitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTwitter.cpp; sourceTree = "<group>"; };
-		20784AEF1732D6370098ABF0 /* ofxTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTwitter.h; sourceTree = "<group>"; };
-		20784AF01732D6370098ABF0 /* Tweet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tweet.cpp; sourceTree = "<group>"; };
-		20784AF11732D6370098ABF0 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
-		20784AF21732D6370098ABF0 /* TwitterDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TwitterDelegate.cpp; sourceTree = "<group>"; };
-		20784AF31732D6370098ABF0 /* TwitterDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterDelegate.h; sourceTree = "<group>"; };
 		20784B241732D6370098ABF0 /* ofxVectorField.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxVectorField.cpp; sourceTree = "<group>"; };
 		20784B251732D6370098ABF0 /* ofxVectorField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVectorField.h; sourceTree = "<group>"; };
 		20784BB81732D65B0098ABF0 /* ofxNSWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNSWindow.h; sourceTree = "<group>"; };
@@ -1323,6 +1353,7 @@
 		20784CA81732D78B0098ABF0 /* luabind.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = luabind.xcodeproj; path = src/experimentalAddons/ofxLua/lib/luabind.xcodeproj; sourceTree = "<group>"; };
 		20893551177A30220000D45F /* gaArduinoModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gaArduinoModule.h; sourceTree = "<group>"; };
 		20893552177A30220000D45F /* gaArduinoModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = gaArduinoModule.mm; sourceTree = "<group>"; };
+		20985BC21871E4F300BEAE70 /* VerifierCallbackServer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = VerifierCallbackServer; path = bundle/VerifierCallbackServer; sourceTree = "<group>"; };
 		20995B601737221000EE85C2 /* gamuza04_splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gamuza04_splash.png; path = ../../bundle/img/gamuza04_splash.png; sourceTree = "<group>"; };
 		20995B631737237900EE85C2 /* SplashWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplashWindow.h; sourceTree = "<group>"; };
 		20995B641737237A00EE85C2 /* SplashWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplashWindow.m; sourceTree = "<group>"; };
@@ -1454,6 +1485,15 @@
 		20CAD35B1790163D001038ED /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; name = videos; path = bundle/videos; sourceTree = "<group>"; };
 		20D08F57178CAC7200036639 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = resources/dsa_pub.pem; sourceTree = "<group>"; };
 		20D2435D173EAF4B0064A64B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Sparkle.framework; path = System/Library/Frameworks/Sparkle.framework; sourceTree = SDKROOT; };
+		20D2555B1870BC240034F499 /* json_batchallocator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_batchallocator.h; sourceTree = "<group>"; };
+		20D2555C1870BC240034F499 /* json_internalarray.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalarray.inl; sourceTree = "<group>"; };
+		20D2555D1870BC240034F499 /* json_internalmap.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_internalmap.inl; sourceTree = "<group>"; };
+		20D2555E1870BC240034F499 /* json_reader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_reader.cpp; sourceTree = "<group>"; };
+		20D2555F1870BC240034F499 /* json_tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json_tool.h; sourceTree = "<group>"; };
+		20D255601870BC240034F499 /* json_value.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_value.cpp; sourceTree = "<group>"; };
+		20D255611870BC240034F499 /* json_valueiterator.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json_valueiterator.inl; sourceTree = "<group>"; };
+		20D255621870BC240034F499 /* json_writer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json_writer.cpp; sourceTree = "<group>"; };
+		20D255631870BC240034F499 /* sconscript */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sconscript; sourceTree = "<group>"; };
 		20D9173417667F9700368963 /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = "<group>"; };
 		20D9173517667F9700368963 /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = "<group>"; };
 		20DA4ECE1744EB6500B507F6 /* GAConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GAConstants.h; path = ScriptEditor/GAConstants.h; sourceTree = "<group>"; };
@@ -2230,6 +2270,143 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		20491EA0187023F6007B453C /* ofxOAuth */ = {
+			isa = PBXGroup;
+			children = (
+				20491EA1187023F6007B453C /* libs */,
+				20491EB7187023F6007B453C /* src */,
+			);
+			name = ofxOAuth;
+			path = src/experimentalAddons/ofxOAuth;
+			sourceTree = "<group>";
+		};
+		20491EA1187023F6007B453C /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				20491EA2187023F6007B453C /* libcurl */,
+				20491EB1187023F6007B453C /* liboauth */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		20491EA2187023F6007B453C /* libcurl */ = {
+			isa = PBXGroup;
+			children = (
+				20491EA3187023F6007B453C /* include */,
+			);
+			path = libcurl;
+			sourceTree = "<group>";
+		};
+		20491EA3187023F6007B453C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				20491EA4187023F6007B453C /* curl */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		20491EA4187023F6007B453C /* curl */ = {
+			isa = PBXGroup;
+			children = (
+				20491EA5187023F6007B453C /* curl.h */,
+				20491EA6187023F6007B453C /* curlbuild.h */,
+				20491EA7187023F6007B453C /* curlrules.h */,
+				20491EA8187023F6007B453C /* curlver.h */,
+				20491EA9187023F6007B453C /* easy.h */,
+				20491EAA187023F6007B453C /* mprintf.h */,
+				20491EAB187023F6007B453C /* multi.h */,
+				20491EAC187023F6007B453C /* stdcheaders.h */,
+				20491EAD187023F6007B453C /* typecheck-gcc.h */,
+			);
+			path = curl;
+			sourceTree = "<group>";
+		};
+		20491EB1187023F6007B453C /* liboauth */ = {
+			isa = PBXGroup;
+			children = (
+				20491EB2187023F6007B453C /* include */,
+			);
+			path = liboauth;
+			sourceTree = "<group>";
+		};
+		20491EB2187023F6007B453C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				20491EB3187023F6007B453C /* oauth.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		20491EB7187023F6007B453C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20491EB8187023F6007B453C /* ofxOAuth.cpp */,
+				20491EB9187023F6007B453C /* ofxOAuth.h */,
+				20491EBA187023F6007B453C /* ofxOAuthVerifierCallbackInterface.h */,
+				20491EBB187023F6007B453C /* ofxOAuthVerifierCallbackServer.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		20491EC41870270E007B453C /* ofxJSON */ = {
+			isa = PBXGroup;
+			children = (
+				20491EC51870270E007B453C /* libs */,
+				20491ED11870270E007B453C /* src */,
+			);
+			name = ofxJSON;
+			path = src/experimentalAddons/ofxJSON;
+			sourceTree = "<group>";
+		};
+		20491EC51870270E007B453C /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				20491EC61870270E007B453C /* jsoncpp */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		20491EC61870270E007B453C /* jsoncpp */ = {
+			isa = PBXGroup;
+			children = (
+				20491EC71870270E007B453C /* include */,
+				20D2555A1870BC240034F499 /* src */,
+			);
+			path = jsoncpp;
+			sourceTree = "<group>";
+		};
+		20491EC71870270E007B453C /* include */ = {
+			isa = PBXGroup;
+			children = (
+				20491EC81870270E007B453C /* json */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		20491EC81870270E007B453C /* json */ = {
+			isa = PBXGroup;
+			children = (
+				20491EC91870270E007B453C /* autolink.h */,
+				20491ECA1870270E007B453C /* config.h */,
+				20491ECB1870270E007B453C /* features.h */,
+				20491ECC1870270E007B453C /* forwards.h */,
+				20491ECD1870270E007B453C /* json.h */,
+				20491ECE1870270E007B453C /* reader.h */,
+				20491ECF1870270E007B453C /* value.h */,
+				20491ED01870270E007B453C /* writer.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
+		20491ED11870270E007B453C /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20491ED21870270E007B453C /* ofxJSONElement.cpp */,
+				20491ED31870270E007B453C /* ofxJSONElement.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		2053CE071738FCA3002624E5 /* ofxSyphon */ = {
 			isa = PBXGroup;
 			children = (
@@ -2406,6 +2583,7 @@
 				2078479B1732CAAF0098ABF0 /* scripts */,
 				2078479C1732CAAF0098ABF0 /* settings */,
 				2078479D1732CAAF0098ABF0 /* shaders */,
+				20985BC21871E4F300BEAE70 /* VerifierCallbackServer */,
 				20CAD35B1790163D001038ED /* videos */,
 			);
 			name = bundle;
@@ -2460,13 +2638,15 @@
 				207849CB1732D6370098ABF0 /* ofxHttpUtils */,
 				201740A7179CA383005468BD /* ofxIpVideoGrabber */,
 				20E77B79175E040000E468EC /* ofxJitterNetworkSender */,
+				20491EC41870270E007B453C /* ofxJSON */,
 				207849D41732D6370098ABF0 /* ofxKinect */,
 				20784BC91732D73A0098ABF0 /* ofxLua */,
 				20784A2C1732D6370098ABF0 /* ofxMidi */,
 				20784A441732D6370098ABF0 /* ofxMissing */,
-				20784BB41732D65B0098ABF0 /* ofxNSWindower */,
 				20784A4F1732D6370098ABF0 /* ofxMSAInteractiveObject */,
 				202E611C175A572700C53CFC /* ofxMSATimer */,
+				20784BB41732D65B0098ABF0 /* ofxNSWindower */,
+				20491EA0187023F6007B453C /* ofxOAuth */,
 				20784A531732D6370098ABF0 /* ofxOpenCVBlobTrackingExt */,
 				20F9E0FB175525B3009278C3 /* ofxOpticalFlowFarneback */,
 				20784A591732D6370098ABF0 /* ofxPBO */,
@@ -3960,12 +4140,10 @@
 		20784AED1732D6370098ABF0 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				20784AEE1732D6370098ABF0 /* ofxTwitter.cpp */,
-				20784AEF1732D6370098ABF0 /* ofxTwitter.h */,
-				20784AF01732D6370098ABF0 /* Tweet.cpp */,
-				20784AF11732D6370098ABF0 /* Tweet.h */,
-				20784AF21732D6370098ABF0 /* TwitterDelegate.cpp */,
-				20784AF31732D6370098ABF0 /* TwitterDelegate.h */,
+				20491ED518702813007B453C /* ofxTwitter.cpp */,
+				20491ED618702813007B453C /* ofxTwitter.h */,
+				20491ED718702813007B453C /* ofxTwitterSearch.h */,
+				20491ED818702813007B453C /* ofxTwitterTweet.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -4249,6 +4427,22 @@
 				20D2435D173EAF4B0064A64B /* Sparkle.framework */,
 			);
 			name = "custom frameworks";
+			sourceTree = "<group>";
+		};
+		20D2555A1870BC240034F499 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				20D2555B1870BC240034F499 /* json_batchallocator.h */,
+				20D2555C1870BC240034F499 /* json_internalarray.inl */,
+				20D2555D1870BC240034F499 /* json_internalmap.inl */,
+				20D2555E1870BC240034F499 /* json_reader.cpp */,
+				20D2555F1870BC240034F499 /* json_tool.h */,
+				20D255601870BC240034F499 /* json_value.cpp */,
+				20D255611870BC240034F499 /* json_valueiterator.inl */,
+				20D255621870BC240034F499 /* json_writer.cpp */,
+				20D255631870BC240034F499 /* sconscript */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		20DECDA5175E7C0C009F07F0 /* ofxPBOVideoPlayer */ = {
@@ -4907,6 +5101,11 @@
 				2099AA641742B86200973FA1 /* GAMultiTextDocument.xib in Resources */,
 				20F54CA81746CE570029D637 /* GATextDocument.xib in Resources */,
 				20EEC80E174D356500A32396 /* SketchView.xib in Resources */,
+				20D255641870BC240034F499 /* json_internalarray.inl in Resources */,
+				20D255651870BC240034F499 /* json_internalmap.inl in Resources */,
+				20D255681870BC240034F499 /* json_valueiterator.inl in Resources */,
+				20D2556A1870BC240034F499 /* sconscript in Resources */,
+				20985BC31871E4F300BEAE70 /* VerifierCallbackServer in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5051,9 +5250,6 @@
 				20784BAD1732D6380098ABF0 /* ofxEasingQuint.cpp in Sources */,
 				20784BAE1732D6380098ABF0 /* ofxEasingSine.cpp in Sources */,
 				20784BAF1732D6380098ABF0 /* ofxTween.cpp in Sources */,
-				20784BB01732D6380098ABF0 /* ofxTwitter.cpp in Sources */,
-				20784BB11732D6380098ABF0 /* Tweet.cpp in Sources */,
-				20784BB21732D6380098ABF0 /* TwitterDelegate.cpp in Sources */,
 				20784BB31732D6380098ABF0 /* ofxVectorField.cpp in Sources */,
 				20784BC31732D65B0098ABF0 /* ofxNSWindow.mm in Sources */,
 				20784BC41732D65B0098ABF0 /* ofxNSWindower.mm in Sources */,
@@ -5343,6 +5539,12 @@
 				201740F1179CB9EB005468BD /* trees.c in Sources */,
 				201740F2179CB9EB005468BD /* uncompr.c in Sources */,
 				201740F3179CB9EB005468BD /* zutil.c in Sources */,
+				20491EBE187023F6007B453C /* ofxOAuth.cpp in Sources */,
+				20491ED41870270E007B453C /* ofxJSONElement.cpp in Sources */,
+				20491ED918702813007B453C /* ofxTwitter.cpp in Sources */,
+				20D255661870BC240034F499 /* json_reader.cpp in Sources */,
+				20D255671870BC240034F499 /* json_value.cpp in Sources */,
+				20D255691870BC240034F499 /* json_writer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5377,7 +5579,7 @@
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
@@ -5392,6 +5594,23 @@
 					src/experimentalAddons/ofxLua/src/luabind,
 					src/experimentalAddons/ofxKinect/src,
 					src/experimentalAddons/ofxKinect/libs/libusb/osx/include,
+					src/experimentalAddons/ofxOAuth/libs,
+					src/experimentalAddons/ofxOAuth/libs/libcurl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include/curl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx,
+					src/experimentalAddons/ofxOAuth/libs/liboauth,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/include,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx,
+					src/experimentalAddons/ofxOAuth/src,
+					src/experimentalAddons/ofxJSON/libs,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include/json,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/src,
+					src/experimentalAddons/ofxJSON/src,
 					../../../addons/ofx3DModelLoader/libs,
 					../../../addons/ofx3DModelLoader/src,
 					../../../addons/ofx3DModelLoader/src/3DS,
@@ -5449,11 +5668,16 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+					"-mtune=native",
 				);
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 					"src/experimentalAddons/ofxKinect/libs/libusb/osx/libs/usb-1.0.a",
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx/libcurl.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/liboauth.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/libssl.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/libcrypto.a,
 					../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx/assimp.a,
 				);
 				SDKROOT = macosx10.7;
@@ -5477,7 +5701,7 @@
 				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_UNROLL_LOOPS = YES;
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO = NO;
 				GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL = NO;
@@ -5492,6 +5716,23 @@
 					src/experimentalAddons/ofxLua/src/luabind,
 					src/experimentalAddons/ofxKinect/src,
 					src/experimentalAddons/ofxKinect/libs/libusb/osx/include,
+					src/experimentalAddons/ofxOAuth/libs,
+					src/experimentalAddons/ofxOAuth/libs/libcurl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include/curl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx,
+					src/experimentalAddons/ofxOAuth/libs/liboauth,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/include,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx,
+					src/experimentalAddons/ofxOAuth/src,
+					src/experimentalAddons/ofxJSON/libs,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include/json,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/src,
+					src/experimentalAddons/ofxJSON/src,
 					../../../addons/ofx3DModelLoader/libs,
 					../../../addons/ofx3DModelLoader/src,
 					../../../addons/ofx3DModelLoader/src/3DS,
@@ -5549,11 +5790,16 @@
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
+					"-mtune=native",
 				);
 				OTHER_LDFLAGS = (
 					"$(OF_CORE_LIBS)",
 					../../../addons/ofxOpenCv/libs/opencv/lib/osx/opencv.a,
 					"src/experimentalAddons/ofxKinect/libs/libusb/osx/libs/usb-1.0.a",
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx/libcurl.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/liboauth.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/libssl.a,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx/libcrypto.a,
 					../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx/assimp.a,
 				);
 				SDKROOT = macosx10.7;
@@ -5573,13 +5819,14 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/src/experimentalAddons/ofxSyphon/libs/Syphon/lib/osx\"";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_MODEL_TUNING = G4;
+				GCC_MODEL_TUNING = NONE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src/experimentalAddons/ofxLua/src,
@@ -5588,6 +5835,23 @@
 					src/experimentalAddons/ofxKinect/src,
 					src/experimentalAddons/ofxKinect/libs/libusb/osx/include,
 					"src/experimentalAddons/ofxPD/src/pd/pure-data/src",
+					src/experimentalAddons/ofxJSON/libs,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include/json,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/src,
+					src/experimentalAddons/ofxJSON/src,
+					src/experimentalAddons/ofxOAuth/libs,
+					src/experimentalAddons/ofxOAuth/libs/libcurl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include/curl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx,
+					src/experimentalAddons/ofxOAuth/libs/liboauth,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/include,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx,
+					src/experimentalAddons/ofxOAuth/src,
 					../../../addons/ofx3DModelLoader/libs,
 					../../../addons/ofx3DModelLoader/src,
 					../../../addons/ofx3DModelLoader/src/3DS,
@@ -5711,8 +5975,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libfreenect/lib/vs2010\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libusb/osx/libs\"";
@@ -5720,6 +5987,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/src/experimentalAddons/ofxTimeline/libs/sndfile/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = (
 					"-DHAVE_UNISTD_H",
@@ -5753,12 +6021,13 @@
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../libs/glut/lib/osx\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/src/experimentalAddons/ofxSyphon/libs/Syphon/lib/osx\"";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G4;
+				GCC_MODEL_TUNING = NONE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src/experimentalAddons/ofxLua/src,
@@ -5767,6 +6036,23 @@
 					src/experimentalAddons/ofxKinect/src,
 					src/experimentalAddons/ofxKinect/libs/libusb/osx/include,
 					"src/experimentalAddons/ofxPD/src/pd/pure-data/src",
+					src/experimentalAddons/ofxJSON/libs,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/include/json,
+					src/experimentalAddons/ofxJSON/libs/jsoncpp/src,
+					src/experimentalAddons/ofxJSON/src,
+					src/experimentalAddons/ofxOAuth/libs,
+					src/experimentalAddons/ofxOAuth/libs/libcurl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/include/curl,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib,
+					src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx,
+					src/experimentalAddons/ofxOAuth/libs/liboauth,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/include,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib,
+					src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx,
+					src/experimentalAddons/ofxOAuth/src,
 					../../../addons/ofx3DModelLoader/libs,
 					../../../addons/ofx3DModelLoader/src,
 					../../../addons/ofx3DModelLoader/src/3DS,
@@ -5890,8 +6176,11 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../addons/ofxAssimpModelLoader/libs/assimp/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/src/experimentalAddons/ofxOAuth/libs/liboauth/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/../../../addons/ofxOpenCv/libs/opencv/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libfreenect/lib/vs2010\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/src/experimentalAddons/ofxKinect/libs/libusb/osx/libs\"";
@@ -5899,6 +6188,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/src/experimentalAddons/ofxTimeline/libs/sndfile/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/src/experimentalAddons/ofxQRCodeGenerator/lib/osx\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/src/experimentalAddons/ofxOAuth/libs/libcurl/lib/osx\"";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = (
 					"-DHAVE_UNISTD_H",

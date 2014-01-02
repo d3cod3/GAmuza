@@ -170,6 +170,7 @@ public:
     // SCRIPTING /////////////////////// --> gamuzaScripting.h
     void    setupScripting();
     void    updateScripting();
+    void    exitScripting();
     void    receiveScript(string script);
     void    receiveScriptFile(string scriptFile);
     void    loadScript(string _script);
