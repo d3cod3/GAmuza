@@ -22,6 +22,24 @@
 #import "SplashWindow.h"
 #import "PreferencesController.h"
 
+// GAmuza render window reference
+gamuzaMain          *gapp;
+ofPtr<ofxNSWindow>  gappWindow;
+// GAmuza video preview
+gaVideoPreview      *gaVP;
+ofPtr<ofxNSWindow>  gaVPWindow;
+
+//////////////////////////////// GAmuza GUI PANELS
+// Timelne
+gaTimeline          *gaTL;
+ofPtr<ofxNSWindow>  gaTLWindow;
+// Audio Module
+gaAudioModule       *gaAM;
+ofPtr<ofxNSWindow>  gaAMWindow;
+// Arduino Module
+gaArduinoModule     *gaARM;
+ofPtr<ofxNSWindow>  gaARMWindow;
+
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSMenuDelegate> {
     
 	BOOL                        applicationHasStarted;
@@ -56,6 +74,7 @@
     int                         screenW, screenH;
     int                         fullscreenWinPosX;
     
+    bool                        isMouseON;
     bool                        isPreviewON;
     bool                        isTimelineON;
     bool                        isAudioModuleON;
@@ -180,23 +199,8 @@
 // ARDUINO MODULE
 - (IBAction) toggleArduinoModule:(id)sender;
 
+// MAIN RENDER WINDOW
+- (IBAction) toggleHideCursor:(id)sender;
 
-// GAmuza render window reference
-gamuzaMain          *gapp;
-ofPtr<ofxNSWindow>  gappWindow;
-// GAmuza video preview
-gaVideoPreview      *gaVP;
-ofPtr<ofxNSWindow>  gaVPWindow;
-
-//////////////////////////////// GAmuza GUI PANELS
-// Timelne
-gaTimeline          *gaTL;
-ofPtr<ofxNSWindow>  gaTLWindow;
-// Audio Module
-gaAudioModule       *gaAM;
-ofPtr<ofxNSWindow>  gaAMWindow;
-// Arduino Module
-gaArduinoModule     *gaARM;
-ofPtr<ofxNSWindow>  gaARMWindow;
 
 @end

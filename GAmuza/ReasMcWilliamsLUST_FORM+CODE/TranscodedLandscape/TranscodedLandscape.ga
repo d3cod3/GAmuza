@@ -12,7 +12,7 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 1.0 rel .0428
+ This code was written in GAmuza 1.0 rel .0432
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -26,7 +26,7 @@ pixels = ofPixels()
 theta = 0
 
 function setup()
-    img:loadImage(ga.importFile("nasa-iceberg.jpg"))
+    img:loadImage(gaImportFile("nasa-iceberg.jpg"))
     pixels:allocate(img:getWidth(),img:getHeight(),3)
     tex:allocate(img:getWidth(),img:getHeight(),GL_RGB)
     

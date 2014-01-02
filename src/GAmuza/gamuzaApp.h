@@ -4,8 +4,10 @@
 #include "gamuzaConstants.h"
 #include "RtAudio.h"
 
+
+//--------------------------------------------------------------
 void gamuzaMain::close() {
-    
+    exitScripting();
 }
 
 //--------------------------------------------------------------

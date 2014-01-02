@@ -13,6 +13,8 @@
 #define OFX_HTTP_GET  0
 #define OFX_HTTP_POST 1
 
+#include "ofUtils.h"
+
 struct ofxHttpForm{
 
 

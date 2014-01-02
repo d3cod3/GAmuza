@@ -1262,6 +1262,8 @@ class ofGamuzaWrapper{
 		 //def("ofGetFrameRate", &ofGetFrameRate),
 		 //def("ofSetFrameRate", &ofSetFrameRate),
 		 def("ofSleepMillis", &ofSleepMillis),
+         //def("ofHideCursor", &ofHideCursor),
+         //def("ofShowCursor", &ofShowCursor),
 		 //def("ofGetLastFrameTime", &ofGetLastFrameTime),
 		 //def("ofGetFrameNum", &ofGetFrameNum),
 
@@ -1581,7 +1583,9 @@ class ofGamuzaWrapper{
 		 def("ofEllipse",	(void(*)(float,float,float,float)) &ofEllipse),
          def("ofLine", (void(*)(float,float,float,float)) &ofLine),
          def("ofCurve", (void(*)(float,float,float,float,float,float,float,float)) &ofCurve),
+         def("ofCurve", (void(*)(ofVec3f,ofVec3f,ofVec3f,ofVec3f)) &curve3D),
 		 def("ofBezier", (void(*)(float,float,float,float,float,float,float,float)) &ofBezier),
+         def("ofBezier", (void(*)(ofVec3f,ofVec3f,ofVec3f,ofVec3f)) &bezier3D),
          def("ofSetPolyMode", (void(*)(int)) &ofSetPolyMode),
          def("ofBeginShape", (void(*)(void)) &ofBeginShape),
          def("ofVertex",	(void(*)(float,float)) &ofVertex),
@@ -5302,24 +5306,51 @@ class ofGamuzaWrapper{
          // OFXTWITTER
          class_<ofxTwitter>("ofxTwitter")
          .def(constructor<>())
-         .def("setup", (void(ofxTwitter::*)(void)) &ofxTwitter::setup)
-         .def("startTwitterQuery", (void(ofxTwitter::*)(string,int,int)) &ofxTwitter::startTwitterQuery)
-         .def("getResponse", (ofxTweet(ofxTwitter::*)(int)) &ofxTwitter::getResponse)
-         .def("getTotalResponse", (int(ofxTwitter::*)(void)) &ofxTwitter::getTotalResponse)
-         .def("clear", (void(ofxTwitter::*)(void)) &ofxTwitter::clear),
+         .def("setConfigFiles", (void(ofxTwitter::*)(const string&,const string&)) &ofxTwitter::setConfigFiles)
+         .def("authorize", (void(ofxTwitter::*)(const string&,const string&)) &ofxTwitter::authorize)
+         .def("isAuthorized", (bool(ofxTwitter::*)(void)) &ofxTwitter::isAuthorized)
+         .def("loadCacheFile", (void(ofxTwitter::*)(void)) &ofxTwitter::loadCacheFile)
+         .def("resetTwitter", (void(ofxTwitter::*)(void)) &ofxTwitter::resetTwitter)
+         .def("setDiskCache", (void(ofxTwitter::*)(bool)) &ofxTwitter::setDiskCache)
+         .def("diskCacheIsActive", (bool(ofxTwitter::*)(void)) &ofxTwitter::diskCacheIsActive)
+         .def("startQuery", (void(ofxTwitter::*)(string,int)) &ofxTwitter::startQuery)
+         .def("setAutoLoadImages", (void(ofxTwitter::*)(bool,bool)) &ofxTwitter::setAutoLoadImages)
+         .def("getTweetByIndex", (ofxTwitterTweet(ofxTwitter::*)(int)) &ofxTwitter::getTweetByIndex)
+         .def("getTotalLoadedTweets", (int(ofxTwitter::*)(void)) &ofxTwitter::getTotalLoadedTweets),
          
-         class_<ofxTweet>("ofxTweet")
+         class_<ofxTwitterTweet>("ofxTwitterTweet")
          .def(constructor<>())
          .def(constructor<string>())
-         .def("getTitle", (string(ofxTweet::*)(void)) &ofxTweet::getTitle)
-         .def("getLink", (string(ofxTweet::*)(void)) &ofxTweet::getLink)
-         .def("getDate", (string(ofxTweet::*)(void)) &ofxTweet::getDate)
-         .def("getUpdated", (string(ofxTweet::*)(void)) &ofxTweet::getUpdated)
-         .def("getID", (string(ofxTweet::*)(void)) &ofxTweet::getID)
-         .def("getLanguage", (string(ofxTweet::*)(void)) &ofxTweet::getLanguage)
-         .def("getAuthorName", (string(ofxTweet::*)(void)) &ofxTweet::getAuthorName)
-         .def("getAvatar", (string(ofxTweet::*)(void)) &ofxTweet::getAvatar)
-         .def("getAuthorUrl", (string(ofxTweet::*)(void)) &ofxTweet::getAuthorUrl),
+         .def("isProfileImageLoaded", (bool(ofxTwitterTweet::*)(void)) &ofxTwitterTweet::isProfileImageLoaded)
+         .def("isBannerImageLoaded", (bool(ofxTwitterTweet::*)(void)) &ofxTwitterTweet::isBannerImageLoaded)
+         .def_readonly("id_str", &ofxTwitterTweet::id_str)
+         .def_readonly("created_at", &ofxTwitterTweet::created_at)
+         .def_readonly("language", &ofxTwitterTweet::language)
+         .def_readonly("text", &ofxTwitterTweet::text)
+         .def_readonly("geo", &ofxTwitterTweet::geo)
+         .def_readonly("coordinates", &ofxTwitterTweet::coordinates)
+         .def_readonly("source", &ofxTwitterTweet::source)
+         .def_readonly("retweet_count", &ofxTwitterTweet::retweet_count)
+         .def_readonly("user_id_str", &ofxTwitterTweet::user_id_str)
+         .def_readonly("user_uri", &ofxTwitterTweet::user_uri)
+         .def_readonly("user_name", &ofxTwitterTweet::user_name)
+         .def_readonly("user_screen_name", &ofxTwitterTweet::user_screen_name)
+         .def_readonly("user_description", &ofxTwitterTweet::user_description)
+         .def_readonly("user_location", &ofxTwitterTweet::user_location)
+         .def_readonly("user_lang", &ofxTwitterTweet::user_lang)
+         .def_readonly("user_url", &ofxTwitterTweet::user_url)
+         .def_readonly("user_default_profile", &ofxTwitterTweet::user_default_profile)
+         .def_readonly("user_default_profile_image", &ofxTwitterTweet::user_default_profile_image)
+         .def_readonly("user_geo_enabled", &ofxTwitterTweet::user_geo_enabled)
+         .def_readonly("user_profile_image_url", &ofxTwitterTweet::user_profile_image_url)
+         .def_readonly("user_profile_image", &ofxTwitterTweet::user_profile_image)
+         .def_readonly("user_profile_banner_url", &ofxTwitterTweet::user_profile_banner_url)
+         .def_readonly("user_profile_banner", &ofxTwitterTweet::user_profile_banner)
+         .def_readonly("user_profile_background_image_url", &ofxTwitterTweet::user_profile_background_image_url)
+         .def_readonly("user_profile_background_color", &ofxTwitterTweet::user_profile_background_color),
+         
+         class_<ofxJSONElement>("ofxJSONElement")
+         .def(constructor<>()),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5991,6 +6022,12 @@ class ofGamuzaWrapper{
 	static void background(int r, int g, int b)                             {ofBackground(r, g, b);}
     static void setColor1(int gray)                                         {ofSetColor(gray,gray,gray);}
     static void setColor2(int gray, int alpha)                              {ofSetColor(gray,gray,gray,alpha);}
+    static void curve3D(ofVec3f a1, ofVec3f c1, ofVec3f c2, ofVec3f a2){
+        ofCurve(a1.x,a1.y,a1.z,c1.x,c1.y,c1.z,c2.x,c2.y,c2.z,a2.x,a2.y,a2.z);
+    }
+    static void bezier3D(ofVec3f a1, ofVec3f c1, ofVec3f c2, ofVec3f a2){
+        ofBezier(a1.x,a1.y,a1.z,c1.x,c1.y,c1.z,c2.x,c2.y,c2.z,a2.x,a2.y,a2.z);
+    }
     
     /// ofTrueTypeFont
 	static void loadFont2(ofTrueTypeFont* font, string filename, int fontsize) {

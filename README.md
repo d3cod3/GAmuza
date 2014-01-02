@@ -25,9 +25,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 # Download
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Last Release - GAmuza 0432 [here](http://gamuza.d3cod3.org/download/GAmuza-0432-OSX.zip)
 =======
 Last Release - GAmuza 0432 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0432-OSX.zip)
+=======
+Last Release - GAmuza 0433 [here](http://gamuza.d3cod3.org/download/GAmuza-0433-OSX.zip)
+=======
+Last Release - GAmuza 0433 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0433-OSX.zip)
+>>>>>>> develop
 >>>>>>> master
 
 Older versions [here](http://gamuza.d3cod3.org/download/)
@@ -210,6 +216,15 @@ Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but t
 
 # Version history
 
+<<<<<<< HEAD
+=======
+## v1.0  |  Rel. 0433
+
+* Updated XCode project, now compiling with Apple LLVM Compiler 4.1, goodbye old GCC 4.2!!!
+* ofxTwitter fixed & updated to API 1.1, included OAuth and JSON parser addons
+* small bug fixing
+
+>>>>>>> develop
 ## v1.0  |  Rel. 0432
 
 * Fixed wrapper

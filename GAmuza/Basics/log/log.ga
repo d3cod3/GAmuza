@@ -41,8 +41,6 @@ function draw()
 	if sendVar then
 		ofCircle(OUTPUT_W/2,OUTPUT_H/2,OUTPUT_H/2*number)
 	end
-	text = string.format("Elapsed Frames: %i",gaGetFrameNum())
-	ofDrawBitmapString(text,20,200)
 	text = string.format("Elapsed Time: %.3f",ofGetElapsedTimef())
 	ofDrawBitmapString(text,20,240)
     

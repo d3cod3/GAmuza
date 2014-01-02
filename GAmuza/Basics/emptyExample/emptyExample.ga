@@ -12,13 +12,13 @@
 */
 
 function setup()
-
+	
 end
 
 function update()
-    
+    	
 end
 
 function draw()
-    gaBackground(0.0,1.0)
+    	gaBackground(0.0,1.0)
 end

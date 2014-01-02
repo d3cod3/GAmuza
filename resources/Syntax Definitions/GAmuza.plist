@@ -1772,18 +1772,20 @@
 				<string>ofxThermitrackImage</string>
 				<string>ofxTrueTypeFontUC</string>
 				<string>ofxTwitter</string>
-				<string>startTwitterQuery</string>
-				<string>getResponse</string>
-				<string>getTotalResponse</string>
-				<string>ofxTweet</string>
-				<string>getTitle</string>
-				<string>getLink</string>
-				<string>getDate</string>
-				<string>getUpdated</string>
-				<string>getLanguage</string>
-				<string>getAuthorName</string>
-				<string>getAvatar</string>
-				<string>getAuthorUrl</string>
+				<string>setConfigFiles</string>
+				<string>authorize</string>
+				<string>isAuthorized</string>
+				<string>loadCacheFile</string>
+				<string>resetTwitter</string>
+				<string>setDiskCache</string>
+				<string>diskCacheIsActive</string>
+				<string>startQuery</string>
+				<string>setAutoLoadImages</string>
+				<string>getTweetByIndex</string>
+				<string>getTotalLoadedTweets</string>
+				<string>ofxTwitterTweet</string>
+				<string>isProfileImageLoaded</string>
+				<string>isBannerImageLoaded</string>
 				<string>ofxVectorField</string>
 				<string>deallocate</string>
 				<string>setFromImage</string>

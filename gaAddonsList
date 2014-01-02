@@ -1,7 +1,6 @@
 ofxArcText
 ofxAudioSample
 ofxAUPlugin
-ofxAUPlugins
 ofxBox2d
 ofxChromaKey
 ofxCLD
@@ -20,13 +19,15 @@ ofxGenerative
 ofxHttpUtils
 ofxIpVideoGrabber
 ofxJitterNetworkSender
+ofxJSON
 ofxKinect
 ofxLua
 ofxMidi
 ofxMissing
-ofxNSWindower
 ofxMSAInteractiveObject
 ofxMSATimer
+ofxNSWindower
+ofxOAuth
 ofxOpenCVBlobTrackingExt
 ofxOpticalFlowFarneback
 ofxPBO

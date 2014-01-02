@@ -33,7 +33,7 @@ function update()
 end
 
 function draw()
-	gaBackground(0.0,1.0)
+	gaBackground(0.1,1.0)
 
 	ofPushMatrix()
 	ofTranslate(OUTPUT_W/2 - top.width/2, OUTPUT_H/2 - top.height/2,0)
@@ -41,4 +41,8 @@ function draw()
 	ofSetColor(255)
 	maskFx:draw(0,0,top.width,top.height)
 	ofPopMatrix()
+	
+	mask:draw(0,20,mask.width/4,mask.height/4)
+	ofDrawBitmapString("-->",mask.width/4 + 40,top.height/5)
+	top:draw(mask.width/4 + 100,20,top.width/4,top.height/4)
 end
