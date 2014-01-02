@@ -12,7 +12,7 @@
  
  http://formandcode.com
  
- This code was written in GAmuza 1.0 rel. 0428
+ This code was written in GAmuza 1.0 rel. 0432
  Get GAmuza at http://www.gamuza.cc
  
  created by n3m3da | www.d3cod3.org
@@ -47,7 +47,7 @@ function draw()
         end
     elseif option==3 then
         // overlapping circles
-        of.noFill()
+        ofNoFill()
         for x=50, OUTPUT_W-50, 20 do
             for y=50, OUTPUT_H-50, 20 do
                 ofEllipse(x,y,40,40)                
