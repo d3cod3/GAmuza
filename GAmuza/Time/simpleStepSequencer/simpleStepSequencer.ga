@@ -1,0 +1,92 @@
+/* 
+   
+ GAmuza 0433 examples 
+ ---------------------
+ Time/simpleStepSequencer.ga
+ 
+ This example show the use of a simple semaphore over time,
+ controlling the trigger of a specific event.
+ More info about semaphores:
+ 
+ <http://en.wikipedia.org/wiki/Semaphore_(programming)>
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+data = {}
+numData = 8
+actualIndex = 0
+
+// TIME VARIABLES
+GAmuzaTime 	= 0
+myTime  		= 0
+wait 		= 1000 // 1 segundos
+lastReset 	= ofGetElapsedTimeMillis()
+
+font = ofTrueTypeFont()
+fontBig = ofTrueTypeFont()
+
+function setup()
+	// load fonts
+	font:loadFont(gaImportFile("NewMediaFett.ttf"),32, true, false)
+	fontBig:loadFont(gaImportFile("NewMediaFett.ttf"),132, true, false)
+	
+	// random populate data table
+	for i=0, numData do
+		table.insert(data,i,math.ceil(ofRandom(10,50)))
+	end
+end
+
+function update()
+	// get the time elapsed from the opening of GAmuza
+	GAmuzaTime = ofGetElapsedTimeMillis()
+	
+	// create a parallel timeline starting from the last reset
+	myTime = GAmuzaTime - lastReset
+	
+	// trigger the interaction event from the microphone input volume
+	// and control it with a semaphore
+	if semaphore == true then
+		// parallel timeline reset
+		lastReset = GAmuzaTime
+		semaphore = false
+		// update the actualIndex (for step-navigate the table)
+		if actualIndex < table.getn(data) then
+			actualIndex += 1
+		else
+			actualIndex  = 0
+		end
+	end
+	
+	// when we reset the parallel timeline
+	// we have to wait to restore the interaction system
+	// the wait time is in wait variable
+	if GAmuzaTime-lastReset > wait then
+		semaphore = true
+	end
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	ofSetColor(255)
+    	font:drawString(string.format("GAmuza Time(Ms) : %i", GAmuzaTime),40,80)
+    	font:drawString(string.format("Parallel Time(Ms) : %i", myTime),40,160)
+    	
+    	font:drawString(string.format("Data Table:"),40,270)
+    	for i=0,table.getn(data) do
+    		if i == actualIndex then
+    			ofSetColor(254,13,23,135)
+    		else
+    			ofSetColor(255)
+    		end
+    		font:drawString(tostring(data[i]),40 + 90*i,320)
+    	end
+    	
+    	ofSetColor(254,13,23,135)
+    	fontBig:drawString(tostring(data[actualIndex]),OUTPUT_W/2 + 300,OUTPUT_H/2)
+    	
+end
+
+

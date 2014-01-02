@@ -1,0 +1,54 @@
+<ROOT>
+    <source>http://data.worldbank.org/</source>
+    <indicator>Birth rate, crude (per 1,000 people)</indicator>
+    <data>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2004</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">20.4</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2005</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">20.2</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2006</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">20.1</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2007</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">20.0</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2008</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">19.9</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2009</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">19.8</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2010</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">19.6</field>
+        </record>
+        <record>
+          <field name="Country or Area" key="WLD">World</field>
+          <field name="Year">2011</field>
+          <field name="Item" key="SP.DYN.CBRT.IN">Birth rate, crude (per 1,000 people)</field>
+          <field name="Value">19.4</field>
+        </record>
+    </data>
+</ROOT>
