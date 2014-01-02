@@ -10,35 +10,33 @@
 #ifndef _OFX_HTTP_UTILS
 #define _OFX_HTTP_UTILS
 
-#include "ofMain.h"
-
-#include "Poco/Net/HTTPClientSession.h"
-#include "Poco/Net/HTTPRequest.h"
-#include "Poco/Net/HTTPResponse.h"
-#include "Poco/Net/HTMLForm.h"
-#include "Poco/Net/HTTPBasicCredentials.h"
-#include "Poco/StreamCopier.h"
-#include "Poco/Path.h"
-#include "Poco/URI.h"
-#include "Poco/Exception.h"
-#include "Poco/Mutex.h"
 
 #include <iostream>
 #include <queue>
 #include <istream>
 
-using namespace Poco::Net;
-using namespace Poco;
+#include "Poco/Mutex.h"
+#include "Poco/Net/HTTPResponse.h"
+#include "Poco/Condition.h"
+#include "Poco/Net/HTTPBasicCredentials.h"
+
+#include "ofThread.h"
+#include "ofConstants.h"
+#include "ofxHttpTypes.h"
+#include "ofEvents.h"
+
 
 class ofxHttpListener;
 class ofxHttpEventManager;
 
-#include "ofxHttpTypes.h"
-
 struct ofxHttpResponse{
-	ofxHttpResponse(HTTPResponse& pocoResponse, std::istream &bodyStream, string turl, bool binary=false){
+	ofxHttpResponse(Poco::Net::HTTPResponse& pocoResponse, std::istream &bodyStream, string turl, bool binary=false){
 		status=pocoResponse.getStatus();
-		timestamp=pocoResponse.getDate();
+		try{
+			timestamp=pocoResponse.getDate();
+		}catch(Poco::Exception & exc){
+
+		}
 		reasonForStatus=pocoResponse.getReasonForStatus(pocoResponse.getStatus());
 		contentType = pocoResponse.getContentType();
 		responseBody.set(bodyStream);
@@ -59,7 +57,7 @@ struct ofxHttpResponse{
 	string contentType;			// the mime type of the response
 	Poco::Timestamp timestamp;		// time of the response
 	string url;
-	vector<HTTPCookie> cookies;
+	vector<Poco::Net::HTTPCookie> cookies;
 	string location;
 };
 
@@ -79,6 +77,7 @@ class ofxHttpUtils : public ofThread{
 		// blocking functions
 		ofxHttpResponse submitForm(ofxHttpForm form);
 		ofxHttpResponse getUrl(string url);
+		ofxHttpResponse postData(string url, const ofBuffer & data, string contentType="");
 
         int getQueueLength();
         void clearQueue();
@@ -119,9 +118,11 @@ class ofxHttpUtils : public ofThread{
 		ofxHttpResponse doPostForm(ofxHttpForm & form);
 
 		std::queue<ofxHttpForm> forms;
-		vector<HTTPCookie> cookies;
-		HTTPBasicCredentials auth;
+		vector<Poco::Net::HTTPCookie> cookies;
+		Poco::Net::HTTPBasicCredentials auth;
+		Poco::Condition condition;
 
+		static bool initialized;
 
 };
 #endif
