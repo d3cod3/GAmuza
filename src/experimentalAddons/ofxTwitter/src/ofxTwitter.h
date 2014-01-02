@@ -11,48 +11,67 @@
  *  Edited by Andrew Vergara on 05/04/12
  *  Updated addon to fit most recent version of ofxHttpUtils addon. https://github.com/arturoc/ofxHttpUtils
  *
+ *  Edited by welovecode 14/06/12
+ *  Added cache support for saving/load xml cache file.
+ *  Added POST query method.
  * 
+ *  Edited by Pelayo MŽndez on 09/12/13
+ *  Migrated to Twitter API v1.1. https://dev.twitter.com/docs/api/1.1/overview
+ *  Using Christopher Baker ofxOAuth adddon https://github.com/bakercp/ofxOAuth
+ *  Using  ofxJSON for parsing data as XMl is not supported anymore https://github.com/jefftimesten/ofxJSON
+ *
  */
 
 #pragma once
 
 #include "ofMain.h"
-
-#include "ofxHttpUtils.h"
-#include "ofxXmlSettings.h"
-
-#include "TwitterDelegate.h"
-#include "Tweet.h"
+// addons
+#include "ofxOAuth.h"
+#include "ofxJSONElement.h"
+// ofxTwitter
+#include "ofxTwitterTweet.h"
+#include "ofxTwitterSearch.h"
 
 class ofxTwitter {
-public:
-	
-	void setup();
-	void setSearchDelegate(TwitterDelegate *_delegate) { delegate = _delegate; }
-	
-	void startQuery(string query);
-	void startTwitterQuery(string keywords, int repliesPerPage=10, int queryIdentifier=0);
-	
-	vector<ofxTweet> getLatestResponse();
-    ofxTweet getResponse(int _i);
-    int getTotalResponse();
-    
-	void newResponse(ofxHttpResponse &response);
-    
-    void clear();
 
-	ofxHttpUtils httpUtils;
+    public:
     
-    int tweetQueryIdentifier;
+        ofxTwitter();
+        ~ofxTwitter();
     
-    int     totalResponse;
-    bool    isInited;
+        void setConfigFiles(const string& certificate, const string& credentials);
+        void authorize(const string& consumerKey, const string& consumerSecret);
+        bool isAuthorized();
+        void resetTwitter();
     
-private:
+        void loadCacheFile();
+        void setDiskCache(bool newSaveCache);
+        bool diskCacheIsActive();
+    
+        void startQuery(string keywords, int count = 15);
+        void startSearch(ofxTwitterSearch search);
+        void newResponse(ofEventArgs& args);
+        void parseResponse(ofxJSONElement result);
+    
+        void setAutoLoadImages(bool newLoadUserProfileImageUrl, bool newLoadUserProfileBannerUrl);
+        void urlResponse(ofHttpResponse & response);
+        void appExits(ofEventArgs& args);
+    
+        ofxTwitterTweet getTweetByIndex(int index);
+        int getTotalLoadedTweets() { return data.size(); }
+    
+        void printDebugInfo();
+
+    private:
 	
-	TwitterDelegate *delegate;
-	
-	ofxXmlSettings xml;
-	vector<ofxTweet> data;
+        ofxOAuth oauth;
+    
+        string dataRequested;
+
+        bool bDiskCacheActive;
+        bool bLoadUserProfileImageOnMemory;
+        bool bLoadUserBannerImageOnMemory;
+    
+        vector<ofxTwitterTweet> data;
 	
 };

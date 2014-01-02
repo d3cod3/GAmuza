@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0428 examples 
+ GAmuza 0433 examples 
  ---------------------
  Net/twitterConnect.ga
  
@@ -16,48 +16,111 @@
 */
 
 font = ofTrueTypeFont()
-twitter = ofxTwitter()
+twitterClient = ofxTwitter()
+tweet = ofxTwitterTweet()
 tweets = {}
+
+textColor = ofColor(255,255,255,255)
+highlightColor = ofColor(0,0,0,255)
+
+actualTweet = 0
+
+consumerKey = "YOUR_TWITTER_APP_CONSUMER_KEY"
+consumerSecret = "YOUR_TWITTER_APP_SECRET_KEY"
+
+userImage = ofImage()
+userBanner = ofImage()
 
 
 function setup()
-        font:loadFont(gaImportFile("verdana.ttf"),10,true,false)
+	font:loadFont(gaImportFile("verdana.ttf"),10,true,false)
     
-        twitter:clear()
-        twitter:setup()
-        twitter:startTwitterQuery("wikileaks",10,1)
+	twitterClient:setDiskCache(true);
+	// Loads images into memory as ofImage
+	twitterClient:setAutoLoadImages(true, false);
+	
+	twitterClient:setConfigFiles(gaDataPath("cacert.pem"),gaDataPath("credentials.xml"))
+	twitterClient:authorize(consumerKey,consumerSecret)
     
-        for i=0,100 do
-            tweets[i] = {}
-            tweets[i].t = ofxTweet()
-        end
 end
 
 function update()
-    for i=0, twitter:getTotalResponse()-1 do
-        tweets[i].t = twitter:getResponse(i)
-        tweets[i].id = tweets[i].t:getID()
-        tweets[i].link = tweets[i].t:getLink()
-        tweets[i].title = tweets[i].t:getTitle()
-        tweets[i].author = tweets[i].t:getAuthorName()
-        tweets[i].authorUri = tweets[i].t:getAuthorUrl()
-        tweets[i].avatar = tweets[i].t:getAvatar()
-        tweets[i].date = tweets[i].t:getDate()
-        tweets[i].updated = tweets[i].t:getUpdated()
-    end
+    
 end
 
 function draw()
-        gaBackground(0.0,1.0)
+	gaBackground(0.9,1.0)
+	
+	maxLineSize = 90
+	
+	if twitterClient:getTotalLoadedTweets() > 0 then
+		tweet = twitterClient:getTweetByIndex(actualTweet)
+		
+		ofSetColor(255, 255, 255, 125)
+		if tweet:isBannerImageLoaded() then
+			userBanner = tweet.user_profile_banner
+			userBanner:draw(0,0,OUTPUT_W,OUTPUT_H)
+		end
+		ofSetColor(0)
+		ofDrawBitmapString("User:",120,150)
+        	ofDrawBitmapStringHighlight(tostring(tweet.user_screen_name),220,150, highlightColor, textColor)
+        	
+        	ofDrawBitmapString("Location:",120,180)
+        	ofDrawBitmapStringHighlight(tostring(tweet.user_location),220,180, highlightColor, textColor)
+        	
+        	ofDrawBitmapString("Descript.:",120,210)
+        	desc = tweet.user_description
+        	for i=0,math.ceil(string.len(desc)/maxLineSize)-1 do
+        		ofDrawBitmapStringHighlight(string.sub(desc,i*maxLineSize,(i*maxLineSize) + maxLineSize),220,210+(30*i), highlightColor, textColor)
+        	end
+        	
+        	ofDrawBitmapString("Text:",120,300)
+        	tex = tweet.text
+        	for i=0,math.ceil(string.len(tex)/maxLineSize)-1 do
+        		ofDrawBitmapStringHighlight(string.sub(tex,i*maxLineSize,(i*maxLineSize) + maxLineSize),220,300+(30*i), highlightColor, textColor)
+        	end
+        	
+        	ofSetColor(255)
+        	if tweet:isProfileImageLoaded() then
+        		tweet.user_profile_image:draw(40,150)
+        	end
+        	
+        	ofSetColor(0)
+        	nav = "Now showing tweet: "
+        	.. tostring(actualTweet+1)
+        	.. " of "
+        	.. tostring(twitterClient:getTotalLoadedTweets())
+        	ofDrawBitmapString(nav,220,400)
+        	
+	end
+	
+	ofSetColor(0)
+	info = "ofxTwitter query example:"
+	.. "\nPress 'q' to get tweets containing 'openframeworks'"
+    	.. "\nPress 'l' to load previous query from disk if avilable"
+    	.. "\nPress UP/DOWN to navigate tweets"
+    	ofDrawBitmapString(info,20,20)
+    	
+end
 
-        ofSetColor(255)
-    
-        if twitter:getTotalResponse() > 0 then
-            for i=0, twitter:getTotalResponse()-1 do
-                font:drawString(tostring(tweets[i].title),20,50 + 50*i)
-            end
-        end
-        
+function exit()
+	twitterClient:resetTwitter()
+end
+
+function keyReleased()
+	if gaKey() == string.byte('q') then
+		twitterClient:startQuery("openframeworks",10);
+	elseif gaKey() == string.byte('l') then
+		twitterClient:loadCacheFile()
+	elseif gaKey() == OF_KEY_UP then
+		if actualTweet < twitterClient:getTotalLoadedTweets()-1 then
+			actualTweet += 1
+		end
+	elseif gaKey() == OF_KEY_DOWN then
+		if actualTweet > 0 then
+			actualTweet -= 1
+		end
+	end
 end
 
 
