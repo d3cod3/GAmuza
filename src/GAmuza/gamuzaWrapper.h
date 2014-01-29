@@ -5134,6 +5134,53 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXPOSTPROCESSING
+         class_<ofxPostProcessing>("ofxPostProcessing")
+         .def(constructor<>())
+         .def("init", (void(ofxPostProcessing::*)(unsigned,unsigned)) &ofxPostProcessing::init)
+         .def("beginShader", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::begin)
+         .def("beginShader", (void(ofxPostProcessing::*)(ofCamera&)) &ofxPostProcessing::begin)
+         .def("beginShader", (void(ofxPostProcessing::*)(ofEasyCam&)) &ofxPostProcessing::begin)
+         .def("endShader", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::end)
+         .def("endShader", (void(ofxPostProcessing::*)(bool)) &ofxPostProcessing::end)
+         .def("draw", (void(ofxPostProcessing::*)(float,float)) &ofxPostProcessing::draw)
+         .def("draw", (void(ofxPostProcessing::*)(float,float,float,float)) &ofxPostProcessing::draw)
+         .def("getWidth", (float(ofxPostProcessing::*)(void)) &ofxPostProcessing::getWidth)
+         .def("getHeight", (float(ofxPostProcessing::*)(void)) &ofxPostProcessing::getHeight)
+         .def("createBleachBypass", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createBleachBypass)
+         .def("createBloom", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createBloom)
+         .def("createContrast", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createContrast)
+         .def("createConvolution", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createConvolution)
+         .def("createDof", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createDof)
+         .def("createEdge", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createEdge)
+         .def("createFxaa", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createFxaa)
+         .def("createGodRays", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createGodRays)
+         .def("createHorizontalTiltShift", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createHorizontalTiltShift)
+         .def("createKaleidoscope", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createKaleidoscope)
+         .def("createLimbDarkening", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createLimbDarkening)
+         .def("createLUT", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createLUT)
+         .def("createNoiseWarp", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createNoiseWarp)
+         .def("createPixelate", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createPixelate)
+         .def("createRGBShift", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createRGBShift)
+         .def("createRimHighlighting", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createRimHighlighting)
+         .def("createSSAO", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createSSAO)
+         .def("createToon", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createToon)
+         .def("createVerticalTiltShif", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createVerticalTiltShif)
+         .def("createZoomBlur", (void(ofxPostProcessing::*)(void)) &ofxPostProcessing::createZoomBlur)
+         .def("getProcessedTextureReference", (ofTexture&(ofxPostProcessing::*)(void)) &ofxPostProcessing::getProcessedTextureReference)
+         .def("process", (void(ofxPostProcessing::*)(ofFbo&)) &ofxPostProcessing::process)
+         .def("setFlip", (void(ofxPostProcessing::*)(bool)) &ofxPostProcessing::setFlip)
+         .def("size", (unsigned(ofxPostProcessing::*)(void)) &ofxPostProcessing::size)
+         .def("getNumProcessedPasses", (unsigned(ofxPostProcessing::*)(void)) &ofxPostProcessing::getNumProcessedPasses)
+         .def("getRawRef", (ofFbo&(ofxPostProcessing::*)(void)) &ofxPostProcessing::getRawRef),
+         
+         class_<RenderPass>("RenderPass")
+         .def(constructor<const ofVec2f&,const string&>())
+         .def("setEnabled", (void(RenderPass::*)(bool)) &RenderPass::setEnabled)
+         .def("getEnabled", (bool(RenderPass::*)(void)) &RenderPass::getEnabled),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXQRCODEGENERATOR
          class_<ofxQRCodeGenerator>("ofxQRCodeGenerator")
          .def(constructor<>())

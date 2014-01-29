@@ -94,6 +94,7 @@
 
 // SHADERS
 #include "ofxFX.h"
+#include "ofxPostProcessing.h"
 
 // TEXT
 #include "ofxArcText.h"

@@ -1,0 +1,71 @@
+
+/* 
+   
+ GAmuza 0426 examples 
+ ---------------------
+ 3D/depthOfField.ga
+ 
+ The depth of field eaxmple from ofxDOF addon.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+boxPositions = {}
+boxSizes = {}
+boxColors = {}
+
+camera = ofEasyCam()
+light = ofLight()
+
+post = ofxPostProcessing()
+
+function setup()
+	
+	post:init(OUTPUT_W,OUTPUT_H)
+	post:createBleachBypass()
+	post:createFxaa()
+	post:createToon()
+	
+	light:setPosition(1000, 1000, 2000);
+	
+	for i=0,100 do
+		boxPositions[i] = ofVec3f(ofRandom(-300,300),ofRandom(-300,300),ofRandom(-300,300))
+		boxSizes[i] = ofRandom(30,100)
+		temVal = 128 - ofRandom(110,128)
+		if ofRandomuf() > 0.8 then
+			temVal  = ofRandom(120,130)
+		end
+		c = ofColor()
+		c:setHsb(temVal,ofRandom(255),ofRandom(255))
+		boxColors[i] = ofColor(c.r,c.g,c.b,255)
+	end
+end
+
+function update()
+    	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    	glPushAttrib(GL_ENABLE_BIT);
+    
+    	// setup gl state
+    	//glEnable(GL_DEPTH_TEST);
+    	glEnable(GL_CULL_FACE);
+    	light:enable();
+    	
+    	post:beginShader(camera)
+    	
+    	ofPushStyle()
+	for i=0,100 do
+		ofSetColor(boxColors[i])
+		ofBox(boxPositions[i], boxSizes[i])
+	end
+	ofPopStyle()
+	
+	post:endShader()
+    	
+    	//glPopAttrib()
+end
