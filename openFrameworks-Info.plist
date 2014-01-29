@@ -43,15 +43,15 @@
 	<key>CFBundleSignature</key>
 	<string>n3m3</string>
 	<key>CFBundleVersion</key>
-	<string>0432</string>
+	<string>0434</string>
 	<key>LSApplicationCategoryType</key>
-	<string>public.app-category.developer-tools</string>
+	<string>Interaction Design</string>
 	<key>Minimum system versions</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
 	<key>NSAppleScriptEnabled</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2013 Emanuele Mazza. All rights reserved.</string>
+	<string>Copyright © 2014 Emanuele Mazza. All rights reserved.</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
