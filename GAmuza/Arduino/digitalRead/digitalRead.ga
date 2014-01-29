@@ -1,0 +1,32 @@
+/* 
+   
+ GAmuza 0434 examples 
+ ---------------------
+ Arduino/digitalRead.ga
+ 
+ This example shows you how to monitor the state of a switch connected
+ to the digital pin 2.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+digitalPin = 2
+pinOn = 0
+
+function setup()
+    	ofSetCircleResolution(50)
+end
+
+function update()
+	pinON = gaDigitalRead(digitalPin)
+end
+
+function draw()
+    gaBackground(0.0,1.0)
+
+    ofSetColor(175,155,0)
+    if pinON == 1 then
+        ofCircle(OUTPUT_W/2,OUTPUT_H/2,200)
+    end
+end
