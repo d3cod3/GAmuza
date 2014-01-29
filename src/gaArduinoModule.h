@@ -37,6 +37,8 @@ public:
     void updateGui();
     void drawGui();
     
+    void initPins();
+    
     void restart();
     
     void setModuleON(bool onOff);

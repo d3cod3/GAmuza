@@ -63,15 +63,17 @@ void gaArduinoModule::setup(){
     digitalPinValuesInput           = new int[12];
     
     setupGui();
+    
 }
 
 //--------------------------------------------------------------
 void gaArduinoModule::update() {
+    
     for(unsigned int i=0;i<6;i++){
         analogPinValues[i] = gapp->_s_analogPinValues[i];
     }
     for(unsigned int i=2;i<14;i++){
-        digitalPinValuesInput[i-2] = gapp->digitalPinValuesInput[i-2];
+        digitalPinValuesInput[i-2] = gapp->_osc_digitalPinValuesInput[i-2];
     }
     if(isON){
         updateGui();
@@ -94,6 +96,49 @@ void gaArduinoModule::setModuleON(bool onOff){
 }
 
 //--------------------------------------------------------------
+void gaArduinoModule::initPins(){
+    char temp[128];
+    // configure ARDUINO PIN MODES from settings
+    for(unsigned int i=2;i<14;i++){
+        sprintf(temp,"ARDUINO_DIGITAL_PIN_%i_MODE",i);
+        if(i == 3 || i == 5 || i == 6 || i == 11){
+            if(gui.getValueI(temp) == 0){
+                gapp->digitalPinModes[i-2] = ARD_INPUT;
+            }else if(gui.getValueI(temp) == 1){
+                gapp->digitalPinModes[i-2] = ARD_OUTPUT;
+            }else if(gui.getValueI(temp) == 2){
+                gapp->digitalPinModes[i-2] = ARD_PWM;
+            }
+        }else if(i == 9 || i == 10){
+            if(gui.getValueI(temp) == 0){
+                gapp->digitalPinModes[i-2] = ARD_INPUT;
+            }else if(gui.getValueI(temp) == 1){
+                gapp->digitalPinModes[i-2] = ARD_OUTPUT;
+            }else if(gui.getValueI(temp) == 2){
+                gapp->digitalPinModes[i-2] = ARD_PWM;
+            }else if(gui.getValueI(temp) == 3){
+                gapp->digitalPinModes[i-2] = ARD_SERVO;
+            }
+        }else{
+            if(gui.getValueI(temp) == 0){
+                gapp->digitalPinModes[i-2] = ARD_INPUT;
+            }else if(gui.getValueI(temp) == 1){
+                gapp->digitalPinModes[i-2] = ARD_OUTPUT;
+            }
+        }
+    }
+    for(unsigned int i=0;i<6;i++){
+		sprintf(temp,"ARDUINO_ANALOG_PIN_%i_MODE",i);
+		if(gui.getValueI(temp) == 0){
+            gapp->analogPinModes[i] = ARD_ON;
+        }else if(gui.getValueI(temp) == 1){
+            gapp->analogPinModes[i] = ARD_OFF;
+        }
+	}
+    
+}
+
+//--------------------------------------------------------------
 void gaArduinoModule::restart(){
     char temp[128];
     if(gapp->isArduinoConnected){
@@ -102,6 +147,10 @@ void gaArduinoModule::restart(){
         sprintf(temp," ARDUINO DEVICE NOT CONNECTED");
     }
     gui.panels[0]->name = temp;
+    
+    initPins();
+    gapp->bSetupArduino = false;
+    
 }
 
 //--------------------------------------------------------------
@@ -263,6 +312,8 @@ void gaArduinoModule::setupGui() {
         ofAddListener(gui.createEventGroup(temp),this, &gaArduinoModule::sendDigitalValue);
         
     }
+    
+    initPins();
     
 }
 

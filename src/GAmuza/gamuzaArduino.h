@@ -44,27 +44,28 @@ void gamuzaMain::setupArduino(){
 void gamuzaMain::updateArduino(){
 	
 	if(isArduinoConnected){
-		// first pins setup
-		if(!bSetupArduino){
-			// init pins
-			for(unsigned int i=2;i<14;i++){
-				arduino.sendDigitalPinMode(i, digitalPinModes[i-2]);
-				if(digitalPinModes[i-2] == ARD_PWM){
-					arduino.sendPwm(i, digitalPinValuesOutput[i-2]);
-				}else if(digitalPinModes[i-2] == ARD_SERVO){
-					arduino.sendServo(i, digitalPinValuesOutput[i-2]);
-				}else if(digitalPinModes[i-2] == ARD_OUTPUT){
-					arduino.sendDigital(i, digitalPinValuesOutput[i-2]);
-				}
-			}
-			for(unsigned int i=0;i<6;i++){
-				arduino.sendAnalogPinReporting(i, analogPinModes[i]);
-			}
-			bSetupArduino = true;
-		}
 		
 		if(useArduino){
 			arduino.update();
+            
+            // first pins setup
+            if(!bSetupArduino){
+                // init pins
+                for(unsigned int i=2;i<14;i++){
+                    arduino.sendDigitalPinMode(i, digitalPinModes[i-2]);
+                    if(digitalPinModes[i-2] == ARD_PWM){
+                        arduino.sendPwm(i, digitalPinValuesOutput[i-2]);
+                    }else if(digitalPinModes[i-2] == ARD_SERVO){
+                        arduino.sendServo(i, digitalPinValuesOutput[i-2]);
+                    }else if(digitalPinModes[i-2] == ARD_OUTPUT){
+                        arduino.sendDigital(i, digitalPinValuesOutput[i-2]);
+                    }
+                }
+                for(unsigned int i=0;i<6;i++){
+                    arduino.sendAnalogPinReporting(i, analogPinModes[i]);
+                }
+                bSetupArduino = true;
+            }
 			
 			// manage digital pins readings
 			for(unsigned int i=2;i<14;i++){

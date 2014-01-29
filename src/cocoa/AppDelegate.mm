@@ -29,6 +29,7 @@
     isTimelineON        = false;
     isAudioModuleON     = false;
     isArduinoModuleON   = false;
+    gaARM->setModuleON(true);
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(prefPanel._autoFullscreen == 1){
