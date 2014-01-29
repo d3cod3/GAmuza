@@ -24,7 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Download
 
-Last Release - GAmuza 0433 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0433-OSX.zip)
+Last Release - GAmuza 0434 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0434-OSX.zip)
 
 Older versions [here](http://gamuza.d3cod3.org/download/)
 

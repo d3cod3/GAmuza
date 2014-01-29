@@ -33,6 +33,7 @@ ofxOpticalFlowFarneback
 ofxPBO
 ofxPBOVideoPlayer
 ofxPD
+ofxPostProcessing
 ofxQRCodeGenerator
 ofxQTKitAVScreenRecorder
 ofxQTKitRecorder
@@ -49,4 +50,5 @@ ofxTimeline
 ofxTrueTypeFontUC
 ofxTween
 ofxTwitter
+ofxUI
 ofxVectorField
