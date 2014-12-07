@@ -25,8 +25,8 @@ highlightColor = ofColor(0,0,0,255)
 
 actualTweet = 0
 
-consumerKey = "S5CRkdg9ZrflXYH7vsw6Q"
-consumerSecret = "np1KIdHQANRd5SwcTNgGjEP1IicXujfy4Uai0EecwnI"
+consumerKey = ""
+consumerSecret = ""
 
 userImage = ofImage()
 userBanner = ofImage()
