@@ -538,6 +538,15 @@
 									<reference key="NSOnImage" ref="756751024"/>
 									<reference key="NSMixedImage" ref="908425081"/>
 								</object>
+								<object class="NSMenuItem" id="562134395">
+									<reference key="NSMenu" ref="624513634"/>
+									<string key="NSTitle">Mapper</string>
+									<string key="NSKeyEquiv">6</string>
+									<int key="NSKeyEquivModMask">1179648</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="756751024"/>
+									<reference key="NSMixedImage" ref="908425081"/>
+								</object>
 								<object class="NSMenuItem" id="251497356">
 									<reference key="NSMenu" ref="624513634"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -5701,6 +5710,14 @@ wGw</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
+						<string key="label">toggleMapperModule:</string>
+						<reference key="source" ref="486508904"/>
+						<reference key="destination" ref="562134395"/>
+					</object>
+					<int key="connectionID">1699</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
 						<string key="label">makeKeyAndOrderFront:</string>
 						<reference key="source" ref="717770335"/>
 						<reference key="destination" ref="767662390"/>
@@ -7362,6 +7379,7 @@ wGw</bytes>
 							<reference ref="135289121"/>
 							<reference ref="148146389"/>
 							<reference ref="991879395"/>
+							<reference ref="562134395"/>
 						</array>
 						<reference key="parent" ref="68375293"/>
 					</object>
@@ -9478,6 +9496,11 @@ wGw</bytes>
 						<reference key="object" ref="882382110"/>
 						<reference key="parent" ref="902136516"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">1698</int>
+						<reference key="object" ref="562134395"/>
+						<reference key="parent" ref="624513634"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -9861,6 +9884,7 @@ wGw</bytes>
 				<string key="1690.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1693.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="1696.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="1698.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="29.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="56.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -9972,7 +9996,7 @@ wGw</bytes>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">1697</int>
+			<int key="maxID">1699</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -10018,6 +10042,7 @@ wGw</bytes>
 						<string key="toggleAudioModule:">id</string>
 						<string key="toggleGAmuzaFullscreen:">id</string>
 						<string key="toggleHideCursor:">id</string>
+						<string key="toggleMapperModule:">id</string>
 						<string key="togglePreviewWindow:">id</string>
 						<string key="toggleTimelinePanel:">id</string>
 						<string key="undoOnTimeline:">id</string>
@@ -10173,6 +10198,10 @@ wGw</bytes>
 						</object>
 						<object class="IBActionInfo" key="toggleHideCursor:">
 							<string key="name">toggleHideCursor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="toggleMapperModule:">
+							<string key="name">toggleMapperModule:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="togglePreviewWindow:">

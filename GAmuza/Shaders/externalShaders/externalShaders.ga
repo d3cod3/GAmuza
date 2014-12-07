@@ -1,0 +1,52 @@
+
+/* 
+   
+ GAmuza 0435 examples 
+ ---------------------
+ Shaders/externalShaders.ga
+ 
+ More shaders examples with external shader files
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+camW = 320
+camH = 240
+
+tex1 = ofTexture()
+tex2 = ofTexture()
+
+chromaFbo = ofFbo()
+brcosaFbo = ofFbo()
+
+bloom = ofShader()
+_blur = ofShader()
+brcosa = ofShader()
+chroma = ofShader()
+fish = ofShader()
+rota = ofShader()
+carToPol = ofShader()
+wobble = ofShader()
+luma = ofShader()
+radial = ofShader()
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(camW,camH)
+	
+	tex1:setTextureWrap(GL_REPEAT,GL_REPEAT)
+	tex1:allocate(400,400,GL_RGBA)
+end
+
+function update()
+	
+	
+end
+
+function draw()
+    	gaBackground(0.0,1.0)
+    	
+    
+end

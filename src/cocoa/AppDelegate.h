@@ -5,6 +5,7 @@
 #include "gaTimeline.h"
 #include "gaAudioModule.h"
 #include "gaArduinoModule.h"
+#include "gaMapperModule.h"
 
 #include "ofxNSWindower.h"
 
@@ -39,6 +40,9 @@ ofPtr<ofxNSWindow>  gaAMWindow;
 // Arduino Module
 gaArduinoModule     *gaARM;
 ofPtr<ofxNSWindow>  gaARMWindow;
+// Mapper Module
+gaMapperModule      *gaMM;
+ofPtr<ofxNSWindow>  gaMMWindow;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSMenuDelegate> {
     
@@ -79,6 +83,7 @@ ofPtr<ofxNSWindow>  gaARMWindow;
     bool                        isTimelineON;
     bool                        isAudioModuleON;
     bool                        isArduinoModuleON;
+    bool                        isMapperModuleON;
     
     NSMutableArray              *screensINFO;
     
@@ -198,6 +203,9 @@ ofPtr<ofxNSWindow>  gaARMWindow;
 
 // ARDUINO MODULE
 - (IBAction) toggleArduinoModule:(id)sender;
+
+// MAPPER MODULE
+- (IBAction) toggleMapperModule:(id)sender;
 
 // MAIN RENDER WINDOW
 - (IBAction) toggleHideCursor:(id)sender;

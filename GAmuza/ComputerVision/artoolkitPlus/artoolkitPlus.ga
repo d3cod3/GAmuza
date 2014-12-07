@@ -1,0 +1,135 @@
+
+/*
+   
+ GAmuza 0435 examples 
+ ---------------------
+ ComputerVision/artoolkitPlus.ga
+ 
+ This example show how to use the ofxArtoolKitPlus addon
+ original addon by fishkingsin
+ <https://github.com/fishkingsin/ofxARtoolkitPlus>.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+grabber = ofVideoGrabber()
+player = ofVideoPlayer()
+pixels = ofPixels()
+
+artkit = ofxARToolkitPlus()
+displayImage = ofImage()
+art_threshold = 85
+
+useCamera = false
+bNewFrame = false
+
+_w = 640
+_h = 480
+
+colorImage = ofxCvColorImage()
+grayImage = ofxCvGrayscaleImage()
+grayThres = ofxCvGrayscaleImage()
+
+displayImageCorners = {}
+
+function setup()
+	if useCamera then
+		grabber:setDeviceID(0)
+		grabber:initGrabber(_w,_h)
+	else
+		player:loadMovie(gaDataPath("marker.mov"))
+		player:play()
+		player:setLoopState(OF_LOOP_NORMAL)
+	end
+	
+	pixels:allocate(_w,_h,OF_PIXELS_RGB)
+	
+	colorImage:allocate(_w,_h)
+	grayImage:allocate(_w,_h)
+	grayThres:allocate(_w,_h)
+	
+	// Load the image we are going to distort
+	displayImage:loadImage(gaDataPath("of.jpg"))
+	// Load the corners of the image into the table
+	displayImageHalfWidth = displayImage:getWidth()/2
+	displayImageHalfHeight = displayImage:getHeight()/2
+	displayImageCorners[0] = ofVec3f(0,0,0)
+	displayImageCorners[1] = ofVec3f(displayImage:getWidth(),0,0)
+	displayImageCorners[2] = ofVec3f(displayImage:getWidth(),displayImage:getHeight(),0)
+	displayImageCorners[3] = ofVec3f(0,displayImage:getHeight(),0)
+	
+	artkit:setup(_w,_h)
+	artkit:setThreshold(art_threshold)
+end
+
+function update()
+	if useCamera then
+		grabber:update()
+		bNewFrame = grabber:isFrameNew()
+	else
+		player:update()
+		bNewFrame = player:isFrameNew()
+	end
+	
+	if bNewFrame then
+		if useCamera then
+			pixels = grabber:getPixelsRef()
+			colorImage:setFromPixels(pixels)
+		else
+			player:getTextureReference():readToPixels(pixels)
+			colorImage:setFromPixels(pixels)
+		end
+		
+		// convert our camera image to grayscale
+		grayImage:setFromCvColorImage(colorImage)
+		// apply a threshold so we can see what is going on
+		grayThres = grayImage
+		grayThres:threshold(art_threshold,false)
+		
+		// Pass in the new image pixels to artk
+		artkit:update(grayImage:getTextureReference())
+	end
+	
+end
+
+function draw()
+     gaBackground(0.0,1.0)
+     
+     // Main image
+     ofSetHexColor(0xffffff)
+	grayImage:draw(0,0)
+	ofSetHexColor(0x666666)
+	ofDrawBitmapString(tostring(artkit:getNumDetectedMarkers()) .. " marker(s) found", 10, 20)
+	
+	// Threshold image
+	ofSetHexColor(0xffffff)
+	grayThres:draw(640,0)
+	ofSetHexColor(0x666666)	
+	ofDrawBitmapString("Threshold: " .. tostring(art_threshold), 650, 20)
+	ofDrawBitmapString("Use the Up/Down keys to adjust the threshold", 650, 40)
+     
+    	// ARTK draw
+	// An easy was to see what is going on
+	// Draws the marker location and id number
+	artkit:draw(640, 0)
+	
+	// ARTK 2D stuff
+	// See if marker ID '0' was detected
+	// and draw blue corners on that marker only
+	myIndex = artkit:getMarkerIndex(0)
+	if myIndex >= 0 then
+		artkit:getDetectedMarkerOrderedBorderCorners(myIndex)
+		HL = artkit:getOrderedBorderCornerPoint(0)
+		HR = artkit:getOrderedBorderCornerPoint(1)
+		LR = artkit:getOrderedBorderCornerPoint(2)
+		LL = artkit:getOrderedBorderCornerPoint(3)
+        	// We apply the matrix and then can draw the image distorted on to the marker
+        	ofPushMatrix()
+        		ofSetColor(255)
+        		ofxQuadWarp(displayImage:getTextureReference(),HL,HR,LR,LL,10,10)
+        	ofPopMatrix()
+	end
+	
+end
+

@@ -44,8 +44,7 @@ void gamuzaMain::setupFBO(){
 
 //--------------------------------------------------------------
 void gamuzaMain::updateFBO(){
-    // pass the output FBO to the external video preview window
-    gaVP->getPreview(drawingFbo);
+    
 }
 
 //--------------------------------------------------------------

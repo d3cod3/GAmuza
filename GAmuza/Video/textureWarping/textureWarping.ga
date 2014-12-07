@@ -1,0 +1,44 @@
+/*
+ 
+ GAmuza empty sketch
+ 
+*/
+
+grabber = ofVideoGrabber()
+cam = ofTexture()
+
+HL = ofVec3f(0,0,0)
+HR = ofVec3f(OUTPUT_W,0,0)
+LR = ofVec3f(OUTPUT_W,OUTPUT_H,0)
+LL = ofVec3f(0, OUTPUT_H,0)
+
+captureW = 320
+captureH = 240
+
+function setup()
+	grabber:setDeviceID(0)
+	grabber:initGrabber(captureW,captureH)
+    	cam:allocate(captureW,captureH,GL_RGB)
+    	cam:clear()
+end
+
+function update()
+	// get the cam texture
+    grabber:update()
+    if grabber:isFrameNew() then
+        cam = grabber:getTextureReference()
+    end
+end
+
+function draw()
+     gaBackground(0.0,1.0)
+     
+     ofSetColor(255)
+     ofNoFill()
+     
+     gaBackground(0.0,1.0)
+    
+    	ofSetColor(255)
+    	ofxQuadWarp(cam,HL,HR,LR,LL,10,10)
+    	//cam:draw(0,0)
+end

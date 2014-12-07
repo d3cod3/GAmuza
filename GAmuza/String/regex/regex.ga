@@ -1,0 +1,37 @@
+
+/* 
+   
+ GAmuza 0435 examples 
+ ---------------------
+ String/regex
+ 
+ Simple use of ofxRegex addon (GAmuza adapted) by ofZach
+ <https://github.com/ofZach/ofxRegex>
+ 
+ more info about regex:
+ http://es.wikipedia.org/wiki/Expresi%C3%B3n_regular
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+regex = ofxRegex()
+
+function setup()
+	regex:getMatchedStrings("this is a test","[a-z]+")
+end
+
+function update()
+
+end
+
+function draw()
+     gaBackground(0.0,1.0)
+     
+     ofSetColor(255)
+     for i=0, regex:getNumWords()-1 do
+		test = regex:getStringAtIndex(i)
+		ofDrawBitmapString(test,40,40 + 60*i)
+	end
+     
+end

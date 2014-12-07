@@ -1,0 +1,84 @@
+
+/* 
+   
+ GAmuza 0434 examples 
+ ---------------------
+ Video/randomVideoHead.ga
+ 
+ This example shows how to randomly secuencing over time a video head position
+ using time for secuencing, ofVideoPlayer class for controlling the video file,
+ and GAmuza internal wave oscillators to add some audio reference.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+randomNumber = 0
+myVideo = ofVideoPlayer()
+framesNum = 0
+
+// TIME VARIABLES
+GAmuzaTime 	= 0
+myTime  		= 0
+wait 		= 100 // 0.1 segundos
+lastReset 	= ofGetElapsedTimeMillis()
+semaphore		= false
+
+function setup()
+	myVideo:loadMovie(gaImportFile("video.mov"))
+    	myVideo:play()
+    	myVideo:setLoopState(OF_LOOP_NORMAL)
+    	framesNum = myVideo:getTotalNumFrames()
+    	
+    	gaWave(GA_SAW,220)
+end
+
+function update()
+
+	myVideo:update()
+	
+	// get the time elapsed from the opening of GAmuza
+	GAmuzaTime = ofGetElapsedTimeMillis()
+	
+	// create a parallel timeline starting from the last reset
+	myTime = GAmuzaTime - lastReset
+	
+	// trigger the random number creation and the video frame jump
+	if semaphore == true then
+		// parallel timeline reset
+		lastReset = GAmuzaTime
+		// update the random number
+		randomNumber = math.floor(ofRandom(framesNum))
+		myVideo:setFrame(randomNumber)
+		
+		gaWaveFrequency(0,ofRandom(30,2200))
+		gaWaveVolume(0,ofRandomuf())
+		
+		// close
+		semaphore = false
+		
+	end
+	
+	// when we reset the parallel timeline
+	// we have to wait to restore the interaction system
+	// the wait time is in wait variable
+	if GAmuzaTime-lastReset > wait then
+		semaphore = true
+	end
+end
+
+function draw()
+     gaBackground(0.0,1.0)
+     
+     
+     ofSetColor(255)
+    	scaleH = (OUTPUT_W/myVideo:getWidth())*myVideo:getHeight()
+    	myVideo:draw(0,OUTPUT_H/2 - scaleH/2,OUTPUT_W,scaleH)
+    	
+    	 ofSetColor(255,0,0)
+     ofDrawBitmapString(string.format("Linea de tiempo primaria: %i",GAmuzaTime),20,200)
+     ofDrawBitmapString(string.format("Line de tiempo de script: %i",myTime),20,240)
+     
+     ofDrawBitmapString(tostring(randomNumber),20,280)
+     
+end

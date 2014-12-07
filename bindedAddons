@@ -1,4 +1,5 @@
 ofxArcText
+ofxARtoolkitPlus
 ofxBox2d
 ofxChromaKey
 ofxCLD
@@ -8,6 +9,7 @@ ofxDelaunay
 ofxDither
 ofxDmx
 ofxDOF
+ofxExtras
 ofxFX
 ofxGameCamera
 ofxGaussian
@@ -20,6 +22,7 @@ ofxPBO
 ofxPBOVideoPlayer
 ofxQRCodeGenerator
 ofxQTKitAVScreenRecorder
+ofxRegex
 ofxSlitScan
 ofxSubtitles
 ofxSyphon

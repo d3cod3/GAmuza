@@ -29,8 +29,19 @@
     isTimelineON        = false;
     isAudioModuleON     = false;
     isArduinoModuleON   = false;
+    isMapperModuleON    = false;
     gaARM->setModuleON(true);
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
+    
+    if(gapp->autoLoadScript == true){
+        NSString * filename = [[NSString alloc] initWithUTF8String:gapp->autoScriptFile.c_str()];
+        [self processFile:filename];
+        [self sendScriptToGAmuza:NULL];
+    }else{
+        NSString * filename = [NSString stringWithFormat:@"%@",@"scripts/emptyExample.ga"];
+        [self processFile:filename];
+        [self sendScriptToGAmuza:NULL];
+    }
     
     if(prefPanel._autoFullscreen == 1){
         [self getScreenXPosition:prefPanel._fullscreenScreen];
@@ -38,6 +49,8 @@
         gappWindow->toggleFullscreen();
         gapp->gamuzaFullscreen(gappWindow->getActualScreen());
     }
+    
+    applicationHasStarted = YES;
     
 }
 
@@ -49,8 +62,9 @@
 
 //------------------------------------------------------------------------------
 - (BOOL)processFile:(NSString *)file{
-    // open arbitrary file
-    NSString * tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", file];
+    NSString * tvarFilename;
+    tvarFilename = [NSString stringWithFormat:@"%@%@", @"file:", file];
+    
     NSURL *url = [NSURL URLWithString:tvarFilename];
     
     [[NSDocumentController sharedDocumentController] openDocumentWithContentsOfURL:url display:YES error:NULL];
@@ -78,6 +92,7 @@
             }
         }
     }
+    
     return YES;
 }
 
@@ -146,6 +161,13 @@
     gaARMWindow->setWindowTitle("GA Arduino");
     [gaARMWindow->getWindow() orderOut:self];
     
+    // START GAmuza Mapper Module
+    gaMM = new gaMapperModule(1020,720);
+    ofxNSWindower::instance()->addWindow(gaMM,"GA Mapper", NSTitledWindowMask,20);
+    gaMMWindow = ofxNSWindower::instance()->getWindowPtr("GA Mapper");
+    gaMMWindow->setWindowTitle("GA Mapper");
+    [gaMMWindow->getWindow() orderOut:self];
+    
     // Splash window
     [_splash makeKeyAndOrderFront:self];
     NSTimer *t = [NSTimer scheduledTimerWithTimeInterval:3.1
@@ -153,8 +175,6 @@
                                     selector:@selector(terminateSplashWindow:)
                                     userInfo:NULL
                                     repeats:NO];
-    
-    applicationHasStarted = YES;
     
     NSString *tempRelease = [NSString stringWithFormat:@"GAmuza %@ | Hybrid Live OF Sketching IDE",[NSString stringWithCString:GAMUZA_RELEASE encoding:[NSString defaultCStringEncoding]]];
     [self sendGALog:tempRelease];
@@ -392,6 +412,16 @@
         x++;
     }*/
     
+}
+
+//------------------------------------------------------------------------------
+- (void) applicationDidUpdate:(NSNotification *)notification {
+    if(applicationHasStarted){
+        // pass the output FBO to the external video preview window
+        gaVP->getPreview(gapp->drawingFbo);
+        // pass the final output FBO to the MAPPER Module
+        gaMM->getPreview(gapp->gamuzaFbo);
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -1056,11 +1086,16 @@
     gaARM->restart();
     
     gaVP->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
+    gaMM->setFboDim(gapp->projectionScreenW,gapp->projectionScreenH);
     [self sendScreenResToGA];
     [prefPanel.mainPanel orderOut:NULL];
 }
 
 -(IBAction) hideAllModules:(id)sender{
+    if(isMapperModuleON){
+        isMapperModuleON = false;
+        [gaMMWindow->getWindow() orderOut:self];
+    }
     if(isArduinoModuleON){
         isArduinoModuleON = false;
         [gaARMWindow->getWindow() orderOut:self];
@@ -1103,6 +1138,20 @@
         isAudioModuleON = true;
         gaAM->setModuleON(true);
         [gaAMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
+-(IBAction) toggleMapperModule:(id)sender{
+    if(isMapperModuleON){
+        isMapperModuleON = false;
+        gaMM->setModuleON(false);
+        [gaMMWindow->getWindow() orderOut:self];
+        [sender setState: NSOffState];
+    }else{
+        isMapperModuleON = true;
+        gaMM->setModuleON(true);
+        [gaMMWindow->getWindow() makeKeyAndOrderFront:self];
         [sender setState: NSOnState];
     }
 }

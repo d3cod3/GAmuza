@@ -1,0 +1,44 @@
+
+/* 
+   
+ GAmuza 0435 examples 
+ ---------------------
+ Basics/arcCircle.ga
+ 
+ Simple Arc graphic manipulation example. Using ofxExtras addon funcitons.
+ 
+ created by n3m3da | www.d3cod3.org
+ 
+*/
+
+innerRotate = 0
+externalRotate = 0
+
+function setup()
+
+end
+
+function update()
+	innerRotate += 0.3
+	externalRotate += 0.8
+end
+
+function draw()
+     gaBackground(0.0,1.0)
+     
+     ofSetColor(255)
+     ofSetLineWidth(3)
+     
+     ofPushMatrix()
+     	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+     	ofRotateZ(externalRotate)
+     	ofxArc(300,0,TWO_PI - 0.07,50)
+     ofPopMatrix()
+     
+     ofPushMatrix()
+     	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+     	ofRotateZ(innerRotate)
+     	ofxArcStrip(20,60,0,TWO_PI-0.1)
+     ofPopMatrix()
+     
+end

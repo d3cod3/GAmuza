@@ -348,6 +348,7 @@ class ofGamuzaWrapper{
          .def("isValid", (bool(ofMatrix4x4::*)(void)) &ofMatrix4x4::isValid)
          .def("isNaN", (bool(ofMatrix4x4::*)(void)) &ofMatrix4x4::isNaN)
          .def("set", (void(ofMatrix4x4::*)(const ofMatrix4x4&)) &ofMatrix4x4::set)
+         .def("getPtr", (float*(ofMatrix4x4::*)(void)) &ofMatrix4x4::getPtr)
          .def("isIdentity", (bool(ofMatrix4x4::*)(void)) &ofMatrix4x4::isIdentity)
          .def("makeIdentityMatrix", (void(ofMatrix4x4::*)(void)) &ofMatrix4x4::makeIdentityMatrix)
          .def("makeScaleMatrix", (void(ofMatrix4x4::*)(const ofVec3f&)) &ofMatrix4x4::makeScaleMatrix)
@@ -2065,6 +2066,72 @@ class ofGamuzaWrapper{
          .def("available", (int(ofSerial::*)(void)) &ofSerial::available)
          .def("drain", (void(ofSerial::*)(void)) &ofSerial::drain),
          
+         ///////////////////////////////////////////////////////////////////////////////////
+		 /// \section ofxExtras ---> ofxExtras.h
+         
+		 def("ofxColorMatch", (bool(*)(ofColor,ofColor,int)) &ofxColorMatch),
+		 def("ofxFileExists", (bool(*)(string)) &ofxFileExists),
+         def("ofxOnTimeIntervalSeconds", (bool(*)(int)) &ofxOnTimeIntervalSeconds),
+         def("ofxStringEndsWith", (bool(*)(string,string)) &ofxStringEndsWith),
+         def("ofxStringStartsWith", (bool(*)(string,string)) &ofxStringStartsWith),
+         def("ofxToBoolean", (bool(*)(float)) &ofxToBoolean),
+         def("ofxToBoolean", (bool(*)(string)) &ofxToBoolean),
+         def("ofxDist", (float(*)(float,float,float,float,float,float)) &ofxDist),
+         def("ofxGetHeading", (float(*)(ofPoint,ofPoint)) &ofxGetHeading),
+         def("ofxLerp", (float(*)(float,float,float)) &ofxLerp),
+         def("ofxLerp", (ofPoint(*)(ofPoint,ofPoint,float)) &ofxLerp),
+         def("ofxGetMultiByteStringLength", (int(*)(string)) &ofxGetMultiByteStringLength),
+         def("ofxIndex", (int(*)(float,float,float)) &ofxIndex),
+         def("ofxToInteger", (int(*)(ofColor)) &ofxToInteger),
+         def("ofxToInteger", (int(*)(string)) &ofxToInteger),
+         def("ofxToColor", (ofColor(*)(int)) &ofxToColor),
+         def("ofxToColor", (ofColor(*)(string)) &ofxToColor),
+         def("ofxToColor", (ofColor(*)(unsigned char,unsigned char,unsigned char)) &ofxToColor),
+         def("ofxCreateGeoSphere", (ofMesh(*)(int,int)) &ofxCreateGeoSphere),
+         def("ofxGetPointOnCircle", (ofPoint(*)(float,float)) &ofxGetPointOnCircle),
+         def("ofxToQuaternion", (ofQuaternion(*)(float,float)) &ofxToQuaternion),
+         def("ofxToCartesian", (ofVec3f(*)(float,float)) &ofxToCartesian),
+         def("ofxToCartesian", (ofVec3f(*)(ofQuaternion)) &ofxToCartesian),
+         def("ofxAddTrailingSlash", (string(*)(string)) &ofxAddTrailingSlash),
+         def("ofxAddTrailingString", (string(*)(string,string)) &ofxAddTrailingString),
+         def("ofxFormatString", (string(*)(string,int)) &ofxFormatString),
+         def("ofxFormatString", (string(*)(string,string)) &ofxFormatString),
+         def("ofxGetFileAge", (unsigned int(*)(string)) &ofxGetFileAge),
+         def("ofxGetFileExtension", (string(*)(string)) &ofxGetFileExtension),
+         def("ofxGetFilenameFromUrl", (string(*)(string)) &ofxGetFilenameFromUrl),
+         def("ofxGetHostName", (string(*)(void)) &ofxGetHostName),
+         def("ofxGetSerialString", (string(*)(ofSerial&,char)) &ofxGetSerialString),
+         def("ofxGetSerialString2", (string(*)(ofSerial&,char)) &ofxGetSerialString2),
+         def("ofxReplaceString", (string(*)(string,string,string)) &ofxReplaceString),
+         def("ofxGetIsoDateTime", (string(*)(void)) &ofxGetIsoDateTime),
+         def("ofxStringAfterFirst", (string(*)(string,string)) &ofxStringAfterFirst),
+         def("ofxStringBeforeFirst", (string(*)(string,string)) &ofxStringBeforeFirst),
+         def("ofxToHexString", (string(*)(int,int)) &ofxToHexString),
+         def("ofxToString", (string(*)(bool)) &ofxToString),
+         def("ofxToString", (string(*)(char)) &ofxToString),
+         def("ofxToString", (string(*)(float)) &ofxToString),
+         def("ofxToString", (string(*)(int)) &ofxToString),
+         def("ofxToString", (string(*)(ofColor)) &ofxToString),
+         def("ofxToString", (string(*)(ofMatrix4x4)) &ofxToString),
+         def("ofxToString", (string(*)(ofQuaternion)) &ofxToString),
+         def("ofxToString", (string(*)(ofRectangle)) &ofxToString),
+         def("ofxToString", (string(*)(ofVec2f)) &ofxToString),
+         def("ofxToString", (string(*)(ofVec3f,int)) &ofxToString),
+         def("ofxToString", (string(*)(ofVec4f)) &ofxToString),
+         def("ofxToString", (string(*)(string)) &ofxToString),
+         def("ofxToString", (string(*)(unsigned char)) &ofxToString),
+         def("ofxTrimString", (string(*)(string)) &ofxTrimString),
+         def("ofxTrimStringLeft", (string(*)(string)) &ofxTrimStringLeft),
+         def("ofxTrimStringRight", (string(*)(string)) &ofxTrimStringRight),
+         def("ofxUrlToSafeLocalPath", (string(*)(string)) &ofxUrlToSafeLocalPath),
+         def("ofxArc", (void(*)(float,float,float,int)) &ofxArc),
+         def("ofxArcStrip", (void(*)(float,float,float,float)) &ofxArcStrip),
+         def("ofxAutoColorMesh", (void(*)(ofMesh&)) &ofxAutoColorMesh),
+         def("ofxQuadricDisk", (void(*)(float,float,int)) &ofxQuadricDisk),
+         def("ofxQuadricSphere", (void(*)(float,int)) &ofxQuadricSphere),
+         def("ofxQuadWarp", (void(*)(ofTexture&,ofPoint,ofPoint,ofPoint,ofPoint,int,int)) &ofxQuadWarp),
+         def("ofxMakeEven", (int(*)(int,int)) &ofxMakeEven),
+         def("ofxMakeOdd", (int(*)(int,int)) &ofxMakeOdd),
          
          ///////////////////////////////////////////////////////////////////////////////////
          ///////////////////////////////////////////////////////////////////////////////////
@@ -2669,6 +2736,45 @@ class ofGamuzaWrapper{
          
          .def("drawString", (void(ofxArcText::*)(string,float,float,float)) &ofxArcText::drawString)
          .def("getCharacterWidth", (float(ofxArcText::*)(char)) &ofxArcText::getCharacterWidth),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXARTOOLKITPLUS
+         class_<ofxARToolkitPlus>("ofxARToolkitPlus")
+         .def(constructor<>())
+         .def("setup", (void(ofxARToolkitPlus::*)(int,int)) &ofxARToolkitPlus::setup)
+         .def("setup", (void(ofxARToolkitPlus::*)(int,int,string,string,int,int,int,int,int)) &ofxARToolkitPlus::setup)
+         .def("update", (int(ofxARToolkitPlus::*)(ofTexture&)) &ofxARToolkitPlus::update)
+         .def("draw", (void(ofxARToolkitPlus::*)(void)) &ofxARToolkitPlus::draw)
+         .def("draw", (void(ofxARToolkitPlus::*)(int,int)) &ofxARToolkitPlus::draw)
+         .def("draw", (void(ofxARToolkitPlus::*)(int,int,int,int)) &ofxARToolkitPlus::draw)
+         .def("applyProjectionMatrix", (void(ofxARToolkitPlus::*)(void)) &ofxARToolkitPlus::applyProjectionMatrix)
+         .def("applyProjectionMatrix", (void(ofxARToolkitPlus::*)(int,int)) &ofxARToolkitPlus::applyProjectionMatrix)
+         .def("applyModelMatrix", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::applyModelMatrix)
+         .def("getGLMatrix", (ofMatrix4x4(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getGLMatrix)
+         .def("getHomography", (ofMatrix4x4(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getHomography)
+         .def("getTranslation", (ofVec3f(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getTranslation)
+         .def("getOrientationMatrix", (ofMatrix4x4(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getOrientationMatrix)
+         .def("getOrientationQuaternion", (ofQuaternion(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getOrientationQuaternion)
+         .def("getCameraPosition", (ofVec3f(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getCameraPosition)
+         .def("getMultiMarkerTranslationAndOrientation", (void(ofxARToolkitPlus::*)(ofVec3f&,ofMatrix4x4&)) &ofxARToolkitPlus::getMultiMarkerTranslationAndOrientation)
+         .def("loadMultiMarkerFile", (bool(ofxARToolkitPlus::*)(string)) &ofxARToolkitPlus::loadMultiMarkerFile)
+         .def("setThreshold", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::setThreshold)
+         .def("activateAutoThreshold", (void(ofxARToolkitPlus::*)(bool)) &ofxARToolkitPlus::activateAutoThreshold)
+         .def("setMarkerWidth", (void(ofxARToolkitPlus::*)(float)) &ofxARToolkitPlus::setMarkerWidth)
+         .def("getNumDetectedMarkers", (int(ofxARToolkitPlus::*)(void)) &ofxARToolkitPlus::getNumDetectedMarkers)
+         .def("getMarkerIndex", (int(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getMarkerIndex)
+         .def("getMarkerID", (int(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getMarkerID)
+         .def("getDetectedMarkerCenter", (ofPoint(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerCenter)
+         .def("getDetectedMarkerDirection", (int(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerDirection)
+         .def("getDetectedMarkerCorners", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerCorners)
+         .def("getDetectedMarkerOrderedCorners", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerOrderedCorners)
+         .def("getDetectedMarkerBorderCorners", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerBorderCorners)
+         .def("getDetectedMarkerOrderedBorderCorners", (void(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getDetectedMarkerOrderedBorderCorners)
+         .def("getCornerPoint", (ofPoint(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getCornerPoint)
+         .def("getOrderedCornerPoint", (ofPoint(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getOrderedCornerPoint)
+         .def("getBorderCornerPoint", (ofPoint(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getBorderCornerPoint)
+         .def("getOrderedBorderCornerPoint", (ofPoint(ofxARToolkitPlus::*)(int)) &ofxARToolkitPlus::getOrderedBorderCornerPoint),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5074,6 +5180,98 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXOCEAN
+         class_<ofxOcean>("ofxOcean")
+         .def(constructor<>())
+         .def("setup", (void(ofxOcean::*)(void)) &ofxOcean::setup)
+         .def("update", (void(ofxOcean::*)(void)) &ofxOcean::update)
+         .def("floatingPosition", (ofVec3f(ofxOcean::*)(ofVec3f,bool)) &ofxOcean::floatingPosition)
+         .def("floatingPosition", (ofVec3f(ofxOcean::*)(float,float,bool)) &ofxOcean::floatingPosition)
+         .def("waterHeight", (float(ofxOcean::*)(float,float)) &ofxOcean::waterHeight)
+         .def("choppyOffset", (float(ofxOcean::*)(float,float)) &ofxOcean::choppyOffset)
+         .def("getHighestWave", (float(ofxOcean::*)(void)) &ofxOcean::getHighestWave)
+         .def("getLowestWave", (float(ofxOcean::*)(void)) &ofxOcean::getLowestWave)
+         .def("setFrameNum", (void(ofxOcean::*)(int)) &ofxOcean::setFrameNum)
+         .def_readwrite("waveScale", &ofxOcean::waveScale)
+         .def_readwrite("choppyScale", &ofxOcean::choppyScale)
+         .def_readwrite("waveSpeed", &ofxOcean::waveSpeed),
+         
+         class_<ofxOceanCamera>("ofxOceanCamera")
+         .def(constructor<>())
+         .def("setFov", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::setFov)
+         .def("setNearClip", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::setNearClip)
+		 .def("setFarClip", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::setFarClip)
+         .def("setLensOffset", (void(ofxOceanCamera::*)(const ofVec2f&)) &ofxOceanCamera::setLensOffset)
+         .def("setAspectRatio", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::setAspectRatio)
+         .def("setForceAspectRatio", (void(ofxOceanCamera::*)(bool)) &ofxOceanCamera::setForceAspectRatio)
+         .def("getFov", (const float(ofxOceanCamera::*)(void)) &ofxOceanCamera::getFov)
+         .def("getNearClip", (const float(ofxOceanCamera::*)(void)) &ofxOceanCamera::getNearClip)
+		 .def("getFarClip", (const float(ofxOceanCamera::*)(void)) &ofxOceanCamera::getFarClip)
+         .def("getLensOffset", (const ofVec2f(ofxOceanCamera::*)(void)) &ofxOceanCamera::getLensOffset)
+         .def("getForceAspectRatio", (const bool(ofxOceanCamera::*)(void)) &ofxOceanCamera::getForceAspectRatio)
+         .def("getAspectRatio", (const float(ofxOceanCamera::*)(void)) &ofxOceanCamera::getAspectRatio)
+         .def("setupPerspective", (void(ofxOceanCamera::*)(bool,float,float,float,const ofVec2f&)) &ofxOceanCamera::setupPerspective)
+         .def("setupOffAxisViewPortal", (void(ofxOceanCamera::*)(const ofVec3f&,const ofVec3f&,const ofVec3f&)) &ofxOceanCamera::setupOffAxisViewPortal)
+         .def("enableOrtho", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::enableOrtho)
+         .def("disableOrtho", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::disableOrtho)
+         .def("getOrtho", (bool(ofxOceanCamera::*)(void)) &ofxOceanCamera::getOrtho)
+         .def("getModelViewMatrix", (ofMatrix4x4(ofxOceanCamera::*)(void)) &ofxOceanCamera::getModelViewMatrix)
+         .def("setPosition", (void(ofxOceanCamera::*)(float,float,float)) &ofxOceanCamera::setPosition)
+         .def("setPosition", (void(ofxOceanCamera::*)(const ofVec3f&)) &ofxOceanCamera::setPosition)
+         .def("setScale", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::setScale)
+         .def("setScale", (void(ofxOceanCamera::*)(float,float,float)) &ofxOceanCamera::setScale)
+         .def("setScale", (void(ofxOceanCamera::*)(const ofVec3f&)) &ofxOceanCamera::setScale)
+         .def("move", (void(ofxOceanCamera::*)(float,float,float)) &ofxOceanCamera::move)
+         .def("move", (void(ofxOceanCamera::*)(const ofVec3f&)) &ofxOceanCamera::move)
+         .def("truck", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::truck)
+         .def("boom", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::boom)
+         .def("dolly", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::dolly)
+         .def("tilt", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::tilt)
+         .def("pan", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::pan)
+         .def("roll", (void(ofxOceanCamera::*)(float)) &ofxOceanCamera::roll)
+         .def("rotate", (void(ofxOceanCamera::*)(float,const ofVec3f&)) &ofxOceanCamera::rotate)
+         .def("rotate", (void(ofxOceanCamera::*)(float,float,float,float)) &ofxOceanCamera::rotate)
+         .def("lookAt", (void(ofxOceanCamera::*)(const ofVec3f&,ofVec3f)) &ofxOceanCamera::lookAt)
+         .def("orbit", (void(ofxOceanCamera::*)(float,float,float,const ofVec3f&)) &ofxOceanCamera::orbit)
+         .def("transformGL", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::transformGL)
+         .def("restoreTransformGL", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::restoreTransformGL)
+         .def("resetTransform", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::resetTransform)
+         .def("draw", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::draw)
+         .def("getImagePlaneDistance", (float(ofxOceanCamera::*)(ofRectangle)) &ofxOceanCamera::getImagePlaneDistance)
+         .def("getProjectionMatrix", (ofMatrix4x4(ofxOceanCamera::*)(ofRectangle)) &ofxOceanCamera::getProjectionMatrix)
+         .def("getModelViewProjectionMatrix", (ofMatrix4x4(ofxOceanCamera::*)(ofRectangle)) &ofxOceanCamera::getModelViewProjectionMatrix)
+         .def("worldToScreen", (ofVec3f(ofxOceanCamera::*)(ofVec3f,ofRectangle)) &ofxOceanCamera::worldToScreen)
+         .def("screenToWorld", (ofVec3f(ofxOceanCamera::*)(ofVec3f,ofRectangle)) &ofxOceanCamera::screenToWorld)
+         .def("worldToCamera", (ofVec3f(ofxOceanCamera::*)(ofVec3f,ofRectangle)) &ofxOceanCamera::worldToCamera)
+         .def("cameraToWorld", (ofVec3f(ofxOceanCamera::*)(ofVec3f,ofRectangle)) &ofxOceanCamera::cameraToWorld)
+         
+         .def("beginCamera", (void(ofxOceanCamera::*)(ofRectangle)) &ofxOceanCamera::begin)
+         .def("endCamera", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::end)
+         
+         .def("update", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::update)
+         .def("drawDebug", (void(ofxOceanCamera::*)(void)) &ofxOceanCamera::drawDebug),
+         
+         class_<ofxOceanTile>("ofxOceanTile")
+         .def(constructor<>())
+         .def("setup", (void(ofxOceanTile::*)(void)) &ofxOceanTile::setup)
+         .def("update", (void(ofxOceanTile::*)(void)) &ofxOceanTile::update)
+         .def("draw", (void(ofxOceanTile::*)(void)) &ofxOceanTile::draw)
+         .def("drawWireframe", (void(ofxOceanTile::*)(void)) &ofxOceanTile::drawWireframe)
+         .def("drawVertices", (void(ofxOceanTile::*)(void)) &ofxOceanTile::drawVertices),
+         
+         class_<ofxOceanRenderer>("ofxOceanRenderer")
+         .def(constructor<>())
+         .def("setup", (void(ofxOceanRenderer::*)(int,int)) &ofxOceanRenderer::update)
+         .def("update", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::update)
+         .def("draw", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::draw)
+         .def("drawWireframe", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::drawWireframe)
+         .def("drawVertices", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::drawVertices)
+         .def("clearTiles", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::clearTiles)
+         .def("getWidth", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::getWidth)
+         .def("getHeight", (void(ofxOceanRenderer::*)(void)) &ofxOceanRenderer::getHeight),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXOPTICALFLOWLK
          class_<ofxOpticalFlowLK>("ofxOpticalFlowLK")
          .def(constructor<>())
@@ -5202,6 +5400,15 @@ class ofGamuzaWrapper{
          .def("listAudioDevices", (string*(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::listAudioDevices)
          .def("listAudioCodecs", (string*(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::listAudioCodecs)
          .def("getIsRecording", (bool(ofxQTKitAVScreenRecorder::*)(void)) &ofxQTKitAVScreenRecorder::getIsRecording),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXREGEX
+         class_<ofxRegex>("ofxRegex")
+         .def(constructor<>())
+         .def("getMatchedStrings", (void(ofxRegex::*)(string,string)) &ofxRegex::getMatchedStrings)
+         .def("getStringAtIndex", (string(ofxRegex::*)(int)) &ofxRegex::getStringAtIndex)
+         .def("getNumWords", (int(ofxRegex::*)(void)) &ofxRegex::getNumWords),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5705,6 +5912,7 @@ class ofGamuzaWrapper{
 		lua.doString("HALF_PI = "+ofToString(HALF_PI));
 		lua.doString("PI = "+ofToString(PI));
 		lua.doString("TWO_PI = "+ofToString(TWO_PI));
+        lua.doString("TAU = "+ofToString(TWO_PI));
         lua.doString("FOUR_PI = "+ofToString(FOUR_PI));
         lua.doString("DEG_TO_RAD = "+ofToString(DEG_TO_RAD));
         lua.doString("RAD_TO_DEG = "+ofToString(RAD_TO_DEG));

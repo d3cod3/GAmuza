@@ -22,231 +22,69 @@
  
  **********************************************************************************/
 
-#ifndef OFXUI_RECTANGLE
-#define OFXUI_RECTANGLE
+#pragma once
 
-#include "ofMain.h"
+#include "ofxUIOFWrapper.h"
 
-class ofxUIRectangle : public ofRectangle
+class ofxUIRectangle
 {
-
 public:
-    ofxUIRectangle()
-    {
-        x = y = width = height = halfheight = halfwidth = 0.0f; 
-        setParent(NULL);         
-    }
+    ofxUIRectangle();
+    ofxUIRectangle(float _x, float _y, float _w, float _h);
+    ofxUIRectangle(ofxUIRectangle const & r);
     
-    ofxUIRectangle(float _x, float _y, float _w, float _h)
-    {
-        x = _x;
-        y = _y;
-        width = _w;
-        halfwidth = width*.5;                 
-        height = _h;
-        halfheight = height*.5;        
-        setParent(NULL); 
-    }
+    void setParent(ofxUIRectangle *_parent);
     
-    ofxUIRectangle(ofRectangle const & r)
-    {
-        x = r.x;
-        y = r.y;
-        width = r.width;
-        halfwidth = width*.5;         
-        height = r.height;
-        halfheight = height*.5;
-        setParent(NULL); 
-    }
+    void set(float px, float py, float w, float h);
     
-    void setParent(ofxUIRectangle *_parent)
-    {
-        parent = _parent; 
-    }
-    
-	void setHeight(float _height)
-	{
-		height = _height; 
-        halfheight = height*.5; 
-	}
-	
-	void setWidth(float _width)
-	{
-		width = _width; 
-        halfwidth = width*.5; 
-	}
-	
-    bool inside(ofPoint p)
-    {
-        if(parent !=NULL)
-        {
-            return insideParent(p.x, p.y); 
-        }
-        else
-        {
-            return insideChild(p.x, p.y);
-        }
-    }
-    
-    bool inside(float px, float py)
-    {
-        if(parent != NULL)
-        {
-            return insideParent(px,py); 
-        }
-        else
-        {
-            return insideChild(px,py); 
-        }
-    }
-    
-    bool insideChild(float px, float py)
-    {
-        if( px > x && py > y && px < x + width && py < y + height ){
-            return true;
-        }
-        return false;
-    
-    }
-    
-    bool insideParent(float px, float py)
-    {
-        if( px > (x+parent->getX()) && py > (y+parent->getY()) && px < (x+parent->getX()) + width && py < (y+parent->getY()) + height )
-        {
-            return true;
-        }
-        return false;    
-    }
-	
-	ofVec2f percentInside(float px, float py)				//Assumes your already inside rect 
-	{
-		if(parent != NULL)
-		{
-			return percentInsideParent(px,py); 
-		}
-		else
-		{
-			return percentInsideChild(px,py); 
-		}		
-	}
-	
-	ofVec2f percentInsideChild(float px, float py)
-    {
-		return ofVec2f((px-x)/(width), (py-y)/(height)); 
-    }
-    
-    ofVec2f percentInsideParent(float px, float py)
-    {		
-		return ofVec2f((px-(x+parent->getX()))/(width), (py-(y+parent->getY()))/(height)); 
-	}
-    
-    void draw()
-    {
-        if(parent != NULL)
-        {
-            ofRect(parent->getX()+x, parent->getY()+y, width, height); 
-        }
-        else
-        {
-            ofRect(x,y,width,height); 
-        }
-    }
-/*	
-	void drawRectLines()
-	{
-        if(parent != NULL)
-        {            
-            ofRectLines(parent->getX()+x, parent->getY()+y, width, height, 8); 
-        }
-        else
-        {
-            ofRectLines(x,y,width,height, 8); 
-        }
-	}
-*/					
-	
-	float getX()
-	{
-        if(parent != NULL)
-        {            
-            return (x+parent->getX()); 
-        }
-        else
-        {
-			return x; 
-        }		
-	}
-	
-	float getY()
-	{
-        if(parent != NULL)
-        {            
-            return (y+parent->getY()); 
-        }
-        else
-        {
-			return y; 
-        }				
-	}
-    
-	float getWidth()
-	{
-		return width; 
-	}
-	
-	float getHeight()
-	{
-		return height; 
-	}
-	
-    float getHalfWidth()
-	{
-		return halfwidth; 
-	}
-	
-	float getHalfHeight()
-	{
-		return halfheight; 
-	}
-	
-    float getRelativeMinX()
-    {
-        return MIN(getX(), getX() + getWidth());  // - width
-    }
-    
-    float getRelativeMinY()
-    {
-        return MIN(getY(), getY() + getHeight());  // - height
-    }
-    
-    float getRelativeMaxX()
-    {
-        return MAX(getX(), getX() + getWidth());  // - width
-    }
-    
-    float getRelativeMaxY()
-    {
-        return MAX(getY(), getY() + getHeight());  // - height
-    }
-    
-    bool rIntersects(const ofRectangle& rect)
-    {
-        return (getRelativeMinX() < rect.getMaxX() && getRelativeMaxX() > rect.getMinX() &&
-                getRelativeMinY() < rect.getMaxY() && getRelativeMaxY() > rect.getMinY());
-    }
+    void setX(float px);
+    float getX(bool recursive = true);
 
-    //give an input rect, let me know if I am inside of it (completely, no overflow)
-    bool rInside(const ofRectangle& rect)
-    {
-        return (getRelativeMinX() > rect.getMinX() && getRelativeMaxX() < rect.getMaxX() &&
-                getRelativeMinY() > rect.getMinY() && getRelativeMaxY() < rect.getMaxY());
-    }
+    void setY(float py);
+    float getY(bool recursive = true);
+    
+	void setHeight(float _height);
+    float getWidth();
+    
+	void setWidth(float _width);
+	float getHeight();
+    
+    float getMinX() const;
+    float getMaxX() const;
+    
+    float getMinY() const;
+    float getMaxY() const;
+    
+    bool inside(ofPoint p);
+    bool inside(float px, float py);
+    bool insideChild(float px, float py);
+    bool insideParent(float px, float py);
+	
+    ofxUIVec2f percentInside(float px, float py);
+	ofxUIVec2f percentInsideChild(float px, float py);
+    ofxUIVec2f percentInsideParent(float px, float py);
+    
+    void draw();
+    
+    float getHalfWidth();
+	float getHalfHeight();
+    
+    float getRelativeMinX();
+    float getRelativeMinY();
+    
+    float getRelativeMaxX();
+    float getRelativeMaxY();
+    
+    bool rIntersects(const ofxUIRectangle& rect);
+    bool rInside(const ofxUIRectangle& rect);
 
-protected: 
+    float x;
+    float y;
+    float width;
+    float height;
+
+protected:
     float halfwidth;
     float halfheight;
     ofxUIRectangle *parent; 
-
 };
-
-#endif

@@ -149,6 +149,8 @@ public:
     void eastMappingPoint();
     void westMappingPoint();
     
+    void gaussian_elimination(float *input, int n);
+    void findHomography(ofPoint src[4], ofPoint dst[4], float homography[16]);
     void applyHomography();
     void applyGridMesh(int xCalib, int yCalib, int w, int h);
     

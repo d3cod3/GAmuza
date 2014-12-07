@@ -1,4 +1,5 @@
 ofxArcText
+ofxARtoolkitPlus
 ofxAudioSample
 ofxAUPlugin
 ofxBox2d
@@ -10,6 +11,7 @@ ofxDelaunay
 ofxDither
 ofxDmx
 ofxDOF
+ofxExtras
 ofxFastFboReader
 ofxFft
 ofxFX
@@ -26,8 +28,10 @@ ofxMidi
 ofxMissing
 ofxMSAInteractiveObject
 ofxMSATimer
+ofxMtlMapping2D
 ofxNSWindower
 ofxOAuth
+ofxOcean
 ofxOpenCVBlobTrackingExt
 ofxOpticalFlowFarneback
 ofxPBO
@@ -38,6 +42,7 @@ ofxQRCodeGenerator
 ofxQTKitAVScreenRecorder
 ofxQTKitRecorder
 ofxRange
+ofxRegex
 ofxSlitScan
 ofxStringEncoders
 ofxSubtitles

@@ -22,192 +22,44 @@
  
  **********************************************************************************/
 
-#ifndef OFXUI_WIDGET
-#define OFXUI_WIDGET
+#pragma once
+
+#include "ofxUIWrapper.h"
+#include "ofxUIDefines.h"
+
+#ifndef OFX_UI_NO_XML
+    #include "ofxXmlSettings.h"
+#endif 
 
 class ofxUIWidget           
 {
 public:
-    ofxUIWidget() 
-    {
-        name = string("base");
-        ID = -1;
-        hit = false; 
-        visible = true; 
-#ifdef TARGET_OPENGLES
-        touchId = -1; 
-#endif
-        state = OFX_UI_STATE_NORMAL; 
-        draw_back = true; 
-        draw_outline = false; 
-        draw_fill = false; 
-        draw_fill_highlight = false;
-        draw_outline_highlight = false;         
-
-        padding = OFX_UI_GLOBAL_PADDING; 
-		draw_padded_rect = OFX_UI_DRAW_PADDING; 						
-		draw_padded_rect_outline = OFX_UI_DRAW_PADDING_OUTLINE; 						        
+    ofxUIWidget();
+    virtual ~ofxUIWidget();
+    ofxUIWidget(const ofxUIWidget &other); // Mitchell Nordine 2/2/14
+    ofxUIWidget& operator=(const ofxUIWidget &other); // Mitchell Nordine 2/2/14
+    
+    virtual void initRect(float x = 0, float y = 0, float w = 0, float h = 0);
+    virtual void initPaddingRect();
+    virtual void calculatePaddingRect();
         
-        color_back = OFX_UI_COLOR_BACK;								//the rect's back color
-        color_outline = OFX_UI_COLOR_OUTLINE;						//the rect's outline color 
-        color_outline_highlight = OFX_UI_COLOR_OUTLINE_HIGHLIGHT;   //the rect's onMouseOver outline highlight color         
-		color_fill = OFX_UI_COLOR_FILL;								//the rect's fill color 
-        color_fill_highlight = OFX_UI_COLOR_FILL_HIGHLIGHT;         //the rect's onMouseDown highlight color 
-
-        color_padded_rect = OFX_UI_COLOR_PADDED;
-        color_padded_rect_outline = OFX_UI_COLOR_PADDED_OUTLINE;     
-        
-        embedded = false;
-		modal = false;
-    }
+    virtual void update();
+    virtual void draw();
     
-    virtual ~ofxUIWidget() 
-    {
-        if(rect != NULL)
-        {
-            delete rect; 
-        }
-        if(paddedRect != NULL)
-        {
-            delete paddedRect; 
-        }
-    }
+    virtual void drawBack();
+    virtual void drawOutline();
+    virtual void drawOutlineHighlight();
+    virtual void drawFill();
+    virtual void drawFillHighlight();
+    virtual void drawPadded();
+    virtual void drawPaddedOutline();
     
-    virtual void update() {}
-    virtual void draw() 
-    {
-        ofPushStyle(); 
-        
-        ofEnableBlendMode(OF_BLENDMODE_ALPHA); 
-        
-        drawPadded();
-        drawPaddedOutline();        
-
-        drawBack();
-        
-        drawOutline();
-        drawOutlineHighlight();
-        
-        drawFill();
-        drawFillHighlight();
-        
-        ofPopStyle();
-    }
-    
-    virtual void drawBack() 
-    {
-        if(draw_back)
-        {
-            ofFill(); 
-            ofSetColor(color_back); 
-            rect->draw(); 
-        }
-    }
-    
-    virtual void drawOutline() 
-    {
-        if(draw_outline)
-        {
-            ofNoFill();
-            ofSetColor(color_outline); 
-            rect->draw(); 
-        } 
-    }
-    
-    virtual void drawOutlineHighlight() 
-    {
-        if(draw_outline_highlight)
-        {
-            ofNoFill();
-            ofSetColor(color_outline_highlight); 
-            rect->draw();          
-        }
-    }    
-    
-    virtual void drawFill() 
-    {
-        if(draw_fill)
-        {
-            ofFill(); 
-            ofSetColor(color_fill); 
-            rect->draw(); 
-        }
-    }
-    
-    virtual void drawFillHighlight() 
-    {
-        if(draw_fill_highlight)
-        {
-            ofFill(); 
-            ofSetColor(color_fill_highlight); 
-            rect->draw(); 
-        }    
-    }
-    
-    virtual void drawPadded()
-    {
-		if(draw_padded_rect && !embedded)
-		{
-            ofFill();
-            ofSetColor(color_padded_rect); 
-			paddedRect->draw(); 
-		}                
-    }
-    
-    virtual void drawPaddedOutline()
-    {
-        if(draw_padded_rect_outline && !embedded)
-		{
-            ofNoFill();
-            ofSetColor(color_padded_rect_outline); 
-			paddedRect->draw(); 
-		}                
-    }     
-    
-    
-#ifdef TARGET_OPENGLES          //iOS Mode
-    void touchDown(ofTouchEventArgs& touch)
-    {
-        if(touchId == -1)
-        {    
-            this->mousePressed(touch.x, touch.y, 0);
-            if(hit)
-            {
-                touchId = touch.id;    
-            }            
-        }    
-    }
-    
-    void touchMoved(ofTouchEventArgs& touch) 
-    {
-        if(touchId == touch.id)
-        {
-            this->mouseDragged(touch.x, touch.y, 0); 
-        }       
-    }
-    
-    void touchUp(ofTouchEventArgs& touch) 
-    {
-        if(touchId == touch.id)
-        {
-            this->mouseReleased(touch.x, touch.y, 0); 
-            touchId = -1;                      
-        }
-    }
-    
-    void touchCancelled(ofTouchEventArgs& touch) 
-    {
-        if(touchId == touch.id)
-        {
-            this->mouseReleased(touch.x, touch.y, 0); 
-            touchId = -1;                
-        }
-    }
-    
-    void touchDoubleTap(ofTouchEventArgs& touch)
-    {
-        
-    }
+#ifdef OFX_UI_TARGET_TOUCH
+    void touchDown(float x, float y, int id);
+    void touchMoved(float x, float y, int id);
+    void touchUp(float x, float y, int id);
+    void touchCancelled(float x, float y, int id);
+    void touchDoubleTap(float x, float y, int id) {}
 #endif
 
 	virtual void mouseMoved(int x, int y ) {}
@@ -219,392 +71,150 @@ public:
 	virtual void keyReleased(int key) {}
 	virtual void windowResized(int w, int h) {}           		
     
-	virtual void setParent(ofxUIWidget *_parent)
-	{
-		parent = _parent; 
-	}
+    void setTriggerType(ofxUITriggerType _triggerType);
+    ofxUITriggerType getTriggerType();
+    
+	virtual void setParent(ofxUIWidget *_parent);
+    virtual ofxUIWidget *getParent();
+    
+	virtual void setName(string _name);
+    virtual string& getName();
+    
+    virtual void setModal(bool _modal);
+    virtual bool isModal();
 	
-	virtual void setRectParent(ofxUIRectangle *_prect)
-	{
-		rect->setParent(_prect); 
-	}
+    virtual void setVisible(bool _visible);
+    virtual bool isVisible();
+    virtual void toggleVisible();
+	
+    virtual void setEmbedded(bool _embedded);
+    virtual bool isEmbedded();
+    
+    void setID(int _id);
+    int getID();
+    virtual void setKind(int _kind);
+    virtual int getKind();
+    
+    virtual bool isDraggable();
+    virtual bool hasLabel();
 
-	virtual ofxUIWidget *getParent()
-	{
-		return parent; 
-	}
+    virtual void triggerEvent(ofxUIWidget *child);
+    virtual void triggerSelf();
+    virtual void stateChange();
+    virtual bool isHit(float x, float y);
+    
+    virtual void addWidget(ofxUIWidget *widget);
+    virtual void removeWidget(ofxUIWidget *widget);
+    
+    virtual void addEmbeddedWidget(ofxUIWidget *widget);
+    virtual void clearEmbeddedWidgets();
+    virtual int getEmbeddedWidgetsSize();
+    ofxUIWidget *getEmbeddedWidget(int index);
+    
+    virtual void setState(int _state);
+    virtual void setFont(ofxUIFont *_font);
 
-	virtual ofxUIRectangle* getRect()
-	{
-		return rect; 
-	}
+    virtual void setPadding(float _padding);
+    virtual float getPadding();
+    
+	virtual ofxUIRectangle* getRect();
+    virtual ofxUIRectangle *getPaddingRect();
+    virtual void setRectParent(ofxUIRectangle *_prect);
+    
+    virtual void setDrawPadding(bool _draw_padded_rect);
+    virtual bool getDrawPadding();
+    
+    virtual void setDrawPaddingOutline(bool _draw_padded_rect_outline);
+    virtual bool getDrawPaddingOutline();
 	
-	virtual void setName(string _name)
-	{
-		name = string(_name);  
-	}
+    virtual void setDrawBack(bool _draw_back);
+	virtual bool getDrawBack();
+	
+    virtual void setDrawOutline(bool _draw_outline);
+	virtual bool getDrawOutline();
+	
+    virtual void setDrawFill(bool _draw_fill);
+	virtual bool getDrawFill();
     
-	virtual void setState(int _state)
-    {
-        state = _state; 
-    }
-    //--------------------------------------------------------------------------------
-	virtual void setDrawPadding(bool _draw_padded_rect)
-	{
-		draw_padded_rect = _draw_padded_rect; 
-	}
+    virtual void setDrawFillHighLight(bool _draw_fill_highlight);
+	virtual bool getDrawFillHighLight();
     
-    virtual void setDrawPaddingOutline(bool _draw_padded_rect_outline)
-	{
-		draw_padded_rect_outline = _draw_padded_rect_outline; 
-	}    
+    virtual void setDrawOutlineHighLight(bool _draw_outline_hightlight);
+	virtual bool getDrawOutlineHighLight();
+	
+	virtual void setColorBack(ofxUIColor _color_back);
+    ofxUIColor& getColorBack();
     
-	virtual void setDrawBack(bool _draw_back)
-	{
-		draw_back = _draw_back; 
-	}
+	virtual void setColorOutline(ofxUIColor _color_outline);
+    ofxUIColor& getColorOutline();
+    
+	virtual void setColorOutlineHighlight(ofxUIColor _color_outline_highlight);
+	ofxUIColor& getColorOutlineHighlight();
+    
+	virtual void setColorFill(ofxUIColor _color_fill);
+	ofxUIColor& getColorFill();
+    
+	virtual void setColorFillHighlight(ofxUIColor _color_fill_highlight);
+	ofxUIColor& getColorFillHighlight();
+    
+    virtual void setColorPadded(ofxUIColor _color_padded_rect);
+	ofxUIColor& getColorPadded();
+    
+    virtual void setColorPaddedOutline(ofxUIColor _color_padded_rect_outline);
+    ofxUIColor& getColorPaddedOutline();
 
-	virtual void setDrawOutline(bool _draw_outline)
-	{
-		draw_outline = _draw_outline; 
-	}
+    virtual void addModalWidget(ofxUIWidget *widget);
+    virtual void removeModalWidget(ofxUIWidget *widget);
 
-	virtual void setDrawFill(bool _draw_fill)
-	{
-		draw_fill = _draw_fill; 
-	}
+    ofxUIWidget *getCanvasParent();
+    
+    virtual bool hasState();
+    
+#ifndef OFX_UI_NO_XML   
+    
+    virtual void saveState(ofxXmlSettings *XML);
+    virtual void loadState(ofxXmlSettings *XML);
+    
+#endif
+    
+protected:
+	ofxUIWidget *parent;
+	ofxUIRectangle *rect;
+	ofxUIFont *font;
 	
-	virtual void setDrawFillHighLight(bool _draw_fill_highlight)
-	{
-		draw_fill_highlight = _draw_fill_highlight; 
-	}
-	
-	virtual void setDrawOutlineHighLight(bool _draw_outline_hightlight)
-	{
-		draw_outline_highlight = _draw_outline_hightlight; 
-	}
-    //--------------------------------------------------------------------------------
-	virtual bool getDrawPadding()
-	{
-		return draw_padded_rect; 
-	}
-    
-    virtual bool getDrawPaddingOutline()
-	{
-		return draw_padded_rect_outline; 
-	}
-
-	virtual bool getDrawBack()
-	{
-		return draw_back; 
-	}
-    
-	virtual bool getDrawOutline()
-	{
-		return draw_outline; 
-	}
-    
-	virtual bool getDrawFill()
-	{
-		return draw_fill; 
-	}
-	
-	virtual bool getDrawFillHighLight()
-	{
-		return draw_fill_highlight; 
-	}
-	
-	virtual bool getDrawOutlineHighLight()
-	{
-		return draw_outline_highlight;
-	}
-    
-	virtual void setColorBack(ofColor _color_back)
-	{
-		color_back = _color_back; 
-	}
-		
-	virtual void setColorOutline(ofColor _color_outline)
-	{
-		color_outline = _color_outline; 
-	}
-	
-	virtual void setColorOutlineHighlight(ofColor _color_outline_highlight)
-	{
-		color_outline_highlight = _color_outline_highlight; 
-	}	
-
-	virtual void setColorFill(ofColor _color_fill)
-	{
-		color_fill = _color_fill; 
-	}
-	
-	virtual void setColorFillHighlight(ofColor _color_fill_highlight)
-	{
-		color_fill_highlight = _color_fill_highlight; 
-	}
-	
-    virtual void setColorPadded(ofColor _color_padded_rect)
-    {
-        color_padded_rect = _color_padded_rect; 
-    }
-    
-    virtual void setColorPaddedOutline(ofColor _color_padded_rect_outline)
-    {
-        color_padded_rect_outline = _color_padded_rect_outline; 
-    }
-    
-	ofColor& getColorPadded()
-	{
-        return color_padded_rect;
-	}
-
-	ofColor& getColorPaddedOutline()
-	{
-        return color_padded_rect_outline;
-	}
-    
-	ofColor& getColorBack()
-	{
-		return color_back; 
-	}
-	
-	ofColor& getColorOutline()
-	{
-		return color_outline; 
-	}
-	
-	ofColor& getColorOutlineHighlight()
-	{
-		return color_outline_highlight; 
-	}	
-	
-	ofColor& getColorFill()
-	{
-		return color_fill; 
-	}
-	
-	ofColor& getColorFillHighlight()
-	{
-		return color_fill_highlight; 
-	}
-	
-    virtual int getKind()
-	{
-		return kind; 
-	}
-    
-	virtual void setFont(ofTrueTypeFont *_font)
-	{
-		font = _font; 
-	}
-	
-    virtual void setVisible(bool _visible)
-    {
-        visible = _visible; 
-    }
-    
-    virtual bool isVisible()
-    {
-        return visible; 
-    }
-    
-    virtual void toggleVisible()
-    {
-        visible =! visible; 
-    }
-    
-    virtual bool isHit(float x, float y)
-    {
-        if(visible)
-        {
-            return rect->inside(x, y);
-        }
-        else
-        {
-            return false; 
-        }
-    }
-    
-	virtual string& getName()
-	{
-		return name;
-	}
-	
-	virtual void triggerEvent(ofxUIWidget *child)
-	{
-		if(parent != NULL)
-		{
-			parent->triggerEvent(child); 
-		}
-	}
-    
-    virtual void triggerSelf()
-    {
-		if(parent != NULL)
-		{
-			parent->triggerEvent(this); 
-		}        
-    }
-	
-	virtual void setPadding(float _padding)
-	{
-		padding = _padding; 
-		paddedRect->set(-padding, -padding, rect->getWidth()+padding*2.0, rect->getHeight()+padding*2.0);
-	}
-	
-	virtual float getPadding()
-	{
-		return padding; 
-	}
-	
-	virtual ofxUIRectangle *getPaddingRect()
-	{
-		return paddedRect; 
-	}
-
-    virtual void stateChange()
-    { 
-        
-    }
-    
-    virtual bool isDraggable()
-    {
-        return false; 
-    }
-    
-    virtual bool isEmbedded()
-    {
-        return embedded; 
-    }
-    
-    virtual void setEmbedded(bool _embedded)
-    {
-        embedded = _embedded; 
-    }
-    
-    void setID(int _id)
-    {
-        ID = _id;
-    }
-    
-    int getID()
-    {
-        return ID;
-    }
-    
-    virtual void addWidget(ofxUIWidget *widget)
-    {
-        //Experimental
-    }    
-
-    virtual void removeWidget(ofxUIWidget *widget)
-    {
-        //Experimental
-    }    
-    
-    virtual bool hasLabel()
-    {
-        return false; 
-    }
-    
-    virtual bool isModal()
-    {
-        return modal;
-    }
-    
-    virtual void setModal(bool _modal)      //allows for piping mouse/touch input to widgets that are outside of parent's rect/canvas
-    {
-        modal = _modal;
-        if(parent != NULL)
-        {
-            if(modal)
-            {
-                parent->addModalWidget(this);
-            }
-            else
-            {
-                parent->removeModalWidget(this);
-            }
-        }
-    }
-    
-    virtual void addModalWidget(ofxUIWidget *widget)
-    {
-        if(parent != NULL)
-        {
-            parent->addModalWidget(widget);
-        }
-    }
-    
-    virtual void removeModalWidget(ofxUIWidget *widget)
-    {
-        if(parent != NULL)
-        {
-            parent->removeModalWidget(widget);
-        }
-    }
-    
-    virtual void addEmbeddedWidget(ofxUIWidget *widget)
-    {
-        widget->setEmbedded(true);
-        embeddedWidgets.push_back(widget);        
-    }
-    
-    virtual int getEmbeddedWidgetsSize()
-    {
-        return embeddedWidgets.size();
-    }
-    
-    ofxUIWidget *getEmbeddedWidget(int index)
-    {
-        return embeddedWidgets[index%embeddedWidgets.size()];
-    }
-    
-    virtual void clearEmbeddedWidgets()
-    {
-        embeddedWidgets.clear();        //does not deallocate widgets, just deletes the pointers and sets the size to zero
-    }
-    
-protected:    
-	ofxUIWidget *parent; 
-	ofxUIRectangle *rect; 	
-	ofTrueTypeFont *font; 	
-	
-    string name;            //State Properties
+    std::string name;                    
 	int kind; 
 	bool visible;
     int ID;
     bool hit; 
-    int state; 
+    int state;
+    ofxUITriggerType triggerType; 
     bool embedded;
     bool modal;
     
-	bool draw_back;         //Rendering Properties 
-	bool draw_outline; 
+	bool draw_back;    
+	bool draw_outline;
 	bool draw_outline_highlight; 
 	bool draw_fill; 
 	bool draw_fill_highlight; 
 
-	ofColor color_back; 
-	ofColor color_outline; 
-	ofColor color_outline_highlight;	
-	ofColor color_fill; 
-	ofColor color_fill_highlight; 
+	ofxUIColor color_back;
+	ofxUIColor color_outline; 
+	ofxUIColor color_outline_highlight;	
+	ofxUIColor color_fill; 
+	ofxUIColor color_fill_highlight; 
 
-	float padding;          //Spacing/Padding Purposes
+	float padding;                 
 	ofxUIRectangle *paddedRect; 	
 
 	bool draw_padded_rect; 
 	bool draw_padded_rect_outline;     
-    ofColor color_padded_rect; 
-	ofColor color_padded_rect_outline;
+    ofxUIColor color_padded_rect; 
+	ofxUIColor color_padded_rect_outline;
     
     vector<ofxUIWidget *> embeddedWidgets; 
     
-#ifdef TARGET_OPENGLES          //iOS Mode
+#ifdef OFX_UI_TARGET_TOUCH       
     int touchId;     
 #endif
 };
-
-#endif

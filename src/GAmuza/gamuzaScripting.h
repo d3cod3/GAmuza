@@ -17,11 +17,6 @@ void gamuzaMain::setupScripting(){
         errorVector.push_back(" ");
     }
     
-    if(autoLoadScript){
-        loadScript(autoScriptFile);
-    }else{
-        loadScript("scripts/emptyExample.ga");
-    }
 }
 
 //--------------------------------------------------------------

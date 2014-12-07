@@ -22,186 +22,40 @@
  
  **********************************************************************************/
 
-#ifndef OFXUI_TOGGLE_MATRIX
-#define OFXUI_TOGGLE_MATRIX
+#pragma once
 
 #include "ofxUIWidgetWithLabel.h"
 #include "ofxUIToggle.h"
+#include "ofxUIDefines.h"
 
 class ofxUIToggleMatrix : public ofxUIWidget
 {
 public:
-    ofxUIToggleMatrix(float x, float y, float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL) : ofxUIWidget()
-    {
-        rect = new ofxUIRectangle(x,y,w,h); 
-        init(w, h, _rows, _cols, _name, _size);
-    }
+    ofxUIToggleMatrix(float x, float y, float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL);
+    ofxUIToggleMatrix(float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL);
+    void init(float x, float y, float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL);
+    void setVisible(bool _visible);
+	void activateToggle(string _name);
+	void setParent(ofxUIWidget *_parent);
     
-    ofxUIToggleMatrix(float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL) : ofxUIWidget()
-    {
-        rect = new ofxUIRectangle(0,0,w,h); 
-        init(w, h, _rows, _cols, _name, _size);
-    }    
+    void setAllToggles(bool _value, bool _trigger = true);
+    void setToggle(unsigned int row, unsigned int col, bool _value, bool _trigger = true);
+    ofxUIToggle * getToggle(unsigned int row, unsigned int col);
+    bool getState(int row, int col);
     
-    void init(float w, float h, int _rows, int _cols, string _name, int _size = OFX_UI_FONT_SMALL)
-    {
-        name = string(_name);  		
-		kind = OFX_UI_WIDGET_TOGGLEMATRIX; 		
-		rows = _rows; 
-        cols = _cols; 
-        draw_back = false;  
-		paddedRect = new ofxUIRectangle(-padding, -padding, w+padding*2.0, h+padding*2.0);
-		paddedRect->setParent(rect); 
-        		
-        toggleWidth = w;
-        toggleHeight = h;
-                
-        ofPoint pos = ofPoint(0,0); 
-        for(int j = 0; j < rows; j++)
-        {
-            for(int i = 0; i < cols; i++)
-            {
-                ofxUIToggle *toggle = new ofxUIToggle(pos.x,pos.y, toggleWidth, toggleHeight, false, (name+"("+ofToString(i,0)+","+ofToString(j,0)+")"));
-                toggle->setLabelVisible(false);
-                toggle->setEmbedded(true); 
-                toggles.push_back(toggle);                 
-                pos.x += toggleWidth+padding;
-            }
-            pos.y += toggleHeight+padding;
-            pos.x = 0;
-        }
-        allowMultiple = true;  
-    }
-	
-    void setVisible(bool _visible)
-    {
-        visible = _visible;   
-		for(int i = 0; i < toggles.size(); i++)
-		{
-			ofxUIToggle *t = toggles[i]; 			
-            t->setVisible(visible);
-            t->getLabelWidget()->setVisible(false);
-        }
-    }
+    int getColumnCount();
+    int getRowCount();
     
-	void activateToggle(string _name)
-	{
-		for(int i = 0; i < toggles.size(); i++)
-		{
-			ofxUIToggle *t = toggles[i]; 			
-			if(!(t->getName().compare(_name.c_str())))
-			{
-				t->setValue(true); 					
-			}
-			else 
-			{
-				t->setValue(false); 
-			}			
-		}
-	}
-	
-	void setParent(ofxUIWidget *_parent)
-	{
-		parent = _parent; 
-        
-        float tWidth = cols*(toggles[0]->getRect()->width)+cols*padding;
-		float tHeight = rows*(toggles[0]->getRect()->height)+rows*padding;
-
-
-        ofPoint pos = ofPoint(0,0);
-        for(int j = 0; j < rows; j++)
-        {
-            for(int i = 0; i < cols; i++)
-            {
-                int index = i+j*cols; 
-                ofxUIToggle *t = toggles[index];
-                t->setParent(this);
-                t->getRect()->setParent(this->getRect());                
-                t->getRect()->setX(pos.x);
-                t->getRect()->setY(pos.y);
-                t->setLabelVisible(false);
-                pos.x += toggleWidth+padding;
-            }
-            pos.y += toggleHeight+padding;
-            pos.x = 0;            
-        }
-                    
-        rect->setWidth(tWidth);
-        rect->setHeight(tHeight); 
-		paddedRect->width = rect->getWidth()+padding*2;
-		paddedRect->height = rect->getHeight()+padding*2;
-	}	
-    
-    void setAllToggles(bool _value)
-    {
-		for(int i = 0; i < toggles.size(); i++)
-		{
-			ofxUIToggle *t = toggles[i]; 			
-            t->setValue(_value);
-        }        
-    }
-    
-    void setAllTogglesAndTrigger(bool _value)
-    {
-		for(int i = 0; i < toggles.size(); i++)
-		{
-			ofxUIToggle *t = toggles[i]; 			
-            t->setValue(_value);
-        }        
-        
-        for(int i = 0; i < toggles.size(); i++)
-		{
-            triggerEvent(toggles[i]); 
-        }        
-    }
-    
-    void setToggle(int x, int y, bool _value)
-    {
-        if(x*y < toggles.size())
-        {
-            toggles[x+y*rows]->setValue(_value);
-        }
-    }
-	
-    void setToggleAndTrigger(int x, int y, bool _value)
-    {
-        setToggle(x,y,_value); 
-        triggerEvent(toggles[x+y*rows]); 
-        
-    }
-
-	vector<ofxUIToggle *> getToggles()
-	{
-		return toggles;
-	}
-
-	vector<ofxUIToggle *> *getTogglesPtr()
-	{
-		return &toggles;
-	}
-	
-	void triggerEvent(ofxUIWidget *child)
-	{
-        if(!allowMultiple)
-        {
-            activateToggle(child->getName().c_str()); 
-        }
-		if(parent != NULL)
-		{
-			parent->triggerEvent(child); 
-		}
-	}	
-    
-    void setAllowMultiple(bool _allowMultiple)
-    {
-        allowMultiple = _allowMultiple; 
-    }
-
-protected:    //inherited: ofxUIRectangle *rect; ofxUIWidget *parent; 
+	vector<ofxUIToggle *> getToggles();
+	vector<ofxUIToggle *> *getTogglesPtr();
+	void triggerEvent(ofxUIWidget *child);
+    void setAllowMultiple(bool _allowMultiple);
+    virtual void mouseDragged(int x, int y, int button);
+    virtual void mousePressed(int x, int y, int button);
+    virtual void mouseReleased(int x, int y, int button);
+protected:
 	vector<ofxUIToggle *> toggles; 		   
     int rows, cols;
     float toggleWidth, toggleHeight; 
     bool allowMultiple;     
 };
-
-#endif

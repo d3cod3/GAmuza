@@ -1,0 +1,106 @@
+/*
+ 
+ GAmuza empty sketch
+ 
+*/
+
+// Variables para el Syphon
+gaTex = ofTexture()
+stream = ofxSyphonServer()
+
+// variables audio input
+inputVol = 0.0
+inputPitch = 0.0
+
+// variable para fichero de sonido
+mySound = ofSoundPlayer()
+pos = 0.0
+
+// grafica
+channel = 0
+inputBuffer = memarray('float', BUFFER_SIZE)
+stretch = OUTPUT_W/(BUFFER_SIZE-1)
+zeroOffset = OUTPUT_H/2
+
+
+function setup()
+	// init syphon
+	gaTex:allocate(OUTPUT_W,OUTPUT_H,GL_RGB)
+    	gaTex:clear()
+    
+    	stream:setName("GAmuza")
+    	
+    	// init sound file
+    	mySound:loadSound(gaImportFile("hypno00.wav"),true)
+    	mySound:setVolume(1.0)
+    	mySound:setLoop(false)
+    	
+    	// init graphic
+    	// init the buffer
+    for i = 0, BUFFER_SIZE - 1 do
+		inputBuffer[i] = 0.0 
+	end
+end
+
+function update()
+	// update syphon
+	gaTex = gaGetOutputTexture()
+	
+	// update audio input
+	inputVol = gaGetVolume(0)  // get volume from channel 0
+    	inputPitch = gaGetPitch(0) // get pitch from channel 0
+    	
+    	// update audio file
+    	pos = mySound:getPosition()
+    	
+    	// update graphic
+    	for i = 0, BUFFER_SIZE - 1 do
+		inputBuffer[i] = gaGetInputBuffer(channel,i) 
+	end
+end
+
+function draw()
+     gaBackground(0.0,0.01)
+     
+     // dibujo grafica
+     //ofSetColor(255,0,0)
+     //ofRect(20,20,200+(inputVol*1000),200)
+     
+     // draw the ticker
+    	//ofSetColor(32,221,178)
+    	//ofSetLineWidth(3)
+    	//ofLine(pos*OUTPUT_W,0,pos*OUTPUT_W,OUTPUT_H)
+    	
+    	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, BUFFER_SIZE - 1 do
+		ofVertex(i* stretch, hardClip(inputBuffer[i]) * zeroOffset)
+	end
+	ofEndShape(false)
+    	
+     // end dibujo grafica
+     
+     stream:publishTexture(gaTex)
+end
+
+function keyReleased()
+	if gaKey() == string.byte("s") then
+		mySound:play()
+	elseif gaKey() == string.byte("r") then
+		mySound:stop()
+	end
+end
+
+// CUSTOM FUNCTIONS
+// --------------------------------------
+function hardClip(x)
+	local x1 = math.abs(x+1.0)
+	local x2 = math.abs(x-1.0)
+	
+	return 0.5*(x1-x2)
+end
+
+

@@ -37,6 +37,7 @@
 // GUI
 #include "ofxControlPanel.h"
 #include "ofxMSAInteractiveObject.h"
+#include "ofxUI.h"
 
 // GPU
 #include "ofxPBO.h"
@@ -47,6 +48,7 @@
 
 // Computer Vision
 #include "ofxOpticalFlowFarneback.h"
+#include "ofxARToolkitPlus.h"
 
 // Thermal Cameras Tracking
 #include "ofxThermitrack.h"
@@ -92,6 +94,9 @@
 #include "ofxPBOVideoPlayer.h"
 #include "ofxQTKitAVScreenRecorder.h"
 
+// MAPPING
+#include "ofxMtlMapping2D.h"
+
 // SHADERS
 #include "ofxFX.h"
 #include "ofxPostProcessing.h"
@@ -109,6 +114,10 @@
 // 3D
 #include "ofxDOF.h"
 #include "ofxGameCamera.h"
+#include "ofxOcean.h"
+#include "ofxOceanCamera.h"
+#include "ofxOceanRenderer.h"
+#include "ofxOceanTile.h"
 
 // NET
 #include "ofxTwitter.h"
@@ -118,6 +127,9 @@
 #include "ofxJitterNetworkSender.h"
 #include "ofxIpVideoGrabber.h"
 
+// EXTRAS
+#include "ofxExtras.h"
+#include "ofxRegex.h"
 
 //////////////////////////////////////
 // CUSTOM CODE

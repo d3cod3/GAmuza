@@ -331,6 +331,7 @@
 				<string>getRowAsVec4f</string>
 				<string>isValid</string>
 				<string>isNaN</string>
+				<string>getPtr</string>
 				<string>isIdentity</string>
 				<string>makeIdentityMatrix</string>
 				<string>makeScaleMatrix</string>
@@ -973,6 +974,50 @@
 				<string>flush</string>
 				<string>available</string>
 				<string>drain</string>
+				<string>ofxColorMatch</string>
+				<string>ofxFileExists</string>
+				<string>ofxOnTimeIntervalSeconds</string>
+				<string>ofxStringEndsWith</string>
+				<string>ofxStringStartsWith</string>
+				<string>ofxToBoolean</string>
+				<string>ofxDist</string>
+				<string>ofxGetHeading</string>
+				<string>ofxLerp</string>
+				<string>ofxGetMultiByteStringLength</string>
+				<string>ofxIndex</string>
+				<string>ofxToInteger</string>
+				<string>ofxToColor</string>
+				<string>ofxCreateGeoSphere</string>
+				<string>ofxGetPointOnCircle</string>
+				<string>ofxToQuaternion</string>
+				<string>ofxToCartesian</string>
+				<string>ofxAddTrailingSlash</string>
+				<string>ofxAddTrailingString</string>
+				<string>ofxFormatString</string>
+				<string>ofxGetFileAge</string>
+				<string>ofxGetFileExtension</string>
+				<string>ofxGetFilenameFromUrl</string>
+				<string>ofxGetHostName</string>
+				<string>ofxGetSerialString</string>
+				<string>ofxGetSerialString2</string>
+				<string>ofxReplaceString</string>
+				<string>ofxGetIsoDateTime</string>
+				<string>ofxStringAfterFirst</string>
+				<string>ofxStringBeforeFirst</string>
+				<string>ofxToHexString</string>
+				<string>ofxToString</string>
+				<string>ofxTrimString</string>
+				<string>ofxTrimStringLeft</string>
+				<string>ofxTrimStringRight</string>
+				<string>ofxUrlToSafeLocalPath</string>
+				<string>ofxArc</string>
+				<string>ofxArcStrip</string>
+				<string>ofxAutoColorMesh</string>
+				<string>ofxQuadricDisk</string>
+				<string>ofxQuadricSphere</string>
+				<string>ofxQuadWarp</string>
+				<string>ofxMakeEven</string>
+				<string>ofxMakeOdd</string>
 				<string>ofx3DBaseLoader</string>
 				<string>loadModel</string>
 				<string>ofx3DModelLoader</string>
@@ -1177,6 +1222,33 @@
 				<string>copyXmlToString</string>
 				<string>ofxArcText</string>
 				<string>getCharacterWidth</string>
+				<string>ofxARToolkitPlus</string>
+				<string>applyProjectionMatrix</string>
+				<string>applyModelMatrix</string>
+				<string>getGLMatrix</string>
+				<string>getHomography</string>
+				<string>getTranslation</string>
+				<string>getOrientationMatrix</string>
+				<string>getOrientationQuaternion</string>
+				<string>getCameraPosition</string>
+				<string>getMultiMarkerTranslationAndOrientation</string>
+				<string>loadMultiMarkerFile</string>
+				<string>setThreshold</string>
+				<string>activateAutoThreshold</string>
+				<string>setMarkerWidth</string>
+				<string>getNumDetectedMarkers</string>
+				<string>getMarkerIndex</string>
+				<string>getMarkerID</string>
+				<string>getDetectedMarkerCenter</string>
+				<string>getDetectedMarkerDirection</string>
+				<string>getDetectedMarkerCorners</string>
+				<string>getDetectedMarkerOrderedCorners</string>
+				<string>getDetectedMarkerBorderCorners</string>
+				<string>getDetectedMarkerOrderedBorderCorners</string>
+				<string>getCornerPoint</string>
+				<string>getOrderedCornerPoint</string>
+				<string>getBorderCornerPoint</string>
+				<string>getOrderedBorderCornerPoint</string>
 				<string>b2World</string>
 				<string>b2Vec2</string>
 				<string>Set</string>
@@ -1675,6 +1747,20 @@
 				<string>nextAvailableSerial</string>
 				<string>ofxGetDateTimeAsString</string>
 				<string>ofxMD5</string>
+				<string>ofxOcean</string>
+				<string>floatingPosition</string>
+				<string>waterHeight</string>
+				<string>choppyOffset</string>
+				<string>getHighestWave</string>
+				<string>getLowestWave</string>
+				<string>setFrameNum</string>
+				<string>ofxOceanCamera</string>
+				<string>drawDebug</string>
+				<string>ofxOceanTile</string>
+				<string>drawWireframe</string>
+				<string>drawVertices</string>
+				<string>ofxOceanRenderer</string>
+				<string>clearTiles</string>
 				<string>ofxOpticalFlowLK</string>
 				<string>getVelAtNorm</string>
 				<string>getVelAtPixel</string>
@@ -1711,6 +1797,10 @@
 				<string>listAudioDevices</string>
 				<string>listAudioCodecs</string>
 				<string>getIsRecording</string>
+				<string>ofxRegex</string>
+				<string>getMatchedStrings</string>
+				<string>getStringAtIndex</string>
+				<string>getNumWords</string>
 				<string>ofxSlitScan</string>
 				<string>setDelayMap</string>
 				<string>addImage</string>
@@ -2334,6 +2424,7 @@
 				<string>HALF_PI</string>
 				<string>PI</string>
 				<string>TWO_PI</string>
+				<string>TAU</string>
 				<string>FOUR_PI</string>
 				<string>DEG_TO_RAD</string>
 				<string>RAD_TO_DEG</string>
