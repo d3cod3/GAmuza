@@ -7,13 +7,13 @@
 
 The original idea was to make creative coding easier; then, usually jumping from [Processing](http://www.processing.org) to [OF](http://www.openframeworks.cc), always trying new libraries/addons, the desire was, having OF with a Processing like IDE, + a bunch of GUI modules to avoid the technical programming stuff like Computer Vision, Audio Analysis, Arduino communication, etc..
 
-So, this is it, this is GAmuza, made with OF, inspired by Processing, binding the (almost) entire OF language v.0.7.4 with his official addons included, the entire OpenGL 1.1 language, a bunch of other addons (list [here](https://github.com/d3cod3/GAmuza/blob/master/bindedAddons)), and the small GAmuza framework of functions and GUI modules to make creative coding a lot more easier, all of it embedded into a slight modified Lua scripting environment.
+So, this is it, this is GAmuza, made with OF, inspired by Processing, binding the (almost) entire OF language v.0.8.4 with his official addons included, the entire OpenGL 1.1 language, a bunch of other addons , and the small GAmuza framework of functions and GUI modules to make creative coding a lot more easier, all of it embedded into a slight modified Lua scripting environment.
 
 # Licence
 
 The code in this repository is available under the [MIT License](https://secure.wikimedia.org/wikipedia/en/wiki/Mit_license).
 
-Copyright (c) [04/06/2013] [Emanuele Mazza]
+Copyright (c) [2008-2015] [Emanuele Mazza]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -24,7 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Download
 
-Last Release - GAmuza 0434 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0434-OSX.zip)
+Last Release - GAmuza 0435 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0435-OSX.zip)
 
 Older versions [here](http://gamuza.d3cod3.org/download/)
 
@@ -37,7 +37,7 @@ Just drag to Application folder.
 
 ## OF
 
-openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/blob/master/GA_ofPatch.patch) and all the official addons.
+openFrameworks 0.8.4 with this [patch](https://github.com/d3cod3/GAmuza/blob/master/GA_ofPatch.patch) and all the official addons.
 
 ## Additional Libraries
 
@@ -46,12 +46,10 @@ openFrameworks 0074 with this [patch](https://github.com/d3cod3/GAmuza/blob/mast
 
 ## OFXADDONS
 
-A list [here](https://github.com/d3cod3/GAmuza/blob/master/gaAddonsList) of all the addons needed.
-Due to a lot of modification applied to most of them, are all included in this repo in src/experimentalAddons/
+Due to a lot of modification applied to most of them, are all included in this repo in src/ofxAddons/
 
 ## Frameworks
-
-* [BWToolkitFramework.framework](http://brandonwalkin.com/bwtoolkit/)  
+ 
 * [Sparkle.framework](https://github.com/andymatuschak/Sparkle/wiki): [project page](http://sparkle.andymatuschak.org/)
 * [Syphon.framework](http://syphon.v002.info/)
 
@@ -81,11 +79,11 @@ Due to a lot of modification applied to most of them, are all included in this r
 
 # Compatibilities
 
-openFrameworks 0074
+openFrameworks 0.8.4
 
 # Compilation
 
-Compile with LLVM GCC 4.2 (NOT Apple LLVM Compiler 4.1), for 32-bit architecture using OS X 10.7 base sdk.
+Apple LLVM Compiler 4.1, for 32-bit architecture using OS X 10.7 base sdk.
 
 # Sketching (Live Coding)
 
@@ -146,7 +144,7 @@ These are the most important LUA 5.1 patches
 
 LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.html)
 
-### OF 0.7.4 language **EXCLUDING**:
+### OF 0.8.4 language **EXCLUDING**:
 
  * ofArduino  --> managed from Arduino GUI module + GAmuza framework related functions
  * ofSoundStream -- managed from AudioAnalysis GUI module + GAmuza framework related functions
@@ -157,11 +155,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
  * ofPtr
  
 
-### OF 0.7.4 official addons
-
-### others OFXADDONS
-
- * list [here](https://github.com/d3cod3/GAmuza/blob/master/bindedAddons)
+### OF 0.8.4 official addons
 
 ### GAmuza framework
 
@@ -193,28 +187,37 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
 
 [![GAmuza](http://gamuza.d3cod3.org/graphics/timelineModule.jpg)](http://www.gamuza.cc)
 
+ * MAPPER
+
+ [![GAmuza](http://gamuza.d3cod3.org/graphics/mapperModule.jpg)](http://www.gamuza.cc)
+
 
 # Known issues
 
-none
+A lot
 
 
 # Contribute
 
-Actually GAmuza 1.0 is in development (this repo) and is not finished yet, but this is just a matter of time, the real deal is porting this project to Linux and Windows (just for mac now, compatible from osx 10.7 Lion), so, if anyone interested in join me in this project, is more than welcome!!
+Actually GAmuza v1.0 is in development (this repo) and is not finished yet, but this is just a matter of time, the real deal is porting this project to Linux and Windows (just for mac now, compatible from osx 10.7 Lion), so, if anyone interested in join me in this project, is more than welcome!!
 
 
 # Version history
 
 <<<<<<< HEAD
 =======
+## v1.0  |  Rel. 0435
+
+* Updated GAmuza to OF 0.8.4 last official release
+* a lot of bug fixing
+
+>>>>>>> develop
 ## v1.0  |  Rel. 0433
 
 * Updated XCode project, now compiling with Apple LLVM Compiler 4.1, goodbye old GCC 4.2!!!
 * ofxTwitter fixed & updated to API 1.1, included OAuth and JSON parser addons
 * small bug fixing
 
->>>>>>> develop
 ## v1.0  |  Rel. 0432
 
 * Fixed wrapper
