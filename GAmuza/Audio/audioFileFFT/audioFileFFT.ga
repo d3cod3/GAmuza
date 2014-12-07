@@ -46,7 +46,7 @@ function draw()
 		ofNoFill()
 		w = OUTPUT_W/nBandsToGet
 		for i=0,nBandsToGet-1 do
-			of.rect(i*w,OUTPUT_H-100,w,-(fftSmoothed[i] * 400))
+			ofRect(i*w,OUTPUT_H-100,w,-(fftSmoothed[i] * 400))
 		end
 	ofDisableAlphaBlending()
     	

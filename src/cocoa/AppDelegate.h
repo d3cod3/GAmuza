@@ -74,6 +74,18 @@ ofPtr<ofxNSWindow>  gaMMWindow;
     IBOutlet NSSlider               *exposS;
     IBOutlet NSSlider               *diffS;
     
+    // GRID TOOL PANEL
+    IBOutlet NSPanel                *gridToolPanel;
+    IBOutlet NSButton*              goldenRatioBut;
+    IBOutlet NSButton*              centerRatioBut;
+    IBOutlet NSButton*              thirdRatiobut;
+    IBOutlet NSButton*              standardGridBut;
+    IBOutlet NSSlider               *standardCellWidth;
+    IBOutlet NSSlider               *standardCellHeight;
+    IBOutlet NSTextField*           cellWidthTextField;
+    IBOutlet NSTextField*           cellHeightTextField;
+    
+    
     int                         numScreen;
     int                         screenW, screenH;
     int                         fullscreenWinPosX;
@@ -84,6 +96,7 @@ ofPtr<ofxNSWindow>  gaMMWindow;
     bool                        isAudioModuleON;
     bool                        isArduinoModuleON;
     bool                        isMapperModuleON;
+    bool                        isMapperOutputON;
     
     NSMutableArray              *screensINFO;
     
@@ -132,6 +145,8 @@ ofPtr<ofxNSWindow>  gaMMWindow;
 
 - (BOOL)processFile:(NSString *)file;
 
+- (void)setButtonTitleFor:(NSButton*)button toString:(NSString*)title withColor:(NSColor*)color;
+
 // -----------------------------------------------------------------------------
 //	Menu Actions
 // -----------------------------------------------------------------------------
@@ -171,6 +186,10 @@ ofPtr<ofxNSWindow>  gaMMWindow;
 // Export to HTML
 - (IBAction) exportSketchToHTML:(id)sender;
 
+// GRID Tool
+- (IBAction) getGridTool:(id)sender;
+- (IBAction) applyGridSettings:(id)sender;
+
 // COLOR CORRECTION
 - (IBAction) getColorCorrection:(id)sender;
 - (IBAction) saveColorCorrection:(id)sender;
@@ -206,6 +225,7 @@ ofPtr<ofxNSWindow>  gaMMWindow;
 
 // MAPPER MODULE
 - (IBAction) toggleMapperModule:(id)sender;
+- (IBAction) toggleActivateMapper:(id)sender;
 
 // MAIN RENDER WINDOW
 - (IBAction) toggleHideCursor:(id)sender;

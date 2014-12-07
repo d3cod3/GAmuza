@@ -14,7 +14,7 @@
  
 */
 
-cameraStream	= "http://kassertheatercam.montclair.edu/axis-cgi/mjpg/video.cgi"
+cameraStream	= "http://212.6.91.123/axis-cgi/jpg/image.cgi"
 ipGrabber 	= ofxIpVideoGrabber()
 
 captureW = 640

@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import <BWToolkitFramework/BWToolkitFramework.h>
 
 #import "GATextDocument.h"
 #import "GASketchFile.h"

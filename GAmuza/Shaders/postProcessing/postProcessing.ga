@@ -1,11 +1,12 @@
 
 /* 
    
- GAmuza 0426 examples 
+ GAmuza 0435 examples 
  ---------------------
- 3D/depthOfField.ga
+ Shaders/postProcessing.ga
  
- The depth of field eaxmple from ofxDOF addon.
+ An example for ofxPostProcessing addons included in GAmuza.
+ ofxPostProcessing by neilmendoza <https://github.com/neilmendoza/ofxPostProcessing>
  
  created by n3m3da | www.d3cod3.org
  
@@ -21,6 +22,8 @@ light = ofLight()
 post = ofxPostProcessing()
 
 function setup()
+
+	camera:setDistance(100)
 	
 	post:init(OUTPUT_W,OUTPUT_H)
 	post:createBleachBypass()
@@ -49,23 +52,21 @@ end
 function draw()
     	gaBackground(0.0,1.0)
     	
-    	glPushAttrib(GL_ENABLE_BIT);
-    
-    	// setup gl state
-    	//glEnable(GL_DEPTH_TEST);
-    	glEnable(GL_CULL_FACE);
-    	light:enable();
+    	camera:beginCamera(ofGetCurrentViewport())
+    	
+    	light:enable()
     	
     	post:beginShader(camera)
     	
     	ofPushStyle()
 	for i=0,100 do
 		ofSetColor(boxColors[i])
-		ofBox(boxPositions[i], boxSizes[i])
+		ofDrawBox(boxPositions[i], boxSizes[i])
 	end
 	ofPopStyle()
 	
 	post:endShader()
-    	
-    	//glPopAttrib()
+	
+	camera:endCamera()
+	
 end

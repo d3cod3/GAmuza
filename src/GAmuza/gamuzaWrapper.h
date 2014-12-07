@@ -1,5 +1,5 @@
 /*
- * Extending ofxLuaWrapper for GAmuza 0.3 | ALMOST ENTIRE OF 0.7.4 Wrapper + GAmuza Wrapper + OPENGL 1.1 Wrapper
+ * Extending ofxLuaWrapper for GAmuza 1.0 0435 | ALMOST ENTIRE OF 0.8.4 Wrapper + GAmuza Wrapper + OPENGL 1.1 Wrapper
  *
  * ORIGINAL FILE FROM:
  * Dan Wilcox <danomatika@gmail.com>
@@ -45,7 +45,7 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////
          ///////////////////////////////
-         /// OpenFrameworks 0.7.4 api wrapper
+         /// OpenFrameworks 0.8.4 api wrapper
          ///
          
          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -172,7 +172,7 @@ class ofGamuzaWrapper{
          .def("getNormalsPointer", (ofVec3f*(ofMesh::*)(void)) &ofMesh::getNormalsPointer)
          .def("getTexCoordsPointer", (ofVec2f*(ofMesh::*)(void)) &ofMesh::getTexCoordsPointer)
          .def("getIndexPointer", (ofIndexType*(ofMesh::*)(void)) &ofMesh::getIndexPointer)
-         .def("setName", (void(ofMesh::*)(string)) &ofMesh::setName)
+         //.def("setName", (void(ofMesh::*)(string)) &ofMesh::setName)
          .def("haveVertsChanged", (bool(ofMesh::*)(void)) &ofMesh::haveVertsChanged)
          .def("haveColorsChanged", (bool(ofMesh::*)(void)) &ofMesh::haveColorsChanged)
          .def("haveNormalsChanged", (bool(ofMesh::*)(void)) &ofMesh::haveNormalsChanged)
@@ -304,6 +304,11 @@ class ofGamuzaWrapper{
          def("ofCurvePoint", (ofPoint(*)(ofPoint,ofPoint,ofPoint,ofPoint,float)) &ofCurvePoint),
          def("ofBezierTangent", (ofPoint(*)(ofPoint,ofPoint,ofPoint,ofPoint,float)) &ofBezierTangent),
          def("ofCurveTangent", (ofPoint(*)(ofPoint,ofPoint,ofPoint,ofPoint,float)) &ofCurveTangent),
+         def("interpolateCosine", (float(*)(float,float,float)) &ofInterpolateCosine),
+         def("ofInterpolateCubic", (float(*)(float,float,float,float,float)) &ofInterpolateCubic),
+         def("ofInterpolateCatmullRom", (float(*)(float,float,float,float,float)) &ofInterpolateCatmullRom),
+         def("ofInterpolateHermite", (float(*)(float,float,float,float,float)) &ofInterpolateHermite),
+         def("ofInterpolateHermite", (float(*)(float,float,float,float,float,float,float)) &ofInterpolateHermite),
          
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofMatrix3x3
@@ -503,7 +508,7 @@ class ofGamuzaWrapper{
          .def("getPerpendicular", (ofVec2f(ofVec2f::*)(void)) &ofVec2f::getPerpendicular)
          .def("perpendicular", (ofVec2f&(ofVec2f::*)(void)) &ofVec2f::perpendicular)
          .def("length", (float(ofVec2f::*)(void)) &ofVec2f::length)
-         .def("squareLength", (float(ofVec2f::*)(void)) &ofVec2f::squareLength)
+         //.def("squareLength", (float(ofVec2f::*)(void)) &ofVec2f::squareLength)
          .def("angle", (float(ofVec2f::*)(const ofVec2f&)) &ofVec2f::angle)
          .def("angleRad", (float(ofVec2f::*)(const ofVec2f&)) &ofVec2f::angleRad)
          .def("dot", (float(ofVec2f::*)(const ofVec2f&)) &ofVec2f::dot)
@@ -572,7 +577,7 @@ class ofGamuzaWrapper{
          .def("getPerpendicular", (ofVec3f(ofVec3f::*)(void)) &ofVec3f::getPerpendicular)
          .def("perpendicular", (ofVec3f&(ofVec3f::*)(void)) &ofVec3f::perpendicular)
          .def("length", (float(ofVec3f::*)(void)) &ofVec3f::length)
-         .def("squareLength", (float(ofVec3f::*)(void)) &ofVec3f::squareLength)
+         //.def("squareLength", (float(ofVec3f::*)(void)) &ofVec3f::squareLength)
          .def("angle", (float(ofVec3f::*)(const ofVec3f&)) &ofVec3f::angle)
          .def("angleRad", (float(ofVec3f::*)(const ofVec3f&)) &ofVec3f::angleRad)
          .def("dot", (float(ofVec3f::*)(const ofVec3f&)) &ofVec3f::dot)
@@ -634,7 +639,7 @@ class ofGamuzaWrapper{
          .def("getLimited", (ofVec4f(ofVec4f::*)(float)) &ofVec4f::getLimited)
          .def("limit", (ofVec4f&(ofVec4f::*)(float)) &ofVec4f::limit)
          .def("length", (float(ofVec4f::*)(void)) &ofVec4f::length)
-         .def("squareLength", (float(ofVec4f::*)(void)) &ofVec4f::squareLength)
+         //.def("squareLength", (float(ofVec4f::*)(void)) &ofVec4f::squareLength)
          .def("dot", (float(ofVec4f::*)(const ofVec4f&)) &ofVec4f::dot)
          .def("rescaled", (ofVec4f(ofVec4f::*)(const float)) &ofVec4f::rescaled)
          .def("rescale", (ofVec4f&(ofVec4f::*)(const float)) &ofVec4f::rescale)
@@ -774,7 +779,7 @@ class ofGamuzaWrapper{
          .def("drawRectangle", (void(ofGLRenderer::*)(float,float,float,float,float)) &ofGLRenderer::drawRectangle)
          .def("drawTriangle", (void(ofGLRenderer::*)(float,float,float,float,float,float,float,float,float)) &ofGLRenderer::drawTriangle)
          .def("drawCircle", (void(ofGLRenderer::*)(float,float,float,float)) &ofGLRenderer::drawCircle)
-         .def("drawSphere", (void(ofGLRenderer::*)(float,float,float,float)) &ofGLRenderer::drawSphere)
+         //.def("drawSphere", (void(ofGLRenderer::*)(float,float,float,float)) &ofGLRenderer::drawSphere)
          .def("drawEllipse", (void(ofGLRenderer::*)(float,float,float,float,float)) &ofGLRenderer::drawEllipse)
          .def("drawString", (void(ofGLRenderer::*)(string,float,float,float,ofDrawBitmapMode)) &ofGLRenderer::drawString),
          
@@ -830,8 +835,8 @@ class ofGamuzaWrapper{
          .def_readonly("textureID", &ofTextureData::textureID)
          .def_readonly("textureTarget", &ofTextureData::textureTarget)
          .def_readonly("glTypeInternal", &ofTextureData::glTypeInternal)
-         .def_readonly("glType", &ofTextureData::glType)
-         .def_readonly("pixelType", &ofTextureData::pixelType)
+         //.def_readonly("glType", &ofTextureData::glTypeInternal)
+         //.def_readonly("pixelType", &ofTextureData::pixelType)
          .def_readonly("tex_t", &ofTextureData::tex_t)
          .def_readonly("tex_u", &ofTextureData::tex_u)
          .def_readonly("tex_w", &ofTextureData::tex_w)
@@ -851,8 +856,8 @@ class ofGamuzaWrapper{
          .def("load", (bool(ofShader::*)(string,string,string)) &ofShader::load)
          .def("beginShader", (void(ofShader::*)(void)) &ofShader::begin)
          .def("endShader", (void(ofShader::*)(void)) &ofShader::end)
-         .def("setUniformTexture", (void(ofShader::*)(const char*,ofBaseHasTexture&,int)) &ofShader::setUniformTexture)
-         .def("setUniformTexture", (void(ofShader::*)(const char*,ofTexture&,int)) &ofShader::setUniformTexture)
+         //.def("setUniformTexture", (void(ofShader::*)(const char*,ofBaseHasTexture&,int)) &ofShader::setUniformTexture)
+         //.def("setUniformTexture", (void(ofShader::*)(const char*,ofTexture&,int)) &ofShader::setUniformTexture)
          .def("setUniform1i", (void(ofShader::*)(const char*,int)) &ofShader::setUniform1i)
          .def("setUniform2i", (void(ofShader::*)(const char*,int,int)) &ofShader::setUniform2i)
          .def("setUniform3i", (void(ofShader::*)(const char*,int,int,int)) &ofShader::setUniform3i)
@@ -903,7 +908,7 @@ class ofGamuzaWrapper{
          .def("getNormalsPointer", (ofVec3f*(ofVboMesh::*)(void)) &ofVboMesh::getNormalsPointer)
          .def("getTexCoordsPointer", (ofVec2f*(ofVboMesh::*)(void)) &ofVboMesh::getTexCoordsPointer)
          .def("getIndexPointer", (ofIndexType*(ofVboMesh::*)(void)) &ofVboMesh::getIndexPointer)
-         .def("setName", (void(ofVboMesh::*)(string)) &ofVboMesh::setName)
+         //.def("setName", (void(ofVboMesh::*)(string)) &ofVboMesh::setName)
          .def("haveVertsChanged", (bool(ofVboMesh::*)(void)) &ofVboMesh::haveVertsChanged)
          .def("haveColorsChanged", (bool(ofVboMesh::*)(void)) &ofVboMesh::haveColorsChanged)
          .def("haveNormalsChanged", (bool(ofVboMesh::*)(void)) &ofVboMesh::haveNormalsChanged)
@@ -965,7 +970,7 @@ class ofGamuzaWrapper{
 		 .def("getHeight", &ofTexture::getHeight),
          
          def("getGlInternalFormat", (int(*)(const ofPixels&)) &ofGetGlInternalFormat),
-         def("getGlFormatAndType", (void(*)(int,int&,int&)) &ofGetGlFormatAndType),
+         //def("getGlFormatAndType", (void(*)(int,int&,int&)) &ofGetGlFormatAndType),
          def("getImageTypeFromGLType", (ofImage(*)(int)) &ofGetImageTypeFromGLType),
          
          ///////////////////////////////////////////////////////////////////////////////////
@@ -1244,7 +1249,7 @@ class ofGamuzaWrapper{
          def("ofGetSystemTime", (unsigned long(*)(void)) &ofGetSystemTime),
          def("ofGetSystemTimeMicros", (unsigned long(*)(void)) &ofGetSystemTimeMicros),
          def("ofGetTimestampString", (string(*)(void)) &ofGetTimestampString),
-		 def("ofGetTimestampString", (string(*)(string)) &ofGetTimestampString),
+		 //def("ofGetTimestampString", (string(*)(string)) &ofGetTimestampString),
          def("ofToChar", (char(*)(const string&)) &ofToChar),
 		 def("ofToBool", (bool(*)(const string&)) &ofToBool),
 		 def("ofToBinary", (string(*)(const string&)) &ofToBinary),
@@ -1312,7 +1317,7 @@ class ofGamuzaWrapper{
 		 .def("closeMovie", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::closeMovie)
 		 .def("close", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::close)
 		 .def("update", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::update)
-		 .def("idleMovie", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::idleMovie)
+		 //.def("idleMovie", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::idleMovie)
 		 .def("play", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::play)
 		 .def("stop", (void(ofVideoPlayer::*)(void)) &ofVideoPlayer::stop)
 		 .def("isFrameNew", &ofVideoPlayer::isFrameNew)
@@ -1431,10 +1436,10 @@ class ofGamuzaWrapper{
          .def("simplify", (void(ofPath::*)(float)) &ofPath::simplify)
          .def("flagShapeChanged", (void(ofPath::*)(void)) &ofPath::flagShapeChanged)
          //.def("setMode", (void(ofPath::*)(Mode)) &ofPath::setMode)                            NOT AVAILABLE
-         .def("setCurveResolution", (void(ofPath::*)(int)) &ofPath::setCurveResolution)
-         .def("getCurveResolution", (int(ofPath::*)(void)) &ofPath::getCurveResolution)
-         .def("setArcResolution", (void(ofPath::*)(int)) &ofPath::setArcResolution)
-         .def("getArcResolution", (int(ofPath::*)(void)) &ofPath::getArcResolution)
+         //.def("setCurveResolution", (void(ofPath::*)(int)) &ofPath::setCurveResolution)
+         //.def("getCurveResolution", (int(ofPath::*)(void)) &ofPath::getCurveResolution)
+         //.def("setArcResolution", (void(ofPath::*)(int)) &ofPath::setArcResolution)
+         //.def("getArcResolution", (int(ofPath::*)(void)) &ofPath::getArcResolution)
          .def("setUseShapeColor", (void(ofPath::*)(bool)) &ofPath::setUseShapeColor)
          .def("getUseShapeColor", (bool(ofPath::*)(void)) &ofPath::getUseShapeColor)
          .def("tessellate", (void(ofPath::*)(void)) &ofPath::tessellate)
@@ -1468,7 +1473,9 @@ class ofGamuzaWrapper{
          .def("getWidth", (float(ofImage::*)(void)) &ofImage::getWidth)
          .def("getHeight", (float(ofImage::*)(void)) &ofImage::getHeight)
 		 .def("getColor", (ofColor(ofImage::*)(int,int)) &ofImage::getColor)
-		 .def("setColor", (void(ofImage::*)(int,int,ofColor)) &ofImage::setColor)
+		 .def("setColor", (void(ofImage::*)(int,int,const ofColor&)) &ofImage::setColor)
+         .def("setColor", (void(ofImage::*)(int,const ofColor&)) &ofImage::setColor)
+         .def("setColor", (void(ofImage::*)(const ofColor&)) &ofImage::setColor)
          .def("setImageType", (void(ofImage::*)(ofImageType)) &ofImage::setImageType)
          .def("crop", (void(ofImage::*)(int,int,int,int)) &ofImage::crop)
          .def("cropFrom", (void(ofImage::*)(ofImage&,int,int,int,int)) &ofImage::cropFrom)
@@ -1518,7 +1525,7 @@ class ofGamuzaWrapper{
          .def("getWidth", (float(ofFloatImage::*)(void)) &ofFloatImage::getWidth)
          .def("getHeight", (float(ofFloatImage::*)(void)) &ofFloatImage::getHeight)
 		 .def("getColor", (ofColor(ofFloatImage::*)(int,int)) &ofFloatImage::getColor)
-		 .def("setColor", (void(ofFloatImage::*)(int,int,ofColor)) &ofFloatImage::setColor)
+		 //.def("setColor", (void(ofFloatImage::*)(int,int,ofColor)) &ofFloatImage::setColor)
          .def("setImageType", (void(ofFloatImage::*)(ofImageType)) &ofFloatImage::setImageType)
          .def("crop", (void(ofFloatImage::*)(int,int,int,int)) &ofFloatImage::crop)
          .def("cropFrom", (void(ofFloatImage::*)(ofFloatImage&,int,int,int,int)) &ofFloatImage::cropFrom)
@@ -1553,7 +1560,9 @@ class ofGamuzaWrapper{
          .def("getPixels", (unsigned char*(ofPixels::*)(void)) &ofPixels::getPixels)
          .def("getPixelIndex", (int(ofPixels::*)(int,int)) &ofPixels::getPixelIndex)
          .def("getColor", (ofColor(ofPixels::*)(int,int)) &ofPixels::getColor)
-		 .def("setColor", (void(ofPixels::*)(int,int,ofColor)) &ofPixels::setColor)
+		 .def("setColor", (void(ofPixels::*)(int,int,const ofColor&)) &ofPixels::setColor)
+         .def("setColor", (void(ofPixels::*)(int,const ofColor&)) &ofPixels::setColor)
+         .def("setColor", (void(ofPixels::*)(const ofColor&)) &ofPixels::setColor)
          .def("isAllocated", (bool(ofPixels::*)(void)) &ofPixels::isAllocated)
          .def("getWidth", (int(ofPixels::*)(void)) &ofPixels::getWidth)
 		 .def("getHeight", (int(ofPixels::*)(void)) &ofPixels::getHeight)
@@ -1662,21 +1671,39 @@ class ofGamuzaWrapper{
          def("ofRect", (void(*)(const ofRectangle&)) &ofRect),
          def("ofRect", (void(*)(const ofPoint&,float,float)) &ofRect),
          def("ofRect", (void(*)(float,float,float,float,float)) &ofRect),
+         def("ofRectRounded", (void(*)(const ofRectangle&,float)) &ofRectRounded),
+         def("ofRectRounded", (void(*)(const ofPoint&,float,float,float)) &ofRectRounded),
+         def("ofRectRounded", (void(*)(float,float,float,float,float)) &ofRectRounded),
+         //def("ofRectRounded", (void(*)(float,float,float,float,float,float)) &ofRectRounded),
          def("ofVertex", (void(*)(ofPoint&)) &ofVertex),
          def("ofCurveVertex",	(void(*)(ofPoint&)) &ofCurveVertex),
          def("ofBezierVertex", (void(*)(const ofPoint&,const ofPoint&,const ofPoint&)) &ofBezierVertex),
-         def("ofSphere", (void(*)(float,float,float,float)) &ofSphere),
-         def("ofSphere", (void(*)(float,float,float)) &ofSphere),
-         def("ofSphere", (void(*)(const ofPoint&,float)) &ofSphere),
-         def("ofSphere", (void(*)(float)) &ofSphere),
-         def("ofBox", (void(*)(float,float,float,float)) &ofBox),
-         def("ofBox", (void(*)(float,float,float)) &ofBox),
-         def("ofBox", (void(*)(const ofPoint&,float)) &ofBox),
-         def("ofBox", (void(*)(float)) &ofBox),
-         def("ofCone", (void(*)(float,float,float,float,float)) &ofCone),
-         def("ofCone", (void(*)(float,float,float,float)) &ofCone),
-         def("ofCone", (void(*)(const ofPoint&,float,float)) &ofCone),
-         def("ofCone", (void(*)(float,float)) &ofCone),
+         def("ofDrawSphere", (void(*)(float,float,float,float)) &ofDrawSphere),
+         def("ofDrawSphere", (void(*)(float,float,float)) &ofDrawSphere),
+         def("ofDrawSphere", (void(*)(const ofPoint&,float)) &ofDrawSphere),
+         def("ofDrawSphere", (void(*)(float)) &ofDrawSphere),
+         def("ofDrawIcoSphere", (void(*)(float,float,float,float)) &ofDrawIcoSphere),
+         def("ofDrawIcoSphere", (void(*)(float,float,float)) &ofDrawIcoSphere),
+         def("ofDrawIcoSphere", (void(*)(const ofPoint&,float)) &ofDrawIcoSphere),
+         def("ofDrawIcoSphere", (void(*)(float)) &ofDrawIcoSphere),
+         def("ofDrawBox", (void(*)(float,float,float,float,float,float)) &ofDrawBox),
+         def("ofDrawBox", (void(*)(float,float,float,float)) &ofDrawBox),
+         def("ofDrawBox", (void(*)(const ofPoint&,float,float,float)) &ofDrawBox),
+         def("ofDrawBox", (void(*)(const ofPoint&,float)) &ofDrawBox),
+         def("ofDrawBox", (void(*)(float)) &ofDrawBox),
+         def("ofDrawBox", (void(*)(float,float,float)) &ofDrawBox),
+         def("ofDrawCone", (void(*)(float,float,float,float,float)) &ofDrawCone),
+         def("ofDrawCone", (void(*)(float,float,float,float)) &ofDrawCone),
+         def("ofDrawCone", (void(*)(const ofPoint&,float,float)) &ofDrawCone),
+         def("ofDrawCone", (void(*)(float,float)) &ofDrawCone),
+         def("ofDrawCylinder", (void(*)(float,float,float,float,float)) &ofDrawCylinder),
+         def("ofDrawCylinder", (void(*)(float,float,float,float)) &ofDrawCylinder),
+         def("ofDrawCylinder", (void(*)(const ofPoint&,float,float)) &ofDrawCylinder),
+         def("ofDrawCylinder", (void(*)(float,float)) &ofDrawCylinder),
+         def("ofDrawPlane", (void(*)(float,float,float,float,float)) &ofDrawPlane),
+         def("ofDrawPlane", (void(*)(float,float,float,float)) &ofDrawPlane),
+         //def("ofDrawPlane", (void(*)(const ofPoint&,float,float)) &ofDrawPlane),
+         def("ofDrawPlane", (void(*)(float,float)) &ofDrawPlane),
          def("ofSetDrawBitmapMode", (void(*)(ofDrawBitmapMode)) &ofSetDrawBitmapMode),
          
          ///////////////////////////////////////////////////////////////////////////////////
@@ -1722,7 +1749,7 @@ class ofGamuzaWrapper{
 		 .def(constructor<>())
          .def("clear", (void(ofPolyline::*)(void)) &ofPolyline::clear)
          .def("addVertex", (void(ofPolyline::*)(float,float,float)) &ofPolyline::addVertex)
-         .def("addVertexes", (void(ofPolyline::*)(const vector<ofPoint>&)) &ofPolyline::addVertexes)
+         //.def("addVertexes", (void(ofPolyline::*)(const vector<ofPoint>&)) &ofPolyline::addVertexes)
          .def("lineTo", (void(ofPolyline::*)(const ofPoint&)) &ofPolyline::lineTo)
          .def("lineTo", (void(ofPolyline::*)(float,float,float)) &ofPolyline::lineTo)
          .def("arc", (void(ofPolyline::*)(const ofPoint&,float,float,float,float,int)) &ofPolyline::arc)
@@ -1741,6 +1768,8 @@ class ofGamuzaWrapper{
          .def("getResampledByCount", (ofPolyline(ofPolyline::*)(int)) &ofPolyline::getResampledByCount) // int count
          .def("getBoundingBox", (ofRectangle(ofPolyline::*)(void)) &ofPolyline::getBoundingBox)
          .def("getClosestPoint", (ofPoint(ofPolyline::*)(const ofPoint&,unsigned int*)) &ofPolyline::getClosestPoint)
+         .def("inside", (bool(ofPolyline::*)(const ofPoint&) const) &ofPolyline::inside)
+         .def("inside", (bool(ofPolyline::*)(float,float) const) &ofPolyline::inside)
          .def("simplify", (void(ofPolyline::*)(float)) &ofPolyline::simplify)
          .def("size", (size_t(ofPolyline::*)(void)) &ofPolyline::size)
          .def("resize", (void(ofPolyline::*)(size_t)) &ofPolyline::resize)
@@ -1750,6 +1779,8 @@ class ofGamuzaWrapper{
          .def("hasChanged", (bool(ofPolyline::*)(void)) &ofPolyline::hasChanged)
          .def("getVertices", (vector<ofPoint>&(ofPolyline::*)(void)) &ofPolyline::getVertices)
          .def("getPerimeter", (float(ofPolyline::*)(void)) &ofPolyline::getPerimeter)
+         .def("getArea", &ofPolyline::getArea)
+         .def("getCentroid2D", &ofPolyline::getCentroid2D)
          .def("draw", (void(ofPolyline::*)(void)) &ofPolyline::draw),
 		 
          ///////////////////////////////////////////////////////////////////////////////////
@@ -1948,12 +1979,12 @@ class ofGamuzaWrapper{
          .def("alignTo", (void(ofRectangle::*)(const ofPoint&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
          .def("alignTo", (void(ofRectangle::*)(const ofRectangle&,ofAlignHorz,ofAlignVert,ofAlignHorz,ofAlignVert)) &ofRectangle::alignTo)
-         //.def("inside", (bool(ofRectangle::*)(const ofPoint&)) &ofRectangle::inside)
-         //.def("inside", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::inside)
-		 .def("inside", (bool(ofRectangle::*)(float,float)) &ofRectangle::inside)
-         //.def("inside", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::inside)
-         //.def("intersects", (bool(ofRectangle::*)(const ofRectangle&)) &ofRectangle::intersects)
-         //.def("intersects", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&)) &ofRectangle::intersects)
+         .def("inside", (bool(ofRectangle::*)(float,float) const) &ofRectangle::inside)
+         .def("inside", (bool(ofRectangle::*)(const ofPoint&) const) &ofRectangle::inside)
+         .def("inside", (bool(ofRectangle::*)(const ofRectangle&) const) &ofRectangle::inside)
+         .def("inside", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&) const) &ofRectangle::inside)
+         .def("intersects", (bool(ofRectangle::*)(const ofRectangle&) const) &ofRectangle::intersects)
+         .def("intersects", (bool(ofRectangle::*)(const ofPoint&,const ofPoint&) const) &ofRectangle::intersects)
          .def("growToInclude", (void(ofRectangle::*)(float,float)) &ofRectangle::growToInclude)
          .def("growToInclude", (void(ofRectangle::*)(const ofPoint&)) &ofRectangle::growToInclude)
          .def("growToInclude", (void(ofRectangle::*)(const ofRectangle&)) &ofRectangle::growToInclude)
@@ -1995,6 +2026,7 @@ class ofGamuzaWrapper{
          
          ///////////////////////////////////////////////////////////////////////////////////
 		 /// \section ofPoint --  Use ofVec3f instead
+         
          
          ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		 /// \section events [ofKeyEventArgs, ofAudioEventArgs, ofCoreEvents, ofEventArgs, ofEvent, ofMouseEventArgs, ofResizeEventArgs, ofEvents, ofEventUtils]
@@ -2258,8 +2290,8 @@ class ofGamuzaWrapper{
          .def("isConnected", (bool(ofxTCPClient::*)(void)) &ofxTCPClient::isConnected)
          .def("getPort", (int(ofxTCPClient::*)(void)) &ofxTCPClient::getPort)
          .def("getIP", (string(ofxTCPClient::*)(void)) &ofxTCPClient::getIP)
-         .def("setup", (bool(ofxTCPClient::*)(int,bool)) &ofxTCPClient::setup)
-         .def_readonly("TCPClient", &ofxTCPClient::TCPClient),
+         .def("setup", (bool(ofxTCPClient::*)(int,bool)) &ofxTCPClient::setup),
+         //.def_readonly("TCPClient", &ofxTCPClient::TCPClient),
          
          ///////////////////////////////
          // ofxUDPManager
@@ -2337,7 +2369,7 @@ class ofGamuzaWrapper{
          .def("isConnected", (bool(ofxTCPServer::*)(void)) &ofxTCPServer::isConnected)
          .def("getClientPort", (int(ofxTCPServer::*)(int)) &ofxTCPServer::getClientPort)
          .def("getClientIP", (string(ofxTCPServer::*)(int)) &ofxTCPServer::getClientIP)
-         .def("isClientSetup", (bool(ofxTCPServer::*)(int)) &ofxTCPServer::isClientSetup)
+         //.def("isClientSetup", (bool(ofxTCPServer::*)(int)) &ofxTCPServer::isClientSetup)
          .def("isClientConnected", (bool(ofxTCPServer::*)(int)) &ofxTCPServer::isClientConnected)
          .def("send", (bool(ofxTCPServer::*)(int,string)) &ofxTCPServer::send)
          .def("sendToAll", (bool(ofxTCPServer::*)(string)) &ofxTCPServer::sendToAll)
@@ -2716,6 +2748,18 @@ class ofGamuzaWrapper{
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
+         // OFXABSOLUTEFRAME
+         class_<ofxAbsoluteFrame>("ofxAbsoluteFrame")
+         .def(constructor<>())
+         
+         .def("setup", (void(ofxAbsoluteFrame::*)(float)) &ofxAbsoluteFrame::setup)
+         .def("update", (void(ofxAbsoluteFrame::*)(void)) &ofxAbsoluteFrame::update)
+         .def("reset", (void(ofxAbsoluteFrame::*)(void)) &ofxAbsoluteFrame::reset)
+         .def("isFrameNew", (bool(ofxAbsoluteFrame::*)(void)) &ofxAbsoluteFrame::isFrameNew)
+         .def("getFrame", (unsigned long(ofxAbsoluteFrame::*)(void)) &ofxAbsoluteFrame::getFrame),
+         //////////////////////////////////////////////////////////////////////////////////////////////////
+         
+         //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXARCTEXT --> extending ofTrueTypeFont
          class_<ofxArcText>("ofxArcText")
          .def(constructor<>())
@@ -3035,7 +3079,7 @@ class ofGamuzaWrapper{
          .def("isClosed", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isClosed)
          .def("close", (void(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::close)
          .def("hasChanged", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::hasChanged)
-         .def("getVertices", (ofPoint(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getVertices)
+         //.def("getVertices", (ofPoint(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getVertices)
          .def("getPerimeter", (float(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::getPerimeter)
          // from ofxBox2dBaseShape
          .def("isBody", (bool(ofxBox2dPolygon::*)(void)) &ofxBox2dPolygon::isBody)
@@ -3140,14 +3184,6 @@ class ofGamuzaWrapper{
          .def("drawBgColor", (void(ofxChromaKey::*)(int,int,int,int)) &ofxChromaKey::drawBgColor)
          .def("draw", (void(ofxChromaKey::*)(int,int,int,int,bool)) &ofxChromaKey::draw)
          .def("getThreshold", (float(ofxChromaKey::*)(void)) &ofxChromaKey::getThreshold),
-         //////////////////////////////////////////////////////////////////////////////////////////////////
-         
-         //////////////////////////////////////////////////////////////////////////////////////////////////
-         // OFXCLD
-         class_<ofxCLD>("ofxCLD")
-         .def(constructor<>())
-         .def("setup", (void(ofxCLD::*)(int,int)) &ofxCLD::setup)
-         .def("getCLDTextureRef", (ofTexture&(ofxCLD::*)(ofPixels,int,float,float,float,float)) &ofxCLD::getCLDTextureRef),
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -4240,7 +4276,7 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXGAMECAMERA
-         class_<ofxGameCamera>("ofxGameCamera")
+         /*class_<ofxGameCamera>("ofxGameCamera")
          .def(constructor<>())
          .def("setFov", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setFov)
          .def("setNearClip", (void(ofxGameCamera::*)(float)) &ofxGameCamera::setNearClip)
@@ -4292,11 +4328,11 @@ class ofGamuzaWrapper{
          .def("endCamera", (void(ofxGameCamera::*)(void)) &ofxGameCamera::end)
          
          .def("setup", (void(ofxGameCamera::*)(void)) &ofxGameCamera::setup)
-         .def("updateRotation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::updateRotation)
+         //.def("updateRotation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::updateRotation)
          .def("saveCameraPosition", (void(ofxGameCamera::*)(void)) &ofxGameCamera::saveCameraPosition)
          .def("loadCameraPosition", (void(ofxGameCamera::*)(void)) &ofxGameCamera::loadCameraPosition)
-         .def("setAnglesFromOrientation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::setAnglesFromOrientation)
-         .def("reset", (void(ofxGameCamera::*)(void)) &ofxGameCamera::reset),
+         //.def("setAnglesFromOrientation", (void(ofxGameCamera::*)(void)) &ofxGameCamera::setAnglesFromOrientation)
+         .def("reset", (void(ofxGameCamera::*)(void)) &ofxGameCamera::reset),*/
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5084,7 +5120,7 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXJITTERNETWORKSENDER --> extending ofxTCPClient
-         class_<ofxJitterNetworkSender>("ofxJitterNetworkSender")
+         /*class_<ofxJitterNetworkSender>("ofxJitterNetworkSender")
          .def(constructor<>())
          
          .def("setVerbose", (void(ofxJitterNetworkSender::*)(bool)) &ofxJitterNetworkSender::setVerbose)
@@ -5104,7 +5140,7 @@ class ofGamuzaWrapper{
          .def("setup", (bool(ofxJitterNetworkSender::*)(int,bool)) &ofxJitterNetworkSender::setup)
          
          .def("sendFrame", (void(ofxJitterNetworkSender::*)(const ofPixelsRef)) &ofxJitterNetworkSender::sendFrame)
-         .def("sendText", (void(ofxJitterNetworkSender::*)(const string&)) &ofxJitterNetworkSender::sendText),
+         .def("sendText", (void(ofxJitterNetworkSender::*)(const string&)) &ofxJitterNetworkSender::sendText),*/
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5161,15 +5197,15 @@ class ofGamuzaWrapper{
          .def("getDeviceId", (int(ofxKinect::*)(void)) &ofxKinect::getDeviceId)
          .def("getSerial", (string(ofxKinect::*)(void)) &ofxKinect::getSerial)
          .def("getHeight", (float(ofxKinect::*)(void)) &ofxKinect::getHeight)
-         .def("getWidth", (float(ofxKinect::*)(void)) &ofxKinect::getWidth)
-         .def("listDevices", (void(ofxKinect::*)(void)) &ofxKinect::listDevices)
+         .def("getWidth", (float(ofxKinect::*)(void)) &ofxKinect::getWidth),
+         /*.def("listDevices", (void(ofxKinect::*)(void)) &ofxKinect::listDevices)
          .def("numTotalDevices", (int(ofxKinect::*)(void)) &ofxKinect::numTotalDevices)
          .def("numAvailableDevices", (int(ofxKinect::*)(void)) &ofxKinect::numAvailableDevices)
          .def("numConnectedDevices", (int(ofxKinect::*)(void)) &ofxKinect::numConnectedDevices)
          .def("isDeviceConnected", (bool(ofxKinect::*)(int)) &ofxKinect::isDeviceConnected)
          .def("isDeviceConnected", (bool(ofxKinect::*)(string)) &ofxKinect::isDeviceConnected)
          .def("nextAvailableId", (int(ofxKinect::*)(void)) &ofxKinect::nextAvailableId)
-         .def("nextAvailableSerial", (string(ofxKinect::*)(void)) &ofxKinect::nextAvailableSerial),
+         .def("nextAvailableSerial", (string(ofxKinect::*)(void)) &ofxKinect::nextAvailableSerial),*/
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
@@ -5482,7 +5518,7 @@ class ofGamuzaWrapper{
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
          // OFXTEXTSUITE
-         class_<ofxTextBlock>("ofxTextBlock")
+         /*class_<ofxTextBlock>("ofxTextBlock")
          .def(constructor<>())
          .def("init", (void(ofxTextBlock::*)(string,float)) &ofxTextBlock::init)
          .def("setText", (void(ofxTextBlock::*)(string)) &ofxTextBlock::setText)
@@ -5498,7 +5534,7 @@ class ofGamuzaWrapper{
          .def("drawJustified", (void(ofxTextBlock::*)(float,float,float)) &ofxTextBlock::drawJustified)
          .def("forceScale", (void(ofxTextBlock::*)(float)) &ofxTextBlock::forceScale)
          .def("getWidth", (float(ofxTextBlock::*)(void)) &ofxTextBlock::getWidth)
-		 .def("getHeight", (float(ofxTextBlock::*)(void)) &ofxTextBlock::getHeight),
+		 .def("getHeight", (float(ofxTextBlock::*)(void)) &ofxTextBlock::getHeight),*/
          //////////////////////////////////////////////////////////////////////////////////////////////////
          
          //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5560,14 +5596,13 @@ class ofGamuzaWrapper{
          // OFXTWITTER
          class_<ofxTwitter>("ofxTwitter")
          .def(constructor<>())
-         .def("setConfigFiles", (void(ofxTwitter::*)(const string&,const string&)) &ofxTwitter::setConfigFiles)
          .def("authorize", (void(ofxTwitter::*)(const string&,const string&)) &ofxTwitter::authorize)
          .def("isAuthorized", (bool(ofxTwitter::*)(void)) &ofxTwitter::isAuthorized)
          .def("loadCacheFile", (void(ofxTwitter::*)(void)) &ofxTwitter::loadCacheFile)
-         .def("resetTwitter", (void(ofxTwitter::*)(void)) &ofxTwitter::resetTwitter)
          .def("setDiskCache", (void(ofxTwitter::*)(bool)) &ofxTwitter::setDiskCache)
          .def("diskCacheIsActive", (bool(ofxTwitter::*)(void)) &ofxTwitter::diskCacheIsActive)
-         .def("startQuery", (void(ofxTwitter::*)(string,int)) &ofxTwitter::startQuery)
+         .def("startSearch", (void(ofxTwitter::*)(ofxTwitterSearch)) &ofxTwitter::startSearch)
+         .def("parseResponse", (void(ofxTwitter::*)(ofxJSONElement)) &ofxTwitter::parseResponse)
          .def("setAutoLoadImages", (void(ofxTwitter::*)(bool,bool)) &ofxTwitter::setAutoLoadImages)
          .def("getTweetByIndex", (ofxTwitterTweet(ofxTwitter::*)(int)) &ofxTwitter::getTweetByIndex)
          .def("getTotalLoadedTweets", (int(ofxTwitter::*)(void)) &ofxTwitter::getTotalLoadedTweets),
@@ -5585,23 +5620,48 @@ class ofGamuzaWrapper{
          .def_readonly("coordinates", &ofxTwitterTweet::coordinates)
          .def_readonly("source", &ofxTwitterTweet::source)
          .def_readonly("retweet_count", &ofxTwitterTweet::retweet_count)
-         .def_readonly("user_id_str", &ofxTwitterTweet::user_id_str)
-         .def_readonly("user_uri", &ofxTwitterTweet::user_uri)
-         .def_readonly("user_name", &ofxTwitterTweet::user_name)
-         .def_readonly("user_screen_name", &ofxTwitterTweet::user_screen_name)
-         .def_readonly("user_description", &ofxTwitterTweet::user_description)
-         .def_readonly("user_location", &ofxTwitterTweet::user_location)
-         .def_readonly("user_lang", &ofxTwitterTweet::user_lang)
-         .def_readonly("user_url", &ofxTwitterTweet::user_url)
-         .def_readonly("user_default_profile", &ofxTwitterTweet::user_default_profile)
-         .def_readonly("user_default_profile_image", &ofxTwitterTweet::user_default_profile_image)
-         .def_readonly("user_geo_enabled", &ofxTwitterTweet::user_geo_enabled)
-         .def_readonly("user_profile_image_url", &ofxTwitterTweet::user_profile_image_url)
-         .def_readonly("user_profile_image", &ofxTwitterTweet::user_profile_image)
-         .def_readonly("user_profile_banner_url", &ofxTwitterTweet::user_profile_banner_url)
-         .def_readonly("user_profile_banner", &ofxTwitterTweet::user_profile_banner)
-         .def_readonly("user_profile_background_image_url", &ofxTwitterTweet::user_profile_background_image_url)
-         .def_readonly("user_profile_background_color", &ofxTwitterTweet::user_profile_background_color),
+         .def_readonly("truncated", &ofxTwitterTweet::truncated)
+         .def_readonly("user", &ofxTwitterTweet::user),
+         
+         class_<ofxTwitterTweetAuthor>("ofxTwitterTweetAuthor")
+         .def(constructor<>())
+         .def_readonly("id_str", &ofxTwitterTweetAuthor::id_str)
+         .def_readonly("uri", &ofxTwitterTweetAuthor::uri)
+         .def_readonly("name", &ofxTwitterTweetAuthor::name)
+         .def_readonly("screen_name", &ofxTwitterTweetAuthor::screen_name)
+         .def_readonly("description", &ofxTwitterTweetAuthor::description)
+         .def_readonly("location", &ofxTwitterTweetAuthor::location)
+         .def_readonly("lang", &ofxTwitterTweetAuthor::lang)
+         .def_readonly("url", &ofxTwitterTweetAuthor::url)
+         .def_readonly("default_profile", &ofxTwitterTweetAuthor::default_profile)
+         .def_readonly("default_profile_image", &ofxTwitterTweetAuthor::default_profile_image)
+         .def_readonly("geo_enabled", &ofxTwitterTweetAuthor::geo_enabled)
+         .def_readonly("profile_image_url", &ofxTwitterTweetAuthor::profile_image_url)
+         .def_readonly("profile_image", &ofxTwitterTweetAuthor::profile_image)
+         .def_readonly("profile_image_url_loaded", &ofxTwitterTweetAuthor::profile_image_url_loaded)
+         .def_readonly("profile_banner_url", &ofxTwitterTweetAuthor::profile_banner_url)
+         .def_readonly("profile_banner", &ofxTwitterTweetAuthor::profile_banner)
+         .def_readonly("profile_banner_url_loaded", &ofxTwitterTweetAuthor::profile_banner_url_loaded)
+         .def_readonly("profile_background_image_url", &ofxTwitterTweetAuthor::profile_background_image_url)
+         .def_readonly("profile_background_color", &ofxTwitterTweetAuthor::profile_background_color)
+         .def_readonly("profile_background_tile", &ofxTwitterTweetAuthor::profile_background_tile)
+         .def_readonly("profile_use_background_image", &ofxTwitterTweetAuthor::profile_use_background_image),
+         
+         class_<ofxTwitterSearch>("ofxTwitterSearch")
+         .def(constructor<>())
+         .def_readwrite("query", &ofxTwitterSearch::query)
+         .def_readwrite("geocode", &ofxTwitterSearch::geocode)
+         .def_readwrite("bUseMiles", &ofxTwitterSearch::bUseMiles)
+         .def_readwrite("geocode_radius", &ofxTwitterSearch::geocode_radius)
+         .def_readwrite("lang", &ofxTwitterSearch::lang)
+         .def_readwrite("locale", &ofxTwitterSearch::locale)
+         .def_readwrite("result_type", &ofxTwitterSearch::result_type)
+         .def_readwrite("count", &ofxTwitterSearch::count)
+         .def_readwrite("until", &ofxTwitterSearch::until)
+         .def_readwrite("since_id", &ofxTwitterSearch::since_id)
+         .def_readwrite("max_id", &ofxTwitterSearch::max_id)
+         .def_readwrite("include_entities", &ofxTwitterSearch::include_entities)
+         .def_readwrite("include_entities", &ofxTwitterSearch::include_entities),
          
          class_<ofxJSONElement>("ofxJSONElement")
          .def(constructor<>()),
@@ -5733,7 +5793,7 @@ class ofGamuzaWrapper{
          
          ///////////////////////////////
 		 // string section
-         def("gaStringReplace", (int(*)(string&,string,string)) &gaStringReplace),
+         def("gaStringReplace", (string(*)(string,string,string)) &gaStringReplace),
          
 		 ///////////////////////////////
 		 // graphics section
@@ -5829,7 +5889,7 @@ class ofGamuzaWrapper{
 		 def("gaWaveVolume", &gaSetOscVolume),
 		 def("gaWaveFrequency", &gaSetOscFrequency),
 		 def("gaWaveType", &gaSetOscWaveType),
-		 def("gaWaveTuning,", &gaSetOscTuning),
+		 def("gaWaveTuning", &gaSetOscTuning),
 		 def("gaNToF", &gaNote),
          
          ///////////////////////////////
@@ -5889,7 +5949,9 @@ class ofGamuzaWrapper{
 		 // AUDIO UNIT PLUGINS section
          def("auAddPlugin", (void(*)(string)) &auAddPlugin),
          def("auAddPluginFromPreset", (void(*)(string)) &auAddPluginFromPreset),
+         def("auSavePluginPreset", (void(*)(string,string,string)) &auSavePluginPreset),
          def("auPluginSetParam", (void(*)(string,string,float)) &auPluginSetParam),
+         def("auListPluginParams", (void(*)(string)) &auListPluginParams),
          def("auListPlugins", (void(*)(void)) &auListPlugins),
 		 
 		 /////////////////////////////// (ARDUINO Module)
@@ -6060,13 +6122,13 @@ class ofGamuzaWrapper{
         lua.doString("OF_PRIMITIVE_POINTS = "+ofToString(OF_PRIMITIVE_POINTS));
         
         // OF gl legacy
-        lua.doString("OF_TRIANGLES_MODE = "+ofToString(OF_TRIANGLES_MODE));
-        lua.doString("OF_TRIANGLE_STRIP_MODE = "+ofToString(OF_TRIANGLE_STRIP_MODE));
-        lua.doString("OF_TRIANGLE_FAN_MODE = "+ofToString(OF_TRIANGLE_FAN_MODE));
-        lua.doString("OF_LINES_MODE = "+ofToString(OF_LINES_MODE));
-        lua.doString("OF_LINE_STRIP_MODE = "+ofToString(OF_LINE_STRIP_MODE));
-        lua.doString("OF_LINE_LOOP_MODE = "+ofToString(OF_LINE_LOOP_MODE));
-        lua.doString("OF_POINTS_MODE = "+ofToString(OF_POINTS_MODE));
+        //lua.doString("OF_TRIANGLES_MODE = "+ofToString(OF_TRIANGLES_MODE));
+        //lua.doString("OF_TRIANGLE_STRIP_MODE = "+ofToString(OF_TRIANGLE_STRIP_MODE));
+        //lua.doString("OF_TRIANGLE_FAN_MODE = "+ofToString(OF_TRIANGLE_FAN_MODE));
+        //lua.doString("OF_LINES_MODE = "+ofToString(OF_LINES_MODE));
+        //lua.doString("OF_LINE_STRIP_MODE = "+ofToString(OF_LINE_STRIP_MODE));
+        //lua.doString("OF_LINE_LOOP_MODE = "+ofToString(OF_LINE_LOOP_MODE));
+        //lua.doString("OF_POINTS_MODE = "+ofToString(OF_POINTS_MODE));
         
         // OF mesh modes
         lua.doString("OF_MESH_POINTS = "+ofToString(OF_MESH_POINTS));

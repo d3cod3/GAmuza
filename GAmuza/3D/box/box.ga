@@ -41,7 +41,7 @@ function draw()
     ofSetColor(255)
     ofNoFill()
     ofSetLineWidth(3)
-    ofBox(300)
+    ofDrawBox(300)
     
     light:disable()
 

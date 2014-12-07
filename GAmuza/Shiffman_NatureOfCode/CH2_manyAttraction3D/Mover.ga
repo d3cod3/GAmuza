@@ -27,7 +27,7 @@ function Mover:display()
     	ofNoFill()
 	ofPushMatrix()
 	ofTranslate(self.loc.x,self.loc.y,self.loc.z)
-    	ofSphere(self.mass*2)
+    	ofDrawSphere(self.mass*2)
 	ofPopMatrix()
 end
 

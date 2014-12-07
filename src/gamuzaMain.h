@@ -19,7 +19,7 @@ extern gaVideoPreview   *gaVP; // OUTPUT TEXTURE PREVIEW
 extern gaTimeline       *gaTL; // TIMELINE PANEL WINDOW external reference
 /////////////////////////////////
 
-class gamuzaMain : public ofxNSWindowApp, public ofxMidiListener, public pd::PdReceiver, public pd::PdMidiReceiver{
+class gamuzaMain : public ofxNSWindowApp, public ofxLuaListener, public ofxMidiListener, public pd::PdReceiver, public pd::PdMidiReceiver{
     
 public:
     
@@ -126,6 +126,12 @@ public:
                             float contr, float filmB, float tech,
                             float whiteD, float expos, float diff);
     
+    void getMapperModuleOutput(ofFbo mp);
+    
+    void setupGrid();
+    void showGrid();
+    void setGridSettings(bool gr, bool cr, bool tr, bool gd, int gWGap, int gHGap);
+    
     // GUI ///////////////////////////// --> gamuzaGui.h
     void setupGui();
     void updateGui();
@@ -181,6 +187,9 @@ public:
     void    checkErrors();
     
     ofEvent<string> doCompileEvent;
+    
+    // ofxLua error callback
+    void errorReceived(string& msg);
     
     ////////////////////////////////////////////////
     //////////////////////////////////////////////// VARIABLES
@@ -292,8 +301,9 @@ public:
     ofxPd                   pd;
     vector<string>          pdPatches;
     
-    vector<ofxAUPlugin*>    auPlugins;
-    vector<string*>         gamuzaAUList;
+    vector<ofxAUPlugin*>            auPlugins;
+    vector< map<string, ofVec2f> >    auPluginParams;
+    vector<string*>                 gamuzaAUList;
     
     ofQTKitGrabber          fakeAudioTrack;
     vector<string>          gamuzaAudioCodecsList;
@@ -330,6 +340,7 @@ public:
     // FBO --> gamuzaFBO.h
     ofFbo					drawingFbo;
     ofFbo                   gamuzaFbo;
+    ofFbo                   mapperModuleFbo;
     ofxFastFboReader        pixelsReader;
     ofPixels                gamuzaPixels;
     ofShader				shaderColorCorrection;
@@ -350,6 +361,11 @@ public:
     float					fbo_whiteDiffusion;
     float					fbo_exposure;
     float					fbo_diffusion;
+    
+    bool                    switchMapperOutput;
+    
+    bool                    GoldenRatio, CenterRatio, ThirdRatio, GridDraw;
+    int                     gridWGap, gridHGap;
     //////////////////////////////////////////////
     
     //////////////////////////////////////////////

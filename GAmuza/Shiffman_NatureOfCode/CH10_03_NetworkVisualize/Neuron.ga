@@ -21,7 +21,7 @@ function Neuron:display()
 	ofCircle(self.location.x,self.location.y,16)
 
 	// Draw all its connections
-	for i=0,table.getn(self.connections) do
+	for i=0,self.index-1 do
 		self.connections[i]:display()
 	end
 end

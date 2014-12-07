@@ -7,7 +7,7 @@
 void gamuzaMain::setupFBO(){
     ///////////////////////////
 	// FBO setup
-    drawingFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB);
+    drawingFbo.allocate(projectionScreenW,projectionScreenH,GL_RGBA32F_ARB); // GL_RGB, GL_RGBA32F_ARB
     gamuzaFbo.allocate(projectionScreenW,projectionScreenH,GL_RGB);
     gamuzaPixels.allocate(projectionScreenW,projectionScreenH,OF_PIXELS_RGB);
     
@@ -18,6 +18,17 @@ void gamuzaMain::setupFBO(){
     gamuzaFbo.begin();
     ofClear(255,255,255, 0);
     gamuzaFbo.end();
+    ///////////////////////////
+    
+    ///////////////////////////
+    // MAPPER OUTPUT setup
+    mapperModuleFbo.allocate(projectionScreenW,projectionScreenH,GL_RGB);
+    
+    mapperModuleFbo.begin();
+    ofClear(255,255,255, 0);
+    mapperModuleFbo.end();
+    
+    switchMapperOutput = false;
     ///////////////////////////
     
     ///////////////////////////
@@ -40,6 +51,11 @@ void gamuzaMain::setupFBO(){
         shaderColorCorrection.setUniform1f("tex_h",projectionScreenH);
     shaderColorCorrection.end();
     ///////////////////////////
+    
+    ///////////////////////////
+	// GRID setup
+    setupGrid();
+    ///////////////////////////
 }
 
 //--------------------------------------------------------------
@@ -54,10 +70,10 @@ void gamuzaMain::drawFBO(){
     
     drawingFbo.begin();
     glPushAttrib(GL_ALL_ATTRIB_BITS);
-    glEnable(GL_BLEND);
-    glBlendFuncSeparate(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA,GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_BLEND);
+    //glBlendFuncSeparate(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA,GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
     drawIntoFBO();
-    glDisable(GL_BLEND);
+    //glDisable(GL_BLEND);
     glPopAttrib();
     drawingFbo.end();
     
@@ -88,7 +104,7 @@ void gamuzaMain::drawFBO(){
     sprintf(shaderName,"diffusion");
     shaderColorCorrection.setUniform1f(shaderName,fbo_diffusion); // 0.0 - 4.0
     
-    shaderColorCorrection.setUniformTexture("texBase", drawingFbo, 0);
+    shaderColorCorrection.setUniformTexture("tex0", drawingFbo, 0);
     
     // apply mapping mesh
     applyGridMesh(0,0,projectionScreenW,projectionScreenH);
@@ -99,7 +115,11 @@ void gamuzaMain::drawFBO(){
     
     //////////////////////////////////////
     // OUTPUT TEXTURE
-    gamuzaFbo.draw(fboDrawingPosX,fboDrawingPosY,fboDrawingW,fboDrawingH);
+    if(switchMapperOutput){
+        mapperModuleFbo.draw(fboDrawingPosX,fboDrawingPosY,fboDrawingW,fboDrawingH);
+    }else{
+        gamuzaFbo.draw(fboDrawingPosX,fboDrawingPosY,fboDrawingW,fboDrawingH);
+    }
     //////////////////////////////////////
 
 }
@@ -113,10 +133,7 @@ void gamuzaMain::drawIntoFBO(){
     ofPushView();
     ofPushMatrix();
     ofPushStyle();
-    //glPushAttrib(GL_ALL_ATTRIB_BITS);
         lua.scriptDraw();
-    //glDisable(GL_DEPTH_TEST);
-    //glPopAttrib();
     ofPopStyle();
     ofPopMatrix();
     ofPopView();
@@ -140,6 +157,53 @@ void gamuzaMain::setColorCorrection(float gamma, float bright, float sat,
     fbo_whiteDiffusion = whiteD;
     fbo_exposure = expos;
     fbo_diffusion = diff;
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::getMapperModuleOutput(ofFbo mp){
+    mapperModuleFbo = mp;
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::setupGrid(){
+    GoldenRatio = false;
+    CenterRatio = false;
+    ThirdRatio = false;
+    GridDraw = false;
+    gridWGap = 50;
+    gridHGap = 50;
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::showGrid(){
+    ofPushMatrix();
+    ofTranslate(fboDrawingPosX,fboDrawingPosY,0);
+    if (GoldenRatio) {
+		ShowGoldenRatio(fboDrawingW,fboDrawingH);
+	}
+    
+	if (CenterRatio) {
+		ShowCenter(fboDrawingW,fboDrawingH);
+	}
+    
+	if (ThirdRatio) {
+		ShowThirdRatio(fboDrawingW,fboDrawingH);
+	}
+    
+	if (GridDraw) {
+		ShowGrid(fboDrawingW,fboDrawingH, gridWGap, gridHGap);
+	}
+    ofPopMatrix();
+}
+
+//--------------------------------------------------------------
+void gamuzaMain::setGridSettings(bool gr, bool cr, bool tr, bool gd, int gWGap, int gHGap){
+    GoldenRatio = gr;
+    CenterRatio = cr;
+    ThirdRatio = tr;
+    GridDraw = gd;
+    gridWGap = gWGap;
+    gridHGap = gHGap;
 }
 
 

@@ -25,8 +25,8 @@ highlightColor = ofColor(0,0,0,255)
 
 actualTweet = 0
 
-consumerKey = "YOUR_TWITTER_APP_CONSUMER_KEY"
-consumerSecret = "YOUR_TWITTER_APP_SECRET_KEY"
+consumerKey = "S5CRkdg9ZrflXYH7vsw6Q"
+consumerSecret = "np1KIdHQANRd5SwcTNgGjEP1IicXujfy4Uai0EecwnI"
 
 userImage = ofImage()
 userBanner = ofImage()
@@ -39,7 +39,6 @@ function setup()
 	// Loads images into memory as ofImage
 	twitterClient:setAutoLoadImages(true, false);
 	
-	twitterClient:setConfigFiles(gaDataPath("cacert.pem"),gaDataPath("credentials.xml"))
 	twitterClient:authorize(consumerKey,consumerSecret)
     
 end
@@ -58,15 +57,15 @@ function draw()
 		
 		ofSetColor(255, 255, 255, 125)
 		if tweet:isBannerImageLoaded() then
-			userBanner = tweet.user_profile_banner
+			userBanner = tweet.user.profile_banner
 			userBanner:draw(0,0,OUTPUT_W,OUTPUT_H)
 		end
 		ofSetColor(0)
 		ofDrawBitmapString("User:",120,150)
-        	ofDrawBitmapStringHighlight(tostring(tweet.user_screen_name),220,150, highlightColor, textColor)
+        	ofDrawBitmapStringHighlight(tostring(tweet.user.screen_name),220,150, highlightColor, textColor)
         	
         	ofDrawBitmapString("Location:",120,180)
-        	ofDrawBitmapStringHighlight(tostring(tweet.user_location),220,180, highlightColor, textColor)
+        	ofDrawBitmapStringHighlight(tostring(tweet.user.location),220,180, highlightColor, textColor)
         	
         	ofDrawBitmapString("Descript.:",120,210)
         	desc = tweet.user_description
@@ -82,7 +81,7 @@ function draw()
         	
         	ofSetColor(255)
         	if tweet:isProfileImageLoaded() then
-        		tweet.user_profile_image:draw(40,150)
+        		tweet.user.profile_image:draw(40,150)
         	end
         	
         	ofSetColor(0)
@@ -104,12 +103,14 @@ function draw()
 end
 
 function exit()
-	twitterClient:resetTwitter()
+	
 end
 
 function keyReleased()
 	if gaKey() == string.byte('q') then
-		twitterClient:startQuery("openframeworks",10);
+		search = ofxTwitterSearch()
+		search.query = ("openframeworks")
+		twitterClient:startSearch(search)
 	elseif gaKey() == string.byte('l') then
 		twitterClient:loadCacheFile()
 	elseif gaKey() == OF_KEY_UP then

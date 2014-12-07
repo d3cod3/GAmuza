@@ -5,7 +5,7 @@
  ---------------------
  3D/depthOfField.ga
  
- The depth of field eaxmple from ofxDOF addon.
+ The depth of field example from ofxDOF addon.
  
  created by n3m3da | www.d3cod3.org
  
@@ -48,7 +48,7 @@ function draw()
     	ofPushStyle()
 	for i=0,100 do
 		ofSetColor(boxColors[i])
-		ofBox(boxPositions[i], boxSizes[i])
+		ofDrawBox(boxPositions[i], boxSizes[i])
 	end
 	ofPopStyle()
 	

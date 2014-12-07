@@ -80,7 +80,7 @@ function draw()
     		ofFill()
     	end
     	ofSetColor(red,green,blue,alpha)
-    	ofSphere(dim)
+    	ofDrawSphere(dim)
     	ofDrawAxis(OUTPUT_H/4)
     	ofPopMatrix()
     

@@ -1,14 +1,21 @@
-/*
+
+/* 
+   
+ GAmuza 0435 examples 
+ ---------------------
+ Video/textureWarping.ga
  
- GAmuza empty sketch
+ Simple texture warping examples
+ 
+ created by n3m3da | www.d3cod3.org
  
 */
 
 grabber = ofVideoGrabber()
 cam = ofTexture()
 
-HL = ofVec3f(0,0,0)
-HR = ofVec3f(OUTPUT_W,0,0)
+HL = ofVec3f(OUTPUT_W/3,0,0)
+HR = ofVec3f(OUTPUT_W/2,0,0)
 LR = ofVec3f(OUTPUT_W,OUTPUT_H,0)
 LL = ofVec3f(0, OUTPUT_H,0)
 
@@ -40,5 +47,5 @@ function draw()
     
     	ofSetColor(255)
     	ofxQuadWarp(cam,HL,HR,LR,LL,10,10)
-    	//cam:draw(0,0)
+    	cam:draw(0,0)
 end

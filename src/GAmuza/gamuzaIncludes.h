@@ -18,10 +18,13 @@
 // official addons
 #include "ofx3DModelLoader.h"
 #include "ofxAssimpModelLoader.h"
+#include "ofxGui.h"
+#include "ofxKinect.h"
 #include "ofxNetwork.h"
 #include "ofxOpenCv.h"
 #include "ofxOsc.h"
 #include "ofxSvg.h"
+#include "ofxThreadedImageLoader.h"
 #include "ofxVectorGraphics.h"
 #include "ofxXmlSettings.h"
 
@@ -38,6 +41,7 @@
 #include "ofxControlPanel.h"
 #include "ofxMSAInteractiveObject.h"
 #include "ofxUI.h"
+#include "ofxShowGrid.h"
 
 // GPU
 #include "ofxPBO.h"
@@ -47,17 +51,15 @@
 #include "ofxCrypto.h"
 
 // Computer Vision
+#include "ofxCV.h"
+#include "ofxFaceTracker.h"
 #include "ofxOpticalFlowFarneback.h"
 #include "ofxARToolkitPlus.h"
+#include "ofxLibdc.h"
 
 // Thermal Cameras Tracking
 #include "ofxThermitrack.h"
 #include "ofxThermitrackImage.h"
-
-// KINECT
-#include "ofxKinect.h"
-#include "ofxKinectStreamer.h"
-#include "ofxKinectMeshRecorder.h"
 
 // AUDIO
 #include "ofxPd.h"
@@ -85,12 +87,12 @@
 // Pixels manipulators
 #include "ofxChromaKey.h"
 #include "ofxDither.h"
-#include "ofxCLD.h"                 // Coherent Line Drawing <http://www.cs.umsl.edu/~kang/Papers/kang_npar07.html>
 
 // IMAGE
 #include "ofxQRCodeGenerator.h"
 
 // VIDEO
+#include "ofxAbsoluteFrame.h"
 #include "ofxPBOVideoPlayer.h"
 #include "ofxQTKitAVScreenRecorder.h"
 
@@ -104,7 +106,6 @@
 // TEXT
 #include "ofxArcText.h"
 #include "ofxTrueTypeFontUC.h"
-#include "ofxTextSuite.h"
 
 // GRAPHICS
 #include "ofxGenerative.h"
@@ -113,7 +114,7 @@
 
 // 3D
 #include "ofxDOF.h"
-#include "ofxGameCamera.h"
+#include "ofxGrabCam.h"
 #include "ofxOcean.h"
 #include "ofxOceanCamera.h"
 #include "ofxOceanRenderer.h"
@@ -124,12 +125,14 @@
 
 // STREAMING
 #include "ofxSyphon.h"
-#include "ofxJitterNetworkSender.h"
 #include "ofxIpVideoGrabber.h"
 
 // EXTRAS
 #include "ofxExtras.h"
 #include "ofxRegex.h"
+
+// UTILS
+#include "ofxBiquadFilter.h"
 
 //////////////////////////////////////
 // CUSTOM CODE
@@ -151,4 +154,7 @@
 
 // Random Utils
 #include "randomUtils.h"
+
+// Video
+#include "videoDelayEffect.h"
 

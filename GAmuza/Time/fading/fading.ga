@@ -56,10 +56,10 @@ function draw()
 end
 
 function keyReleased()
-	if ga.key() == string.byte('i') then
+	if gaKey() == string.byte('i') then
 		startTimeIn = ofGetElapsedTimef()
 		startFadeIn = true
-	elseif ga.key() == string.byte('o') then
+	elseif gaKey() == string.byte('o') then
 		startTimeOut = ofGetElapsedTimef()
     		startFadeOut = true
 	end

@@ -1,62 +1,46 @@
-
 /* 
    
- GAmuza 0426 examples 
+ GAmuza 0435 examples 
  ---------------------
- Arduino/sevoMotor.ga
+ Arduino/servoMotor.ga
  
- This example shows how to connect the Hitec HS-322HD servo motor
-  Standard Deluxe to GAmuza through the Arduino module.
- 
- Servo Features:
-  - This servo can operate 180¡ when given a pulse signal ranging
-    from 600usec to 2400usec.
-    
- Pins order: 
- 		    Yellow: 	signal
- 		    Black: 	ground (-)
- 		    Red: 		voltage (+)
- 
- created by n3m3da | www.d3cod3.org
+ This example shows how to connect and control
+ a servo motor with arduino amd using it
+ inside GAmuza.
  
 */
 
-// SERVO PINS AVAILABLES ARE DIGITAL 9 and 10
-// using digital PWM pin 9
+// motor pin, must be a servo digital pin
+// ex. in Arduino UNO pins 9 and 10
 servoPin = 9
+servoValue = 0
 
-servoAngle = 0
-radio = OUTPUT_H/3
 
 function setup()
-    // defining graphic style
+	gaSetServoPin(servoPin,true)
 	ofSetCircleResolution(50)
 end
 
-
 function update()
-    // generate an angle from 60 to 200 using mouse X
-    servoAngle = ofMap(gaMouseX(),0,OUTPUT_W,0,180,true)
-    // send it to the motor
-    gaDigitalWrite(servoPin, servoAngle)
+	gaServoWrite(servoPin,servoValue)
 end
 
-
 function draw()
-	gaBackground(0.0,0.1)
-	
-	// drawing
-	ofPushMatrix()
-	ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
-		ofSetColor(255)
-		textPosX = math.cos(ofDegToRad(servoAngle-90))*radio + 48
-		textPosY = math.sin(ofDegToRad(servoAngle-90))*radio + 8
-		ofDrawBitmapString(string.format("Angle: %.6s",servoAngle), textPosX, textPosY)
-		ofSetColor(255)
-		ofNoFill()
-		ofCircle(0,0,radio)
-		ofLine(0,0,math.cos(ofDegToRad(servoAngle-90))*radio,math.sin(ofDegToRad(servoAngle-90))*radio)
-		ofSetColor(140,233,27)
-		ofCircle(math.cos(ofDegToRad(servoAngle-90))*radio,math.sin(ofDegToRad(servoAngle-90))*radio,40)
-	ofPopMatrix()
+     gaBackground(0.0,1.0)
+     ofNoFill()
+     
+     ofPushMatrix()
+     ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0)
+     ofRotateZ(servoValue/255 * 360)
+     ofSetColor(255)
+     ofCircle(0,0,100)
+     ofSetColor(255,0,0)
+     ofCircle(100,0,10)
+     ofPopMatrix()
+end
+
+function keyReleased()
+	if gaKey() == string.byte('r') then
+		servoValue = math.floor(ofRandom(255))
+	end
 end

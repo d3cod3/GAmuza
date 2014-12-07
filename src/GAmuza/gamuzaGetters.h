@@ -43,7 +43,7 @@ string gaGetOSCSendingIP(){
 }
 
 int gaGetFrameNum(){
-    return gapp->gaFrameCounter;
+    return ofGetFrameNum() - gapp->gaFrameCounter;
 }
 
 string gaGetLocalDataPath(string _file){
@@ -482,13 +482,29 @@ void auAddPlugin(string _filter){
     
     newPlugin->loadPlugin(_filter);
     gapp->auPlugins.push_back(newPlugin);
+    
+    map<string, ofVec2f> _pluginParams = ofxAUPlugin::getPluginParams(_filter);
+    gapp->auPluginParams.push_back(_pluginParams);
 }
 
 void auAddPluginFromPreset(string _preset){
     ofxAUPlugin     *newPlugin = new ofxAUPlugin();
     
-    newPlugin->loadPreset(_preset);
+    string pluginName = newPlugin->loadPreset(_preset);
     gapp->auPlugins.push_back(newPlugin);
+    
+    map<string, ofVec2f> _pluginParams = ofxAUPlugin::getPluginParams(pluginName);
+    gapp->auPluginParams.push_back(_pluginParams);
+}
+
+void auSavePluginPreset(string _plugin, string _path, string _name){
+    for(int i = 0; i < gapp->auPlugins.size(); i++){
+        if(_plugin == gapp->auPlugins[i]->pluginName){
+            // save plugin preset
+            gapp->auPlugins[i]->savePreset(_path,_name);
+            break;
+        }
+    }
 }
 
 void auPluginSetParam(string _plugin, string _param, float _value){
@@ -507,6 +523,24 @@ void auListPlugins(){
         string _t = *gapp->gamuzaAUList[i];
         sprintf(_tempString,"  %i - %s",i,_t.c_str());
         gapp->sendPrivateMessage(GAMUZA_CONSOLE_LOG,_tempString);
+    }
+}
+
+void auListPluginParams(string _plugin){
+    // list plugin params
+    for(int i = 0; i < gapp->auPlugins.size(); i++){
+        if(_plugin == gapp->auPlugins[i]->pluginName){
+            map<string, ofVec2f>::iterator it = gapp->auPluginParams[i].begin();
+            char _tempString[256];
+            while (it != gapp->auPluginParams[i].end()){
+                const string &n = (*it).first;
+                const ofVec2f &param = (*it).second;
+                sprintf(_tempString,"  %s [%f,%f]",n.c_str(),param.x,param.y);
+                gapp->sendPrivateMessage(GAMUZA_CONSOLE_LOG,_tempString);
+                it++;
+            }
+            break;
+        }
     }
 }
 

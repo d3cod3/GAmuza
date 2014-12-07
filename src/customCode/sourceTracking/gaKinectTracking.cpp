@@ -998,19 +998,26 @@ void gaKinectTracking::drawContourAnalysis(){
 	
 	ofFill();
 	
+    // blob ID
 	for(unsigned int i = 0; i < blobTracker.blobs.size(); i++){
 		ostringstream docstring;
 		docstring << blobTracker.findOrder(blobTracker.blobs[i]._id) << endl;
 		temp = docstring.str();
 		blobsOrder[i] = atoi(temp.c_str());
 		
-		glColor4f(0.847,0.25,0.25,0.4);
-		ofRect(_s_blobInfo[i].center.x,_s_blobInfo[i].center.y,_s_blobInfo[i].size.width,_s_blobInfo[i].size.height);
+		//glColor4f(0.847,0.25,0.25,0.4);
+		//ofRect(_s_blobInfo[i].center.x,_s_blobInfo[i].center.y,_s_blobInfo[i].size.width,_s_blobInfo[i].size.height);
 		
-		glColor4f(0.0,0.0,1.0,1.0);
+		glColor4f(0.0,1.0,0.0,1.0);
 		if(temp != ""){
 			ofDrawBitmapString(temp,_s_blobInfo[i].center.x + _s_blobInfo[i].size.width/2.0,_s_blobInfo[i].center.y + _s_blobInfo[i].size.height/2.0);
 		}
+	}
+    
+    // blobs area
+    for(unsigned int i = 0; i < contourFinder.nBlobs; i++){
+		glColor4f(0.847,0.25,0.25,0.4);
+		ofRect(contourFinder.blobs[i].boundingRect.x,contourFinder.blobs[i].boundingRect.y,contourFinder.blobs[i].boundingRect.width,contourFinder.blobs[i].boundingRect.height);
 	}
 	
 	glColor4f(1.0,1.0,1.0,1.0);

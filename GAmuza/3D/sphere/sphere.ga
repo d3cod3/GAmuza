@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0435 examples 
  ---------------------
  3D/sphere.ga
  
@@ -42,9 +42,9 @@ function draw()
     
     ofSetColor(255)
     ofFill()
-    ofSphere(90)
+    ofDrawSphere(90)
     ofNoFill()
-    ofSphere(300)
+    ofDrawSphere(300)
     
     light:disable()
 

@@ -1,7 +1,7 @@
 
 /*
    
- GAmuza 0.4.1 examples 
+ GAmuza 0435 examples 
  ---------------------
  Audio/fft.ga
  
@@ -31,7 +31,7 @@ function update()
 end
 
 function draw()
-    gaBackground(0.0,0.01)
+    gaBackground(0.0,0.005)
     
     ofPushMatrix()
     ofTranslate(OUTPUT_W/2,OUTPUT_H/2,0.0)
@@ -40,7 +40,7 @@ function draw()
     ofSetColor(255,40)
     ofNoFill()
     for i=0,BUFFER_SIZE-1 do
-        ofBox(gaGetFFT(0,i)*200)
+        ofDrawBox(gaGetFFT(0,i)*200)
     end
     ofPopMatrix()
     

@@ -93,7 +93,7 @@ void gaMapperModule::setup(){
     resetPreview();
     
     mapping = new ofxMtlMapping2D();
-    mapping->init(winW,winH, "mapping/xml/shapes.xml", "mapping/controls/mapping.xml");
+    mapping->init(fboW,fboH, "mapping/xml/shapes.xml", "mapping/controls/mapping.xml");
     mapping->toggle();
     
 }
@@ -101,11 +101,22 @@ void gaMapperModule::setup(){
 //--------------------------------------------------------------
 void gaMapperModule::update() {
     mapping->update();
+    
+    gapp->mapperModuleFbo.begin();
+    ofClear(0,0,0,255);
+    
+    ofPushMatrix();
+    ofScale(fboW/fboDrawingW,fboH/fboDrawingH,1);
+    ofTranslate(-fboDrawingPosX,-fboDrawingPosY,0);
+        mapping->renderInsideFBO();
+    ofPopMatrix();
+    gapp->mapperModuleFbo.end();
+    
 }
 
 //--------------------------------------------------------------
 void gaMapperModule::draw(){
-    if(isON){
+    if(gapp->switchMapperOutput || isON){
         ofBackground(0);
         ofSetColor(255,255,255);
         
@@ -129,7 +140,7 @@ void gaMapperModule::setModuleON(bool onOff){
 
 //--------------------------------------------------------------
 void gaMapperModule::getPreview(ofFbo p){
-    if(isON){
+    if(gapp->switchMapperOutput || isON){
         previewFbo = p.getTextureReference();
     }
 }

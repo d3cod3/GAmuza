@@ -57,3 +57,13 @@ function draw()
 	ofEndShape(false)
 	
 end
+
+function keyReleased()
+	if gaKey() == string.byte('s') then
+		auSavePluginPreset("Apple: AUDistortion",gaDataPath(""),"distorsion")
+	elseif gaKey() == string.byte('p') then
+		auListPluginParams("Apple: AUDistortion")
+	elseif gaKey() == string.byte('d') then
+		auPluginSetParam("Apple: AUDistortion","decimation",46)
+	end
+end

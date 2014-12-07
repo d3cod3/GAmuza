@@ -883,10 +883,10 @@ void gaSourceTracking::update(){
 	
 	if(ofGetElapsedTimeMillis() > randomWait){ // startup safe delay
 		if(!isPlayer){
-			vidGrabber.grabFrame();
+			vidGrabber.update();
 			bNewFrame = vidGrabber.isFrameNew();
 		}else{
-			vidPlayer.idleMovie();
+			vidPlayer.update();
 			bNewFrame = vidPlayer.isFrameNew();
 		}
 
@@ -1924,7 +1924,7 @@ void gaSourceTracking::drawContourAnalysis(){
 		temp = docstring.str();
 		blobsOrder[i] = atoi(temp.c_str());
 		
-		glColor4f(0.0,0.0,1.0,1.0);
+		glColor4f(0.0,1.0,0.0,1.0);
 		if(temp != ""){
 			ofDrawBitmapString(temp,(_s_blobInfo[i].center.x + _s_blobInfo[i].size.width/2.0)*240/_width,(_s_blobInfo[i].center.y + _s_blobInfo[i].size.height/2.0)*180/_height);
 		}
@@ -1932,9 +1932,9 @@ void gaSourceTracking::drawContourAnalysis(){
     
     // blobs area
     glScalef(240.0f/_width, 180.0f/_height, 1.0);
-    for(unsigned int i = 0; i < blobTracker.blobs.size(); i++){
+    for(unsigned int i = 0; i < contourFinder.nBlobs; i++){
 		glColor4f(0.847,0.25,0.25,0.4);
-		ofRect(_s_blobInfo[i].center.x,_s_blobInfo[i].center.y,_s_blobInfo[i].size.width,_s_blobInfo[i].size.height);
+		ofRect(contourFinder.blobs[i].boundingRect.x,contourFinder.blobs[i].boundingRect.y,contourFinder.blobs[i].boundingRect.width,contourFinder.blobs[i].boundingRect.height);
 	}
 	
 	glColor4f(1.0,1.0,1.0,1.0);

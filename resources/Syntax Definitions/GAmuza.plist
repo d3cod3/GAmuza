@@ -856,9 +856,12 @@
 				<string>ofDisablePointSprites</string>
 				<string>ofClear</string>
 				<string>ofClearAlpha</string>
-				<string>ofSphere</string>
-				<string>ofBox</string>
-				<string>ofCone</string>
+				<string>ofDrawSphere</string>
+				<string>ofDrawIcoSphere</string>
+				<string>ofDrawBox</string>
+				<string>ofDrawCone</string>
+				<string>ofDrawCylinder</string>
+				<string>ofDrawPlane</string>
 				<string>ofSetDrawBitmapMode</string>
 				<string>ofTrueTypeFont</string>
 				<string>loadFont</string>
@@ -1484,11 +1487,6 @@
 				<string>ofxKaleidoscope</string>
 				<string>setFacesRotation</string>
 				<string>setTotalFaces</string>
-				<string>ofxGameCamera</string>
-				<string>updateRotation</string>
-				<string>saveCameraPosition</string>
-				<string>loadCameraPosition</string>
-				<string>setAnglesFromOrientation</string>
 				<string>ofxGaussian</string>
 				<string>ofx1DExtruder</string>
 				<string>setAccLimit</string>
@@ -1708,9 +1706,6 @@
 				<string>getTimeTillNextAutoRetry</string>
 				<string>setDefaultBoundaryMarker</string>
 				<string>getDefaultBoundaryMarker</string>
-				<string>ofxJitterNetworkSender</string>
-				<string>sendFrame</string>
-				<string>sendText</string>
 				<string>ofxKinect</string>
 				<string>setRegistration</string>
 				<string>getDistanceAt</string>
@@ -1785,6 +1780,35 @@
 				<string>setGaussianFiltering</string>
 				<string>ofxPBO</string>
 				<string>ofxPBOVideoPlayer</string>
+				<string>ofxPostProcessing</string>
+				<string>init</string>
+				<string>beginShader</string>
+				<string>endShader</string>
+				<string>createBleachBypass</string>
+				<string>createBloom</string>
+				<string>createContrast</string>
+				<string>createConvolution</string>
+				<string>createDof</string>
+				<string>createEdge</string>
+				<string>createFxaa</string>
+				<string>createGodRays</string>
+				<string>createHorizontalTiltShift</string>
+				<string>createKaleidoscope</string>
+				<string>createLimbDarkening</string>
+				<string>createLUT</string>
+				<string>createNoiseWarp</string>
+				<string>createPixelate</string>
+				<string>createRGBShift</string>
+				<string>createRimHighlighting</string>
+				<string>createSSAO</string>
+				<string>createToon</string>
+				<string>createVerticalTiltShif</string>
+				<string>createZoomBlur</string>
+				<string>getProcessedTextureReference</string>
+				<string>process</string>
+				<string>setFlip</string>
+				<string>getNumProcessedPasses</string>
+				<string>getRawRef</string>
 				<string>ofxQRCodeGenerator</string>
 				<string>generate</string>
 				<string>ofxQTKitAVScreenRecorder</string>
@@ -1862,20 +1886,21 @@
 				<string>ofxThermitrackImage</string>
 				<string>ofxTrueTypeFontUC</string>
 				<string>ofxTwitter</string>
-				<string>setConfigFiles</string>
 				<string>authorize</string>
 				<string>isAuthorized</string>
 				<string>loadCacheFile</string>
 				<string>resetTwitter</string>
 				<string>setDiskCache</string>
 				<string>diskCacheIsActive</string>
-				<string>startQuery</string>
+				<string>startSearch</string>
 				<string>setAutoLoadImages</string>
 				<string>getTweetByIndex</string>
 				<string>getTotalLoadedTweets</string>
 				<string>ofxTwitterTweet</string>
 				<string>isProfileImageLoaded</string>
 				<string>isBannerImageLoaded</string>
+				<string>ofxTwitterTweetAuthor</string>
+				<string>ofxTwitterSearch</string>
 				<string>ofxVectorField</string>
 				<string>deallocate</string>
 				<string>setFromImage</string>
@@ -2008,7 +2033,7 @@
 				<string>gaWaveVolume</string>
 				<string>gaWaveFrequency</string>
 				<string>gaWaveType</string>
-				<string>gaWaveTuning,</string>
+				<string>gaWaveTuning</string>
 				<string>gaNToF</string>
 				<string>gaStartRec</string>
 				<string>gaStopRec</string>
@@ -2053,8 +2078,10 @@
 				<string>pdSendPolyAftertouch</string>
 				<string>auAddPlugin</string>
 				<string>auAddPluginFromPreset</string>
+				<string>auSavePluginPreset</string>
 				<string>auPluginSetParam</string>
 				<string>auListPlugins</string>
+				<string>auListPluginParams</string>
 				<string>captureBackground</string>
 				<string>camMotionQ</string>
 				<string>camMotionX</string>

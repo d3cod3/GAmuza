@@ -33,7 +33,7 @@ function draw()
     	
 	cam:beginCamera(ofGetCurrentViewport())
     	ofSetColor(255)
-    	ofBox(90)
+    	ofDrawBox(90)
     	ofLine(-100, 0, 0, 100, 0, 0)
   	ofLine(0, -100, 0, 0, 100, 0)
   	ofLine(0, 0, -100, 0, 0, 100)

@@ -100,7 +100,7 @@ void gamuzaMain::loadScript(string _script){
     ofPopView();
     
     // reset frames counter & time
-    gaFrameCounter      = 0;
+    gaFrameCounter      = ofGetFrameNum();
     
     printError = true;
 	
@@ -161,7 +161,7 @@ void gamuzaMain::renderScript(string & _script){
     ofPopView();
     
     // reset frames counter & time
-    gaFrameCounter      = 0;
+    gaFrameCounter      = ofGetFrameNum();
     
     printError = true;
     
@@ -199,14 +199,14 @@ void gamuzaMain::checkErrors(){
     if(printError){
         // print scripting errors into logger
         if(lua.lastError != "Script has no errors"){
-            ofStringReplace(lua.lastError,"[string \"...\"]:","at line: ");
+            ofStringReplace(lua.lastError,"[string \"...\"]:","near line: ");
             ofStringReplace(lua.lastError,"custom ","");
             ofStringReplace(lua.lastError,"\n",": ");
             errorVector = ofSplitString(lua.lastError, ": ");
             
             if(lua.errorLine > 0){
-                //sprintf(temp_error," Error at line: %i", lua.errorLine+7);
-                //sendPrivateMessage(GAMUZA_CONSOLE_ERROR, temp_error);
+                sprintf(temp_error," Error near line: %i", lua.errorLine);
+                sendPrivateMessage(GAMUZA_CONSOLE_ERROR, temp_error);
                 for(int i=2;i<errorVector.size();i++){
                     sprintf(temp_error,"  %s", errorVector[i].c_str());
                     sendPrivateMessage(GAMUZA_CONSOLE_ERROR, temp_error);
@@ -228,6 +228,11 @@ void gamuzaMain::checkErrors(){
         }
         printError = false;
     }
+}
+
+//-------------------------------------------------------------- // ofxLua error callback
+void gamuzaMain::errorReceived(string& msg) {
+	ofLogNotice() << "got a script error: " << msg;
 }
 
 //--------------------------------------------------------------

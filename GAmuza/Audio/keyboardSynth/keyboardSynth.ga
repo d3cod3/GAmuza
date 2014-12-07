@@ -1,7 +1,7 @@
 
 /* 
    
- GAmuza 0.4.1 examples 
+ GAmuza 0435 examples 
  ---------------------
  Audio/keyboardSynth.ga
  
@@ -11,19 +11,72 @@
  
 */
 
+dim = BUFFER_SIZE*AUDIO_OUTPUT_CHANNELS
+outputBuffer = memarray('float', dim)
+stretch = OUTPUT_W/(dim-1)
+zeroOffset = OUTPUT_H/4
+
+actualFreq = 0
+actualVolume = 0
+volumeDecay = 0.001
+baseFreq = gaNToF(RE_0)
+
 function setup()
-    gaWave(GA_TRI,120)    
+    	gaWave(GA_TRI,120)
+    	
+    	auAddPlugin("Apple: AUMatrixReverb")
+    
+   	// init the buffer
+    	for i = 0, dim - 1 do
+		outputBuffer[i] = 0.0 
+	end
 end
 
 function update()
+    	gaWaveFrequency(0,actualFreq)
+    	gaWaveVolume(0,actualVolume)
+    	
+    	// continuosly volume decay
+    	if actualVolume > 0 then
+    		actualVolume -= volumeDecay
+    	else
+    		actualVolume = 0
+    	end
     
+    	for i = 0, dim - 1 do
+		outputBuffer[i] = gaGetOutputBuffer(i) 
+	end
 end
 
 function draw()
-    gaBackground(0.0,1.0)
+    	gaBackground(0.0,1.0)
+    	
+    	// draw info
+    	ofSetColor(255)
+    	info = string.format("Base Frequency: %d", baseFreq)
+    	ofDrawBitmapString(tostring(info),20,40)
+    	info = string.format("Frequency: %d", actualFreq)
+    	ofDrawBitmapString(tostring(info),20,80)
+    	info = string.format("Volume: %f", actualVolume)
+    	ofDrawBitmapString(tostring(info),20,120)
+    
+    	ofTranslate(0,OUTPUT_H/2,0)
+	// draw Audio Scope
+	ofSetColor(255)
+	ofNoFill()
+	ofBeginShape()
+	for i = 0, dim - 1 do
+		ofVertex(i* stretch, outputBuffer[i] * zeroOffset)
+	end
+	ofEndShape(false)
 end
 
 function keyReleased()
-    gaWaveFrequency(0,(gaKey()/3)*gaNToF(RE_0))
-    gaWaveVolume(0,ofRandomuf()/4)
+	if gaKey() == string.byte(' ') then
+		rand = math.floor(ofRandom(64))
+		baseFreq = gaNToF(rand)
+	else
+    		actualFreq = (gaKey()/3)*baseFreq
+    		actualVolume = math.abs(ofRandomuf()/4)
+    	end
 end

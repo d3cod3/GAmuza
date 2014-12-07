@@ -30,17 +30,18 @@
     isAudioModuleON     = false;
     isArduinoModuleON   = false;
     isMapperModuleON    = false;
+    isMapperOutputON    = false;
     gaARM->setModuleON(true);
     [gappWindow->getWindow() makeKeyAndOrderFront:self];
     
     if(gapp->autoLoadScript == true){
         NSString * filename = [[NSString alloc] initWithUTF8String:gapp->autoScriptFile.c_str()];
-        [self processFile:filename];
+        [self processFile:filename];    
         [self sendScriptToGAmuza:NULL];
     }else{
         NSString * filename = [NSString stringWithFormat:@"%@",@"scripts/emptyExample.ga"];
         [self processFile:filename];
-        [self sendScriptToGAmuza:NULL];
+        [self cleanScriptToGAmuza:NULL];
     }
     
     if(prefPanel._autoFullscreen == 1){
@@ -921,6 +922,40 @@
     
 }
 
+- (void)setButtonTitleFor:(NSButton*)button toString:(NSString*)title withColor:(NSColor*)color{
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    //[style setAlignment:NSCenterTextAlignment];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, style, NSParagraphStyleAttributeName, NULL];
+    NSAttributedString *attrString = [[NSAttributedString alloc]initWithString:title attributes:attrsDictionary];
+    [button setAttributedTitle:attrString];
+}
+
+-(IBAction) getGridTool:(id)sender{
+    NSColor *color = [NSColor whiteColor];
+    [self setButtonTitleFor:goldenRatioBut toString:@"Golden Ratio" withColor:color];
+    [self setButtonTitleFor:centerRatioBut toString:@"Center Ratio" withColor:color];
+    [self setButtonTitleFor:thirdRatiobut toString:@"Third Ratio" withColor:color];
+    [self setButtonTitleFor:standardGridBut toString:@"View" withColor:color];
+    
+    [gridToolPanel makeKeyAndOrderFront:NULL];
+}
+
+-(IBAction) applyGridSettings:(id)sender{
+    if([cellWidthTextField intValue] > 1000){
+        [cellWidthTextField setStringValue: [NSString stringWithFormat: @"%d", 1000]];
+    }else if([cellWidthTextField intValue] < 2){
+        [cellWidthTextField setStringValue: [NSString stringWithFormat: @"%d", 2]];
+    }
+    
+    if([cellHeightTextField intValue] > 1000){
+        [cellHeightTextField setStringValue: [NSString stringWithFormat: @"%d", 1000]];
+    }else if([cellHeightTextField intValue] < 2){
+        [cellHeightTextField setStringValue: [NSString stringWithFormat: @"%d", 2]];
+    }
+    
+    gapp->setGridSettings([goldenRatioBut state],[centerRatioBut state],[thirdRatiobut state],[standardGridBut state],[cellWidthTextField intValue],[cellHeightTextField intValue]);
+}
+
 -(IBAction) getColorCorrection:(id)sender{
     NSXMLDocument *xmlDoc;
     NSArray* itemArray;
@@ -1152,6 +1187,18 @@
         isMapperModuleON = true;
         gaMM->setModuleON(true);
         [gaMMWindow->getWindow() makeKeyAndOrderFront:self];
+        [sender setState: NSOnState];
+    }
+}
+
+- (IBAction) toggleActivateMapper:(id)sender{
+    if(isMapperOutputON){
+        isMapperOutputON = false;
+        gapp->switchMapperOutput = false;
+        [sender setState: NSOffState];
+    }else{
+        isMapperOutputON = true;
+        gapp->switchMapperOutput = true;
         [sender setState: NSOnState];
     }
 }

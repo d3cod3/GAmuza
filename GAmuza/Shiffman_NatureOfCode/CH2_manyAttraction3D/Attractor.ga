@@ -25,6 +25,6 @@ function Attractor:display()
     	ofNoFill()
 	ofPushMatrix()
 	ofTranslate(self.loc.x,self.loc.y,self.loc.z)
-    	ofSphere(self.mass*6)
+    	ofDrawSphere(self.mass*6)
 	ofPopMatrix()
 end

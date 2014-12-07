@@ -26,7 +26,7 @@ rows = math.floor(OUTPUT_H/camH)
 maxFrames = cols*rows
 
 function setup()
-	grabber:setDeviceID(1)
+	grabber:setDeviceID(0)
 	grabber:initGrabber(camW,camH)
 	
 	currentFrame:allocate(camW,camH,GL_RGB)

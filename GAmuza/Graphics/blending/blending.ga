@@ -50,7 +50,7 @@ function draw()
     	ofSetColor(255,122,220)
     	font:drawString(timeString,100,100)
 
-    	ofSetColor(255)
+    	ofSetColor(255,255,255,255)
     	ofEnableBlendMode(blendMode)
     		rainbow:draw(gaMouseX() - rainbow:getWidth()/2,gaMouseY() - rainbow:getHeight()/2)
     	ofDisableBlendMode()
