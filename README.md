@@ -204,14 +204,12 @@ Actually GAmuza v1.0 is in development (this repo) and is not finished yet, but 
 
 # Version history
 
-<<<<<<< HEAD
 =======
 ## v1.0  |  Rel. 0435
 
 * Updated GAmuza to OF 0.8.4 last official release
 * a lot of bug fixing
 
->>>>>>> develop
 ## v1.0  |  Rel. 0433
 
 * Updated XCode project, now compiling with Apple LLVM Compiler 4.1, goodbye old GCC 4.2!!!
