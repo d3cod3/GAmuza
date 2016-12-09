@@ -24,9 +24,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Download
 
-Last Release - GAmuza 0435 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0435-OSX.zip)
-
-Older versions [here](http://gamuza.d3cod3.org/download/)
+Last Release - GAmuza 0595 [here](http://gamuza.d3cod3.org/downloads/GAmuza-0595-OSX.zip)
 
 
 # Installation
@@ -49,7 +47,7 @@ openFrameworks 0.8.4 with this [patch](https://github.com/d3cod3/GAmuza/blob/mas
 Due to a lot of modification applied to most of them, are all included in this repo in src/ofxAddons/
 
 ## Frameworks
- 
+
 * [Sparkle.framework](https://github.com/andymatuschak/Sparkle/wiki): [project page](http://sparkle.andymatuschak.org/)
 * [Syphon.framework](http://syphon.v002.info/)
 
@@ -100,16 +98,16 @@ Apple LLVM Compiler 4.1, for 32-bit architecture using OS X 10.7 base sdk.
 ## Language
 ```c++
 
-/* 
-   
- GAmuza 1.0 examples 
+/*
+
+ GAmuza 1.0 examples
  ---------------------
  Basics/emptyExample.ga
- 
+
  Draw a flicking circle over mouse position.
- 
+
  created by n3m3da | www.d3cod3.org
- 
+
 */
 
 function setup()
@@ -117,7 +115,7 @@ function setup()
 end
 
 function update()
-    
+
 end
 
 function draw()
@@ -128,7 +126,7 @@ function draw()
 end
 
 ```
- 
+
 GAmuza scripting language is based on [LUA](http://www.lua.org/), integrated in OF with a modified version of [ofxLua](https://github.com/danomatika/ofxLua) addon; a patched version of LUA 5.1 is compiled as a static library, and the entire binding of OF 0.7.4 with all the ofxAddons is made through [LUABIND](http://www.rasterbar.com/products/luabind.html), while the binding of OpenGL 1.1 is coded directly from LUA using [luaglut](https://github.com/LuaDist/luaglut).
 
 These are the most important LUA 5.1 patches
@@ -153,7 +151,7 @@ LUA 5.1 programming environment [manual](http://www.lua.org/manual/5.1/manual.ht
  * ofRendererCollection
  * ofEvents
  * ofPtr
- 
+
 
 ### OF 0.8.4 official addons
 
@@ -229,5 +227,5 @@ Actually GAmuza v1.0 is in development (this repo) and is not finished yet, but 
 * Cleaning editor interface
 
 ## v1.0  |  Rel. 0426
- 
+
 * initial version
